@@ -1,5 +1,3 @@
-# Estamos migrando o DANFE para o DanfeSharp (https://danfesharp.codeplex.com/)
-
 
 # opennfe
 RDI Open NFe é uma solução de código-fonte aberto desenvolvida pela Rocha Digital Intelligence (RDI) para a Administração de Notas Fiscais Eletrônicas dentro das empresas. A solução é parte do projeto RDI Open SPED e pode ser integrado a qualquer ERP, incluindo SAP.
@@ -33,3 +31,4 @@ Para utilizar o Open NFe basta criar os arquivos XML correspondentes a Nota Fisc
 
 Caso necessite recompilar a aplicação, utilize o Microsoft Visual Studio 2015.
 
+# Estamos migrando o DANFE para o DanfeSharp (https://danfesharp.codeplex.com/)
