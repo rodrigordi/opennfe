@@ -1,0 +1,398 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="12.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{CEAE939F-458B-4ABD-BA2D-C2900DFD2A41}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>NFeAdmin</RootNamespace>
+    <AssemblyName>NFeAdmin200</AssemblyName>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\output\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="PresentationCore">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="PresentationFramework">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="RDI.Lince">
+      <HintPath>..\..\RDI.Lince.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Configuration.Install" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.DirectoryServices" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Management" />
+    <Reference Include="System.Runtime.Serialization.Formatters.Soap" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.ServiceProcess" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="UIAutomationProvider">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsFormsIntegration">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="RDI.NFe.Visual.FrmConexao.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RDI.NFe.Visual.FrmConexao.Designer.cs">
+      <DependentUpon>RDI.NFe.Visual.FrmConexao.cs</DependentUpon>
+    </Compile>
+    <Compile Include="RDI.NFe.Visual.FrmDiretorios.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RDI.NFe.Visual.FrmDiretorios.Designer.cs">
+      <DependentUpon>RDI.NFe.Visual.FrmDiretorios.cs</DependentUpon>
+    </Compile>
+    <Compile Include="RDI.NFe.Visual.FrmEditNota.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RDI.NFe.Visual.FrmEditNota.Designer.cs">
+      <DependentUpon>RDI.NFe.Visual.FrmEditNota.cs</DependentUpon>
+    </Compile>
+    <Compile Include="RDI.NFe.Visual.FrmEditServico.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RDI.NFe.Visual.FrmEditServico.Designer.cs">
+      <DependentUpon>RDI.NFe.Visual.FrmEditServico.cs</DependentUpon>
+    </Compile>
+    <Compile Include="RDI.NFe.Visual.FrmLog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RDI.NFe.Visual.FrmLog.Designer.cs">
+      <DependentUpon>RDI.NFe.Visual.FrmLog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="RDI.NFe.Visual.FrmLotes.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RDI.NFe.Visual.FrmLotes.Designer.cs">
+      <DependentUpon>RDI.NFe.Visual.FrmLotes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="RDI.NFe.Visual.FrmMaster.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RDI.NFe.Visual.FrmMaster.Designer.cs">
+      <DependentUpon>RDI.NFe.Visual.FrmMaster.cs</DependentUpon>
+    </Compile>
+    <Compile Include="RDI.NFe.Visual.FrmMonitor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RDI.NFe.Visual.FrmMonitor.Designer.cs">
+      <DependentUpon>RDI.NFe.Visual.FrmMonitor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="RDI.NFe.Visual.FrmMonitorServico.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RDI.NFe.Visual.FrmMonitorServico.Designer.cs">
+      <DependentUpon>RDI.NFe.Visual.FrmMonitorServico.cs</DependentUpon>
+    </Compile>
+    <Compile Include="RDI.NFe.Visual.FrmNotaFiscal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RDI.NFe.Visual.FrmNotaFiscal.Designer.cs">
+      <DependentUpon>RDI.NFe.Visual.FrmNotaFiscal.cs</DependentUpon>
+    </Compile>
+    <Compile Include="RDI.NFe.Visual.FrmProxy.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RDI.NFe.Visual.FrmProxy.Designer.cs">
+      <DependentUpon>RDI.NFe.Visual.FrmProxy.cs</DependentUpon>
+    </Compile>
+    <Compile Include="RDI.NFe.Visual.FrmServicos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RDI.NFe.Visual.FrmServicos.Designer.cs">
+      <DependentUpon>RDI.NFe.Visual.FrmServicos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="RDI.NFe.Visual.FrmSobre.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RDI.NFe.Visual.FrmSobre.Designer.cs">
+      <DependentUpon>RDI.NFe.Visual.FrmSobre.cs</DependentUpon>
+    </Compile>
+    <Compile Include="RDI.NFe.Visual.FrmCertificados.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RDI.NFe.Visual.FrmCertificados.Designer.cs">
+      <DependentUpon>RDI.NFe.Visual.FrmCertificados.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RDI.NFe.Visual.FrmConexao.resx">
+      <DependentUpon>RDI.NFe.Visual.FrmConexao.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RDI.NFe.Visual.FrmInfNRec.resx">
+      <DependentUpon>RDI.NFe.Visual.FrmInfNRec.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RDI.NFe.Visual.FrmInutilizaNota.resx">
+      <DependentUpon>RDI.NFe.Visual.FrmInutilizaNota.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RDI.NFe.Visual.FrmMonitorServico.resx">
+      <DependentUpon>RDI.NFe.Visual.FrmMonitorServico.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RDI.NFe.Visual.FrmNotaInutilizada.resx">
+      <DependentUpon>RDI.NFe.Visual.FrmNotaInutilizada.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RDI.NFe.Visual.FrmCertificados.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>RDI.NFe.Visual.FrmCertificados.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RDI.NFe.Visual.FrmDiretorios.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>RDI.NFe.Visual.FrmDiretorios.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RDI.NFe.Visual.FrmEditNota.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>RDI.NFe.Visual.FrmEditNota.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RDI.NFe.Visual.FrmEditServico.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>RDI.NFe.Visual.FrmEditServico.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RDI.NFe.Visual.FrmLog.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>RDI.NFe.Visual.FrmLog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RDI.NFe.Visual.FrmLotes.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>RDI.NFe.Visual.FrmLotes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RDI.NFe.Visual.FrmMaster.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>RDI.NFe.Visual.FrmMaster.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RDI.NFe.Visual.FrmMonitor.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>RDI.NFe.Visual.FrmMonitor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RDI.NFe.Visual.FrmNotaFiscal.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>RDI.NFe.Visual.FrmNotaFiscal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RDI.NFe.Visual.FrmProxy.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>RDI.NFe.Visual.FrmProxy.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RDI.NFe.Visual.FrmServicos.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>RDI.NFe.Visual.FrmServicos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RDI.NFe.Visual.FrmSobre.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>RDI.NFe.Visual.FrmSobre.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RDI.NFe.Visual.FrmSplash.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>RDI.NFe.Visual.FrmSplash.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RDI.NFe.Visual.FrmVisualizaXML.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>RDI.NFe.Visual.FrmVisualizaXML.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RDI.NFe.Visual.FrmWebServices.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>RDI.NFe.Visual.FrmWebServices.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="timexRefresh.resx">
+      <DependentUpon>timexRefresh.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <None Include="app.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="RDI.NFe.Visual.FrmSplash.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RDI.NFe.Visual.FrmSplash.Designer.cs">
+      <DependentUpon>RDI.NFe.Visual.FrmSplash.cs</DependentUpon>
+    </Compile>
+    <Compile Include="RDI.NFe.Visual.FrmWebServices.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RDI.NFe.Visual.FrmWebServices.Designer.cs">
+      <DependentUpon>RDI.NFe.Visual.FrmWebServices.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{967B4E0D-AD0C-4609-AB67-0FA40C0206D8}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="RDI.NFe.Visual.FrmInfNRec.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RDI.NFe.Visual.FrmInfNRec.Designer.cs">
+      <DependentUpon>RDI.NFe.Visual.FrmInfNRec.cs</DependentUpon>
+    </Compile>
+    <Compile Include="RDI.NFe.Visual.Utils.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="RDI.NFe.Visual.FrmVisualizaXML.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RDI.NFe.Visual.FrmVisualizaXML.Designer.cs">
+      <DependentUpon>RDI.NFe.Visual.FrmVisualizaXML.cs</DependentUpon>
+    </Compile>
+    <Compile Include="RDI.NFe.Visual.FrmInutilizaNota.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RDI.NFe.Visual.FrmInutilizaNota.Designer.cs">
+      <DependentUpon>RDI.NFe.Visual.FrmInutilizaNota.cs</DependentUpon>
+    </Compile>
+    <Compile Include="RDI.NFe.Visual.FrmNotaInutilizada.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RDI.NFe.Visual.FrmNotaInutilizada.Designer.cs">
+      <DependentUpon>RDI.NFe.Visual.FrmNotaInutilizada.cs</DependentUpon>
+    </Compile>
+    <Compile Include="timexRefresh.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="timexRefresh.designer.cs">
+      <DependentUpon>timexRefresh.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 2.0 %28x86%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.0 %28x86%29</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\xml32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\bannerNFE.jpg" />
+    <Content Include="Resources\open-nfe2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Open Signer\Open Signer\OpenSigner.csproj">
+      <Project>{fb4a7d0e-da64-4fa6-9ad7-47184a92ad33}</Project>
+      <Name>OpenSigner</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RDI.NFe2.Business\RDI.NFe2.Business.csproj">
+      <Project>{B6994F3D-9147-45A8-B3D1-6D9DE17E5826}</Project>
+      <Name>RDI.NFe2.Business</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RDI.NFe2.ORMAP.MSSQL\RDI.NFe2.ORMAP.MSSQL.csproj">
+      <Project>{2B33059C-33E3-4617-802B-B4B5EFF4F1EA}</Project>
+      <Name>RDI.NFe2.ORMAP.MSSQL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RDI.NFe2.SchemaXML\RDI.NFe2.SchemaXML.csproj">
+      <Project>{691CE23F-0AD0-467A-8FE7-956384A0773D}</Project>
+      <Name>RDI.NFe2.SchemaXML</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Properties\DataSources\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

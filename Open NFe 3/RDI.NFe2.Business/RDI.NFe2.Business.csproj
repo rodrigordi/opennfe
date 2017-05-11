@@ -1,0 +1,458 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{B6994F3D-9147-45A8-B3D1-6D9DE17E5826}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>RDI.NFe2.Business</RootNamespace>
+    <AssemblyName>RDI.NFe2.Business</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <UpgradeBackupLocation />
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\output\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\output\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="OpenDanfe">
+      <HintPath>..\..\OpenDanfe.dll</HintPath>
+    </Reference>
+    <Reference Include="PDFClown">
+      <HintPath>..\..\PDFClown.dll</HintPath>
+    </Reference>
+    <Reference Include="RDI.Lince">
+      <HintPath>..\..\RDI.Lince.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="PWG\PWG.GNRE.Config.cs" />
+    <Compile Include="PWG\PWG.GNRE.ConsultaLote.cs" />
+    <Compile Include="PWG\PWG.GNRE.RecepcaoLote.cs" />
+    <Compile Include="HNC\HNC.AM.Autorizacao.NfeAutorizacao.cs" />
+    <Compile Include="HNC\HNC.AM.Consulta.NfeConsulta2.cs" />
+    <Compile Include="HNC\HNC.AM.Inutilizacao.NfeInutilizacao2.cs" />
+    <Compile Include="HNC\HNC.AM.RecepcaoEvento.RecepcaoEvento.cs" />
+    <Compile Include="HNC\HNC.AM.RetAutorizacao.NfeRetAutorizacao.cs" />
+    <Compile Include="HNC\HNC.AM.Status.NfeStatusServico2.cs" />
+    <Compile Include="HNC\HNC.SP.Autorizacao.NfeAutorizacao.cs" />
+    <Compile Include="HNC\HNC.SP.Consulta.NfeConsulta2.cs" />
+    <Compile Include="HNC\HNC.SP.Inutilizacao.NfeInutilizacao2.cs" />
+    <Compile Include="HNC\HNC.SP.RetAutorizacao.NfeRetAutorizacao.cs" />
+    <Compile Include="HNC\HNC.SP.Status.NfeStatusServico2.cs" />
+    <Compile Include="HNC\HNC.SP.RecepcaoEvento.RecepcaoEvento.cs" />
+    <Compile Include="HNC\HNC.SVRS.Autorizacao.NfeAutorizacao.cs" />
+    <Compile Include="HNC\HNC.SVRS.Consulta.NfeConsulta2.cs" />
+    <Compile Include="HNC\HNC.SVRS.Inutilizacao.NfeInutilizacao2.cs" />
+    <Compile Include="HNC\HNC.SVRS.RecepcaoEvento.RecepcaoEvento.cs" />
+    <Compile Include="HNC\HNC.SVRS.RetAutorizacao.NfeRetAutorizacao.cs" />
+    <Compile Include="HNC\HNC.SVRS.Status.NfeStatusServico2.cs" />
+    <Compile Include="HWG\HWG.GNRE.ConsultaLote.cs" />
+    <Compile Include="HWG\HWG.GNRE.RecepcaoLote.cs" />
+    <Compile Include="HWG\HWG.GNRE.Config.cs" />
+    <Compile Include="HWS\HWS.SVRS.Consulta.NfeConsulta.cs" />
+    <Compile Include="HWS\HWS.SVRS.Inutilizacao.NfeInutilizacao.cs" />
+    <Compile Include="HWS\HWS.SVRS.RecepcaoEvento.RecepcaoEvento.cs" />
+    <Compile Include="HWS\HWS.SVRS.Status.NfeStatusServico.cs" />
+    <Compile Include="HWS\HWS.AN.ConsultaDFe.NFeDistribuicaoDFe.cs" />
+    <Compile Include="HWS\HWS.AN.DowloadNF.NfeDownloadNF.cs" />
+    <Compile Include="HWS\HWS.AN.RecepcaoEvento.cs" />
+    <Compile Include="PNC\PNC.SVRS.Autorizacao.NfeAutorizacao.cs" />
+    <Compile Include="PNC\PNC.SVRS.Consulta.NfeConsulta2.cs" />
+    <Compile Include="PNC\PNC.SVRS.Inutilizacao.NfeInutilizacao2.cs" />
+    <Compile Include="PNC\PNC.SVRS.RecepcaoEvento.RecepcaoEvento.cs" />
+    <Compile Include="PNC\PNC.SVRS.RetAutorizacao.NfeRetAutorizacao.cs" />
+    <Compile Include="PNC\PNC.SVRS.Status.NfeStatusServico2.cs" />
+    <Compile Include="PNC\PNC.SP.Autorizacao.NfeAutorizacao.cs" />
+    <Compile Include="PNC\PNC.SP.Consulta.NfeConsulta2.cs" />
+    <Compile Include="PNC\PNC.SP.Inutilizacao.NfeInutilizacao2.cs" />
+    <Compile Include="PNC\PNC.SP.RetAutorizacao.NfeRetAutorizacao.cs" />
+    <Compile Include="PNC\PNC.SP.Status.NfeStatusServico2.cs" />
+    <Compile Include="PNC\PNC.SP.RecepcaoEvento.RecepcaoEvento.cs" />
+    <Compile Include="PNC\PNC.AM.Autorizacao.NfeAutorizacao.cs" />
+    <Compile Include="PNC\PNC.AM.Consulta.NfeConsulta2.cs" />
+    <Compile Include="PNC\PNC.AM.Inutilizacao.NfeInutilizacao2.cs" />
+    <Compile Include="PNC\PNC.AM.RecepcaoEvento.RecepcaoEvento.cs" />
+    <Compile Include="PNC\PNC.AM.RetAutorizacao.NfeRetAutorizacao.cs" />
+    <Compile Include="PNC\PNC.AM.Status.NfeStatusServico2.cs" />
+    <Compile Include="HNF\HNF.SVRS.Autorizacao.NfeAutorizacao.cs" />
+    <Compile Include="HNF\HNF.SVRS.RetAutorizacao.NfeRetAutorizacao.cs" />
+    <Compile Include="PNF\PNF.SVRS.RetAutorizacao.NfeRetAutorizacao.cs" />
+    <Compile Include="PNF\PNF.SVRS.Autorizacao.NfeAutorizacao.cs" />
+    <Compile Include="PWS\PWS.SP.Cadastro.CadConsultaCadastro2.cs" />
+    <Compile Include="PWS\PWS.SVRS.Consulta.NfeConsulta.cs" />
+    <Compile Include="PWS\PWS.SVRS.Inutilizacao.NfeInutilizacao.cs" />
+    <Compile Include="PWS\PWS.SVRS.RecepcaoEvento.RecepcaoEvento.cs" />
+    <Compile Include="PWS\PWS.SVRS.Status.NfeStatusServico.cs" />
+    <Compile Include="PWS\PWS.AN.ConsultaDFe.NFeDistribuicaoDFe.cs" />
+    <Compile Include="PWS\PWS.AN.DownloadNF.NfeDownloadNF.cs" />
+    <Compile Include="PWS\PWS.AN.RecepcaoEvento.cs" />
+    <Compile Include="HNF\HNF.RS.Autorizacao.NfeAutorizacao.cs" />
+    <Compile Include="HNF\HNF.RS.Consulta.NfeConsulta2.cs" />
+    <Compile Include="HNF\HNF.RS.Inutilizacao.NfeInutilizacao2.cs" />
+    <Compile Include="HNF\HNF.RS.RecepcaoEvento.RecepcaoEvento.cs" />
+    <Compile Include="HNF\HNF.RS.RetAutorizacao.NfeRetAutorizacao.cs" />
+    <Compile Include="HNF\HNF.RS.Status.NfeStatusServico2.cs" />
+    <Compile Include="HWS\HWS.ES.Cadastro.CadConsultaCadastro2.cs" />
+    <Compile Include="PNF\PNF.RS.Autorizacao.NfeAutorizacao.cs" />
+    <Compile Include="PNF\PNF.RS.Consulta.NfeConsulta2.cs" />
+    <Compile Include="PNF\PNF.RS.Inutilizacao.NfeInutilizacao2.cs" />
+    <Compile Include="PNF\PNF.RS.RecepcaoEvento.RecepcaoEvento.cs" />
+    <Compile Include="PNF\PNF.RS.RetAutorizacao.NfeRetAutorizacao.cs" />
+    <Compile Include="PNF\PNF.RS.Status.NfeStatusServico2.cs" />
+    <Compile Include="PWS\PWS.ES.Cadastro.CadConsultaCadastro2.cs" />
+    <Compile Include="HWS\HWS.SVRS.Cadastro.CadConsultaCadastro2.cs" />
+    <Compile Include="PNF\PNF.AM.Autorizacao.NfeAutorizacao.cs" />
+    <Compile Include="HNF\HNF.AM.Autorizacao.NfeAutorizacao.cs" />
+    <Compile Include="PNF\PNF.AM.RetAutorizacao.NfeRetAutorizacao.cs" />
+    <Compile Include="HNF\HNF.AM.RetAutorizacao.NfeRetAutorizacao.cs" />
+    <Compile Include="HWS\HWS.MG.Consulta.NfeConsulta.cs" />
+    <Compile Include="HWS\HWS.MG.Inutilizacao.NfeInutilizacao.cs" />
+    <Compile Include="HWS\HWS.MG.RecepcaoEvento.RecepcaoEvento.cs" />
+    <Compile Include="PNF\PNF.PR.Autorizacao.NfeAutorizacao.cs" />
+    <Compile Include="PNF\PNF.PR.Consulta.NfeConsulta.cs" />
+    <Compile Include="PNF\PNF.PR.Inutilizacao.NfeInutilizacao.cs" />
+    <Compile Include="PNF\PNF.PR.RetAutorizacao.NfeRetAutorizacao.cs" />
+    <Compile Include="PNF\PNF.PR.Status.NfeStatus.cs" />
+    <Compile Include="HNF\HNF.CE.Autorizacao.NfeAutorizacao.cs" />
+    <Compile Include="HNF\HNF.CE.RetAutorizacao.NfeRetAutorizacao.cs" />
+    <Compile Include="HNF\HNF.GO.RetAutorizacao.NfeRetAutorizacao.cs" />
+    <Compile Include="HNF\HNF.PR.Autorizacao.NfeAutorizacao.cs" />
+    <Compile Include="HNF\HNF.PR.Consulta.NfeConsulta.cs" />
+    <Compile Include="HNF\HNF.PR.Inutilizacao.NfeInutilizacao.cs" />
+    <Compile Include="HNF\HNF.PR.RecepcaoEvento.RecepcaoEvento.cs" />
+    <Compile Include="HNF\HNF.PR.RetAutorizacao.NfeRetAutorizacao.cs" />
+    <Compile Include="HNF\HNF.PR.Status.NfeStatus.cs" />
+    <Compile Include="PNF\PNF.CE.Autorizacao.NfeAutorizacao.cs" />
+    <Compile Include="PNF\PNF.CE.RetAutorizacao.NfeRetAutorizacao.cs" />
+    <Compile Include="PNF\PNF.GO.RetAutorizacao.NfeRetAutorizacao.cs" />
+    <Compile Include="PNF\PNF.PR.RecepcaoEvento.RecepcaoEvento.cs" />
+    <Compile Include="PWS\PWS.MG.Consulta.NfeConsulta.cs" />
+    <Compile Include="PWS\PWS.MG.Inutilizacao.NfeInutilizacao.cs" />
+    <Compile Include="PWS\PWS.MG.RecepcaoEvento.RecepcaoEvento.cs" />
+    <Compile Include="PWS\PWS.MG.Status.NfeStatusServico.cs" />
+    <Compile Include="HWS\HWS.MG.Status.NfeStatusServico.cs" />
+    <Compile Include="HWS\HWS.BA.Cadastro.CadConsultaCadastro2.cs" />
+    <Compile Include="PWS\PWS.BA.Cadastro.CadConsultaCadastro2.cs" />
+    <Compile Include="PWS\PWS.SVRS.Cadastro.CadConsultaCadastro2.cs" />
+    <Compile Include="HNF\HNF.BA.Autorizacao.NfeAutorizacao.cs" />
+    <Compile Include="HNF\HNF.BA.Consulta.NfeConsulta.cs" />
+    <Compile Include="HNF\HNF.BA.Inutilizacao.NfeInutilizacao.cs" />
+    <Compile Include="HNF\HNF.BA.RetAutorizacao.NfeRetAutorizacao.cs" />
+    <Compile Include="HNF\HNF.BA.Status.NfeStatusServico.cs" />
+    <Compile Include="HNF\HNF.MG.Autorizacao.NfeAutorizacao.cs" />
+    <Compile Include="HNF\HNF.MG.RetAutorizacao.NfeRetAutorizacao.cs" />
+    <Compile Include="HNF\HNF.SVCAN.Autorizacao.NfeAutorizacao.cs" />
+    <Compile Include="HNF\HNF.SVCAN.RetAutorizacao.NfeRetAutorizacao.cs" />
+    <Compile Include="HNF\HNF.SVCRS.Autorizacao.NfeAutorizacao.cs" />
+    <Compile Include="HNF\HNF.SVCRS.RetAutorizacao.NfeRetAutorizacao.cs" />
+    <Compile Include="HWS\HWS.GO.RecepcaoEvento.RecepcaoEvento.cs" />
+    <Compile Include="HWS\HWS.SVCAN.Consulta.NfeConsulta2.cs" />
+    <Compile Include="HWS\HWS.SVCAN.RecepcaoEvento.RecepcaoEvento.cs" />
+    <Compile Include="HWS\HWS.SVCAN.Status.NfeStatusServico2.cs" />
+    <Compile Include="HNF\HNF.SVCRS.Consulta.NfeConsulta2.cs" />
+    <Compile Include="HNF\HNF.SVCRS.RecepcaoEvento.RecepcaoEvento.cs" />
+    <Compile Include="HNF\HNF.SVCRS.Status.NfeStatusServico2.cs" />
+    <Compile Include="PNF\PNF.BA.Autorizacao.NfeAutorizacao.cs" />
+    <Compile Include="PNF\PNF.BA.Consulta.NfeConsulta.cs" />
+    <Compile Include="PNF\PNF.BA.Inutilizacao.NfeInutilizacao.cs" />
+    <Compile Include="PNF\PNF.BA.RetAutorizacao.NfeRetAutorizacao.cs" />
+    <Compile Include="PNF\PNF.BA.Status.NfeStatusServico.cs" />
+    <Compile Include="PNF\PNF.MG.Autorizacao.NfeAutorizacao.cs" />
+    <Compile Include="PNF\PNF.MG.RetAutorizacao.NfeRetAutorizacao.cs" />
+    <Compile Include="PNF\PNF.SVCAN.Autorizacao.NfeAutorizacao.cs" />
+    <Compile Include="PNF\PNF.SVCAN.RetAutorizacao.NfeRetAutorizacao.cs" />
+    <Compile Include="PNF\PNF.SVCRS.Autorizacao.NfeAutorizacao.cs" />
+    <Compile Include="PNF\PNF.SVCRS.RetAutorizacao.NfeRetAutorizacao.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="PWS\PWS.GO.RecepcaoEvento.RecepcaoEvento.cs" />
+    <Compile Include="PWS\PWS.SVCAN.Consulta.NfeConsulta2.cs" />
+    <Compile Include="PWS\PWS.SVCAN.RecepcaoEvento.RecepcaoEvento.cs" />
+    <Compile Include="PWS\PWS.SVCAN.Status.NfeStatusServico2.cs" />
+    <Compile Include="PNF\PNF.SVCRS.Consulta.NfeConsulta2.cs" />
+    <Compile Include="PNF\PNF.SVCRS.RecepcaoEvento.RecepcaoEvento.cs" />
+    <Compile Include="PNF\PNF.SVCRS.Status.NfeStatusServico2.cs" />
+    <Compile Include="RDI.NFe2.Business.ConverteNFe.cs" />
+    <Compile Include="RDI.NFe2.Business.Ext.cs" />
+    <Compile Include="RDI.NFe2.Business.FuncaoAutomacao.cs" />
+    <Compile Include="RDI.NFe2.Business.NFeUtils.cs" />
+    <Compile Include="RDI.NFe2.Business.Threads.cs" />
+    <Compile Include="RDI.NFe2.Business.ValidaXML.cs" />
+    <Compile Include="RDI.NFe2.Business.Servicos.cs" />
+    <Compile Include="Service References\SOA\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Settings.cs" />
+    <Compile Include="HWS\HWS.CE.Inutilizacao.cs" />
+    <Compile Include="HWS\HWS.CE.Consulta.cs" />
+    <Compile Include="HWS\HWS.BA.Status.cs" />
+    <Compile Include="HWS\HWS.BA.Inutilizacao.cs" />
+    <Compile Include="HWS\HWS.BA.RecepcaoEvento.cs" />
+    <Compile Include="HWS\HWS.AM.RecepcaoEvento.cs" />
+    <Compile Include="HWS\HWS.BA.Consulta.cs" />
+    <Compile Include="HWS\HWS.AM.Status.cs" />
+    <Compile Include="HWS\HWS.AM.Inutilizacao.cs" />
+    <Compile Include="HWS\HWS.AM.Consulta.cs" />
+    <Compile Include="HNF\HNF.SVAN.RetAutorizacao.cs" />
+    <Compile Include="HNF\HNF.SP.Status.cs" />
+    <Compile Include="HNF\HNF.SVAN.Autorizacao.cs" />
+    <Compile Include="HNF\HNF.SP.RetAutorizacao.cs" />
+    <Compile Include="HNF\HNF.SP.Inutilizacao.cs" />
+    <Compile Include="HNF\HNF.SP.RecepcaoEvento.cs" />
+    <Compile Include="HNF\HNF.SP.Consulta.cs" />
+    <Compile Include="HNF\HNF.SP.Autorizacao.cs" />
+    <Compile Include="HNF\HNF.PE.RetAutorizacao.cs" />
+    <Compile Include="HNF\HNF.PE.Autorizacao.cs" />
+    <Compile Include="HNF\HNF.MT.RetAutorizacao.cs" />
+    <Compile Include="HNF\HNF.MT.Autorizacao.cs" />
+    <Compile Include="HNF\HNF.MS.RetAutorizacao.cs" />
+    <Compile Include="HNF\HNF.MS.Autorizacao.cs" />
+    <Compile Include="HNF\HNF.GO.Autorizacao.cs" />
+    <Compile Include="HNC\HNC.MT.RecepcaoEvento.cs" />
+    <Compile Include="HNC\HNC.MT.Status.cs" />
+    <Compile Include="HNC\HNC.MT.RetAutorizacao.cs" />
+    <Compile Include="PWS\PWS.PR.Status.cs" />
+    <Compile Include="HNC\HNC.MT.Inutilizacao.cs" />
+    <Compile Include="HNC\HNC.MT.Consulta.cs" />
+    <Compile Include="PWS\PWS.PR.RecepcaoEvento.cs" />
+    <Compile Include="PWS\PWS.PR.Inutilizacao.cs" />
+    <Compile Include="PWS\PWS.PR.Consulta.cs" />
+    <Compile Include="PWS\PWS.PE.Status.cs" />
+    <Compile Include="PWS\PWS.PE.RecepcaoEvento.cs" />
+    <Compile Include="PWS\PWS.PE.Inutilizacao.cs" />
+    <Compile Include="PWS\PWS.SVAN.Status.cs" />
+    <Compile Include="PWS\PWS.PE.Consulta.cs" />
+    <Compile Include="PWS\PWS.MT.Status.cs" />
+    <Compile Include="PWS\PWS.MT.Consulta.cs" />
+    <Compile Include="PWS\PWS.MT.RecepcaoEvento.cs" />
+    <Compile Include="PWS\PWS.MT.Inutilizacao.cs" />
+    <Compile Include="PWS\PWS.MS.Status.cs" />
+    <Compile Include="PWS\PWS.MS.RecepcaoEvento.cs" />
+    <Compile Include="PWS\PWS.MS.Inutilizacao.cs" />
+    <Compile Include="PWS\PWS.MS.Consulta.cs" />
+    <Compile Include="PWS\PWS.GO.Status.cs" />
+    <Compile Include="PWS\PWS.SVAN.RecepcaoEvento.cs" />
+    <Compile Include="PWS\PWS.GO.Inutilizacao.cs" />
+    <Compile Include="PNF\PNF.MT.Autorizacao.cs" />
+    <Compile Include="PWS\PWS.GO.Consulta.cs" />
+    <Compile Include="PWS\PWS.CE.Status.cs" />
+    <Compile Include="PWS\PWS.CE.Consulta.cs" />
+    <Compile Include="PWS\PWS.CE.RecepcaoEvento.cs" />
+    <Compile Include="PWS\PWS.CE.Inutilizacao.cs" />
+    <Compile Include="PWS\PWS.BA.Status.cs" />
+    <Compile Include="PWS\PWS.BA.RecepcaoEvento.cs" />
+    <Compile Include="PWS\PWS.BA.Inutilizacao.cs" />
+    <Compile Include="PWS\PWS.SVAN.Consulta.cs" />
+    <Compile Include="PWS\PWS.BA.Consulta.cs" />
+    <Compile Include="PWS\PWS.AM.RecepcaoEvento.cs" />
+    <Compile Include="PWS\PWS.AM.Consulta.cs" />
+    <Compile Include="PWS\PWS.AM.Status.cs" />
+    <Compile Include="PWS\PWS.AM.Inutilizacao.cs" />
+    <Compile Include="PNF\PNF.SVAN.RetAutorizacao.cs" />
+    <Compile Include="PNF\PNF.SVAN.Autorizacao.cs" />
+    <Compile Include="PNF\PNF.SP.Status.cs" />
+    <Compile Include="PNF\PNF.SP.RetAutorizacao.cs" />
+    <Compile Include="PNF\PNF.SP.RecepcaoEvento.cs" />
+    <Compile Include="PWS\PWS.SVAN.Inutilizacao.cs" />
+    <Compile Include="PNF\PNF.SP.Inutilizacao.cs" />
+    <Compile Include="PNF\PNF.SP.Autorizacao.cs" />
+    <Compile Include="PNF\PNF.SP.Consulta.cs" />
+    <Compile Include="PNF\PNF.PE.Autorizacao.cs" />
+    <Compile Include="PNF\PNF.PE.RetAutorizacao.cs" />
+    <Compile Include="PNF\PNF.MT.RetAutorizacao.cs" />
+    <Compile Include="PNF\PNF.MS.RetAutorizacao.cs" />
+    <Compile Include="PNF\PNF.MS.Autorizacao.cs" />
+    <Compile Include="PWS\PWS.SP.Status.cs" />
+    <Compile Include="PNC\PNC.MT.RetAutorizacao.cs" />
+    <Compile Include="PNF\PNF.GO.Autorizacao.cs" />
+    <Compile Include="PNC\PNC.MT.RecepcaoEvento.cs" />
+    <Compile Include="PNC\PNC.MT.Status.cs" />
+    <Compile Include="PNC\PNC.MT.Inutilizacao.cs" />
+    <Compile Include="PNC\PNC.MT.Consulta.cs" />
+    <Compile Include="PNC\PNC.MT.Autorizacao.cs" />
+    <Compile Include="HWS\HWS.SVAN.Status.cs" />
+    <Compile Include="HWS\HWS.SVAN.RecepcaoEvento.cs" />
+    <Compile Include="HWS\HWS.SP.RecepcaoEvento.cs" />
+    <Compile Include="PWS\PWS.SP.RecepcaoEvento.cs" />
+    <Compile Include="HWS\HWS.SVAN.Inutilizacao.cs" />
+    <Compile Include="HWS\HWS.SVAN.Consulta.cs" />
+    <Compile Include="HWS\HWS.SP.Status.cs" />
+    <Compile Include="HWS\HWS.SP.Inutilizacao.cs" />
+    <Compile Include="HWS\HWS.SP.Consulta.cs" />
+    <Compile Include="HWS\HWS.PR.Status.cs" />
+    <Compile Include="PWS\PWS.SP.Inutilizacao.cs" />
+    <Compile Include="HWS\HWS.PR.RecepcaoEvento.cs" />
+    <Compile Include="HWS\HWS.PR.Inutilizacao.cs" />
+    <Compile Include="HWS\HWS.PR.Consulta.cs" />
+    <Compile Include="HWS\HWS.PE.Status.cs" />
+    <Compile Include="HWS\HWS.PE.RecepcaoEvento.cs" />
+    <Compile Include="HWS\HWS.PE.Inutilizacao.cs" />
+    <Compile Include="HWS\HWS.PE.Consulta.cs" />
+    <Compile Include="HWS\HWS.MT.Status.cs" />
+    <Compile Include="HWS\HWS.MT.RecepcaoEvento.cs" />
+    <Compile Include="HWS\HWS.MT.Inutilizacao.cs" />
+    <Compile Include="PWS\PWS.SP.Consulta.cs" />
+    <Compile Include="HWS\HWS.MT.Consulta.cs" />
+    <Compile Include="HWS\HWS.MS.Status.cs" />
+    <Compile Include="HWS\HWS.MS.RecepcaoEvento.cs" />
+    <Compile Include="HWS\HWS.MS.Inutilizacao.cs" />
+    <Compile Include="HWS\HWS.MS.Consulta.cs" />
+    <Compile Include="HWS\HWS.GO.Status.cs" />
+    <Compile Include="HWS\HWS.CE.Status.cs" />
+    <Compile Include="HWS\HWS.GO.Inutilizacao.cs" />
+    <Compile Include="HWS\HWS.GO.Consulta.cs" />
+    <Compile Include="HWS\HWS.CE.RecepcaoEvento.cs" />
+    <Compile Include="HNC\HNC.MT.Autorizacao.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferences Include="Web References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\SOA\nfeservice1.wsdl" />
+    <None Include="Service References\SOA\nfeservice2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\SOA\nfeservice21.xsd">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Service References\SOA\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\SOA\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\SOA\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\SOA\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\SOA\nfeservice1.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Open Signer\Open Signer\OpenSigner.csproj">
+      <Project>{fb4a7d0e-da64-4fa6-9ad7-47184a92ad33}</Project>
+      <Name>OpenSigner</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MMCustom\RDI.NFe2.MMCustom.csproj">
+      <Project>{527202fa-b5b5-4f59-a099-dd54013f656c}</Project>
+      <Name>RDI.NFe2.MMCustom</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RDI.NFe2.ORMAP.MSSQL\RDI.NFe2.ORMAP.MSSQL.csproj">
+      <Project>{2b33059c-33e3-4617-802b-b4b5eff4f1ea}</Project>
+      <Name>RDI.NFe2.ORMAP.MSSQL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RDI.NFe2.SchemaXML\RDI.NFe2.SchemaXML.csproj">
+      <Project>{691ce23f-0ad0-467a-8fe7-956384a0773d}</Project>
+      <Name>RDI.NFe2.SchemaXML</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
