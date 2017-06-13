@@ -284,6 +284,8 @@ namespace RDI.NFe2.SchemaXML
             else
                 stNamespace = "";//padrao
 
+            if (System.IO.File.Exists(filename))
+                System.IO.File.Delete(filename);
 
             MemoryStream memoryStream = new MemoryStream();
             XmlSerializerNamespaces xsn = new XmlSerializerNamespaces();

@@ -328,8 +328,8 @@ namespace RDI.NFe2.Business
             // forçar aceitação de todos os certificados dos servidores da SEFAZ
             // independentemente de ter a cadeia de certificação instalada
             System.Net.ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
-            System.Net.ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls;
-
+            //permitir os protocolos: TLS1.0 TLS1.1 TLS1.2 
+            System.Net.ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
         }
 
 
@@ -500,7 +500,7 @@ namespace RDI.NFe2.Business
                 else if (DADOS.GetType().GetInterface("ITConsStatServ") != null)
                 {
                     var fnNome = "nfeStatusServicoNF2";
-                    if ((oParam.UF == TCodUfIBGE.Parana || oParam.UF == TCodUfIBGE.Bahia) 
+                    if ((oParam.UF == TCodUfIBGE.Parana || oParam.UF == TCodUfIBGE.Bahia)
                         && oParam.tipoEmissao == TNFeInfNFeIdeTpEmis.Normal
                         && oParam.versao == VersaoXML.NFe_v310)
                     {
