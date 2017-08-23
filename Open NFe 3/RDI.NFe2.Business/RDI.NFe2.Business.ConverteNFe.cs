@@ -5,7 +5,7 @@ using System.IO;
 using System.Reflection;
 using System.Xml.Serialization;
 using RDI.NFe2.SchemaXML;
-using RDI.NFe2.SchemaXML310;
+using RDI.NFe2.SchemaXML.NFe_v310;
 using RDI.NFe2.ORMAP;
 
 /// Objetivo : Converter os arquivos gerados em Txt no padrão da SEFAZ - SP para o padrão SEFAZ - Nacional em XML.

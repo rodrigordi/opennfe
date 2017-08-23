@@ -114,11 +114,12 @@ namespace RDI.NFe2.Business
 
         public static void ImprimeDANFe(NotaFiscal oNotaProc, Parametro oParam, ClientEnvironment manager)
         {
-            var stVersao = "_v2.00";
-            if (oNotaProc.versao == VersaoXML.NFe_v310)
-            {
-                stVersao = "_v3.10";
-            }
+            //var stVersao = "_v2.00";
+            //if (oNFe.versao == VersaoXML.NFe_v310)
+            //{
+            //    stVersao = "_v3.10";
+            //}
+            var stVersao = VersaoXML.NFe_v310.ToString().Replace("NFe", "");
 
             String nomeArquivo = oNotaProc.nProt + stVersao + "-procNFe.xml";
             string nomeArquivoProcesso = oParam.pastaSaida + nomeArquivo;

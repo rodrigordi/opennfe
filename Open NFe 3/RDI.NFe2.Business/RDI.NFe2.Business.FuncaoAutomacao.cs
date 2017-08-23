@@ -1301,11 +1301,11 @@ namespace RDI.NFe2.Business
                 //Trabalhar sempre com envelopes assincronos
                 if (oParam.versao == VersaoXML.NFe_v310)
                 {
-                    ((SchemaXML310.TEnviNFe)oEnviNFe).indSinc = SchemaXML310.TEnviNFeIndSinc.Item0;
+                    ((SchemaXML.NFe_v310.TEnviNFe)oEnviNFe).indSinc = SchemaXML.NFe_v310.TEnviNFeIndSinc.Item0;
                 }
                 else if (oParam.versao == VersaoXML.NFe_v300)
                 {
-                    ((SchemaXML300.TEnviNFe)oEnviNFe).indSinc = SchemaXML300.TEnviNFeIndSinc.Item0;
+                    ((SchemaXML.NFe_v300.TEnviNFe)oEnviNFe).indSinc = SchemaXML.NFe_v300.TEnviNFeIndSinc.Item0;
                 }
 
                 #endregion

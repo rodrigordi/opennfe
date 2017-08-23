@@ -595,12 +595,12 @@ namespace RDI.NFe.Visual
         {
             try
             {
-                var stVersao = "_v2.00";
-                if (oNFe.versao == VersaoXML.NFe_v310)
-                {
-                    stVersao = "_v3.10";
-                }
-
+                //var stVersao = "_v2.00";
+                //if (oNFe.versao == VersaoXML.NFe_v310)
+                //{
+                //    stVersao = "_v3.10";
+                //}
+                var stVersao = VersaoXML.NFe_v310.ToString().Replace("NFe", "");
 
                 sfdProcNFe.Filter = "Arquivo XML|*.xml";
                 sfdProcNFe.Title = "Salvar arquivo";

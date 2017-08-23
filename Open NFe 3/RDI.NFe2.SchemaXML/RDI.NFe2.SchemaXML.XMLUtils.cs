@@ -5,7 +5,6 @@ using System.Text;
 using System.IO;
 using System.Xml.Serialization;
 using System.Xml;
-using RDI.NFe2.SchemaXML310;
 using System.ComponentModel;
 using System.Reflection;
 using System.IO.Compression;
@@ -277,7 +276,8 @@ namespace RDI.NFe2.SchemaXML
                 stNamespace = GNRENAMESPACE;
             else if (versao == VersaoXML.NFe_v200 ||
                 versao == VersaoXML.NFe_v300 ||
-                versao == VersaoXML.NFe_v310)
+                versao == VersaoXML.NFe_v310 ||
+                versao == VersaoXML.NFe_v400)
                 stNamespace = NFeNAMESPACE;
             else if (versao == VersaoXML.Integracao)
                 stNamespace = RDINAMESPACE;

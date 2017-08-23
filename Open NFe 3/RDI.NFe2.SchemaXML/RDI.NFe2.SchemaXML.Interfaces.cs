@@ -203,33 +203,6 @@ namespace RDI.NFe2.SchemaXML
         TAmb tpAmb { get; set; }
     }
 
-    //interfaces de comunicacao
-
-    //só existe na versao 2.00
-    public interface ITEnvEvento
-    {
-        //string versao { get; set; }
-        //string idLote { get; set; }
-        ITEvento[] evento { get; set; }
-
-        string idLote { get; set; }
-
-        string versao { get; set; }
-    }
-    //só existe na versao 2.00
-    public interface ITRetEnvEvento
-    {
-        //string cStat { get; }
-        //string xMotivo { get; }
-        string cStat { get; set; }
-
-        TAmb tpAmb { get; set; }
-
-        string xMotivo { get; set; }
-
-        ITretEvento[] retEvento { get; set; }
-    }
-
 
     public interface ITEnviNFe
     {
@@ -396,33 +369,32 @@ namespace RDI.NFe2.SchemaXML
     {
 
     }
+    public interface ITEnvEvento
+    {
+        ITEvento[] evento { get; set; }
+
+        string idLote { get; set; }
+
+        string versao { get; set; }
+    }
+    public interface ITRetEnvEvento
+    {
+        string cStat { get; set; }
+
+        TAmb tpAmb { get; set; }
+
+        string xMotivo { get; set; }
+
+        ITretEvento[] retEvento { get; set; }
+    }
 }
 
+
+//TODO :  mover para arquivos de cada versão
 #region Aplicações Interfaces
 
-namespace RDI.NFe2.SchemaXML200
+namespace RDI.NFe2.SchemaXML.ConsultaCadastro
 {
-    public partial class distDFeInt : RDI.NFe2.SchemaXML.IDistDFeInt
-    {
-
-    }
-
-    public partial class retDistDFeInt : RDI.NFe2.SchemaXML.IRetDistDFeInt
-    {
-
-    }
-
-    public partial class TDownloadNFe : RDI.NFe2.SchemaXML.ITDownloadNFe
-    {
-
-    }
-
-    public partial class TRetDownloadNFe : RDI.NFe2.SchemaXML.ITRetDownloadNFe
-    {
-
-    }
-
-
     public partial class TConsCad : RDI.NFe2.SchemaXML.ITConsCad
     {
 
@@ -432,6 +404,10 @@ namespace RDI.NFe2.SchemaXML200
     {
 
     }
+}
+
+namespace RDI.NFe2.SchemaXML.Eventos
+{
 
     public partial class TEventoInfEventoDetEvento : RDI.NFe2.SchemaXML.ITEventoInfEventoDetEvento
     {
@@ -441,91 +417,6 @@ namespace RDI.NFe2.SchemaXML200
     public partial class TretEventoInfEvento : RDI.NFe2.SchemaXML.ITretEventoInfEvento
     {
 
-    }
-
-    public partial class TRetEnviNFeInfRec : RDI.NFe2.SchemaXML.ITRetEnviNFeInfRec
-    {
-
-    }
-
-    public partial class TRetCancNFe_v200107InfCanc : RDI.NFe2.SchemaXML.ITRetCancNFe_v200107InfCanc
-    {
-
-    }
-
-
-
-    public partial class TRetCancNFe_v200107 : RDI.NFe2.SchemaXML.ITRetCancNFe_v200107
-    {
-
-        SchemaXML.ITRetCancNFe_v200107InfCanc SchemaXML.ITRetCancNFe_v200107.infCanc
-        {
-            get
-            {
-                return this.infCanc;
-            }
-
-        }
-    }
-
-    public partial class TretEvento : RDI.NFe2.SchemaXML.ITretEvento
-    {
-
-        SchemaXML.ITretEventoInfEvento SchemaXML.ITretEvento.infEvento
-        {
-            get
-            {
-                return this.infEvento;
-            }
-
-            set
-            {
-                this.infEvento = (TretEventoInfEvento)value;
-            }
-        }
-    }
-
-    public partial class TRetCancNFe : RDI.NFe2.SchemaXML.ITRetCancNFe
-    {
-
-    }
-
-
-    public partial class TCancNFe : RDI.NFe2.SchemaXML.ITCancNFe
-    {
-
-    }
-
-
-    public partial class TInutNFeInfInut : RDI.NFe2.SchemaXML.ITInutNFeInfInut
-    {
-
-    }
-
-    public partial class ReferenceType : RDI.NFe2.SchemaXML.IReferenceType
-    {
-
-    }
-
-    public partial class SignedInfoType : RDI.NFe2.SchemaXML.ISignedInfoType
-    {
-        SchemaXML.IReferenceType SchemaXML.ISignedInfoType.Reference
-        {
-            get { return this.Reference; }
-        }
-    }
-
-    public partial class SignatureType : RDI.NFe2.SchemaXML.ISignatureType
-    {
-
-        SchemaXML.ISignedInfoType SchemaXML.ISignatureType.SignedInfo
-        {
-            get
-            {
-                return this.SignedInfo;
-            }
-
-        }
     }
 
     public partial class TEnvEvento : RDI.NFe2.SchemaXML.ITEnvEvento
@@ -555,6 +446,153 @@ namespace RDI.NFe2.SchemaXML200
                 this.retEvento = (TretEvento[])value;
             }
         }
+    }
+
+    public partial class TEvento : RDI.NFe2.SchemaXML.ITEvento
+    {
+        SchemaXML.ITEventoInfEvento SchemaXML.ITEvento.infEvento
+        {
+            get { return this.infEvento; }
+            set { this.infEvento = (TEventoInfEvento)value; }
+        }
+
+        SchemaXML.ISignatureType SchemaXML.ITEvento.Signature
+        {
+            get { return this.Signature; }
+        }
+    }
+    public partial class TEventoInfEvento : RDI.NFe2.SchemaXML.ITEventoInfEvento
+    {
+
+        SchemaXML.ITEventoInfEventoDetEvento SchemaXML.ITEventoInfEvento.detEvento
+        {
+            get
+            {
+                return this.detEvento;
+            }
+            set
+            {
+                this.detEvento = (TEventoInfEventoDetEvento)value;
+            }
+        }
+    }
+    public partial class TProcEvento : RDI.NFe2.SchemaXML.ITProcEvento
+    {
+
+        SchemaXML.ITEvento SchemaXML.ITProcEvento.evento
+        {
+            get { return this.evento; }
+            set { this.evento = (TEvento)value; }
+        }
+
+        SchemaXML.ITretEvento SchemaXML.ITProcEvento.retEvento
+        {
+            get
+            {
+                return this.retEvento;
+            }
+            set
+            {
+                this.retEvento = (TretEvento)value;
+            }
+        }
+    }
+
+
+    public partial class TEventoInfEventoDetEvento : RDI.NFe2.SchemaXML.ITEventoInfEventoDetEvento
+    {
+
+    }
+
+    public partial class TretEventoInfEvento : RDI.NFe2.SchemaXML.ITretEventoInfEvento
+    {
+
+    }
+
+    public partial class TretEvento : RDI.NFe2.SchemaXML.ITretEvento
+    {
+
+        SchemaXML.ITretEventoInfEvento SchemaXML.ITretEvento.infEvento
+        {
+            get
+            {
+                return this.infEvento;
+            }
+
+            set
+            {
+                this.infEvento = (TretEventoInfEvento)value;
+            }
+        }
+    }
+}
+
+namespace RDI.NFe2.SchemaXML.Signature
+{
+    public partial class ReferenceType : RDI.NFe2.SchemaXML.IReferenceType
+    {
+
+    }
+
+    public partial class SignedInfoType : RDI.NFe2.SchemaXML.ISignedInfoType
+    {
+        SchemaXML.IReferenceType SchemaXML.ISignedInfoType.Reference
+        {
+            get { return this.Reference; }
+        }
+    }
+
+    public partial class SignatureType : RDI.NFe2.SchemaXML.ISignatureType
+    {
+
+        SchemaXML.ISignedInfoType SchemaXML.ISignatureType.SignedInfo
+        {
+            get
+            {
+                return this.SignedInfo;
+            }
+
+        }
+    }
+}
+
+namespace RDI.NFe2.SchemaXML.NFe_v200
+{
+    public partial class TRetEnviNFeInfRec : RDI.NFe2.SchemaXML.ITRetEnviNFeInfRec
+    {
+
+    }
+
+    public partial class TRetCancNFe_v200107InfCanc : RDI.NFe2.SchemaXML.ITRetCancNFe_v200107InfCanc
+    {
+
+    }
+
+    public partial class TRetCancNFe_v200107 : RDI.NFe2.SchemaXML.ITRetCancNFe_v200107
+    {
+        SchemaXML.ITRetCancNFe_v200107InfCanc SchemaXML.ITRetCancNFe_v200107.infCanc
+        {
+            get
+            {
+                return this.infCanc;
+            }
+
+        }
+    }
+
+    public partial class TRetCancNFe : RDI.NFe2.SchemaXML.ITRetCancNFe
+    {
+
+    }
+
+    public partial class TCancNFe : RDI.NFe2.SchemaXML.ITCancNFe
+    {
+
+    }
+
+    public partial class TInutNFeInfInut : RDI.NFe2.SchemaXML.ITInutNFeInfInut
+    {
+
     }
 
     public partial class TEnviNFe : RDI.NFe2.SchemaXML.ITEnviNFe
@@ -646,34 +684,6 @@ namespace RDI.NFe2.SchemaXML200
         }
     }
 
-    public partial class TEvento : RDI.NFe2.SchemaXML.ITEvento
-    {
-        SchemaXML.ITEventoInfEvento SchemaXML.ITEvento.infEvento
-        {
-            get { return this.infEvento; }
-            set { this.infEvento = (TEventoInfEvento)value; }
-        }
-
-        SchemaXML.ISignatureType SchemaXML.ITEvento.Signature
-        {
-            get { return this.Signature; }
-        }
-    }
-    public partial class TEventoInfEvento : RDI.NFe2.SchemaXML.ITEventoInfEvento
-    {
-
-        SchemaXML.ITEventoInfEventoDetEvento SchemaXML.ITEventoInfEvento.detEvento
-        {
-            get
-            {
-                return this.detEvento;
-            }
-            set
-            {
-                this.detEvento = (TEventoInfEventoDetEvento)value;
-            }
-        }
-    }
 
     public partial class TNfeProc : RDI.NFe2.SchemaXML.ITNfeProc
     {
@@ -714,27 +724,6 @@ namespace RDI.NFe2.SchemaXML200
 
     }
 
-    public partial class TProcEvento : RDI.NFe2.SchemaXML.ITProcEvento
-    {
-
-        SchemaXML.ITEvento SchemaXML.ITProcEvento.evento
-        {
-            get { return this.evento; }
-            set { this.evento = (TEvento)value; }
-        }
-
-        SchemaXML.ITretEvento SchemaXML.ITProcEvento.retEvento
-        {
-            get
-            {
-                return this.retEvento;
-            }
-            set
-            {
-                this.retEvento = (TretEvento)value;
-            }
-        }
-    }
 
 
     public partial class TNFe : RDI.NFe2.SchemaXML.ITNFe
@@ -814,49 +803,8 @@ namespace RDI.NFe2.SchemaXML200
     }
 }
 
-
-namespace RDI.NFe2.SchemaXML300
+namespace RDI.NFe2.SchemaXML.NFe_v300
 {
-
-    public partial class distDFeInt : RDI.NFe2.SchemaXML.IDistDFeInt
-    {
-
-    }
-
-    public partial class retDistDFeInt : RDI.NFe2.SchemaXML.IRetDistDFeInt
-    {
-
-    }
-
-    public partial class TDownloadNFe : RDI.NFe2.SchemaXML.ITDownloadNFe
-    {
-
-    }
-
-    public partial class TRetDownloadNFe : RDI.NFe2.SchemaXML.ITRetDownloadNFe
-    {
-
-    }
-    public partial class TConsCad : RDI.NFe2.SchemaXML.ITConsCad
-    {
-
-    }
-
-    public partial class TRetConsCad : RDI.NFe2.SchemaXML.ITRetConsCad
-    {
-
-    }
-
-    public partial class TEventoInfEventoDetEvento : RDI.NFe2.SchemaXML.ITEventoInfEventoDetEvento
-    {
-
-    }
-
-    public partial class TretEventoInfEvento : RDI.NFe2.SchemaXML.ITretEventoInfEvento
-    {
-
-    }
-
     public partial class TRetEnviNFeInfRec : RDI.NFe2.SchemaXML.ITRetEnviNFeInfRec
     {
 
@@ -890,22 +838,7 @@ namespace RDI.NFe2.SchemaXML300
         }
     }
 
-    public partial class TretEvento : RDI.NFe2.SchemaXML.ITretEvento
-    {
 
-        SchemaXML.ITretEventoInfEvento SchemaXML.ITretEvento.infEvento
-        {
-            get
-            {
-                return this.infEvento;
-            }
-
-            set
-            {
-                this.infEvento = (TretEventoInfEvento)value;
-            }
-        }
-    }
 
     public partial class TRetCancNFe : RDI.NFe2.SchemaXML.ITRetCancNFe
     {
@@ -924,60 +857,9 @@ namespace RDI.NFe2.SchemaXML300
 
     }
 
-    public partial class ReferenceType : RDI.NFe2.SchemaXML.IReferenceType
-    {
 
-    }
 
-    public partial class SignedInfoType : RDI.NFe2.SchemaXML.ISignedInfoType
-    {
-        SchemaXML.IReferenceType SchemaXML.ISignedInfoType.Reference
-        {
-            get { return this.Reference; }
-        }
-    }
 
-    public partial class SignatureType : RDI.NFe2.SchemaXML.ISignatureType
-    {
-
-        SchemaXML.ISignedInfoType SchemaXML.ISignatureType.SignedInfo
-        {
-            get
-            {
-                return this.SignedInfo;
-            }
-
-        }
-    }
-
-    public partial class TEnvEvento : RDI.NFe2.SchemaXML.ITEnvEvento
-    {
-        SchemaXML.ITEvento[] SchemaXML.ITEnvEvento.evento
-        {
-            get
-            {
-                return this.evento;
-            }
-            set
-            {
-                this.evento = (TEvento[])value;
-            }
-        }
-    }
-    public partial class TRetEnvEvento : RDI.NFe2.SchemaXML.ITRetEnvEvento
-    {
-        SchemaXML.ITretEvento[] SchemaXML.ITRetEnvEvento.retEvento
-        {
-            get
-            {
-                return this.retEvento;
-            }
-            set
-            {
-                this.retEvento = (TretEvento[])value;
-            }
-        }
-    }
 
     public partial class TEnviNFe : RDI.NFe2.SchemaXML.ITEnviNFe
     {
@@ -1082,34 +964,7 @@ namespace RDI.NFe2.SchemaXML300
         }
     }
 
-    public partial class TEvento : RDI.NFe2.SchemaXML.ITEvento
-    {
-        SchemaXML.ITEventoInfEvento SchemaXML.ITEvento.infEvento
-        {
-            get { return this.infEvento; }
-            set { this.infEvento = (TEventoInfEvento)value; }
-        }
 
-        SchemaXML.ISignatureType SchemaXML.ITEvento.Signature
-        {
-            get { return this.Signature; }
-        }
-    }
-    public partial class TEventoInfEvento : RDI.NFe2.SchemaXML.ITEventoInfEvento
-    {
-
-        SchemaXML.ITEventoInfEventoDetEvento SchemaXML.ITEventoInfEvento.detEvento
-        {
-            get
-            {
-                return this.detEvento;
-            }
-            set
-            {
-                this.detEvento = (TEventoInfEventoDetEvento)value;
-            }
-        }
-    }
 
     public partial class TNfeProc : RDI.NFe2.SchemaXML.ITNfeProc
     {
@@ -1150,27 +1005,7 @@ namespace RDI.NFe2.SchemaXML300
 
     }
 
-    public partial class TProcEvento : RDI.NFe2.SchemaXML.ITProcEvento
-    {
 
-        SchemaXML.ITEvento SchemaXML.ITProcEvento.evento
-        {
-            get { return this.evento; }
-            set { this.evento = (TEvento)value; }
-        }
-
-        SchemaXML.ITretEvento SchemaXML.ITProcEvento.retEvento
-        {
-            get
-            {
-                return this.retEvento;
-            }
-            set
-            {
-                this.retEvento = (TretEvento)value;
-            }
-        }
-    }
 
 
     public partial class TNFe : RDI.NFe2.SchemaXML.ITNFe
@@ -1254,49 +1089,8 @@ namespace RDI.NFe2.SchemaXML300
     }
 }
 
-
-namespace RDI.NFe2.SchemaXML310
+namespace RDI.NFe2.SchemaXML.NFe_v310
 {
-
-    public partial class distDFeInt : RDI.NFe2.SchemaXML.IDistDFeInt
-    {
-
-    }
-
-    public partial class retDistDFeInt : RDI.NFe2.SchemaXML.IRetDistDFeInt
-    {
-
-    }
-
-    public partial class TDownloadNFe : RDI.NFe2.SchemaXML.ITDownloadNFe
-    {
-
-    }
-
-    public partial class TRetDownloadNFe : RDI.NFe2.SchemaXML.ITRetDownloadNFe
-    {
-
-    }
-    public partial class TConsCad : RDI.NFe2.SchemaXML.ITConsCad
-    {
-
-    }
-
-    public partial class TRetConsCad : RDI.NFe2.SchemaXML.ITRetConsCad
-    {
-
-    }
-
-    public partial class TEventoInfEventoDetEvento : RDI.NFe2.SchemaXML.ITEventoInfEventoDetEvento
-    {
-
-    }
-
-    public partial class TretEventoInfEvento : RDI.NFe2.SchemaXML.ITretEventoInfEvento
-    {
-
-    }
-
     public partial class TRetEnviNFeInfRec : RDI.NFe2.SchemaXML.ITRetEnviNFeInfRec
     {
 
@@ -1332,22 +1126,7 @@ namespace RDI.NFe2.SchemaXML310
         }
     }
 
-    public partial class TretEvento : RDI.NFe2.SchemaXML.ITretEvento
-    {
 
-        SchemaXML.ITretEventoInfEvento SchemaXML.ITretEvento.infEvento
-        {
-            get
-            {
-                return this.infEvento;
-            }
-
-            set
-            {
-                this.infEvento = (TretEventoInfEvento)value;
-            }
-        }
-    }
 
     public partial class TRetCancNFe : RDI.NFe2.SchemaXML.ITRetCancNFe
     {
@@ -1364,61 +1143,6 @@ namespace RDI.NFe2.SchemaXML310
     public partial class TInutNFeInfInut : RDI.NFe2.SchemaXML.ITInutNFeInfInut
     {
 
-    }
-
-    public partial class ReferenceType : RDI.NFe2.SchemaXML.IReferenceType
-    {
-
-    }
-
-    public partial class SignedInfoType : RDI.NFe2.SchemaXML.ISignedInfoType
-    {
-        SchemaXML.IReferenceType SchemaXML.ISignedInfoType.Reference
-        {
-            get { return this.Reference; }
-        }
-    }
-
-    public partial class SignatureType : RDI.NFe2.SchemaXML.ISignatureType
-    {
-
-        SchemaXML.ISignedInfoType SchemaXML.ISignatureType.SignedInfo
-        {
-            get
-            {
-                return this.SignedInfo;
-            }
-
-        }
-    }
-
-    public partial class TEnvEvento : RDI.NFe2.SchemaXML.ITEnvEvento
-    {
-        SchemaXML.ITEvento[] SchemaXML.ITEnvEvento.evento
-        {
-            get
-            {
-                return this.evento;
-            }
-            set
-            {
-                this.evento = (TEvento[])value;
-            }
-        }
-    }
-    public partial class TRetEnvEvento : RDI.NFe2.SchemaXML.ITRetEnvEvento
-    {
-        SchemaXML.ITretEvento[] SchemaXML.ITRetEnvEvento.retEvento
-        {
-            get
-            {
-                return this.retEvento;
-            }
-            set
-            {
-                this.retEvento = (TretEvento[])value;
-            }
-        }
     }
 
     public partial class TEnviNFe : RDI.NFe2.SchemaXML.ITEnviNFe
@@ -1524,34 +1248,7 @@ namespace RDI.NFe2.SchemaXML310
         }
     }
 
-    public partial class TEvento : RDI.NFe2.SchemaXML.ITEvento
-    {
-        SchemaXML.ITEventoInfEvento SchemaXML.ITEvento.infEvento
-        {
-            get { return this.infEvento; }
-            set { this.infEvento = (TEventoInfEvento)value; }
-        }
 
-        SchemaXML.ISignatureType SchemaXML.ITEvento.Signature
-        {
-            get { return this.Signature; }
-        }
-    }
-    public partial class TEventoInfEvento : RDI.NFe2.SchemaXML.ITEventoInfEvento
-    {
-
-        SchemaXML.ITEventoInfEventoDetEvento SchemaXML.ITEventoInfEvento.detEvento
-        {
-            get
-            {
-                return this.detEvento;
-            }
-            set
-            {
-                this.detEvento = (TEventoInfEventoDetEvento)value;
-            }
-        }
-    }
 
     public partial class TNfeProc : RDI.NFe2.SchemaXML.ITNfeProc
     {
@@ -1592,27 +1289,7 @@ namespace RDI.NFe2.SchemaXML310
 
     }
 
-    public partial class TProcEvento : RDI.NFe2.SchemaXML.ITProcEvento
-    {
 
-        SchemaXML.ITEvento SchemaXML.ITProcEvento.evento
-        {
-            get { return this.evento; }
-            set { this.evento = (TEvento)value; }
-        }
-
-        SchemaXML.ITretEvento SchemaXML.ITProcEvento.retEvento
-        {
-            get
-            {
-                return this.retEvento;
-            }
-            set
-            {
-                this.retEvento = (TretEvento)value;
-            }
-        }
-    }
 
 
     public partial class TNFe : RDI.NFe2.SchemaXML.ITNFe
@@ -1697,4 +1374,292 @@ namespace RDI.NFe2.SchemaXML310
     }
 }
 
+namespace RDI.NFe2.SchemaXML.NFe_v400
+{
+    public partial class TRetEnviNFeInfRec : RDI.NFe2.SchemaXML.ITRetEnviNFeInfRec
+    {
+
+    }
+
+    public partial class TRetCancNFe_v200107InfCanc : RDI.NFe2.SchemaXML.ITRetCancNFe_v200107InfCanc
+    {
+
+        string SchemaXML.ITRetCancNFe_v200107InfCanc.nProt
+        {
+            get
+            {
+                return null;
+            }
+            set
+            {
+                //throw new System.NotImplementedException();
+            }
+        }
+    }
+
+
+
+    public partial class TRetCancNFe_v200107 : RDI.NFe2.SchemaXML.ITRetCancNFe_v200107
+    {
+
+        SchemaXML.ITRetCancNFe_v200107InfCanc SchemaXML.ITRetCancNFe_v200107.infCanc
+        {
+            get
+            {
+                return null;
+            }
+        }
+    }
+
+
+
+    public partial class TRetCancNFe : RDI.NFe2.SchemaXML.ITRetCancNFe
+    {
+
+    }
+
+
+    public partial class TCancNFe : RDI.NFe2.SchemaXML.ITCancNFe
+    {
+
+    }
+
+
+    public partial class TInutNFeInfInut : RDI.NFe2.SchemaXML.ITInutNFeInfInut
+    {
+
+    }
+
+
+
+
+
+    public partial class TEnviNFe : RDI.NFe2.SchemaXML.ITEnviNFe
+    {
+        SchemaXML.ITNFe[] SchemaXML.ITEnviNFe.NFe
+        {
+            get
+            {
+                return this.NFe;
+            }
+            set
+            {
+                this.NFe = (TNFe[])value;
+            }
+        }
+    }
+    public partial class TRetEnviNFe : RDI.NFe2.SchemaXML.ITRetEnviNFe
+    {
+        SchemaXML.ITRetEnviNFeInfRec SchemaXML.ITRetEnviNFe.infRec
+        {
+            get
+            {
+                if (typeof(TRetEnviNFeInfRec) == this.Item.GetType())
+                {
+                    return (TRetEnviNFeInfRec)this.Item;
+                }
+                else
+                {
+                    throw new System.NotImplementedException();
+                }
+            }
+            set
+            {
+                if (typeof(TRetEnviNFeInfRec) == this.Item.GetType())
+                {
+                    this.Item = (TRetEnviNFeInfRec)value;
+                }
+                else
+                {
+                    throw new System.NotImplementedException();
+                }
+            }
+        }
+    }
+    public partial class TConsReciNFe : RDI.NFe2.SchemaXML.ITConsReciNFe { }
+    public partial class TRetConsReciNFe : RDI.NFe2.SchemaXML.ITRetConsReciNFe
+    {
+        SchemaXML.ITProtNFe[] SchemaXML.ITRetConsReciNFe.protNFe
+        {
+            get
+            {
+                return this.protNFe;
+            }
+        }
+    }
+    public partial class TConsStatServ : RDI.NFe2.SchemaXML.ITConsStatServ { }
+    public partial class TRetConsStatServ : RDI.NFe2.SchemaXML.ITRetConsStatServ { }
+    public partial class TInutNFe : RDI.NFe2.SchemaXML.ITInutNFe
+    {
+        SchemaXML.ITInutNFeInfInut SchemaXML.ITInutNFe.infInut
+        {
+            get { return this.infInut; }
+            set { this.infInut = (TInutNFeInfInut)value; }
+        }
+    }
+    public partial class TRetInutNFe : RDI.NFe2.SchemaXML.ITRetInutNFe
+    {
+        SchemaXML.ITRetInutNFeInfInut SchemaXML.ITRetInutNFe.infInut
+        {
+            get { return this.infInut; }
+        }
+    }
+
+    public partial class TRetInutNFeInfInut : RDI.NFe2.SchemaXML.ITRetInutNFeInfInut
+    {
+
+    }
+
+
+    public partial class TConsSitNFe : RDI.NFe2.SchemaXML.ITConsSitNFe { }
+    public partial class TRetConsSitNFe : RDI.NFe2.SchemaXML.ITRetConsSitNFe
+    {
+        SchemaXML.ITProtNFe SchemaXML.ITRetConsSitNFe.protNFe
+        {
+            get { return this.protNFe; }
+        }
+
+        SchemaXML.ITProcEvento[] SchemaXML.ITRetConsSitNFe.procEventoNFe
+        {
+            get { return this.procEventoNFe; }
+        }
+
+        SchemaXML.ITRetCancNFe_v200107 SchemaXML.ITRetConsSitNFe.retCancNFe
+        {
+            get
+            {
+                return null;
+            }
+            set
+            {
+                //throw new System.NotImplementedException();
+            }
+        }
+    }
+
+
+
+    public partial class TNfeProc : RDI.NFe2.SchemaXML.ITNfeProc
+    {
+        SchemaXML.ITNFe SchemaXML.ITNfeProc.NFe
+        {
+            get
+            {
+                return this.NFe;
+            }
+            set
+            {
+                this.NFe = (TNFe)value;
+            }
+        }
+
+        SchemaXML.ITProtNFe SchemaXML.ITNfeProc.protNFe
+        {
+            get
+            {
+                return this.protNFe;
+            }
+            set
+            {
+                this.protNFe = (TProtNFe)value;
+            }
+        }
+    }
+    public partial class TProtNFe : RDI.NFe2.SchemaXML.ITProtNFe
+    {
+        SchemaXML.ITProtNFeInfProt SchemaXML.ITProtNFe.infProt
+        {
+            get { return this.infProt; }
+        }
+    }
+
+    public partial class TProtNFeInfProt : RDI.NFe2.SchemaXML.ITProtNFeInfProt
+    {
+
+    }
+
+
+
+
+    public partial class TNFe : RDI.NFe2.SchemaXML.ITNFe
+    {
+        RDI.NFe2.SchemaXML.ITNFeInfNFe RDI.NFe2.SchemaXML.ITNFe.infNFe
+        {
+            get
+            {
+                return this.infNFe;
+            }
+            set
+            {
+                this.infNFe = (TNFeInfNFe)value;
+            }
+        }
+
+        SchemaXML.ISignatureType SchemaXML.ITNFe.Signature
+        {
+            get { return this.Signature; }
+        }
+    }
+
+    public partial class TNFeInfNFe : RDI.NFe2.SchemaXML.ITNFeInfNFe
+    {
+        SchemaXML.ITNFeInfNFeIde SchemaXML.ITNFeInfNFe.ide
+        {
+            get { return this.ide; }
+        }
+
+        SchemaXML.ITNFeInfNFeDest SchemaXML.ITNFeInfNFe.dest
+        {
+            get { return this.dest; }
+        }
+
+        SchemaXML.ITNFeInfNFeEmit SchemaXML.ITNFeInfNFe.emit
+        {
+            get { return this.emit; }
+        }
+    }
+
+    public partial class TNFeInfNFeIde : RDI.NFe2.SchemaXML.ITNFeInfNFeIde
+    {
+
+        string SchemaXML.ITNFeInfNFeIde.dEmi
+        {
+            get { return this.dhEmi; }
+        }
+
+    }
+
+    public partial class TNFeInfNFeDest : RDI.NFe2.SchemaXML.ITNFeInfNFeDest
+    {
+
+        SchemaXML.ITEndereco SchemaXML.ITNFeInfNFeDest.enderDest
+        {
+            get
+            {
+                return this.enderDest;
+            }
+        }
+    }
+
+    public partial class TNFeInfNFeEmit : RDI.NFe2.SchemaXML.ITNFeInfNFeEmit
+    {
+        SchemaXML.ITEnderEmi SchemaXML.ITNFeInfNFeEmit.enderEmit
+        {
+            get
+            {
+                return this.enderEmit;
+            }
+        }
+    }
+
+    public partial class TEndereco : RDI.NFe2.SchemaXML.ITEndereco
+    {
+
+    }
+
+    public partial class TEnderEmi : RDI.NFe2.SchemaXML.ITEnderEmi
+    {
+
+    }
+}
 #endregion

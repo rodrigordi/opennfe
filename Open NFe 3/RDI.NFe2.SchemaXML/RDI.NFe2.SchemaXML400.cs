@@ -1,12 +1,14 @@
-﻿using System.Xml.Serialization;
+﻿//versao inicial para 4.00 - baseado na PL 009 v4 - 23/08/2017
+//TODO : falta validar os campos
+
+using System.Xml.Serialization;
 using RDI.NFe2.SchemaXML;
 using RDI.NFe2.SchemaXML.Eventos;
 using RDI.NFe2.SchemaXML.Signature;
+using System.Xml;
 
-namespace RDI.NFe2.SchemaXML.NFe_v300
+namespace RDI.NFe2.SchemaXML.NFe_v400
 {
-
-
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.1432")]
     [System.SerializableAttribute()]
@@ -16,7 +18,6 @@ namespace RDI.NFe2.SchemaXML.NFe_v300
     [System.Xml.Serialization.XmlRootAttribute("consReciNFe", Namespace = "http://www.portalfiscal.inf.br/nfe", IsNullable = false)]
     public partial class TConsReciNFe
     {
-
         private TAmb tpAmbField;
 
         private string nRecField;
@@ -64,7 +65,7 @@ namespace RDI.NFe2.SchemaXML.NFe_v300
         }
     }
 
-   
+
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.1432")]
@@ -312,6 +313,8 @@ namespace RDI.NFe2.SchemaXML.NFe_v300
 
         private TNFeInfNFe infNFeField;
 
+        private TNFeInfNFeSupl infNFeSuplField;
+
         private SignatureType signatureField;
 
         /// <remarks/>
@@ -324,6 +327,19 @@ namespace RDI.NFe2.SchemaXML.NFe_v300
             set
             {
                 this.infNFeField = value;
+            }
+        }
+
+        /// <remarks/>
+        public TNFeInfNFeSupl infNFeSupl
+        {
+            get
+            {
+                return this.infNFeSuplField;
+            }
+            set
+            {
+                this.infNFeSuplField = value;
             }
         }
 
@@ -362,6 +378,8 @@ namespace RDI.NFe2.SchemaXML.NFe_v300
         private TLocal retiradaField;
 
         private TLocal entregaField;
+
+        private TNFeInfNFeAutXML[] autXMLField;
 
         private TNFeInfNFeDet[] detField;
 
@@ -460,6 +478,20 @@ namespace RDI.NFe2.SchemaXML.NFe_v300
             set
             {
                 this.entregaField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute("autXML")]
+        public TNFeInfNFeAutXML[] autXML
+        {
+            get
+            {
+                return this.autXMLField;
+            }
+            set
+            {
+                this.autXMLField = value;
             }
         }
 
@@ -644,8 +676,6 @@ namespace RDI.NFe2.SchemaXML.NFe_v300
 
         private string cMunFGField;
 
-        private TNFeInfNFeIdeNFref[] nFrefField;
-
         private TNFeInfNFeIdeTpImp tpImpField;
 
         private TNFeInfNFeIdeTpEmis tpEmisField;
@@ -667,6 +697,8 @@ namespace RDI.NFe2.SchemaXML.NFe_v300
         private string dhContField;
 
         private string xJustField;
+
+        private TNFeInfNFeIdeNFref[] nFrefField;
 
         /// <remarks/>
         public TCodUfIBGE cUF
@@ -825,20 +857,6 @@ namespace RDI.NFe2.SchemaXML.NFe_v300
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("NFref")]
-        public TNFeInfNFeIdeNFref[] NFref
-        {
-            get
-            {
-                return this.nFrefField;
-            }
-            set
-            {
-                this.nFrefField = value;
-            }
-        }
-
-        /// <remarks/>
         public TNFeInfNFeIdeTpImp tpImp
         {
             get
@@ -980,6 +998,20 @@ namespace RDI.NFe2.SchemaXML.NFe_v300
                 this.xJustField = value;
             }
         }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute("NFref")]
+        public TNFeInfNFeIdeNFref[] NFref
+        {
+            get
+            {
+                return this.nFrefField;
+            }
+            set
+            {
+                this.nFrefField = value;
+            }
+        }
     }
 
     /// <remarks/>
@@ -991,15 +1023,15 @@ namespace RDI.NFe2.SchemaXML.NFe_v300
 
         /// <remarks/>
         [System.Xml.Serialization.XmlEnumAttribute("0")]
-        Item0,
+        AVista,
 
         /// <remarks/>
         [System.Xml.Serialization.XmlEnumAttribute("1")]
-        Item1,
+        APrazo,
 
         /// <remarks/>
         [System.Xml.Serialization.XmlEnumAttribute("2")]
-        Item2,
+        Outros,
     }
 
     /// <remarks/>
@@ -1011,11 +1043,11 @@ namespace RDI.NFe2.SchemaXML.NFe_v300
 
         /// <remarks/>
         [System.Xml.Serialization.XmlEnumAttribute("0")]
-        Item0,
+        Entrada,
 
         /// <remarks/>
         [System.Xml.Serialization.XmlEnumAttribute("1")]
-        Item1,
+        Saida,
     }
 
     /// <remarks/>
@@ -1024,6 +1056,30 @@ namespace RDI.NFe2.SchemaXML.NFe_v300
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://www.portalfiscal.inf.br/nfe")]
     public enum TNFeInfNFeIdeIdDest
     {
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("1")]
+        OperacaoInterna,
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("2")]
+        OperacaoInterestadual,
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("3")]
+        OperacaoExterior,
+    }
+
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.1432")]
+    [System.SerializableAttribute()]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://www.portalfiscal.inf.br/nfe")]
+    public enum TNFeInfNFeIdeTpImp
+    {
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("0")]
+        Item0,
 
         /// <remarks/>
         [System.Xml.Serialization.XmlEnumAttribute("1")]
@@ -1036,6 +1092,143 @@ namespace RDI.NFe2.SchemaXML.NFe_v300
         /// <remarks/>
         [System.Xml.Serialization.XmlEnumAttribute("3")]
         Item3,
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("4")]
+        Item4,
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("5")]
+        Item5,
+    }
+
+
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.1432")]
+    [System.SerializableAttribute()]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe")]
+    public enum TFinNFe
+    {
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("1")]
+        Normal,
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("2")]
+        NFeComplementar,
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("3")]
+        NFeAjuste,
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("4")]
+        Devolucao,
+    }
+
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.1432")]
+    [System.SerializableAttribute()]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://www.portalfiscal.inf.br/nfe")]
+    public enum TNFeInfNFeIdeIndFinal
+    {
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("0")]
+        Normal,
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("1")]
+        ConsumidorFinal,
+    }
+
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.1432")]
+    [System.SerializableAttribute()]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://www.portalfiscal.inf.br/nfe")]
+    public enum TNFeInfNFeIdeIndPres
+    {
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("0")]
+        Item0,
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("1")]
+        Item1,
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("2")]
+        Item2,
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("3")]
+        Item3,
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("4")]
+        Item4,
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("9")]
+        Item9,
+    }
+
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.1432")]
+    [System.SerializableAttribute()]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe")]
+    public enum TProcEmi
+    {
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("0")]
+        Item0,
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("1")]
+        Item1,
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("2")]
+        Item2,
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("3")]
+        Item3,
+    }
+
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.1432")]
+    [System.SerializableAttribute()]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe")]
+    public enum TRegEspTrib
+    {
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("0")]
+        MicroEmpresaMunicipal,
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("1")]
+        Estimativa,
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("2")]
+        SociedadeProfissionais,
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("3")]
+        Cooperativa,
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("4")]
+        MEISimplesNacional,
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("5")]
+        MEEPPSimplesNacional,
     }
 
     /// <remarks/>
@@ -1406,7 +1599,6 @@ namespace RDI.NFe2.SchemaXML.NFe_v300
         }
     }
 
-
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.1432")]
     [System.SerializableAttribute()]
@@ -1444,127 +1636,6 @@ namespace RDI.NFe2.SchemaXML.NFe_v300
 
         /// <remarks/>
         refNFe,
-    }
-
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.1432")]
-    [System.SerializableAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://www.portalfiscal.inf.br/nfe")]
-    public enum TNFeInfNFeIdeTpImp
-    {
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("0")]
-        Item0,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1")]
-        Item1,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("2")]
-        Item2,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("3")]
-        Item3,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("4")]
-        Item4,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("5")]
-        Item5,
-    }
-
-
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.1432")]
-    [System.SerializableAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe")]
-    public enum TFinNFe
-    {
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1")]
-        Item1,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("2")]
-        Item2,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("3")]
-        Item3,
-    }
-
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.1432")]
-    [System.SerializableAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://www.portalfiscal.inf.br/nfe")]
-    public enum TNFeInfNFeIdeIndFinal
-    {
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("0")]
-        Item0,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1")]
-        Item1,
-    }
-
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.1432")]
-    [System.SerializableAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://www.portalfiscal.inf.br/nfe")]
-    public enum TNFeInfNFeIdeIndPres
-    {
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("0")]
-        Item0,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1")]
-        Item1,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("2")]
-        Item2,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("3")]
-        Item3,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("9")]
-        Item9,
-    }
-
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.1432")]
-    [System.SerializableAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe")]
-    public enum TProcEmi
-    {
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("0")]
-        Item0,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1")]
-        Item1,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("2")]
-        Item2,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("3")]
-        Item3,
     }
 
     /// <remarks/>
@@ -1938,7 +2009,7 @@ namespace RDI.NFe2.SchemaXML.NFe_v300
         }
     }
 
-    
+
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.1432")]
@@ -2178,9 +2249,13 @@ namespace RDI.NFe2.SchemaXML.NFe_v300
 
         private TEndereco enderDestField;
 
+        private TNFeInfNFeDestIndIEDest indIEDestField;
+
         private string ieField;
 
         private string iSUFField;
+
+        private string imField;
 
         private string emailField;
 
@@ -2242,6 +2317,19 @@ namespace RDI.NFe2.SchemaXML.NFe_v300
         }
 
         /// <remarks/>
+        public TNFeInfNFeDestIndIEDest indIEDest
+        {
+            get
+            {
+                return this.indIEDestField;
+            }
+            set
+            {
+                this.indIEDestField = value;
+            }
+        }
+
+        /// <remarks/>
         public string IE
         {
             get
@@ -2264,6 +2352,19 @@ namespace RDI.NFe2.SchemaXML.NFe_v300
             set
             {
                 this.iSUFField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string IM
+        {
+            get
+            {
+                return this.imField;
+            }
+            set
+            {
+                this.imField = value;
             }
         }
 
@@ -2488,8 +2589,6 @@ namespace RDI.NFe2.SchemaXML.NFe_v300
             }
         }
     }
-
-   
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.1432")]
@@ -3279,6 +3378,10 @@ namespace RDI.NFe2.SchemaXML.NFe_v300
         Item5762,
 
         /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("5780")]
+        Item5780,
+
+        /// <remarks/>
         [System.Xml.Serialization.XmlEnumAttribute("5800")]
         Item5800,
 
@@ -3447,6 +3550,10 @@ namespace RDI.NFe2.SchemaXML.NFe_v300
         Item7595,
 
         /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("7600")]
+        Item7600,
+
+        /// <remarks/>
         [System.Xml.Serialization.XmlEnumAttribute("7641")]
         Item7641,
 
@@ -3602,6 +3709,26 @@ namespace RDI.NFe2.SchemaXML.NFe_v300
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.1432")]
     [System.SerializableAttribute()]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://www.portalfiscal.inf.br/nfe")]
+    public enum TNFeInfNFeDestIndIEDest
+    {
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("1")]
+        Item1,
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("2")]
+        Item2,
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("9")]
+        Item9,
+    }
+
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.1432")]
+    [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe")]
@@ -3748,6 +3875,51 @@ namespace RDI.NFe2.SchemaXML.NFe_v300
         }
     }
 
+
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.1432")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://www.portalfiscal.inf.br/nfe")]
+    public partial class TNFeInfNFeAutXML
+    {
+
+        private string itemField;
+
+        private ITCTypeCNPJCPF itemElementNameField;
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute("CNPJ", typeof(string))]
+        [System.Xml.Serialization.XmlElementAttribute("CPF", typeof(string))]
+        [System.Xml.Serialization.XmlChoiceIdentifierAttribute("ItemElementName")]
+        public string Item
+        {
+            get
+            {
+                return this.itemField;
+            }
+            set
+            {
+                this.itemField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public ITCTypeCNPJCPF ItemElementName
+        {
+            get
+            {
+                return this.itemElementNameField;
+            }
+            set
+            {
+                this.itemElementNameField = value;
+            }
+        }
+    }
+
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.1432")]
     [System.SerializableAttribute()]
@@ -3760,6 +3932,8 @@ namespace RDI.NFe2.SchemaXML.NFe_v300
         private TNFeInfNFeDetProd prodField;
 
         private TNFeInfNFeDetImposto impostoField;
+
+        private TNFeInfNFeDetImpostoDevol impostoDevolField;
 
         private string infAdProdField;
 
@@ -3788,6 +3962,19 @@ namespace RDI.NFe2.SchemaXML.NFe_v300
             set
             {
                 this.impostoField = value;
+            }
+        }
+
+        /// <remarks/>
+        public TNFeInfNFeDetImpostoDevol impostoDevol
+        {
+            get
+            {
+                return this.impostoDevolField;
+            }
+            set
+            {
+                this.impostoDevolField = value;
             }
         }
 
@@ -3836,9 +4023,13 @@ namespace RDI.NFe2.SchemaXML.NFe_v300
 
         private string nCMField;
 
+        private string[] nVEField;
+
+        private string cESTField;
+
         private string eXTIPIField;
 
-        private TCfop cFOPField;
+        private string cFOPField;
 
         private string uComField;
 
@@ -3867,6 +4058,8 @@ namespace RDI.NFe2.SchemaXML.NFe_v300
         private TNFeInfNFeDetProdIndTot indTotField;
 
         private TNFeInfNFeDetProdDI[] diField;
+
+        private TNFeInfNFeDetProdDetExport[] detExportField;
 
         private string xPedField;
 
@@ -3929,6 +4122,33 @@ namespace RDI.NFe2.SchemaXML.NFe_v300
         }
 
         /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute("NVE")]
+        public string[] NVE
+        {
+            get
+            {
+                return this.nVEField;
+            }
+            set
+            {
+                this.nVEField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string CEST
+        {
+            get
+            {
+                return this.cESTField;
+            }
+            set
+            {
+                this.cESTField = value;
+            }
+        }
+
+        /// <remarks/>
         public string EXTIPI
         {
             get
@@ -3942,7 +4162,7 @@ namespace RDI.NFe2.SchemaXML.NFe_v300
         }
 
         /// <remarks/>
-        public TCfop CFOP
+        public string CFOP
         {
             get
             {
@@ -4138,6 +4358,20 @@ namespace RDI.NFe2.SchemaXML.NFe_v300
         }
 
         /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute("detExport")]
+        public TNFeInfNFeDetProdDetExport[] detExport
+        {
+            get
+            {
+                return this.detExportField;
+            }
+            set
+            {
+                this.detExportField = value;
+            }
+        }
+
+        /// <remarks/>
         public string xPed
         {
             get
@@ -4180,6 +4414,7 @@ namespace RDI.NFe2.SchemaXML.NFe_v300
         [System.Xml.Serialization.XmlElementAttribute("arma", typeof(TNFeInfNFeDetProdArma))]
         [System.Xml.Serialization.XmlElementAttribute("comb", typeof(TNFeInfNFeDetProdComb))]
         [System.Xml.Serialization.XmlElementAttribute("med", typeof(TNFeInfNFeDetProdMed))]
+        [System.Xml.Serialization.XmlElementAttribute("nRECOPI", typeof(string))]
         [System.Xml.Serialization.XmlElementAttribute("veicProd", typeof(TNFeInfNFeDetProdVeicProd))]
         public object[] Items
         {
@@ -4194,2085 +4429,2085 @@ namespace RDI.NFe2.SchemaXML.NFe_v300
         }
     }
 
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.1432")]
-    [System.SerializableAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe")]
-    public enum TCfop
-    {
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1101")]
-        Item1101,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1102")]
-        Item1102,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1111")]
-        Item1111,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1113")]
-        Item1113,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1116")]
-        Item1116,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1117")]
-        Item1117,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1118")]
-        Item1118,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1120")]
-        Item1120,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1121")]
-        Item1121,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1122")]
-        Item1122,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1124")]
-        Item1124,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1125")]
-        Item1125,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1126")]
-        Item1126,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1128")]
-        Item1128,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1151")]
-        Item1151,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1152")]
-        Item1152,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1153")]
-        Item1153,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1154")]
-        Item1154,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1201")]
-        Item1201,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1202")]
-        Item1202,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1203")]
-        Item1203,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1204")]
-        Item1204,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1205")]
-        Item1205,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1206")]
-        Item1206,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1207")]
-        Item1207,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1208")]
-        Item1208,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1209")]
-        Item1209,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1251")]
-        Item1251,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1252")]
-        Item1252,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1253")]
-        Item1253,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1254")]
-        Item1254,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1255")]
-        Item1255,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1256")]
-        Item1256,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1257")]
-        Item1257,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1301")]
-        Item1301,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1302")]
-        Item1302,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1303")]
-        Item1303,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1304")]
-        Item1304,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1305")]
-        Item1305,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1306")]
-        Item1306,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1351")]
-        Item1351,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1352")]
-        Item1352,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1353")]
-        Item1353,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1354")]
-        Item1354,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1355")]
-        Item1355,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1356")]
-        Item1356,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1360")]
-        Item1360,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1401")]
-        Item1401,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1403")]
-        Item1403,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1406")]
-        Item1406,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1407")]
-        Item1407,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1408")]
-        Item1408,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1409")]
-        Item1409,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1410")]
-        Item1410,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1411")]
-        Item1411,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1414")]
-        Item1414,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1415")]
-        Item1415,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1451")]
-        Item1451,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1452")]
-        Item1452,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1501")]
-        Item1501,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1503")]
-        Item1503,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1504")]
-        Item1504,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1505")]
-        Item1505,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1506")]
-        Item1506,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1551")]
-        Item1551,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1552")]
-        Item1552,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1553")]
-        Item1553,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1554")]
-        Item1554,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1555")]
-        Item1555,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1556")]
-        Item1556,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1557")]
-        Item1557,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1601")]
-        Item1601,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1602")]
-        Item1602,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1603")]
-        Item1603,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1604")]
-        Item1604,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1605")]
-        Item1605,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1651")]
-        Item1651,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1652")]
-        Item1652,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1653")]
-        Item1653,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1658")]
-        Item1658,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1659")]
-        Item1659,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1660")]
-        Item1660,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1661")]
-        Item1661,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1662")]
-        Item1662,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1663")]
-        Item1663,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1664")]
-        Item1664,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1901")]
-        Item1901,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1902")]
-        Item1902,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1903")]
-        Item1903,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1904")]
-        Item1904,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1905")]
-        Item1905,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1906")]
-        Item1906,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1907")]
-        Item1907,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1908")]
-        Item1908,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1909")]
-        Item1909,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1910")]
-        Item1910,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1911")]
-        Item1911,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1912")]
-        Item1912,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1913")]
-        Item1913,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1914")]
-        Item1914,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1915")]
-        Item1915,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1916")]
-        Item1916,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1917")]
-        Item1917,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1918")]
-        Item1918,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1919")]
-        Item1919,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1920")]
-        Item1920,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1921")]
-        Item1921,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1922")]
-        Item1922,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1923")]
-        Item1923,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1924")]
-        Item1924,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1925")]
-        Item1925,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1926")]
-        Item1926,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1931")]
-        Item1931,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1932")]
-        Item1932,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1933")]
-        Item1933,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1934")]
-        Item1934,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1949")]
-        Item1949,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("2101")]
-        Item2101,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("2102")]
-        Item2102,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("2111")]
-        Item2111,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("2113")]
-        Item2113,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("2116")]
-        Item2116,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("2117")]
-        Item2117,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("2118")]
-        Item2118,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("2120")]
-        Item2120,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("2121")]
-        Item2121,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("2122")]
-        Item2122,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("2124")]
-        Item2124,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("2125")]
-        Item2125,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("2126")]
-        Item2126,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("2128")]
-        Item2128,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("2151")]
-        Item2151,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("2152")]
-        Item2152,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("2153")]
-        Item2153,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("2154")]
-        Item2154,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("2201")]
-        Item2201,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("2202")]
-        Item2202,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("2203")]
-        Item2203,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("2204")]
-        Item2204,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("2205")]
-        Item2205,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("2206")]
-        Item2206,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("2207")]
-        Item2207,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("2208")]
-        Item2208,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("2209")]
-        Item2209,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("2251")]
-        Item2251,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("2252")]
-        Item2252,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("2253")]
-        Item2253,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("2254")]
-        Item2254,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("2255")]
-        Item2255,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("2256")]
-        Item2256,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("2257")]
-        Item2257,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("2301")]
-        Item2301,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("2302")]
-        Item2302,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("2303")]
-        Item2303,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("2304")]
-        Item2304,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("2305")]
-        Item2305,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("2306")]
-        Item2306,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("2351")]
-        Item2351,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("2352")]
-        Item2352,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("2353")]
-        Item2353,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("2354")]
-        Item2354,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("2355")]
-        Item2355,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("2356")]
-        Item2356,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("2401")]
-        Item2401,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("2403")]
-        Item2403,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("2406")]
-        Item2406,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("2407")]
-        Item2407,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("2408")]
-        Item2408,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("2409")]
-        Item2409,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("2410")]
-        Item2410,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("2411")]
-        Item2411,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("2414")]
-        Item2414,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("2415")]
-        Item2415,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("2501")]
-        Item2501,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("2503")]
-        Item2503,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("2504")]
-        Item2504,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("2505")]
-        Item2505,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("2506")]
-        Item2506,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("2551")]
-        Item2551,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("2552")]
-        Item2552,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("2553")]
-        Item2553,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("2554")]
-        Item2554,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("2555")]
-        Item2555,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("2556")]
-        Item2556,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("2557")]
-        Item2557,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("2603")]
-        Item2603,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("2651")]
-        Item2651,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("2652")]
-        Item2652,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("2653")]
-        Item2653,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("2658")]
-        Item2658,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("2659")]
-        Item2659,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("2660")]
-        Item2660,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("2661")]
-        Item2661,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("2662")]
-        Item2662,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("2663")]
-        Item2663,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("2664")]
-        Item2664,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("2901")]
-        Item2901,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("2902")]
-        Item2902,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("2903")]
-        Item2903,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("2904")]
-        Item2904,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("2905")]
-        Item2905,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("2906")]
-        Item2906,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("2907")]
-        Item2907,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("2908")]
-        Item2908,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("2909")]
-        Item2909,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("2910")]
-        Item2910,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("2911")]
-        Item2911,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("2912")]
-        Item2912,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("2913")]
-        Item2913,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("2914")]
-        Item2914,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("2915")]
-        Item2915,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("2916")]
-        Item2916,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("2917")]
-        Item2917,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("2918")]
-        Item2918,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("2919")]
-        Item2919,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("2920")]
-        Item2920,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("2921")]
-        Item2921,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("2922")]
-        Item2922,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("2923")]
-        Item2923,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("2924")]
-        Item2924,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("2925")]
-        Item2925,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("2931")]
-        Item2931,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("2932")]
-        Item2932,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("2933")]
-        Item2933,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("2934")]
-        Item2934,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("2949")]
-        Item2949,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("3101")]
-        Item3101,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("3102")]
-        Item3102,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("3126")]
-        Item3126,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("3127")]
-        Item3127,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("3128")]
-        Item3128,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("3201")]
-        Item3201,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("3202")]
-        Item3202,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("3205")]
-        Item3205,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("3206")]
-        Item3206,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("3207")]
-        Item3207,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("3211")]
-        Item3211,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("3251")]
-        Item3251,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("3301")]
-        Item3301,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("3351")]
-        Item3351,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("3352")]
-        Item3352,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("3353")]
-        Item3353,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("3354")]
-        Item3354,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("3355")]
-        Item3355,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("3356")]
-        Item3356,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("3503")]
-        Item3503,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("3551")]
-        Item3551,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("3553")]
-        Item3553,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("3556")]
-        Item3556,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("3651")]
-        Item3651,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("3652")]
-        Item3652,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("3653")]
-        Item3653,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("3930")]
-        Item3930,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("3949")]
-        Item3949,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("5101")]
-        Item5101,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("5102")]
-        Item5102,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("5103")]
-        Item5103,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("5104")]
-        Item5104,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("5105")]
-        Item5105,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("5106")]
-        Item5106,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("5109")]
-        Item5109,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("5110")]
-        Item5110,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("5111")]
-        Item5111,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("5112")]
-        Item5112,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("5113")]
-        Item5113,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("5114")]
-        Item5114,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("5115")]
-        Item5115,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("5116")]
-        Item5116,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("5117")]
-        Item5117,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("5118")]
-        Item5118,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("5119")]
-        Item5119,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("5120")]
-        Item5120,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("5122")]
-        Item5122,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("5123")]
-        Item5123,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("5124")]
-        Item5124,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("5125")]
-        Item5125,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("5151")]
-        Item5151,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("5152")]
-        Item5152,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("5153")]
-        Item5153,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("5155")]
-        Item5155,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("5156")]
-        Item5156,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("5201")]
-        Item5201,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("5202")]
-        Item5202,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("5205")]
-        Item5205,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("5206")]
-        Item5206,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("5207")]
-        Item5207,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("5208")]
-        Item5208,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("5209")]
-        Item5209,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("5210")]
-        Item5210,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("5251")]
-        Item5251,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("5252")]
-        Item5252,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("5253")]
-        Item5253,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("5254")]
-        Item5254,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("5255")]
-        Item5255,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("5256")]
-        Item5256,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("5257")]
-        Item5257,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("5258")]
-        Item5258,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("5401")]
-        Item5401,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("5402")]
-        Item5402,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("5403")]
-        Item5403,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("5405")]
-        Item5405,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("5408")]
-        Item5408,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("5409")]
-        Item5409,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("5410")]
-        Item5410,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("5411")]
-        Item5411,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("5412")]
-        Item5412,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("5413")]
-        Item5413,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("5414")]
-        Item5414,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("5415")]
-        Item5415,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("5451")]
-        Item5451,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("5501")]
-        Item5501,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("5502")]
-        Item5502,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("5503")]
-        Item5503,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("5504")]
-        Item5504,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("5505")]
-        Item5505,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("5551")]
-        Item5551,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("5552")]
-        Item5552,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("5553")]
-        Item5553,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("5554")]
-        Item5554,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("5555")]
-        Item5555,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("5556")]
-        Item5556,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("5557")]
-        Item5557,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("5601")]
-        Item5601,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("5602")]
-        Item5602,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("5603")]
-        Item5603,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("5605")]
-        Item5605,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("5606")]
-        Item5606,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("5651")]
-        Item5651,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("5652")]
-        Item5652,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("5653")]
-        Item5653,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("5654")]
-        Item5654,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("5655")]
-        Item5655,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("5656")]
-        Item5656,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("5657")]
-        Item5657,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("5658")]
-        Item5658,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("5659")]
-        Item5659,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("5660")]
-        Item5660,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("5661")]
-        Item5661,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("5662")]
-        Item5662,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("5663")]
-        Item5663,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("5664")]
-        Item5664,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("5665")]
-        Item5665,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("5666")]
-        Item5666,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("5667")]
-        Item5667,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("5901")]
-        Item5901,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("5902")]
-        Item5902,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("5903")]
-        Item5903,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("5904")]
-        Item5904,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("5905")]
-        Item5905,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("5906")]
-        Item5906,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("5907")]
-        Item5907,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("5908")]
-        Item5908,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("5909")]
-        Item5909,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("5910")]
-        Item5910,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("5911")]
-        Item5911,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("5912")]
-        Item5912,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("5913")]
-        Item5913,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("5914")]
-        Item5914,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("5915")]
-        Item5915,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("5916")]
-        Item5916,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("5917")]
-        Item5917,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("5918")]
-        Item5918,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("5919")]
-        Item5919,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("5920")]
-        Item5920,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("5921")]
-        Item5921,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("5922")]
-        Item5922,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("5923")]
-        Item5923,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("5924")]
-        Item5924,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("5925")]
-        Item5925,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("5926")]
-        Item5926,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("5927")]
-        Item5927,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("5928")]
-        Item5928,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("5929")]
-        Item5929,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("5931")]
-        Item5931,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("5932")]
-        Item5932,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("5933")]
-        Item5933,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("5934")]
-        Item5934,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("5949")]
-        Item5949,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6101")]
-        Item6101,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6102")]
-        Item6102,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6103")]
-        Item6103,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6104")]
-        Item6104,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6105")]
-        Item6105,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6106")]
-        Item6106,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6107")]
-        Item6107,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6108")]
-        Item6108,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6109")]
-        Item6109,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6110")]
-        Item6110,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6111")]
-        Item6111,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6112")]
-        Item6112,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6113")]
-        Item6113,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6114")]
-        Item6114,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6115")]
-        Item6115,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6116")]
-        Item6116,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6117")]
-        Item6117,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6118")]
-        Item6118,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6119")]
-        Item6119,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6120")]
-        Item6120,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6122")]
-        Item6122,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6123")]
-        Item6123,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6124")]
-        Item6124,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6125")]
-        Item6125,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6151")]
-        Item6151,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6152")]
-        Item6152,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6153")]
-        Item6153,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6155")]
-        Item6155,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6156")]
-        Item6156,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6201")]
-        Item6201,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6202")]
-        Item6202,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6205")]
-        Item6205,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6206")]
-        Item6206,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6207")]
-        Item6207,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6208")]
-        Item6208,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6209")]
-        Item6209,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6210")]
-        Item6210,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6251")]
-        Item6251,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6252")]
-        Item6252,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6253")]
-        Item6253,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6254")]
-        Item6254,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6255")]
-        Item6255,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6256")]
-        Item6256,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6257")]
-        Item6257,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6258")]
-        Item6258,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6401")]
-        Item6401,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6402")]
-        Item6402,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6403")]
-        Item6403,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6404")]
-        Item6404,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6408")]
-        Item6408,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6409")]
-        Item6409,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6410")]
-        Item6410,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6411")]
-        Item6411,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6412")]
-        Item6412,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6413")]
-        Item6413,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6414")]
-        Item6414,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6415")]
-        Item6415,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6501")]
-        Item6501,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6502")]
-        Item6502,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6503")]
-        Item6503,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6504")]
-        Item6504,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6505")]
-        Item6505,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6551")]
-        Item6551,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6552")]
-        Item6552,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6553")]
-        Item6553,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6554")]
-        Item6554,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6555")]
-        Item6555,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6556")]
-        Item6556,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6557")]
-        Item6557,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6603")]
-        Item6603,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6651")]
-        Item6651,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6652")]
-        Item6652,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6653")]
-        Item6653,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6654")]
-        Item6654,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6655")]
-        Item6655,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6656")]
-        Item6656,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6657")]
-        Item6657,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6658")]
-        Item6658,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6659")]
-        Item6659,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6660")]
-        Item6660,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6661")]
-        Item6661,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6662")]
-        Item6662,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6663")]
-        Item6663,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6664")]
-        Item6664,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6665")]
-        Item6665,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6666")]
-        Item6666,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6667")]
-        Item6667,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6901")]
-        Item6901,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6902")]
-        Item6902,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6903")]
-        Item6903,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6904")]
-        Item6904,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6905")]
-        Item6905,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6906")]
-        Item6906,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6907")]
-        Item6907,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6908")]
-        Item6908,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6909")]
-        Item6909,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6910")]
-        Item6910,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6911")]
-        Item6911,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6912")]
-        Item6912,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6913")]
-        Item6913,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6914")]
-        Item6914,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6915")]
-        Item6915,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6916")]
-        Item6916,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6917")]
-        Item6917,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6918")]
-        Item6918,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6919")]
-        Item6919,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6920")]
-        Item6920,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6921")]
-        Item6921,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6922")]
-        Item6922,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6923")]
-        Item6923,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6924")]
-        Item6924,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6925")]
-        Item6925,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6929")]
-        Item6929,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6931")]
-        Item6931,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6932")]
-        Item6932,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6933")]
-        Item6933,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6934")]
-        Item6934,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6949")]
-        Item6949,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("7101")]
-        Item7101,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("7102")]
-        Item7102,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("7105")]
-        Item7105,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("7106")]
-        Item7106,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("7127")]
-        Item7127,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("7201")]
-        Item7201,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("7202")]
-        Item7202,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("7205")]
-        Item7205,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("7206")]
-        Item7206,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("7207")]
-        Item7207,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("7210")]
-        Item7210,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("7211")]
-        Item7211,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("7251")]
-        Item7251,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("7501")]
-        Item7501,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("7551")]
-        Item7551,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("7553")]
-        Item7553,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("7556")]
-        Item7556,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("7651")]
-        Item7651,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("7654")]
-        Item7654,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("7667")]
-        Item7667,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("7930")]
-        Item7930,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("7949")]
-        Item7949,
-    }
+    ///// <remarks/>
+    //[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.1432")]
+    //[System.SerializableAttribute()]
+    //[System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe")]
+    //public enum TCfop
+    //{
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("1101")]
+    //    Item1101,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("1102")]
+    //    Item1102,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("1111")]
+    //    Item1111,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("1113")]
+    //    Item1113,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("1116")]
+    //    Item1116,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("1117")]
+    //    Item1117,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("1118")]
+    //    Item1118,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("1120")]
+    //    Item1120,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("1121")]
+    //    Item1121,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("1122")]
+    //    Item1122,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("1124")]
+    //    Item1124,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("1125")]
+    //    Item1125,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("1126")]
+    //    Item1126,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("1128")]
+    //    Item1128,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("1151")]
+    //    Item1151,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("1152")]
+    //    Item1152,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("1153")]
+    //    Item1153,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("1154")]
+    //    Item1154,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("1201")]
+    //    Item1201,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("1202")]
+    //    Item1202,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("1203")]
+    //    Item1203,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("1204")]
+    //    Item1204,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("1205")]
+    //    Item1205,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("1206")]
+    //    Item1206,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("1207")]
+    //    Item1207,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("1208")]
+    //    Item1208,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("1209")]
+    //    Item1209,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("1251")]
+    //    Item1251,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("1252")]
+    //    Item1252,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("1253")]
+    //    Item1253,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("1254")]
+    //    Item1254,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("1255")]
+    //    Item1255,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("1256")]
+    //    Item1256,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("1257")]
+    //    Item1257,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("1301")]
+    //    Item1301,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("1302")]
+    //    Item1302,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("1303")]
+    //    Item1303,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("1304")]
+    //    Item1304,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("1305")]
+    //    Item1305,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("1306")]
+    //    Item1306,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("1351")]
+    //    Item1351,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("1352")]
+    //    Item1352,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("1353")]
+    //    Item1353,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("1354")]
+    //    Item1354,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("1355")]
+    //    Item1355,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("1356")]
+    //    Item1356,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("1360")]
+    //    Item1360,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("1401")]
+    //    Item1401,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("1403")]
+    //    Item1403,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("1406")]
+    //    Item1406,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("1407")]
+    //    Item1407,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("1408")]
+    //    Item1408,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("1409")]
+    //    Item1409,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("1410")]
+    //    Item1410,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("1411")]
+    //    Item1411,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("1414")]
+    //    Item1414,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("1415")]
+    //    Item1415,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("1451")]
+    //    Item1451,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("1452")]
+    //    Item1452,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("1501")]
+    //    Item1501,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("1503")]
+    //    Item1503,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("1504")]
+    //    Item1504,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("1505")]
+    //    Item1505,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("1506")]
+    //    Item1506,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("1551")]
+    //    Item1551,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("1552")]
+    //    Item1552,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("1553")]
+    //    Item1553,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("1554")]
+    //    Item1554,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("1555")]
+    //    Item1555,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("1556")]
+    //    Item1556,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("1557")]
+    //    Item1557,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("1601")]
+    //    Item1601,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("1602")]
+    //    Item1602,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("1603")]
+    //    Item1603,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("1604")]
+    //    Item1604,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("1605")]
+    //    Item1605,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("1651")]
+    //    Item1651,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("1652")]
+    //    Item1652,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("1653")]
+    //    Item1653,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("1658")]
+    //    Item1658,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("1659")]
+    //    Item1659,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("1660")]
+    //    Item1660,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("1661")]
+    //    Item1661,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("1662")]
+    //    Item1662,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("1663")]
+    //    Item1663,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("1664")]
+    //    Item1664,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("1901")]
+    //    Item1901,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("1902")]
+    //    Item1902,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("1903")]
+    //    Item1903,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("1904")]
+    //    Item1904,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("1905")]
+    //    Item1905,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("1906")]
+    //    Item1906,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("1907")]
+    //    Item1907,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("1908")]
+    //    Item1908,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("1909")]
+    //    Item1909,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("1910")]
+    //    Item1910,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("1911")]
+    //    Item1911,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("1912")]
+    //    Item1912,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("1913")]
+    //    Item1913,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("1914")]
+    //    Item1914,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("1915")]
+    //    Item1915,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("1916")]
+    //    Item1916,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("1917")]
+    //    Item1917,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("1918")]
+    //    Item1918,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("1919")]
+    //    Item1919,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("1920")]
+    //    Item1920,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("1921")]
+    //    Item1921,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("1922")]
+    //    Item1922,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("1923")]
+    //    Item1923,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("1924")]
+    //    Item1924,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("1925")]
+    //    Item1925,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("1926")]
+    //    Item1926,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("1931")]
+    //    Item1931,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("1932")]
+    //    Item1932,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("1933")]
+    //    Item1933,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("1934")]
+    //    Item1934,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("1949")]
+    //    Item1949,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("2101")]
+    //    Item2101,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("2102")]
+    //    Item2102,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("2111")]
+    //    Item2111,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("2113")]
+    //    Item2113,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("2116")]
+    //    Item2116,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("2117")]
+    //    Item2117,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("2118")]
+    //    Item2118,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("2120")]
+    //    Item2120,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("2121")]
+    //    Item2121,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("2122")]
+    //    Item2122,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("2124")]
+    //    Item2124,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("2125")]
+    //    Item2125,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("2126")]
+    //    Item2126,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("2128")]
+    //    Item2128,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("2151")]
+    //    Item2151,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("2152")]
+    //    Item2152,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("2153")]
+    //    Item2153,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("2154")]
+    //    Item2154,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("2201")]
+    //    Item2201,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("2202")]
+    //    Item2202,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("2203")]
+    //    Item2203,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("2204")]
+    //    Item2204,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("2205")]
+    //    Item2205,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("2206")]
+    //    Item2206,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("2207")]
+    //    Item2207,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("2208")]
+    //    Item2208,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("2209")]
+    //    Item2209,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("2251")]
+    //    Item2251,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("2252")]
+    //    Item2252,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("2253")]
+    //    Item2253,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("2254")]
+    //    Item2254,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("2255")]
+    //    Item2255,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("2256")]
+    //    Item2256,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("2257")]
+    //    Item2257,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("2301")]
+    //    Item2301,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("2302")]
+    //    Item2302,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("2303")]
+    //    Item2303,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("2304")]
+    //    Item2304,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("2305")]
+    //    Item2305,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("2306")]
+    //    Item2306,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("2351")]
+    //    Item2351,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("2352")]
+    //    Item2352,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("2353")]
+    //    Item2353,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("2354")]
+    //    Item2354,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("2355")]
+    //    Item2355,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("2356")]
+    //    Item2356,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("2401")]
+    //    Item2401,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("2403")]
+    //    Item2403,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("2406")]
+    //    Item2406,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("2407")]
+    //    Item2407,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("2408")]
+    //    Item2408,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("2409")]
+    //    Item2409,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("2410")]
+    //    Item2410,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("2411")]
+    //    Item2411,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("2414")]
+    //    Item2414,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("2415")]
+    //    Item2415,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("2501")]
+    //    Item2501,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("2503")]
+    //    Item2503,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("2504")]
+    //    Item2504,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("2505")]
+    //    Item2505,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("2506")]
+    //    Item2506,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("2551")]
+    //    Item2551,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("2552")]
+    //    Item2552,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("2553")]
+    //    Item2553,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("2554")]
+    //    Item2554,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("2555")]
+    //    Item2555,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("2556")]
+    //    Item2556,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("2557")]
+    //    Item2557,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("2603")]
+    //    Item2603,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("2651")]
+    //    Item2651,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("2652")]
+    //    Item2652,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("2653")]
+    //    Item2653,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("2658")]
+    //    Item2658,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("2659")]
+    //    Item2659,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("2660")]
+    //    Item2660,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("2661")]
+    //    Item2661,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("2662")]
+    //    Item2662,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("2663")]
+    //    Item2663,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("2664")]
+    //    Item2664,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("2901")]
+    //    Item2901,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("2902")]
+    //    Item2902,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("2903")]
+    //    Item2903,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("2904")]
+    //    Item2904,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("2905")]
+    //    Item2905,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("2906")]
+    //    Item2906,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("2907")]
+    //    Item2907,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("2908")]
+    //    Item2908,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("2909")]
+    //    Item2909,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("2910")]
+    //    Item2910,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("2911")]
+    //    Item2911,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("2912")]
+    //    Item2912,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("2913")]
+    //    Item2913,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("2914")]
+    //    Item2914,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("2915")]
+    //    Item2915,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("2916")]
+    //    Item2916,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("2917")]
+    //    Item2917,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("2918")]
+    //    Item2918,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("2919")]
+    //    Item2919,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("2920")]
+    //    Item2920,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("2921")]
+    //    Item2921,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("2922")]
+    //    Item2922,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("2923")]
+    //    Item2923,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("2924")]
+    //    Item2924,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("2925")]
+    //    Item2925,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("2931")]
+    //    Item2931,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("2932")]
+    //    Item2932,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("2933")]
+    //    Item2933,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("2934")]
+    //    Item2934,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("2949")]
+    //    Item2949,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("3101")]
+    //    Item3101,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("3102")]
+    //    Item3102,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("3126")]
+    //    Item3126,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("3127")]
+    //    Item3127,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("3128")]
+    //    Item3128,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("3201")]
+    //    Item3201,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("3202")]
+    //    Item3202,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("3205")]
+    //    Item3205,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("3206")]
+    //    Item3206,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("3207")]
+    //    Item3207,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("3211")]
+    //    Item3211,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("3251")]
+    //    Item3251,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("3301")]
+    //    Item3301,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("3351")]
+    //    Item3351,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("3352")]
+    //    Item3352,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("3353")]
+    //    Item3353,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("3354")]
+    //    Item3354,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("3355")]
+    //    Item3355,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("3356")]
+    //    Item3356,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("3503")]
+    //    Item3503,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("3551")]
+    //    Item3551,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("3553")]
+    //    Item3553,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("3556")]
+    //    Item3556,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("3651")]
+    //    Item3651,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("3652")]
+    //    Item3652,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("3653")]
+    //    Item3653,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("3930")]
+    //    Item3930,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("3949")]
+    //    Item3949,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("5101")]
+    //    Item5101,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("5102")]
+    //    Item5102,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("5103")]
+    //    Item5103,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("5104")]
+    //    Item5104,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("5105")]
+    //    Item5105,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("5106")]
+    //    Item5106,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("5109")]
+    //    Item5109,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("5110")]
+    //    Item5110,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("5111")]
+    //    Item5111,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("5112")]
+    //    Item5112,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("5113")]
+    //    Item5113,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("5114")]
+    //    Item5114,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("5115")]
+    //    Item5115,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("5116")]
+    //    Item5116,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("5117")]
+    //    Item5117,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("5118")]
+    //    Item5118,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("5119")]
+    //    Item5119,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("5120")]
+    //    Item5120,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("5122")]
+    //    Item5122,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("5123")]
+    //    Item5123,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("5124")]
+    //    Item5124,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("5125")]
+    //    Item5125,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("5151")]
+    //    Item5151,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("5152")]
+    //    Item5152,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("5153")]
+    //    Item5153,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("5155")]
+    //    Item5155,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("5156")]
+    //    Item5156,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("5201")]
+    //    Item5201,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("5202")]
+    //    Item5202,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("5205")]
+    //    Item5205,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("5206")]
+    //    Item5206,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("5207")]
+    //    Item5207,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("5208")]
+    //    Item5208,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("5209")]
+    //    Item5209,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("5210")]
+    //    Item5210,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("5251")]
+    //    Item5251,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("5252")]
+    //    Item5252,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("5253")]
+    //    Item5253,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("5254")]
+    //    Item5254,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("5255")]
+    //    Item5255,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("5256")]
+    //    Item5256,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("5257")]
+    //    Item5257,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("5258")]
+    //    Item5258,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("5401")]
+    //    Item5401,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("5402")]
+    //    Item5402,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("5403")]
+    //    Item5403,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("5405")]
+    //    Item5405,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("5408")]
+    //    Item5408,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("5409")]
+    //    Item5409,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("5410")]
+    //    Item5410,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("5411")]
+    //    Item5411,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("5412")]
+    //    Item5412,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("5413")]
+    //    Item5413,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("5414")]
+    //    Item5414,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("5415")]
+    //    Item5415,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("5451")]
+    //    Item5451,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("5501")]
+    //    Item5501,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("5502")]
+    //    Item5502,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("5503")]
+    //    Item5503,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("5504")]
+    //    Item5504,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("5505")]
+    //    Item5505,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("5551")]
+    //    Item5551,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("5552")]
+    //    Item5552,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("5553")]
+    //    Item5553,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("5554")]
+    //    Item5554,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("5555")]
+    //    Item5555,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("5556")]
+    //    Item5556,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("5557")]
+    //    Item5557,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("5601")]
+    //    Item5601,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("5602")]
+    //    Item5602,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("5603")]
+    //    Item5603,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("5605")]
+    //    Item5605,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("5606")]
+    //    Item5606,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("5651")]
+    //    Item5651,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("5652")]
+    //    Item5652,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("5653")]
+    //    Item5653,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("5654")]
+    //    Item5654,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("5655")]
+    //    Item5655,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("5656")]
+    //    Item5656,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("5657")]
+    //    Item5657,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("5658")]
+    //    Item5658,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("5659")]
+    //    Item5659,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("5660")]
+    //    Item5660,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("5661")]
+    //    Item5661,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("5662")]
+    //    Item5662,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("5663")]
+    //    Item5663,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("5664")]
+    //    Item5664,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("5665")]
+    //    Item5665,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("5666")]
+    //    Item5666,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("5667")]
+    //    Item5667,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("5901")]
+    //    Item5901,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("5902")]
+    //    Item5902,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("5903")]
+    //    Item5903,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("5904")]
+    //    Item5904,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("5905")]
+    //    Item5905,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("5906")]
+    //    Item5906,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("5907")]
+    //    Item5907,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("5908")]
+    //    Item5908,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("5909")]
+    //    Item5909,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("5910")]
+    //    Item5910,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("5911")]
+    //    Item5911,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("5912")]
+    //    Item5912,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("5913")]
+    //    Item5913,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("5914")]
+    //    Item5914,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("5915")]
+    //    Item5915,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("5916")]
+    //    Item5916,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("5917")]
+    //    Item5917,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("5918")]
+    //    Item5918,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("5919")]
+    //    Item5919,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("5920")]
+    //    Item5920,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("5921")]
+    //    Item5921,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("5922")]
+    //    Item5922,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("5923")]
+    //    Item5923,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("5924")]
+    //    Item5924,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("5925")]
+    //    Item5925,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("5926")]
+    //    Item5926,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("5927")]
+    //    Item5927,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("5928")]
+    //    Item5928,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("5929")]
+    //    Item5929,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("5931")]
+    //    Item5931,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("5932")]
+    //    Item5932,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("5933")]
+    //    Item5933,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("5934")]
+    //    Item5934,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("5949")]
+    //    Item5949,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("6101")]
+    //    Item6101,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("6102")]
+    //    Item6102,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("6103")]
+    //    Item6103,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("6104")]
+    //    Item6104,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("6105")]
+    //    Item6105,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("6106")]
+    //    Item6106,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("6107")]
+    //    Item6107,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("6108")]
+    //    Item6108,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("6109")]
+    //    Item6109,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("6110")]
+    //    Item6110,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("6111")]
+    //    Item6111,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("6112")]
+    //    Item6112,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("6113")]
+    //    Item6113,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("6114")]
+    //    Item6114,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("6115")]
+    //    Item6115,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("6116")]
+    //    Item6116,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("6117")]
+    //    Item6117,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("6118")]
+    //    Item6118,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("6119")]
+    //    Item6119,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("6120")]
+    //    Item6120,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("6122")]
+    //    Item6122,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("6123")]
+    //    Item6123,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("6124")]
+    //    Item6124,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("6125")]
+    //    Item6125,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("6151")]
+    //    Item6151,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("6152")]
+    //    Item6152,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("6153")]
+    //    Item6153,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("6155")]
+    //    Item6155,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("6156")]
+    //    Item6156,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("6201")]
+    //    Item6201,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("6202")]
+    //    Item6202,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("6205")]
+    //    Item6205,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("6206")]
+    //    Item6206,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("6207")]
+    //    Item6207,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("6208")]
+    //    Item6208,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("6209")]
+    //    Item6209,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("6210")]
+    //    Item6210,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("6251")]
+    //    Item6251,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("6252")]
+    //    Item6252,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("6253")]
+    //    Item6253,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("6254")]
+    //    Item6254,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("6255")]
+    //    Item6255,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("6256")]
+    //    Item6256,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("6257")]
+    //    Item6257,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("6258")]
+    //    Item6258,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("6401")]
+    //    Item6401,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("6402")]
+    //    Item6402,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("6403")]
+    //    Item6403,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("6404")]
+    //    Item6404,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("6408")]
+    //    Item6408,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("6409")]
+    //    Item6409,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("6410")]
+    //    Item6410,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("6411")]
+    //    Item6411,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("6412")]
+    //    Item6412,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("6413")]
+    //    Item6413,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("6414")]
+    //    Item6414,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("6415")]
+    //    Item6415,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("6501")]
+    //    Item6501,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("6502")]
+    //    Item6502,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("6503")]
+    //    Item6503,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("6504")]
+    //    Item6504,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("6505")]
+    //    Item6505,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("6551")]
+    //    Item6551,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("6552")]
+    //    Item6552,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("6553")]
+    //    Item6553,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("6554")]
+    //    Item6554,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("6555")]
+    //    Item6555,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("6556")]
+    //    Item6556,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("6557")]
+    //    Item6557,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("6603")]
+    //    Item6603,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("6651")]
+    //    Item6651,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("6652")]
+    //    Item6652,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("6653")]
+    //    Item6653,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("6654")]
+    //    Item6654,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("6655")]
+    //    Item6655,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("6656")]
+    //    Item6656,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("6657")]
+    //    Item6657,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("6658")]
+    //    Item6658,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("6659")]
+    //    Item6659,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("6660")]
+    //    Item6660,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("6661")]
+    //    Item6661,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("6662")]
+    //    Item6662,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("6663")]
+    //    Item6663,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("6664")]
+    //    Item6664,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("6665")]
+    //    Item6665,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("6666")]
+    //    Item6666,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("6667")]
+    //    Item6667,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("6901")]
+    //    Item6901,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("6902")]
+    //    Item6902,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("6903")]
+    //    Item6903,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("6904")]
+    //    Item6904,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("6905")]
+    //    Item6905,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("6906")]
+    //    Item6906,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("6907")]
+    //    Item6907,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("6908")]
+    //    Item6908,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("6909")]
+    //    Item6909,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("6910")]
+    //    Item6910,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("6911")]
+    //    Item6911,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("6912")]
+    //    Item6912,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("6913")]
+    //    Item6913,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("6914")]
+    //    Item6914,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("6915")]
+    //    Item6915,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("6916")]
+    //    Item6916,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("6917")]
+    //    Item6917,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("6918")]
+    //    Item6918,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("6919")]
+    //    Item6919,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("6920")]
+    //    Item6920,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("6921")]
+    //    Item6921,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("6922")]
+    //    Item6922,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("6923")]
+    //    Item6923,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("6924")]
+    //    Item6924,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("6925")]
+    //    Item6925,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("6929")]
+    //    Item6929,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("6931")]
+    //    Item6931,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("6932")]
+    //    Item6932,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("6933")]
+    //    Item6933,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("6934")]
+    //    Item6934,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("6949")]
+    //    Item6949,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("7101")]
+    //    Item7101,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("7102")]
+    //    Item7102,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("7105")]
+    //    Item7105,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("7106")]
+    //    Item7106,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("7127")]
+    //    Item7127,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("7201")]
+    //    Item7201,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("7202")]
+    //    Item7202,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("7205")]
+    //    Item7205,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("7206")]
+    //    Item7206,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("7207")]
+    //    Item7207,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("7210")]
+    //    Item7210,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("7211")]
+    //    Item7211,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("7251")]
+    //    Item7251,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("7501")]
+    //    Item7501,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("7551")]
+    //    Item7551,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("7553")]
+    //    Item7553,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("7556")]
+    //    Item7556,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("7651")]
+    //    Item7651,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("7654")]
+    //    Item7654,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("7667")]
+    //    Item7667,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("7930")]
+    //    Item7930,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("7949")]
+    //    Item7949,
+    //}
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.1432")]
@@ -6308,6 +6543,18 @@ namespace RDI.NFe2.SchemaXML.NFe_v300
         private TUfEmi uFDesembField;
 
         private string dDesembField;
+
+        private TNFeInfNFeDetProdDITpViaTransp tpViaTranspField;
+
+        private string vAFRMMField;
+
+        private TNFeInfNFeDetProdDITpIntermedio tpIntermedioField;
+
+        private string cNPJField;
+
+        private TUfEmi uFTerceiroField;
+
+        private bool uFTerceiroFieldSpecified;
 
         private string cExportadorField;
 
@@ -6379,6 +6626,85 @@ namespace RDI.NFe2.SchemaXML.NFe_v300
         }
 
         /// <remarks/>
+        public TNFeInfNFeDetProdDITpViaTransp tpViaTransp
+        {
+            get
+            {
+                return this.tpViaTranspField;
+            }
+            set
+            {
+                this.tpViaTranspField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string vAFRMM
+        {
+            get
+            {
+                return this.vAFRMMField;
+            }
+            set
+            {
+                this.vAFRMMField = value;
+            }
+        }
+
+        /// <remarks/>
+        public TNFeInfNFeDetProdDITpIntermedio tpIntermedio
+        {
+            get
+            {
+                return this.tpIntermedioField;
+            }
+            set
+            {
+                this.tpIntermedioField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string CNPJ
+        {
+            get
+            {
+                return this.cNPJField;
+            }
+            set
+            {
+                this.cNPJField = value;
+            }
+        }
+
+        /// <remarks/>
+        public TUfEmi UFTerceiro
+        {
+            get
+            {
+                return this.uFTerceiroField;
+            }
+            set
+            {
+                this.uFTerceiroField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool UFTerceiroSpecified
+        {
+            get
+            {
+                return this.uFTerceiroFieldSpecified;
+            }
+            set
+            {
+                this.uFTerceiroFieldSpecified = value;
+            }
+        }
+
+        /// <remarks/>
         public string cExportador
         {
             get
@@ -6409,6 +6735,83 @@ namespace RDI.NFe2.SchemaXML.NFe_v300
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.1432")]
     [System.SerializableAttribute()]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://www.portalfiscal.inf.br/nfe")]
+    public enum TNFeInfNFeDetProdDITpViaTransp
+    {
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("1")]
+        Item1,
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("2")]
+        Item2,
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("3")]
+        Item3,
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("4")]
+        Item4,
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("5")]
+        Item5,
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("6")]
+        Item6,
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("7")]
+        Item7,
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("8")]
+        Item8,
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("9")]
+        Item9,
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("10")]
+        Item10,
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("11")]
+        Item11,
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("12")]
+        Item12,
+
+    }
+
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.1432")]
+    [System.SerializableAttribute()]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://www.portalfiscal.inf.br/nfe")]
+    public enum TNFeInfNFeDetProdDITpIntermedio
+    {
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("1")]
+        Item1,
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("2")]
+        Item2,
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("3")]
+        Item3,
+    }
+
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.1432")]
+    [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://www.portalfiscal.inf.br/nfe")]
@@ -6422,6 +6825,8 @@ namespace RDI.NFe2.SchemaXML.NFe_v300
         private string cFabricanteField;
 
         private string vDescDIField;
+
+        private string nDrawField;
 
         /// <remarks/>
         public string nAdicao
@@ -6472,6 +6877,114 @@ namespace RDI.NFe2.SchemaXML.NFe_v300
             set
             {
                 this.vDescDIField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string nDraw
+        {
+            get
+            {
+                return this.nDrawField;
+            }
+            set
+            {
+                this.nDrawField = value;
+            }
+        }
+    }
+
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.1432")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://www.portalfiscal.inf.br/nfe")]
+    public partial class TNFeInfNFeDetProdDetExport
+    {
+
+        private string nDrawField;
+
+        private TNFeInfNFeDetProdDetExportExportInd exportIndField;
+
+        /// <remarks/>
+        public string nDraw
+        {
+            get
+            {
+                return this.nDrawField;
+            }
+            set
+            {
+                this.nDrawField = value;
+            }
+        }
+
+        /// <remarks/>
+        public TNFeInfNFeDetProdDetExportExportInd exportInd
+        {
+            get
+            {
+                return this.exportIndField;
+            }
+            set
+            {
+                this.exportIndField = value;
+            }
+        }
+    }
+
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.1432")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://www.portalfiscal.inf.br/nfe")]
+    public partial class TNFeInfNFeDetProdDetExportExportInd
+    {
+
+        private string nREField;
+
+        private string chNFeField;
+
+        private string qExportField;
+
+        /// <remarks/>
+        public string nRE
+        {
+            get
+            {
+                return this.nREField;
+            }
+            set
+            {
+                this.nREField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string chNFe
+        {
+            get
+            {
+                return this.chNFeField;
+            }
+            set
+            {
+                this.chNFeField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string qExport
+        {
+            get
+            {
+                return this.qExportField;
+            }
+            set
+            {
+                this.qExportField = value;
             }
         }
     }
@@ -6571,7 +7084,9 @@ namespace RDI.NFe2.SchemaXML.NFe_v300
     public partial class TNFeInfNFeDetProdComb
     {
 
-        private TcProdANP cProdANPField;
+        private string cProdANPField;
+
+        private string pMixGNField;
 
         private string cODIFField;
 
@@ -6581,8 +7096,10 @@ namespace RDI.NFe2.SchemaXML.NFe_v300
 
         private TNFeInfNFeDetProdCombCIDE cIDEField;
 
+        private TNFeInfNFeDetProdCombEncerrante encerranteField;
+
         /// <remarks/>
-        public TcProdANP cProdANP
+        public string cProdANP
         {
             get
             {
@@ -6591,6 +7108,19 @@ namespace RDI.NFe2.SchemaXML.NFe_v300
             set
             {
                 this.cProdANPField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string pMixGN
+        {
+            get
+            {
+                return this.pMixGNField;
+            }
+            set
+            {
+                this.pMixGNField = value;
             }
         }
 
@@ -6645,3183 +7175,3281 @@ namespace RDI.NFe2.SchemaXML.NFe_v300
                 this.cIDEField = value;
             }
         }
+
+        public TNFeInfNFeDetProdCombEncerrante encerrante
+        {
+            get
+            {
+                return this.encerranteField;
+            }
+            set
+            {
+                this.encerranteField = value;
+            }
+        }
     }
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.1432")]
     [System.SerializableAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe")]
-    public enum TcProdANP
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://www.portalfiscal.inf.br/nfe")]
+    public partial class TNFeInfNFeDetProdCombEncerrante
     {
 
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110203073")]
-        Item110203073,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110204001")]
-        Item110204001,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110204002")]
-        Item110204002,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("140101027")]
-        Item140101027,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("140101026")]
-        Item140101026,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("740101005")]
-        Item740101005,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("740101004")]
-        Item740101004,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("740101001")]
-        Item740101001,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("740101006")]
-        Item740101006,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("740101002")]
-        Item740101002,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110203083")]
-        Item110203083,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("910101001")]
-        Item910101001,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110103001")]
-        Item110103001,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("330101001")]
-        Item330101001,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110203091")]
-        Item110203091,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("120204001")]
-        Item120204001,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110106001")]
-        Item110106001,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("120206001")]
-        Item120206001,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110101001")]
-        Item110101001,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110101042")]
-        Item110101042,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("810201001")]
-        Item810201001,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110204003")]
-        Item110204003,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("330201005")]
-        Item330201005,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("330201006")]
-        Item330201006,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("330201004")]
-        Item330201004,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110105001")]
-        Item110105001,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110203072")]
-        Item110203072,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110203001")]
-        Item110203001,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110201001")]
-        Item110201001,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110101002")]
-        Item110101002,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110203002")]
-        Item110203002,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("120205010")]
-        Item120205010,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110203003")]
-        Item110203003,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110204004")]
-        Item110204004,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110204005")]
-        Item110204005,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110204006")]
-        Item110204006,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110204007")]
-        Item110204007,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110204008")]
-        Item110204008,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110204009")]
-        Item110204009,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110204010")]
-        Item110204010,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110204011")]
-        Item110204011,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110105027")]
-        Item110105027,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110103003")]
-        Item110103003,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110103002")]
-        Item110103002,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110105002")]
-        Item110105002,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110205001")]
-        Item110205001,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("120203002")]
-        Item120203002,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("120205001")]
-        Item120205001,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110203004")]
-        Item110203004,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("120203001")]
-        Item120203001,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("530102001")]
-        Item530102001,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("530101002")]
-        Item530101002,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110108001")]
-        Item110108001,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110105017")]
-        Item110105017,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110206019")]
-        Item110206019,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110205023")]
-        Item110205023,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110203092")]
-        Item110203092,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110201002")]
-        Item110201002,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("120202001")]
-        Item120202001,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110101003")]
-        Item110101003,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110101004")]
-        Item110101004,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110103004")]
-        Item110103004,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110103005")]
-        Item110103005,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110101005")]
-        Item110101005,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110204012")]
-        Item110204012,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110204013")]
-        Item110204013,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110204014")]
-        Item110204014,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110102001")]
-        Item110102001,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("120207003")]
-        Item120207003,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110201003")]
-        Item110201003,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110201004")]
-        Item110201004,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110201005")]
-        Item110201005,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110201006")]
-        Item110201006,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110206001")]
-        Item110206001,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110205002")]
-        Item110205002,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110203005")]
-        Item110203005,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110205003")]
-        Item110205003,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("330201001")]
-        Item330201001,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110206002")]
-        Item110206002,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110101006")]
-        Item110101006,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110101007")]
-        Item110101007,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110101038")]
-        Item110101038,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("120205002")]
-        Item120205002,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("820101001")]
-        Item820101001,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("820101010")]
-        Item820101010,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("820101999")]
-        Item820101999,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110206003")]
-        Item110206003,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110201007")]
-        Item110201007,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("120201001")]
-        Item120201001,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110201008")]
-        Item110201008,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110103017")]
-        Item110103017,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110205004")]
-        Item110205004,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110203077")]
-        Item110203077,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110101008")]
-        Item110101008,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110203006")]
-        Item110203006,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110203007")]
-        Item110203007,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110201009")]
-        Item110201009,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110203008")]
-        Item110203008,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110203009")]
-        Item110203009,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110203010")]
-        Item110203010,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("120203004")]
-        Item120203004,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110206004")]
-        Item110206004,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("610101009")]
-        Item610101009,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("120205003")]
-        Item120205003,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110205005")]
-        Item110205005,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110203092")]
-        Item1102030921,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110204015")]
-        Item110204015,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("210202003")]
-        Item210202003,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("210202001")]
-        Item210202001,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("210202002")]
-        Item210202002,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110105018")]
-        Item110105018,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110203011")]
-        Item110203011,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110203012")]
-        Item110203012,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110101009")]
-        Item110101009,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110104001")]
-        Item110104001,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110104006")]
-        Item110104006,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110106010")]
-        Item110106010,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110202007")]
-        Item110202007,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110106002")]
-        Item110106002,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110111002")]
-        Item110111002,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110103006")]
-        Item110103006,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110105003")]
-        Item110105003,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110201010")]
-        Item110201010,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110201011")]
-        Item110201011,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110201012")]
-        Item110201012,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110101010")]
-        Item110101010,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110101011")]
-        Item110101011,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110108002")]
-        Item110108002,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110107001")]
-        Item110107001,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("120202002")]
-        Item120202002,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110106003")]
-        Item110106003,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110108003")]
-        Item110108003,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110203085")]
-        Item110203085,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110201013")]
-        Item110201013,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110207001")]
-        Item110207001,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110105023")]
-        Item110105023,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110101012")]
-        Item110101012,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110201014")]
-        Item110201014,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("620501002")]
-        Item620501002,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("620501001")]
-        Item620501001,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("610101005")]
-        Item610101005,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("610101006")]
-        Item610101006,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("530101001")]
-        Item530101001,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("530101020")]
-        Item530101020,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("530101018")]
-        Item530101018,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110205006")]
-        Item110205006,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110201015")]
-        Item110201015,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110203013")]
-        Item110203013,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110202001")]
-        Item110202001,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("120104001")]
-        Item120104001,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("120102001")]
-        Item120102001,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110205024")]
-        Item110205024,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("120205009")]
-        Item120205009,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("540101002")]
-        Item540101002,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("540101001")]
-        Item540101001,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110107002")]
-        Item110107002,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("620601003")]
-        Item620601003,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110201016")]
-        Item110201016,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110101013")]
-        Item110101013,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("120207001")]
-        Item120207001,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110206020")]
-        Item110206020,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110104008")]
-        Item110104008,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110201017")]
-        Item110201017,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110108004")]
-        Item110108004,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110201018")]
-        Item110201018,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("330201007")]
-        Item330201007,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110205007")]
-        Item110205007,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110203086")]
-        Item110203086,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110205008")]
-        Item110205008,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("340101002")]
-        Item340101002,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("130202002")]
-        Item130202002,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("430101002")]
-        Item430101002,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("130202003")]
-        Item130202003,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("560101002")]
-        Item560101002,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("130202004")]
-        Item130202004,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("820101026")]
-        Item820101026,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("820101032")]
-        Item820101032,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("820101027")]
-        Item820101027,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("820101004")]
-        Item820101004,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("820101005")]
-        Item820101005,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("820101022")]
-        Item820101022,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("820101007")]
-        Item820101007,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("820101002")]
-        Item820101002,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("820101009")]
-        Item820101009,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("820101008")]
-        Item820101008,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("820101014")]
-        Item820101014,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("820101006")]
-        Item820101006,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("820101016")]
-        Item820101016,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("820101015")]
-        Item820101015,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("820101014")]
-        Item8201010141,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("820101006")]
-        Item8201010061,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("820101031")]
-        Item820101031,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("820101030")]
-        Item820101030,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("820101016")]
-        Item8201010161,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("820101015")]
-        Item8201010151,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("820101025")]
-        Item820101025,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("820101007")]
-        Item8201010071,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("820101002")]
-        Item8201010021,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("820101026")]
-        Item8201010261,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("820101009")]
-        Item8201010091,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("820101008")]
-        Item8201010081,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("820101027")]
-        Item8201010271,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("820101007")]
-        Item8201010072,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("820101002")]
-        Item8201010022,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("820101028")]
-        Item820101028,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("820101029")]
-        Item820101029,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("820101009")]
-        Item8201010092,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("820101008")]
-        Item8201010082,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("820101011")]
-        Item820101011,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("820101003")]
-        Item820101003,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("820101013")]
-        Item820101013,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("820101012")]
-        Item820101012,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("820101017")]
-        Item820101017,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("820101018")]
-        Item820101018,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("820101019")]
-        Item820101019,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("820101020")]
-        Item820101020,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("820101021")]
-        Item820101021,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("330101003")]
-        Item330101003,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("130202006")]
-        Item130202006,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110203014")]
-        Item110203014,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("420201001")]
-        Item420201001,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("420201003")]
-        Item420201003,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("120204010")]
-        Item120204010,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110103007")]
-        Item110103007,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110204017")]
-        Item110204017,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110204051")]
-        Item110204051,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110204018")]
-        Item110204018,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110205022")]
-        Item110205022,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110203069")]
-        Item110203069,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110203015")]
-        Item110203015,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110206005")]
-        Item110206005,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110203016")]
-        Item110203016,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110203017")]
-        Item110203017,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110203018")]
-        Item110203018,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110203088")]
-        Item110203088,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110203019")]
-        Item110203019,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("530101003")]
-        Item530101003,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("530101019")]
-        Item530101019,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110101014")]
-        Item110101014,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("620101002")]
-        Item620101002,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("720101001")]
-        Item720101001,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("720101002")]
-        Item720101002,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("120205004")]
-        Item120205004,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110203079")]
-        Item110203079,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110203020")]
-        Item110203020,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110201019")]
-        Item110201019,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110203021")]
-        Item110203021,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110108005")]
-        Item110108005,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110101015")]
-        Item110101015,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110104002")]
-        Item110104002,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110101016")]
-        Item110101016,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("620101007")]
-        Item620101007,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("140102001")]
-        Item140102001,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110105004")]
-        Item110105004,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110107003")]
-        Item110107003,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110203095")]
-        Item110203095,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("210301001")]
-        Item210301001,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("810102001")]
-        Item810102001,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("810102004")]
-        Item810102004,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("810102002")]
-        Item810102002,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("130201002")]
-        Item130201002,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("810102003")]
-        Item810102003,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("810101002")]
-        Item810101002,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("810101001")]
-        Item810101001,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("810101003")]
-        Item810101003,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("210301002")]
-        Item210301002,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("330201010")]
-        Item330201010,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110204016")]
-        Item110204016,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110105005")]
-        Item110105005,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110105006")]
-        Item110105006,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110105007")]
-        Item110105007,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110104003")]
-        Item110104003,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110206006")]
-        Item110206006,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110206007")]
-        Item110206007,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110203022")]
-        Item110203022,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110204019")]
-        Item110204019,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110206008")]
-        Item110206008,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110206009")]
-        Item110206009,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110101043")]
-        Item110101043,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110201020")]
-        Item110201020,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110203023")]
-        Item110203023,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110101017")]
-        Item110101017,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110101018")]
-        Item110101018,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("210302004")]
-        Item210302004,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("210101001")]
-        Item210101001,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("210302003")]
-        Item210302003,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("210302002")]
-        Item210302002,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("210204001")]
-        Item210204001,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("220101003")]
-        Item220101003,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("220101004")]
-        Item220101004,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("220101002")]
-        Item220101002,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("220101001")]
-        Item220101001,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("220101005")]
-        Item220101005,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("220101006")]
-        Item220101006,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("130202001")]
-        Item130202001,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("130202005")]
-        Item130202005,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("520101001")]
-        Item520101001,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("320101001")]
-        Item320101001,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("320101003")]
-        Item320101003,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("320101002")]
-        Item320101002,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("320103001")]
-        Item320103001,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("320102002")]
-        Item320102002,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("320102001")]
-        Item320102001,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("320102004")]
-        Item320102004,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("320102003")]
-        Item320102003,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("320201001")]
-        Item320201001,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("320201002")]
-        Item320201002,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("220102001")]
-        Item220102001,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("320301002")]
-        Item320301002,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110204020")]
-        Item110204020,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110203024")]
-        Item110203024,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("120205012")]
-        Item120205012,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110207002")]
-        Item110207002,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110203087")]
-        Item110203087,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("730101002")]
-        Item730101002,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("210203001")]
-        Item210203001,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("210203002")]
-        Item210203002,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110104005")]
-        Item110104005,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("140101023")]
-        Item140101023,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("140101024")]
-        Item140101024,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("140101025")]
-        Item140101025,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("650101001")]
-        Item650101001,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110207003")]
-        Item110207003,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110201021")]
-        Item110201021,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110103013")]
-        Item110103013,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110201022")]
-        Item110201022,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110203025")]
-        Item110203025,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110203026")]
-        Item110203026,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110206011")]
-        Item110206011,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110206010")]
-        Item110206010,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110203027")]
-        Item110203027,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110203028")]
-        Item110203028,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110203028")]
-        Item1102030281,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("330101008")]
-        Item330101008,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("330101002")]
-        Item330101002,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("330101009")]
-        Item330101009,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("620101001")]
-        Item620101001,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("610201001")]
-        Item610201001,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("610201002")]
-        Item610201002,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("610201003")]
-        Item610201003,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("710101001")]
-        Item710101001,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110203074")]
-        Item110203074,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110201023")]
-        Item110201023,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110103008")]
-        Item110103008,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110203029")]
-        Item110203029,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("120205005")]
-        Item120205005,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110204021")]
-        Item110204021,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110204022")]
-        Item110204022,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110204023")]
-        Item110204023,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("620101004")]
-        Item620101004,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("620101005")]
-        Item620101005,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("330101010")]
-        Item330101010,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110202002")]
-        Item110202002,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110202003")]
-        Item110202003,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110207004")]
-        Item110207004,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110101046")]
-        Item110101046,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110204024")]
-        Item110204024,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110113001")]
-        Item110113001,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110105015")]
-        Item110105015,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110101019")]
-        Item110101019,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110103015")]
-        Item110103015,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110205025")]
-        Item110205025,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110204025")]
-        Item110204025,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110204026")]
-        Item110204026,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110204027")]
-        Item110204027,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("120204009")]
-        Item120204009,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110205026")]
-        Item110205026,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110204028")]
-        Item110204028,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110204029")]
-        Item110204029,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110203080")]
-        Item110203080,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("120207004")]
-        Item120207004,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110203030")]
-        Item110203030,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110105025")]
-        Item110105025,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110203031")]
-        Item110203031,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110203084")]
-        Item110203084,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110203032")]
-        Item110203032,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110204030")]
-        Item110204030,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110205009")]
-        Item110205009,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110104004")]
-        Item110104004,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110201024")]
-        Item110201024,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110201025")]
-        Item110201025,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110201026")]
-        Item110201026,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110201027")]
-        Item110201027,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110201028")]
-        Item110201028,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110201029")]
-        Item110201029,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110201030")]
-        Item110201030,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110207005")]
-        Item110207005,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110204031")]
-        Item110204031,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110207006")]
-        Item110207006,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110201031")]
-        Item110201031,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110201032")]
-        Item110201032,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110201033")]
-        Item110201033,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("120204002")]
-        Item120204002,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110101020")]
-        Item110101020,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("220102002")]
-        Item220102002,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110105008")]
-        Item110105008,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110203033")]
-        Item110203033,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110105009")]
-        Item110105009,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110201034")]
-        Item110201034,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110203034")]
-        Item110203034,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110203035")]
-        Item110203035,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("640201001")]
-        Item640201001,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("120205011")]
-        Item120205011,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110101021")]
-        Item110101021,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("120103001")]
-        Item120103001,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110203036")]
-        Item110203036,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("120204003")]
-        Item120204003,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110201035")]
-        Item110201035,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110204032")]
-        Item110204032,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110101022")]
-        Item110101022,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110201036")]
-        Item110201036,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110101023")]
-        Item110101023,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110101024")]
-        Item110101024,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110101025")]
-        Item110101025,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110101039")]
-        Item110101039,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110204033")]
-        Item110204033,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("120207002")]
-        Item120207002,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110202004")]
-        Item110202004,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110202005")]
-        Item110202005,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110203037")]
-        Item110203037,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110203037")]
-        Item1102030371,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110201037")]
-        Item110201037,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110203078")]
-        Item110203078,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("120203005")]
-        Item120203005,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("120204010")]
-        Item1202040101,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110201038")]
-        Item110201038,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110201039")]
-        Item110201039,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("120101001")]
-        Item120101001,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110201040")]
-        Item110201040,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110201041")]
-        Item110201041,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("740101007")]
-        Item740101007,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("420201003")]
-        Item4202010031,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("640101001")]
-        Item640101001,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110205027")]
-        Item110205027,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110103009")]
-        Item110103009,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110103010")]
-        Item110103010,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110205010")]
-        Item110205010,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("820101018")]
-        Item8201010181,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("820101017")]
-        Item8201010171,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("820101006")]
-        Item8201010062,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("820101014")]
-        Item8201010142,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("820101006")]
-        Item8201010063,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("820101016")]
-        Item8201010162,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("820101015")]
-        Item8201010152,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("820101006")]
-        Item8201010064,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("820101005")]
-        Item8201010051,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("820101004")]
-        Item8201010041,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("820101003")]
-        Item8201010031,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("820101011")]
-        Item8201010111,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("820101003")]
-        Item8201010032,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("820101013")]
-        Item8201010131,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("820101012")]
-        Item8201010121,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("820101002")]
-        Item8201010023,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("820101007")]
-        Item8201010073,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("820101002")]
-        Item8201010024,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("820101009")]
-        Item8201010093,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("820101008")]
-        Item8201010083,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110301001")]
-        Item110301001,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110208001")]
-        Item110208001,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110203038")]
-        Item110203038,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110203089")]
-        Item110203089,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110201042")]
-        Item110201042,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110101026")]
-        Item110101026,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("620502001")]
-        Item620502001,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110203039")]
-        Item110203039,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110202008")]
-        Item110202008,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110204034")]
-        Item110204034,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110110001")]
-        Item110110001,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("310102001")]
-        Item310102001,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("310103001")]
-        Item310103001,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("310101001")]
-        Item310101001,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110101027")]
-        Item110101027,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110205011")]
-        Item110205011,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110201062")]
-        Item110201062,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110203040")]
-        Item110203040,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("610101002")]
-        Item610101002,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("610401002")]
-        Item610401002,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("610101003")]
-        Item610101003,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("610401003")]
-        Item610401003,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("610101004")]
-        Item610101004,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("610401004")]
-        Item610401004,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110203041")]
-        Item110203041,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110203042")]
-        Item110203042,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110203043")]
-        Item110203043,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110203094")]
-        Item110203094,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110203044")]
-        Item110203044,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110203044")]
-        Item1102030441,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("430101001")]
-        Item430101001,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110206021")]
-        Item110206021,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("120204004")]
-        Item120204004,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110207007")]
-        Item110207007,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110203045")]
-        Item110203045,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110201043")]
-        Item110201043,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110203046")]
-        Item110203046,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110203047")]
-        Item110203047,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110203048")]
-        Item110203048,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110203081")]
-        Item110203081,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("430101004")]
-        Item430101004,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("510101003")]
-        Item510101003,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("510101001")]
-        Item510101001,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("510101002")]
-        Item510101002,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("510102003")]
-        Item510102003,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("510102001")]
-        Item510102001,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("510102002")]
-        Item510102002,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("510201001")]
-        Item510201001,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("510201002")]
-        Item510201002,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("510201003")]
-        Item510201003,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("510301003")]
-        Item510301003,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("140101015")]
-        Item140101015,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("140101009")]
-        Item140101009,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("140101016")]
-        Item140101016,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("140101017")]
-        Item140101017,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("140101005")]
-        Item140101005,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("140101014")]
-        Item140101014,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("140101018")]
-        Item140101018,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("140101006")]
-        Item140101006,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("140101028")]
-        Item140101028,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("140101021")]
-        Item140101021,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("140101010")]
-        Item140101010,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("140101012")]
-        Item140101012,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("140101013")]
-        Item140101013,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("140101001")]
-        Item140101001,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("140101011")]
-        Item140101011,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("140101003")]
-        Item140101003,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("140101002")]
-        Item140101002,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("140101008")]
-        Item140101008,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("140101007")]
-        Item140101007,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("140101019")]
-        Item140101019,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("140101004")]
-        Item140101004,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("560101001")]
-        Item560101001,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("420105001")]
-        Item420105001,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("420101005")]
-        Item420101005,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("420101004")]
-        Item420101004,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("420101003")]
-        Item420101003,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("420102006")]
-        Item420102006,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("420102005")]
-        Item420102005,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("420102004")]
-        Item420102004,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("420102003")]
-        Item420102003,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("420104001")]
-        Item420104001,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("820101033")]
-        Item820101033,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("820101034")]
-        Item820101034,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("820101011")]
-        Item8201010112,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("820101003")]
-        Item8201010033,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("820101028")]
-        Item8201010281,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("820101029")]
-        Item8201010291,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("820101013")]
-        Item8201010132,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("820101012")]
-        Item8201010122,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("420301003")]
-        Item420301003,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("420101005")]
-        Item4201010051,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("420101002")]
-        Item420101002,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("420101001")]
-        Item420101001,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("420101003")]
-        Item4201010031,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("420101004")]
-        Item4201010041,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("420101003")]
-        Item4201010032,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("420201001")]
-        Item4202010011,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("420201002")]
-        Item420201002,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("420102005")]
-        Item4201020051,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("420102004")]
-        Item4201020041,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("420102002")]
-        Item420102002,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("420102001")]
-        Item420102001,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("420102003")]
-        Item4201020031,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("420102003")]
-        Item4201020032,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("420202001")]
-        Item420202001,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("420301001")]
-        Item420301001,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("420102006")]
-        Item4201020061,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("420103002")]
-        Item420103002,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("420103001")]
-        Item420103001,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("420103003")]
-        Item420103003,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("610601001")]
-        Item610601001,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("610701001")]
-        Item610701001,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("510301002")]
-        Item510301002,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("620601001")]
-        Item620601001,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("660101001")]
-        Item660101001,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("620401001")]
-        Item620401001,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("620301001")]
-        Item620301001,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("620201001")]
-        Item620201001,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("630101001")]
-        Item630101001,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110202006")]
-        Item110202006,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110203093")]
-        Item110203093,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110204035")]
-        Item110204035,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110203049")]
-        Item110203049,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110201044")]
-        Item110201044,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110201045")]
-        Item110201045,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110206012")]
-        Item110206012,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("120203003")]
-        Item120203003,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("320301001")]
-        Item320301001,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("320103002")]
-        Item320103002,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("650101002")]
-        Item650101002,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("310102002")]
-        Item310102002,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("640401001")]
-        Item640401001,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("140101029")]
-        Item140101029,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("740101003")]
-        Item740101003,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("810201002")]
-        Item810201002,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("530103001")]
-        Item530103001,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("340101003")]
-        Item340101003,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("430101003")]
-        Item430101003,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("560101003")]
-        Item560101003,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("210302001")]
-        Item210302001,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("210204002")]
-        Item210204002,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("130201001")]
-        Item130201001,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("530104001")]
-        Item530104001,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("140101022")]
-        Item140101022,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("140101999")]
-        Item140101999,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("610201004")]
-        Item610201004,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("510301001")]
-        Item510301001,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("420301002")]
-        Item420301002,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("620601004")]
-        Item620601004,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("620505001")]
-        Item620505001,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("610501001")]
-        Item610501001,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("620101008")]
-        Item620101008,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("610101010")]
-        Item610101010,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110208002")]
-        Item110208002,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110110002")]
-        Item110110002,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("130202008")]
-        Item130202008,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("410103001")]
-        Item410103001,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("610301002")]
-        Item610301002,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("610302001")]
-        Item610302001,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("330101007")]
-        Item330101007,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("330201009")]
-        Item330201009,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("730101001")]
-        Item730101001,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110203050")]
-        Item110203050,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110101028")]
-        Item110101028,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110101049")]
-        Item110101049,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110101029")]
-        Item110101029,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110101030")]
-        Item110101030,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110104007")]
-        Item110104007,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110111001")]
-        Item110111001,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("120205006")]
-        Item120205006,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110203051")]
-        Item110203051,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110101050")]
-        Item110101050,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110105028")]
-        Item110105028,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110105016")]
-        Item110105016,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110201046")]
-        Item110201046,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110106007")]
-        Item110106007,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110101031")]
-        Item110101031,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110203082")]
-        Item110203082,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("610301001")]
-        Item610301001,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110101032")]
-        Item110101032,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110101047")]
-        Item110101047,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110105021")]
-        Item110105021,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110105010")]
-        Item110105010,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("620101003")]
-        Item620101003,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("210201001")]
-        Item210201001,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("210201002")]
-        Item210201002,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("210201003")]
-        Item210201003,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110105020")]
-        Item110105020,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110105022")]
-        Item110105022,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110205012")]
-        Item110205012,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("620601002")]
-        Item620601002,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("120206003")]
-        Item120206003,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110204036")]
-        Item110204036,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110204037")]
-        Item110204037,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110204038")]
-        Item110204038,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("410101001")]
-        Item410101001,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("410101002")]
-        Item410101002,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("410102001")]
-        Item410102001,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("410102002")]
-        Item410102002,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110103014")]
-        Item110103014,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110203052")]
-        Item110203052,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("330101005")]
-        Item330101005,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("330101006")]
-        Item330101006,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110205029")]
-        Item110205029,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110203053")]
-        Item110203053,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("120204008")]
-        Item120204008,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110203054")]
-        Item110203054,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110204039")]
-        Item110204039,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110201047")]
-        Item110201047,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110201048")]
-        Item110201048,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110103011")]
-        Item110103011,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("340101001")]
-        Item340101001,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("550101001")]
-        Item550101001,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("550101005")]
-        Item550101005,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("550101002")]
-        Item550101002,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("550101003")]
-        Item550101003,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("550101004")]
-        Item550101004,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("130202007")]
-        Item130202007,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110105011")]
-        Item110105011,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110201049")]
-        Item110201049,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110101048")]
-        Item110101048,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110101033")]
-        Item110101033,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110101040")]
-        Item110101040,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110101045")]
-        Item110101045,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110101041")]
-        Item110101041,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110204040")]
-        Item110204040,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110105019")]
-        Item110105019,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110204041")]
-        Item110204041,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110105024")]
-        Item110105024,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110203070")]
-        Item110203070,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110203055")]
-        Item110203055,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110204042")]
-        Item110204042,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110203075")]
-        Item110203075,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110201050")]
-        Item110201050,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110201051")]
-        Item110201051,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110201052")]
-        Item110201052,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110201053")]
-        Item110201053,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("120201002")]
-        Item120201002,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110105029")]
-        Item110105029,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110203056")]
-        Item110203056,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110204043")]
-        Item110204043,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110203090")]
-        Item110203090,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("140101020")]
-        Item140101020,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110103018")]
-        Item110103018,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110106004")]
-        Item110106004,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110106005")]
-        Item110106005,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110106006")]
-        Item110106006,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110205028")]
-        Item110205028,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110105012")]
-        Item110105012,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("120204005")]
-        Item120204005,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110205013")]
-        Item110205013,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110201054")]
-        Item110201054,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110101044")]
-        Item110101044,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110204044")]
-        Item110204044,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110203057")]
-        Item110203057,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110203058")]
-        Item110203058,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("120206002")]
-        Item120206002,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("120206004")]
-        Item120206004,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("330201008")]
-        Item330201008,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("330101004")]
-        Item330101004,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110204045")]
-        Item110204045,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110204046")]
-        Item110204046,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110201063")]
-        Item110201063,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110206013")]
-        Item110206013,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110203059")]
-        Item110203059,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110203060")]
-        Item110203060,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("610101001")]
-        Item610101001,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("610401001")]
-        Item610401001,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110206015")]
-        Item110206015,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110206014")]
-        Item110206014,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110204052")]
-        Item110204052,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110205015")]
-        Item110205015,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110205014")]
-        Item110205014,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110204047")]
-        Item110204047,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110205016")]
-        Item110205016,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110203061")]
-        Item110203061,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110205017")]
-        Item110205017,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110106009")]
-        Item110106009,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110203062")]
-        Item110203062,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110206016")]
-        Item110206016,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("120205007")]
-        Item120205007,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("120201003")]
-        Item120201003,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("620101006")]
-        Item620101006,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("120205008")]
-        Item120205008,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("120204006")]
-        Item120204006,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110201055")]
-        Item110201055,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110201056")]
-        Item110201056,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110201057")]
-        Item110201057,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110103016")]
-        Item110103016,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110205018")]
-        Item110205018,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110107005")]
-        Item110107005,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("330201002")]
-        Item330201002,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("620504001")]
-        Item620504001,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("620503001")]
-        Item620503001,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110101034")]
-        Item110101034,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110107004")]
-        Item110107004,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("610101007")]
-        Item610101007,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("610101008")]
-        Item610101008,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110105014")]
-        Item110105014,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110205019")]
-        Item110205019,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110103012")]
-        Item110103012,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110203063")]
-        Item110203063,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("120204007")]
-        Item120204007,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110204048")]
-        Item110204048,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110105013")]
-        Item110105013,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110204049")]
-        Item110204049,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110206017")]
-        Item110206017,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110109001")]
-        Item110109001,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110107006")]
-        Item110107006,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110201059")]
-        Item110201059,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110201058")]
-        Item110201058,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("640301001")]
-        Item640301001,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110101035")]
-        Item110101035,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110101036")]
-        Item110101036,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110101037")]
-        Item110101037,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110205020")]
-        Item110205020,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("120207005")]
-        Item120207005,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110206018")]
-        Item110206018,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110108006")]
-        Item110108006,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110203076")]
-        Item110203076,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110205021")]
-        Item110205021,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("330201003")]
-        Item330201003,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("130101001")]
-        Item130101001,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110201060")]
-        Item110201060,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110203071")]
-        Item110203071,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110203065")]
-        Item110203065,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110203064")]
-        Item110203064,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110204050")]
-        Item110204050,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110203066")]
-        Item110203066,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110203067")]
-        Item110203067,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110201061")]
-        Item110201061,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110203068")]
-        Item110203068,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110105026")]
-        Item110105026,
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("110106008")]
-        Item110106008,
+        private string nBicoField;
+
+        private string nBombaField;
+
+        private string nTanqueField;
+
+        private string vEncIniField;
+
+        private string vEncFinField;
+
+        /// <remarks/>
+        public string nBico
+        {
+            get
+            {
+                return this.nBicoField;
+            }
+            set
+            {
+                this.nBicoField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string nBomba
+        {
+            get
+            {
+                return this.nBombaField;
+            }
+            set
+            {
+                this.nBombaField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string nTanque
+        {
+            get
+            {
+                return this.nTanqueField;
+            }
+            set
+            {
+                this.nTanqueField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string vEncIni
+        {
+            get
+            {
+                return this.vEncIniField;
+            }
+            set
+            {
+                this.vEncIniField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string vEncFin
+        {
+            get
+            {
+                return this.vEncFinField;
+            }
+            set
+            {
+                this.vEncFinField = value;
+            }
+        }
     }
+
+
+    ///// <remarks/>
+    //[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.1432")]
+    //[System.SerializableAttribute()]
+    //[System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe")]
+    //public enum TcProdANP
+    //{
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110203073")]
+    //    Item110203073,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110204001")]
+    //    Item110204001,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110204002")]
+    //    Item110204002,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("140101027")]
+    //    Item140101027,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("140101026")]
+    //    Item140101026,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("740101005")]
+    //    Item740101005,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("740101004")]
+    //    Item740101004,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("740101001")]
+    //    Item740101001,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("740101006")]
+    //    Item740101006,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("740101002")]
+    //    Item740101002,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110203083")]
+    //    Item110203083,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("910101001")]
+    //    Item910101001,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110103001")]
+    //    Item110103001,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("330101001")]
+    //    Item330101001,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110203091")]
+    //    Item110203091,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("120204001")]
+    //    Item120204001,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110106001")]
+    //    Item110106001,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("120206001")]
+    //    Item120206001,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110101001")]
+    //    Item110101001,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110101042")]
+    //    Item110101042,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("810201001")]
+    //    Item810201001,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110204003")]
+    //    Item110204003,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("330201005")]
+    //    Item330201005,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("330201006")]
+    //    Item330201006,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("330201004")]
+    //    Item330201004,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110105001")]
+    //    Item110105001,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110203072")]
+    //    Item110203072,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110203001")]
+    //    Item110203001,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110201001")]
+    //    Item110201001,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110101002")]
+    //    Item110101002,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110203002")]
+    //    Item110203002,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("120205010")]
+    //    Item120205010,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110203003")]
+    //    Item110203003,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110204004")]
+    //    Item110204004,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110204005")]
+    //    Item110204005,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110204006")]
+    //    Item110204006,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110204007")]
+    //    Item110204007,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110204008")]
+    //    Item110204008,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110204009")]
+    //    Item110204009,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110204010")]
+    //    Item110204010,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110204011")]
+    //    Item110204011,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110105027")]
+    //    Item110105027,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110103003")]
+    //    Item110103003,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110103002")]
+    //    Item110103002,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110105002")]
+    //    Item110105002,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110205001")]
+    //    Item110205001,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("120203002")]
+    //    Item120203002,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("120205001")]
+    //    Item120205001,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110203004")]
+    //    Item110203004,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("120203001")]
+    //    Item120203001,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("530102001")]
+    //    Item530102001,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("530101002")]
+    //    Item530101002,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110108001")]
+    //    Item110108001,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110105017")]
+    //    Item110105017,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110206019")]
+    //    Item110206019,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110205023")]
+    //    Item110205023,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110203092")]
+    //    Item110203092,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110201002")]
+    //    Item110201002,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("120202001")]
+    //    Item120202001,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110101003")]
+    //    Item110101003,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110101004")]
+    //    Item110101004,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110103004")]
+    //    Item110103004,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110103005")]
+    //    Item110103005,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110101005")]
+    //    Item110101005,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110204012")]
+    //    Item110204012,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110204013")]
+    //    Item110204013,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110204014")]
+    //    Item110204014,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110102001")]
+    //    Item110102001,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("120207003")]
+    //    Item120207003,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110201003")]
+    //    Item110201003,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110201004")]
+    //    Item110201004,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110201005")]
+    //    Item110201005,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110201006")]
+    //    Item110201006,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110206001")]
+    //    Item110206001,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110205002")]
+    //    Item110205002,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110203005")]
+    //    Item110203005,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110205003")]
+    //    Item110205003,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("330201001")]
+    //    Item330201001,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110206002")]
+    //    Item110206002,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110101006")]
+    //    Item110101006,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110101007")]
+    //    Item110101007,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110101038")]
+    //    Item110101038,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("120205002")]
+    //    Item120205002,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("820101001")]
+    //    Item820101001,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("820101010")]
+    //    Item820101010,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("820101999")]
+    //    Item820101999,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110206003")]
+    //    Item110206003,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110201007")]
+    //    Item110201007,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("120201001")]
+    //    Item120201001,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110201008")]
+    //    Item110201008,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110103017")]
+    //    Item110103017,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110205004")]
+    //    Item110205004,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110203077")]
+    //    Item110203077,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110101008")]
+    //    Item110101008,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110203006")]
+    //    Item110203006,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110203007")]
+    //    Item110203007,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110201009")]
+    //    Item110201009,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110203008")]
+    //    Item110203008,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110203009")]
+    //    Item110203009,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110203010")]
+    //    Item110203010,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("120203004")]
+    //    Item120203004,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110206004")]
+    //    Item110206004,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("610101009")]
+    //    Item610101009,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("120205003")]
+    //    Item120205003,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110205005")]
+    //    Item110205005,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110203092")]
+    //    Item1102030921,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110204015")]
+    //    Item110204015,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("210202003")]
+    //    Item210202003,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("210202001")]
+    //    Item210202001,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("210202002")]
+    //    Item210202002,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110105018")]
+    //    Item110105018,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110203011")]
+    //    Item110203011,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110203012")]
+    //    Item110203012,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110101009")]
+    //    Item110101009,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110104001")]
+    //    Item110104001,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110104006")]
+    //    Item110104006,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110106010")]
+    //    Item110106010,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110202007")]
+    //    Item110202007,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110106002")]
+    //    Item110106002,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110111002")]
+    //    Item110111002,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110103006")]
+    //    Item110103006,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110105003")]
+    //    Item110105003,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110201010")]
+    //    Item110201010,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110201011")]
+    //    Item110201011,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110201012")]
+    //    Item110201012,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110101010")]
+    //    Item110101010,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110101011")]
+    //    Item110101011,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110108002")]
+    //    Item110108002,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110107001")]
+    //    Item110107001,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("120202002")]
+    //    Item120202002,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110106003")]
+    //    Item110106003,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110108003")]
+    //    Item110108003,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110203085")]
+    //    Item110203085,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110201013")]
+    //    Item110201013,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110207001")]
+    //    Item110207001,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110105023")]
+    //    Item110105023,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110101012")]
+    //    Item110101012,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110201014")]
+    //    Item110201014,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("620501002")]
+    //    Item620501002,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("620501001")]
+    //    Item620501001,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("610101005")]
+    //    Item610101005,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("610101006")]
+    //    Item610101006,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("530101001")]
+    //    Item530101001,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("530101020")]
+    //    Item530101020,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("530101018")]
+    //    Item530101018,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110205006")]
+    //    Item110205006,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110201015")]
+    //    Item110201015,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110203013")]
+    //    Item110203013,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110202001")]
+    //    Item110202001,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("120104001")]
+    //    Item120104001,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("120102001")]
+    //    Item120102001,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110205024")]
+    //    Item110205024,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("120205009")]
+    //    Item120205009,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("540101002")]
+    //    Item540101002,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("540101001")]
+    //    Item540101001,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110107002")]
+    //    Item110107002,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("620601003")]
+    //    Item620601003,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110201016")]
+    //    Item110201016,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110101013")]
+    //    Item110101013,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("120207001")]
+    //    Item120207001,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110206020")]
+    //    Item110206020,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110104008")]
+    //    Item110104008,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110201017")]
+    //    Item110201017,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110108004")]
+    //    Item110108004,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110201018")]
+    //    Item110201018,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("330201007")]
+    //    Item330201007,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110205007")]
+    //    Item110205007,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110203086")]
+    //    Item110203086,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110205008")]
+    //    Item110205008,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("340101002")]
+    //    Item340101002,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("130202002")]
+    //    Item130202002,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("430101002")]
+    //    Item430101002,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("130202003")]
+    //    Item130202003,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("560101002")]
+    //    Item560101002,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("130202004")]
+    //    Item130202004,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("820101026")]
+    //    Item820101026,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("820101032")]
+    //    Item820101032,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("820101027")]
+    //    Item820101027,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("820101004")]
+    //    Item820101004,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("820101005")]
+    //    Item820101005,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("820101022")]
+    //    Item820101022,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("820101007")]
+    //    Item820101007,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("820101002")]
+    //    Item820101002,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("820101009")]
+    //    Item820101009,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("820101008")]
+    //    Item820101008,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("820101014")]
+    //    Item820101014,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("820101006")]
+    //    Item820101006,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("820101016")]
+    //    Item820101016,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("820101015")]
+    //    Item820101015,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("820101014")]
+    //    Item8201010141,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("820101006")]
+    //    Item8201010061,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("820101031")]
+    //    Item820101031,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("820101030")]
+    //    Item820101030,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("820101016")]
+    //    Item8201010161,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("820101015")]
+    //    Item8201010151,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("820101025")]
+    //    Item820101025,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("820101007")]
+    //    Item8201010071,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("820101002")]
+    //    Item8201010021,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("820101026")]
+    //    Item8201010261,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("820101009")]
+    //    Item8201010091,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("820101008")]
+    //    Item8201010081,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("820101027")]
+    //    Item8201010271,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("820101007")]
+    //    Item8201010072,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("820101002")]
+    //    Item8201010022,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("820101028")]
+    //    Item820101028,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("820101029")]
+    //    Item820101029,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("820101009")]
+    //    Item8201010092,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("820101008")]
+    //    Item8201010082,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("820101011")]
+    //    Item820101011,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("820101003")]
+    //    Item820101003,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("820101013")]
+    //    Item820101013,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("820101012")]
+    //    Item820101012,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("820101017")]
+    //    Item820101017,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("820101018")]
+    //    Item820101018,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("820101019")]
+    //    Item820101019,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("820101020")]
+    //    Item820101020,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("820101021")]
+    //    Item820101021,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("330101003")]
+    //    Item330101003,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("130202006")]
+    //    Item130202006,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110203014")]
+    //    Item110203014,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("420201001")]
+    //    Item420201001,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("420201003")]
+    //    Item420201003,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("120204010")]
+    //    Item120204010,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110103007")]
+    //    Item110103007,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110204017")]
+    //    Item110204017,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110204051")]
+    //    Item110204051,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110204018")]
+    //    Item110204018,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110205022")]
+    //    Item110205022,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110203069")]
+    //    Item110203069,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110203015")]
+    //    Item110203015,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110206005")]
+    //    Item110206005,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110203016")]
+    //    Item110203016,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110203017")]
+    //    Item110203017,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110203018")]
+    //    Item110203018,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110203088")]
+    //    Item110203088,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110203019")]
+    //    Item110203019,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("530101003")]
+    //    Item530101003,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("530101019")]
+    //    Item530101019,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110101014")]
+    //    Item110101014,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("620101002")]
+    //    Item620101002,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("720101001")]
+    //    Item720101001,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("720101002")]
+    //    Item720101002,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("120205004")]
+    //    Item120205004,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110203079")]
+    //    Item110203079,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110203020")]
+    //    Item110203020,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110201019")]
+    //    Item110201019,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110203021")]
+    //    Item110203021,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110108005")]
+    //    Item110108005,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110101015")]
+    //    Item110101015,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110104002")]
+    //    Item110104002,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110101016")]
+    //    Item110101016,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("620101007")]
+    //    Item620101007,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("140102001")]
+    //    Item140102001,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110105004")]
+    //    Item110105004,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110107003")]
+    //    Item110107003,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110203095")]
+    //    Item110203095,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("210301001")]
+    //    Item210301001,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("810102001")]
+    //    Item810102001,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("810102004")]
+    //    Item810102004,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("810102002")]
+    //    Item810102002,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("130201002")]
+    //    Item130201002,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("810102003")]
+    //    Item810102003,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("810101002")]
+    //    Item810101002,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("810101001")]
+    //    Item810101001,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("810101003")]
+    //    Item810101003,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("210301002")]
+    //    Item210301002,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("330201010")]
+    //    Item330201010,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110204016")]
+    //    Item110204016,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110105005")]
+    //    Item110105005,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110105006")]
+    //    Item110105006,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110105007")]
+    //    Item110105007,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110104003")]
+    //    Item110104003,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110206006")]
+    //    Item110206006,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110206007")]
+    //    Item110206007,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110203022")]
+    //    Item110203022,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110204019")]
+    //    Item110204019,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110206008")]
+    //    Item110206008,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110206009")]
+    //    Item110206009,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110101043")]
+    //    Item110101043,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110201020")]
+    //    Item110201020,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110203023")]
+    //    Item110203023,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110101017")]
+    //    Item110101017,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110101018")]
+    //    Item110101018,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("210302004")]
+    //    Item210302004,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("210101001")]
+    //    Item210101001,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("210302003")]
+    //    Item210302003,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("210302002")]
+    //    Item210302002,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("210204001")]
+    //    Item210204001,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("220101003")]
+    //    Item220101003,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("220101004")]
+    //    Item220101004,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("220101002")]
+    //    Item220101002,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("220101001")]
+    //    Item220101001,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("220101005")]
+    //    Item220101005,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("220101006")]
+    //    Item220101006,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("130202001")]
+    //    Item130202001,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("130202005")]
+    //    Item130202005,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("520101001")]
+    //    Item520101001,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("320101001")]
+    //    Item320101001,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("320101003")]
+    //    Item320101003,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("320101002")]
+    //    Item320101002,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("320103001")]
+    //    Item320103001,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("320102002")]
+    //    Item320102002,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("320102001")]
+    //    Item320102001,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("320102004")]
+    //    Item320102004,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("320102003")]
+    //    Item320102003,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("320201001")]
+    //    Item320201001,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("320201002")]
+    //    Item320201002,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("220102001")]
+    //    Item220102001,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("320301002")]
+    //    Item320301002,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110204020")]
+    //    Item110204020,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110203024")]
+    //    Item110203024,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("120205012")]
+    //    Item120205012,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110207002")]
+    //    Item110207002,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110203087")]
+    //    Item110203087,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("730101002")]
+    //    Item730101002,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("210203001")]
+    //    Item210203001,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("210203002")]
+    //    Item210203002,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110104005")]
+    //    Item110104005,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("140101023")]
+    //    Item140101023,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("140101024")]
+    //    Item140101024,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("140101025")]
+    //    Item140101025,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("650101001")]
+    //    Item650101001,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110207003")]
+    //    Item110207003,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110201021")]
+    //    Item110201021,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110103013")]
+    //    Item110103013,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110201022")]
+    //    Item110201022,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110203025")]
+    //    Item110203025,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110203026")]
+    //    Item110203026,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110206011")]
+    //    Item110206011,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110206010")]
+    //    Item110206010,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110203027")]
+    //    Item110203027,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110203028")]
+    //    Item110203028,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110203028")]
+    //    Item1102030281,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("330101008")]
+    //    Item330101008,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("330101002")]
+    //    Item330101002,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("330101009")]
+    //    Item330101009,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("620101001")]
+    //    Item620101001,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("610201001")]
+    //    Item610201001,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("610201002")]
+    //    Item610201002,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("610201003")]
+    //    Item610201003,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("710101001")]
+    //    Item710101001,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110203074")]
+    //    Item110203074,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110201023")]
+    //    Item110201023,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110103008")]
+    //    Item110103008,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110203029")]
+    //    Item110203029,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("120205005")]
+    //    Item120205005,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110204021")]
+    //    Item110204021,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110204022")]
+    //    Item110204022,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110204023")]
+    //    Item110204023,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("620101004")]
+    //    Item620101004,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("620101005")]
+    //    Item620101005,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("330101010")]
+    //    Item330101010,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110202002")]
+    //    Item110202002,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110202003")]
+    //    Item110202003,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110207004")]
+    //    Item110207004,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110101046")]
+    //    Item110101046,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110204024")]
+    //    Item110204024,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110113001")]
+    //    Item110113001,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110105015")]
+    //    Item110105015,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110101019")]
+    //    Item110101019,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110103015")]
+    //    Item110103015,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110205025")]
+    //    Item110205025,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110204025")]
+    //    Item110204025,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110204026")]
+    //    Item110204026,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110204027")]
+    //    Item110204027,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("120204009")]
+    //    Item120204009,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110205026")]
+    //    Item110205026,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110204028")]
+    //    Item110204028,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110204029")]
+    //    Item110204029,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110203080")]
+    //    Item110203080,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("120207004")]
+    //    Item120207004,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110203030")]
+    //    Item110203030,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110105025")]
+    //    Item110105025,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110203031")]
+    //    Item110203031,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110203084")]
+    //    Item110203084,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110203032")]
+    //    Item110203032,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110204030")]
+    //    Item110204030,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110205009")]
+    //    Item110205009,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110104004")]
+    //    Item110104004,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110201024")]
+    //    Item110201024,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110201025")]
+    //    Item110201025,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110201026")]
+    //    Item110201026,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110201027")]
+    //    Item110201027,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110201028")]
+    //    Item110201028,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110201029")]
+    //    Item110201029,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110201030")]
+    //    Item110201030,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110207005")]
+    //    Item110207005,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110204031")]
+    //    Item110204031,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110207006")]
+    //    Item110207006,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110201031")]
+    //    Item110201031,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110201032")]
+    //    Item110201032,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110201033")]
+    //    Item110201033,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("120204002")]
+    //    Item120204002,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110101020")]
+    //    Item110101020,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("220102002")]
+    //    Item220102002,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110105008")]
+    //    Item110105008,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110203033")]
+    //    Item110203033,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110105009")]
+    //    Item110105009,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110201034")]
+    //    Item110201034,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110203034")]
+    //    Item110203034,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110203035")]
+    //    Item110203035,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("640201001")]
+    //    Item640201001,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("120205011")]
+    //    Item120205011,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110101021")]
+    //    Item110101021,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("120103001")]
+    //    Item120103001,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110203036")]
+    //    Item110203036,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("120204003")]
+    //    Item120204003,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110201035")]
+    //    Item110201035,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110204032")]
+    //    Item110204032,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110101022")]
+    //    Item110101022,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110201036")]
+    //    Item110201036,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110101023")]
+    //    Item110101023,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110101024")]
+    //    Item110101024,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110101025")]
+    //    Item110101025,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110101039")]
+    //    Item110101039,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110204033")]
+    //    Item110204033,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("120207002")]
+    //    Item120207002,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110202004")]
+    //    Item110202004,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110202005")]
+    //    Item110202005,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110203037")]
+    //    Item110203037,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110203037")]
+    //    Item1102030371,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110201037")]
+    //    Item110201037,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110203078")]
+    //    Item110203078,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("120203005")]
+    //    Item120203005,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("120204010")]
+    //    Item1202040101,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110201038")]
+    //    Item110201038,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110201039")]
+    //    Item110201039,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("120101001")]
+    //    Item120101001,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110201040")]
+    //    Item110201040,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110201041")]
+    //    Item110201041,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("740101007")]
+    //    Item740101007,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("420201003")]
+    //    Item4202010031,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("640101001")]
+    //    Item640101001,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110205027")]
+    //    Item110205027,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110103009")]
+    //    Item110103009,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110103010")]
+    //    Item110103010,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110205010")]
+    //    Item110205010,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("820101018")]
+    //    Item8201010181,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("820101017")]
+    //    Item8201010171,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("820101006")]
+    //    Item8201010062,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("820101014")]
+    //    Item8201010142,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("820101006")]
+    //    Item8201010063,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("820101016")]
+    //    Item8201010162,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("820101015")]
+    //    Item8201010152,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("820101006")]
+    //    Item8201010064,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("820101005")]
+    //    Item8201010051,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("820101004")]
+    //    Item8201010041,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("820101003")]
+    //    Item8201010031,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("820101011")]
+    //    Item8201010111,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("820101003")]
+    //    Item8201010032,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("820101013")]
+    //    Item8201010131,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("820101012")]
+    //    Item8201010121,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("820101002")]
+    //    Item8201010023,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("820101007")]
+    //    Item8201010073,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("820101002")]
+    //    Item8201010024,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("820101009")]
+    //    Item8201010093,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("820101008")]
+    //    Item8201010083,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110301001")]
+    //    Item110301001,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110208001")]
+    //    Item110208001,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110203038")]
+    //    Item110203038,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110203089")]
+    //    Item110203089,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110201042")]
+    //    Item110201042,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110101026")]
+    //    Item110101026,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("620502001")]
+    //    Item620502001,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110203039")]
+    //    Item110203039,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110202008")]
+    //    Item110202008,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110204034")]
+    //    Item110204034,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110110001")]
+    //    Item110110001,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("310102001")]
+    //    Item310102001,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("310103001")]
+    //    Item310103001,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("310101001")]
+    //    Item310101001,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110101027")]
+    //    Item110101027,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110205011")]
+    //    Item110205011,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110201062")]
+    //    Item110201062,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110203040")]
+    //    Item110203040,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("610101002")]
+    //    Item610101002,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("610401002")]
+    //    Item610401002,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("610101003")]
+    //    Item610101003,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("610401003")]
+    //    Item610401003,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("610101004")]
+    //    Item610101004,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("610401004")]
+    //    Item610401004,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110203041")]
+    //    Item110203041,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110203042")]
+    //    Item110203042,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110203043")]
+    //    Item110203043,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110203094")]
+    //    Item110203094,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110203044")]
+    //    Item110203044,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110203044")]
+    //    Item1102030441,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("430101001")]
+    //    Item430101001,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110206021")]
+    //    Item110206021,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("120204004")]
+    //    Item120204004,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110207007")]
+    //    Item110207007,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110203045")]
+    //    Item110203045,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110201043")]
+    //    Item110201043,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110203046")]
+    //    Item110203046,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110203047")]
+    //    Item110203047,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110203048")]
+    //    Item110203048,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110203081")]
+    //    Item110203081,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("430101004")]
+    //    Item430101004,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("510101003")]
+    //    Item510101003,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("510101001")]
+    //    Item510101001,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("510101002")]
+    //    Item510101002,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("510102003")]
+    //    Item510102003,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("510102001")]
+    //    Item510102001,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("510102002")]
+    //    Item510102002,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("510201001")]
+    //    Item510201001,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("510201002")]
+    //    Item510201002,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("510201003")]
+    //    Item510201003,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("510301003")]
+    //    Item510301003,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("140101015")]
+    //    Item140101015,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("140101009")]
+    //    Item140101009,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("140101016")]
+    //    Item140101016,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("140101017")]
+    //    Item140101017,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("140101005")]
+    //    Item140101005,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("140101014")]
+    //    Item140101014,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("140101018")]
+    //    Item140101018,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("140101006")]
+    //    Item140101006,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("140101028")]
+    //    Item140101028,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("140101021")]
+    //    Item140101021,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("140101010")]
+    //    Item140101010,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("140101012")]
+    //    Item140101012,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("140101013")]
+    //    Item140101013,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("140101001")]
+    //    Item140101001,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("140101011")]
+    //    Item140101011,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("140101003")]
+    //    Item140101003,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("140101002")]
+    //    Item140101002,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("140101008")]
+    //    Item140101008,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("140101007")]
+    //    Item140101007,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("140101019")]
+    //    Item140101019,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("140101004")]
+    //    Item140101004,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("560101001")]
+    //    Item560101001,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("420105001")]
+    //    Item420105001,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("420101005")]
+    //    Item420101005,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("420101004")]
+    //    Item420101004,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("420101003")]
+    //    Item420101003,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("420102006")]
+    //    Item420102006,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("420102005")]
+    //    Item420102005,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("420102004")]
+    //    Item420102004,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("420102003")]
+    //    Item420102003,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("420104001")]
+    //    Item420104001,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("820101033")]
+    //    Item820101033,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("820101034")]
+    //    Item820101034,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("820101011")]
+    //    Item8201010112,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("820101003")]
+    //    Item8201010033,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("820101028")]
+    //    Item8201010281,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("820101029")]
+    //    Item8201010291,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("820101013")]
+    //    Item8201010132,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("820101012")]
+    //    Item8201010122,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("420301003")]
+    //    Item420301003,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("420101005")]
+    //    Item4201010051,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("420101002")]
+    //    Item420101002,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("420101001")]
+    //    Item420101001,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("420101003")]
+    //    Item4201010031,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("420101004")]
+    //    Item4201010041,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("420101003")]
+    //    Item4201010032,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("420201001")]
+    //    Item4202010011,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("420201002")]
+    //    Item420201002,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("420102005")]
+    //    Item4201020051,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("420102004")]
+    //    Item4201020041,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("420102002")]
+    //    Item420102002,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("420102001")]
+    //    Item420102001,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("420102003")]
+    //    Item4201020031,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("420102003")]
+    //    Item4201020032,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("420202001")]
+    //    Item420202001,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("420301001")]
+    //    Item420301001,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("420102006")]
+    //    Item4201020061,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("420103002")]
+    //    Item420103002,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("420103001")]
+    //    Item420103001,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("420103003")]
+    //    Item420103003,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("610601001")]
+    //    Item610601001,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("610701001")]
+    //    Item610701001,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("510301002")]
+    //    Item510301002,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("620601001")]
+    //    Item620601001,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("660101001")]
+    //    Item660101001,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("620401001")]
+    //    Item620401001,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("620301001")]
+    //    Item620301001,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("620201001")]
+    //    Item620201001,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("630101001")]
+    //    Item630101001,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110202006")]
+    //    Item110202006,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110203093")]
+    //    Item110203093,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110204035")]
+    //    Item110204035,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110203049")]
+    //    Item110203049,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110201044")]
+    //    Item110201044,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110201045")]
+    //    Item110201045,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110206012")]
+    //    Item110206012,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("120203003")]
+    //    Item120203003,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("320301001")]
+    //    Item320301001,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("320103002")]
+    //    Item320103002,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("650101002")]
+    //    Item650101002,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("310102002")]
+    //    Item310102002,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("640401001")]
+    //    Item640401001,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("140101029")]
+    //    Item140101029,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("740101003")]
+    //    Item740101003,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("810201002")]
+    //    Item810201002,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("530103001")]
+    //    Item530103001,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("340101003")]
+    //    Item340101003,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("430101003")]
+    //    Item430101003,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("560101003")]
+    //    Item560101003,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("210302001")]
+    //    Item210302001,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("210204002")]
+    //    Item210204002,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("130201001")]
+    //    Item130201001,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("530104001")]
+    //    Item530104001,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("140101022")]
+    //    Item140101022,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("140101999")]
+    //    Item140101999,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("610201004")]
+    //    Item610201004,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("510301001")]
+    //    Item510301001,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("420301002")]
+    //    Item420301002,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("620601004")]
+    //    Item620601004,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("620505001")]
+    //    Item620505001,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("610501001")]
+    //    Item610501001,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("620101008")]
+    //    Item620101008,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("610101010")]
+    //    Item610101010,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110208002")]
+    //    Item110208002,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110110002")]
+    //    Item110110002,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("130202008")]
+    //    Item130202008,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("410103001")]
+    //    Item410103001,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("610301002")]
+    //    Item610301002,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("610302001")]
+    //    Item610302001,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("330101007")]
+    //    Item330101007,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("330201009")]
+    //    Item330201009,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("730101001")]
+    //    Item730101001,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110203050")]
+    //    Item110203050,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110101028")]
+    //    Item110101028,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110101049")]
+    //    Item110101049,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110101029")]
+    //    Item110101029,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110101030")]
+    //    Item110101030,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110104007")]
+    //    Item110104007,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110111001")]
+    //    Item110111001,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("120205006")]
+    //    Item120205006,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110203051")]
+    //    Item110203051,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110101050")]
+    //    Item110101050,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110105028")]
+    //    Item110105028,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110105016")]
+    //    Item110105016,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110201046")]
+    //    Item110201046,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110106007")]
+    //    Item110106007,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110101031")]
+    //    Item110101031,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110203082")]
+    //    Item110203082,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("610301001")]
+    //    Item610301001,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110101032")]
+    //    Item110101032,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110101047")]
+    //    Item110101047,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110105021")]
+    //    Item110105021,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110105010")]
+    //    Item110105010,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("620101003")]
+    //    Item620101003,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("210201001")]
+    //    Item210201001,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("210201002")]
+    //    Item210201002,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("210201003")]
+    //    Item210201003,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110105020")]
+    //    Item110105020,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110105022")]
+    //    Item110105022,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110205012")]
+    //    Item110205012,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("620601002")]
+    //    Item620601002,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("120206003")]
+    //    Item120206003,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110204036")]
+    //    Item110204036,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110204037")]
+    //    Item110204037,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110204038")]
+    //    Item110204038,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("410101001")]
+    //    Item410101001,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("410101002")]
+    //    Item410101002,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("410102001")]
+    //    Item410102001,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("410102002")]
+    //    Item410102002,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110103014")]
+    //    Item110103014,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110203052")]
+    //    Item110203052,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("330101005")]
+    //    Item330101005,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("330101006")]
+    //    Item330101006,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110205029")]
+    //    Item110205029,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110203053")]
+    //    Item110203053,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("120204008")]
+    //    Item120204008,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110203054")]
+    //    Item110203054,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110204039")]
+    //    Item110204039,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110201047")]
+    //    Item110201047,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110201048")]
+    //    Item110201048,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110103011")]
+    //    Item110103011,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("340101001")]
+    //    Item340101001,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("550101001")]
+    //    Item550101001,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("550101005")]
+    //    Item550101005,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("550101002")]
+    //    Item550101002,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("550101003")]
+    //    Item550101003,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("550101004")]
+    //    Item550101004,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("130202007")]
+    //    Item130202007,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110105011")]
+    //    Item110105011,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110201049")]
+    //    Item110201049,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110101048")]
+    //    Item110101048,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110101033")]
+    //    Item110101033,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110101040")]
+    //    Item110101040,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110101045")]
+    //    Item110101045,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110101041")]
+    //    Item110101041,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110204040")]
+    //    Item110204040,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110105019")]
+    //    Item110105019,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110204041")]
+    //    Item110204041,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110105024")]
+    //    Item110105024,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110203070")]
+    //    Item110203070,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110203055")]
+    //    Item110203055,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110204042")]
+    //    Item110204042,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110203075")]
+    //    Item110203075,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110201050")]
+    //    Item110201050,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110201051")]
+    //    Item110201051,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110201052")]
+    //    Item110201052,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110201053")]
+    //    Item110201053,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("120201002")]
+    //    Item120201002,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110105029")]
+    //    Item110105029,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110203056")]
+    //    Item110203056,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110204043")]
+    //    Item110204043,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110203090")]
+    //    Item110203090,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("140101020")]
+    //    Item140101020,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110103018")]
+    //    Item110103018,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110106004")]
+    //    Item110106004,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110106005")]
+    //    Item110106005,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110106006")]
+    //    Item110106006,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110205028")]
+    //    Item110205028,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110105012")]
+    //    Item110105012,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("120204005")]
+    //    Item120204005,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110205013")]
+    //    Item110205013,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110201054")]
+    //    Item110201054,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110101044")]
+    //    Item110101044,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110204044")]
+    //    Item110204044,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110203057")]
+    //    Item110203057,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110203058")]
+    //    Item110203058,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("120206002")]
+    //    Item120206002,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("120206004")]
+    //    Item120206004,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("330201008")]
+    //    Item330201008,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("330101004")]
+    //    Item330101004,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110204045")]
+    //    Item110204045,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110204046")]
+    //    Item110204046,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110201063")]
+    //    Item110201063,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110206013")]
+    //    Item110206013,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110203059")]
+    //    Item110203059,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110203060")]
+    //    Item110203060,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("610101001")]
+    //    Item610101001,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("610401001")]
+    //    Item610401001,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110206015")]
+    //    Item110206015,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110206014")]
+    //    Item110206014,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110204052")]
+    //    Item110204052,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110205015")]
+    //    Item110205015,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110205014")]
+    //    Item110205014,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110204047")]
+    //    Item110204047,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110205016")]
+    //    Item110205016,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110203061")]
+    //    Item110203061,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110205017")]
+    //    Item110205017,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110106009")]
+    //    Item110106009,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110203062")]
+    //    Item110203062,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110206016")]
+    //    Item110206016,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("120205007")]
+    //    Item120205007,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("120201003")]
+    //    Item120201003,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("620101006")]
+    //    Item620101006,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("120205008")]
+    //    Item120205008,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("120204006")]
+    //    Item120204006,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110201055")]
+    //    Item110201055,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110201056")]
+    //    Item110201056,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110201057")]
+    //    Item110201057,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110103016")]
+    //    Item110103016,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110205018")]
+    //    Item110205018,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110107005")]
+    //    Item110107005,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("330201002")]
+    //    Item330201002,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("620504001")]
+    //    Item620504001,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("620503001")]
+    //    Item620503001,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110101034")]
+    //    Item110101034,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110107004")]
+    //    Item110107004,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("610101007")]
+    //    Item610101007,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("610101008")]
+    //    Item610101008,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110105014")]
+    //    Item110105014,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110205019")]
+    //    Item110205019,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110103012")]
+    //    Item110103012,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110203063")]
+    //    Item110203063,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("120204007")]
+    //    Item120204007,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110204048")]
+    //    Item110204048,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110105013")]
+    //    Item110105013,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110204049")]
+    //    Item110204049,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110206017")]
+    //    Item110206017,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110109001")]
+    //    Item110109001,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110107006")]
+    //    Item110107006,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110201059")]
+    //    Item110201059,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110201058")]
+    //    Item110201058,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("640301001")]
+    //    Item640301001,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110101035")]
+    //    Item110101035,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110101036")]
+    //    Item110101036,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110101037")]
+    //    Item110101037,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110205020")]
+    //    Item110205020,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("120207005")]
+    //    Item120207005,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110206018")]
+    //    Item110206018,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110108006")]
+    //    Item110108006,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110203076")]
+    //    Item110203076,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110205021")]
+    //    Item110205021,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("330201003")]
+    //    Item330201003,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("130101001")]
+    //    Item130101001,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110201060")]
+    //    Item110201060,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110203071")]
+    //    Item110203071,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110203065")]
+    //    Item110203065,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110203064")]
+    //    Item110203064,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110204050")]
+    //    Item110204050,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110203066")]
+    //    Item110203066,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110203067")]
+    //    Item110203067,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110201061")]
+    //    Item110201061,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110203068")]
+    //    Item110203068,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110105026")]
+    //    Item110105026,
+
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("110106008")]
+    //    Item110106008,
+    //}
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.1432")]
@@ -10444,6 +11072,8 @@ namespace RDI.NFe2.SchemaXML.NFe_v300
 
         private TNFeInfNFeDetImpostoCOFINSST cOFINSSTField;
 
+        private TNFeInfNFeDetImpostoICMSUFDest iCMSUFDestField;
+
         /// <remarks/>
         public string vTotTrib
         {
@@ -10460,7 +11090,7 @@ namespace RDI.NFe2.SchemaXML.NFe_v300
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute("ICMS", typeof(TNFeInfNFeDetImpostoICMS))]
         [System.Xml.Serialization.XmlElementAttribute("II", typeof(TNFeInfNFeDetImpostoII))]
-        [System.Xml.Serialization.XmlElementAttribute("IPI", typeof(TNFeInfNFeDetImpostoIPI))]
+        [System.Xml.Serialization.XmlElementAttribute("IPI", typeof(TIpi))]
         [System.Xml.Serialization.XmlElementAttribute("ISSQN", typeof(TNFeInfNFeDetImpostoISSQN))]
         public object[] Items
         {
@@ -10523,6 +11153,19 @@ namespace RDI.NFe2.SchemaXML.NFe_v300
             set
             {
                 this.cOFINSSTField = value;
+            }
+        }
+
+        /// <remarks/>
+        public TNFeInfNFeDetImpostoICMSUFDest ICMSUFDest
+        {
+            get
+            {
+                return this.iCMSUFDestField;
+            }
+            set
+            {
+                this.iCMSUFDestField = value;
             }
         }
     }
@@ -11030,6 +11673,26 @@ namespace RDI.NFe2.SchemaXML.NFe_v300
 
         private string vICMSField;
 
+        private string vICMSDesonField;
+
+        private TNFeInfNFeDetImpostoICMSICMS20MotDesICMS motDesICMSField;
+
+        private bool motDesICMSFieldSpecified;
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool motDesICMSSpecified
+        {
+            get
+            {
+                return this.motDesICMSFieldSpecified;
+            }
+            set
+            {
+                this.motDesICMSFieldSpecified = value;
+            }
+        }
+
+
         /// <remarks/>
         public Torig orig
         {
@@ -11120,6 +11783,32 @@ namespace RDI.NFe2.SchemaXML.NFe_v300
                 this.vICMSField = value;
             }
         }
+
+        /// <remarks/>
+        public string vICMSDeson
+        {
+            get
+            {
+                return this.vICMSDesonField;
+            }
+            set
+            {
+                this.vICMSDesonField = value;
+            }
+        }
+
+        /// <remarks/>
+        public TNFeInfNFeDetImpostoICMSICMS20MotDesICMS motDesICMS
+        {
+            get
+            {
+                return this.motDesICMSField;
+            }
+            set
+            {
+                this.motDesICMSField = value;
+            }
+        }
     }
 
     /// <remarks/>
@@ -11161,6 +11850,26 @@ namespace RDI.NFe2.SchemaXML.NFe_v300
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.1432")]
     [System.SerializableAttribute()]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://www.portalfiscal.inf.br/nfe")]
+    public enum TNFeInfNFeDetImpostoICMSICMS20MotDesICMS
+    {
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("3")]
+        Item3,
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("9")]
+        Item9,
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("12")]
+        Item12,
+    }
+
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.1432")]
+    [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://www.portalfiscal.inf.br/nfe")]
@@ -11182,6 +11891,27 @@ namespace RDI.NFe2.SchemaXML.NFe_v300
         private string pICMSSTField;
 
         private string vICMSSTField;
+
+        private string vICMSDesonField;
+
+        private TNFeInfNFeDetImpostoICMSICMS30MotDesICMS motDesICMSField;
+
+        private bool motDesICMSFieldSpecified;
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool motDesICMSSpecified
+        {
+            get
+            {
+                return this.motDesICMSFieldSpecified;
+            }
+            set
+            {
+                this.motDesICMSFieldSpecified = value;
+            }
+        }
+
+
 
         /// <remarks/>
         public Torig orig
@@ -11286,6 +12016,32 @@ namespace RDI.NFe2.SchemaXML.NFe_v300
                 this.vICMSSTField = value;
             }
         }
+
+        /// <remarks/>
+        public string vICMSDeson
+        {
+            get
+            {
+                return this.vICMSDesonField;
+            }
+            set
+            {
+                this.vICMSDesonField = value;
+            }
+        }
+
+        /// <remarks/>
+        public TNFeInfNFeDetImpostoICMSICMS30MotDesICMS motDesICMS
+        {
+            get
+            {
+                return this.motDesICMSField;
+            }
+            set
+            {
+                this.motDesICMSField = value;
+            }
+        }
     }
 
     /// <remarks/>
@@ -11335,6 +12091,26 @@ namespace RDI.NFe2.SchemaXML.NFe_v300
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.1432")]
     [System.SerializableAttribute()]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://www.portalfiscal.inf.br/nfe")]
+    public enum TNFeInfNFeDetImpostoICMSICMS30MotDesICMS
+    {
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("6")]
+        Item6,
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("7")]
+        Item7,
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("9")]
+        Item9,
+    }
+
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.1432")]
+    [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://www.portalfiscal.inf.br/nfe")]
@@ -11345,9 +12121,12 @@ namespace RDI.NFe2.SchemaXML.NFe_v300
 
         private TNFeInfNFeDetImpostoICMSICMS40CST cSTField;
 
-        private string vICMSField;
+        private string vICMSDesonField;
 
         private TNFeInfNFeDetImpostoICMSICMS40MotDesICMS motDesICMSField;
+
+        private bool motDesICMSFieldSpecified;
+
 
         /// <remarks/>
         public Torig orig
@@ -11376,15 +12155,15 @@ namespace RDI.NFe2.SchemaXML.NFe_v300
         }
 
         /// <remarks/>
-        public string vICMS
+        public string vICMSDeson
         {
             get
             {
-                return this.vICMSField;
+                return this.vICMSDesonField;
             }
             set
             {
-                this.vICMSField = value;
+                this.vICMSDesonField = value;
             }
         }
 
@@ -11400,6 +12179,21 @@ namespace RDI.NFe2.SchemaXML.NFe_v300
                 this.motDesICMSField = value;
             }
         }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool motDesICMSSpecified
+        {
+            get
+            {
+                return this.motDesICMSFieldSpecified;
+            }
+            set
+            {
+                this.motDesICMSFieldSpecified = value;
+            }
+        }
+
     }
 
     /// <remarks/>
@@ -11430,40 +12224,59 @@ namespace RDI.NFe2.SchemaXML.NFe_v300
     {
 
         /// <remarks/>
+        /// Táxi;
         [System.Xml.Serialization.XmlEnumAttribute("1")]
         Item1,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("2")]
-        Item2,
-
-        /// <remarks/>
+        /// Produtor Agropecuário;
         [System.Xml.Serialization.XmlEnumAttribute("3")]
         Item3,
 
         /// <remarks/>
+        /// Frotista/Locadora;
         [System.Xml.Serialization.XmlEnumAttribute("4")]
         Item4,
 
         /// <remarks/>
+        /// Diplomático/Consular;
         [System.Xml.Serialization.XmlEnumAttribute("5")]
         Item5,
 
         /// <remarks/>
+        /// Utilitários e Motocicletas da Amazônia Ocidental e Áreas de Livre Comércio (Resolução 714/88 e 790/94 – CONTRAN e suas alterações);
         [System.Xml.Serialization.XmlEnumAttribute("6")]
         Item6,
 
         /// <remarks/>
+        /// SUFRAMA;
         [System.Xml.Serialization.XmlEnumAttribute("7")]
         Item7,
 
         /// <remarks/>
+        /// Venda a órgão Público;
         [System.Xml.Serialization.XmlEnumAttribute("8")]
         Item8,
 
         /// <remarks/>
+        /// Outros
         [System.Xml.Serialization.XmlEnumAttribute("9")]
         Item9,
+
+        /// <remarks/>
+        /// Deficiente Condutor
+        [System.Xml.Serialization.XmlEnumAttribute("10")]
+        Item10,
+
+        /// <remarks/>
+        /// Deficiente não condutor
+        [System.Xml.Serialization.XmlEnumAttribute("11")]
+        Item11,
+
+        /// <remarks/>
+        /// Olimpíadas Rio 2016
+        [System.Xml.Serialization.XmlEnumAttribute("16")]
+        Item16,
     }
 
     /// <remarks/>
@@ -11488,6 +12301,12 @@ namespace RDI.NFe2.SchemaXML.NFe_v300
         private string vBCField;
 
         private string pICMSField;
+
+        private string vICMSOpField;
+
+        private string pDifField;
+
+        private string vICMSDifField;
 
         private string vICMSField;
 
@@ -11580,6 +12399,45 @@ namespace RDI.NFe2.SchemaXML.NFe_v300
             set
             {
                 this.pICMSField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string vICMSOp
+        {
+            get
+            {
+                return this.vICMSOpField;
+            }
+            set
+            {
+                this.vICMSOpField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string pDif
+        {
+            get
+            {
+                return this.pDifField;
+            }
+            set
+            {
+                this.pDifField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string vICMSDif
+        {
+            get
+            {
+                return this.vICMSDifField;
+            }
+            set
+            {
+                this.vICMSDifField = value;
             }
         }
 
@@ -11750,6 +12608,27 @@ namespace RDI.NFe2.SchemaXML.NFe_v300
 
         private string vICMSSTField;
 
+        private string vICMSDesonField;
+
+        private TNFeInfNFeDetImpostoICMSICMS70MotDesICMS motDesICMSField;
+
+        private bool motDesICMSFieldSpecified;
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool motDesICMSSpecified
+        {
+            get
+            {
+                return this.motDesICMSFieldSpecified;
+            }
+            set
+            {
+                this.motDesICMSFieldSpecified = value;
+            }
+        }
+
+
+
         /// <remarks/>
         public Torig orig
         {
@@ -11918,6 +12797,32 @@ namespace RDI.NFe2.SchemaXML.NFe_v300
                 this.vICMSSTField = value;
             }
         }
+
+        /// <remarks/>
+        public string vICMSDeson
+        {
+            get
+            {
+                return this.vICMSDesonField;
+            }
+            set
+            {
+                this.vICMSDesonField = value;
+            }
+        }
+
+        /// <remarks/>
+        public TNFeInfNFeDetImpostoICMSICMS70MotDesICMS motDesICMS
+        {
+            get
+            {
+                return this.motDesICMSField;
+            }
+            set
+            {
+                this.motDesICMSField = value;
+            }
+        }
     }
 
     /// <remarks/>
@@ -11991,6 +12896,26 @@ namespace RDI.NFe2.SchemaXML.NFe_v300
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.1432")]
     [System.SerializableAttribute()]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://www.portalfiscal.inf.br/nfe")]
+    public enum TNFeInfNFeDetImpostoICMSICMS70MotDesICMS
+    {
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("3")]
+        Item3,
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("9")]
+        Item9,
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("12")]
+        Item12,
+    }
+
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.1432")]
+    [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://www.portalfiscal.inf.br/nfe")]
@@ -12022,6 +12947,27 @@ namespace RDI.NFe2.SchemaXML.NFe_v300
         private string pICMSSTField;
 
         private string vICMSSTField;
+
+        private string vICMSDesonField;
+
+        private TNFeInfNFeDetImpostoICMSICMS90MotDesICMS motDesICMSField;
+
+        private bool motDesICMSFieldSpecified;
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool motDesICMSSpecified
+        {
+            get
+            {
+                return this.motDesICMSFieldSpecified;
+            }
+            set
+            {
+                this.motDesICMSFieldSpecified = value;
+            }
+        }
+
+
 
         /// <remarks/>
         public Torig orig
@@ -12191,6 +13137,32 @@ namespace RDI.NFe2.SchemaXML.NFe_v300
                 this.vICMSSTField = value;
             }
         }
+
+        /// <remarks/>
+        public string vICMSDeson
+        {
+            get
+            {
+                return this.vICMSDesonField;
+            }
+            set
+            {
+                this.vICMSDesonField = value;
+            }
+        }
+
+        /// <remarks/>
+        public TNFeInfNFeDetImpostoICMSICMS90MotDesICMS motDesICMS
+        {
+            get
+            {
+                return this.motDesICMSField;
+            }
+            set
+            {
+                this.motDesICMSField = value;
+            }
+        }
     }
 
     /// <remarks/>
@@ -12259,6 +13231,26 @@ namespace RDI.NFe2.SchemaXML.NFe_v300
         /// <remarks/>
         [System.Xml.Serialization.XmlEnumAttribute("5")]
         Item5,
+    }
+
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.1432")]
+    [System.SerializableAttribute()]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://www.portalfiscal.inf.br/nfe")]
+    public enum TNFeInfNFeDetImpostoICMSICMS90MotDesICMS
+    {
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("3")]
+        Item3,
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("9")]
+        Item9,
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("12")]
+        Item12,
     }
 
     /// <remarks/>
@@ -13668,8 +14660,8 @@ namespace RDI.NFe2.SchemaXML.NFe_v300
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://www.portalfiscal.inf.br/nfe")]
-    public partial class TNFeInfNFeDetImpostoIPI
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe")]
+    public partial class TIpi
     {
 
         private string clEnqField;
@@ -13750,8 +14742,8 @@ namespace RDI.NFe2.SchemaXML.NFe_v300
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("IPINT", typeof(TNFeInfNFeDetImpostoIPIIPINT))]
-        [System.Xml.Serialization.XmlElementAttribute("IPITrib", typeof(TNFeInfNFeDetImpostoIPIIPITrib))]
+        [System.Xml.Serialization.XmlElementAttribute("IPINT", typeof(TIpiIPINT))]
+        [System.Xml.Serialization.XmlElementAttribute("IPITrib", typeof(TIpiIPITrib))]
         public object Item
         {
             get
@@ -13771,13 +14763,13 @@ namespace RDI.NFe2.SchemaXML.NFe_v300
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://www.portalfiscal.inf.br/nfe")]
-    public partial class TNFeInfNFeDetImpostoIPIIPINT
+    public partial class TIpiIPINT
     {
 
-        private TNFeInfNFeDetImpostoIPIIPINTCST cSTField;
+        private TIpiIPINTCST cSTField;
 
         /// <remarks/>
-        public TNFeInfNFeDetImpostoIPIIPINTCST CST
+        public TIpiIPINTCST CST
         {
             get
             {
@@ -13794,7 +14786,7 @@ namespace RDI.NFe2.SchemaXML.NFe_v300
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.1432")]
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://www.portalfiscal.inf.br/nfe")]
-    public enum TNFeInfNFeDetImpostoIPIIPINTCST
+    public enum TIpiIPINTCST
     {
 
         /// <remarks/>
@@ -13844,10 +14836,10 @@ namespace RDI.NFe2.SchemaXML.NFe_v300
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://www.portalfiscal.inf.br/nfe")]
-    public partial class TNFeInfNFeDetImpostoIPIIPITrib
+    public partial class TIpiIPITrib
     {
 
-        private TNFeInfNFeDetImpostoIPIIPITribCST cSTField;
+        private TIpiIPITribCST cSTField;
 
         private string[] itemsField;
 
@@ -13856,7 +14848,7 @@ namespace RDI.NFe2.SchemaXML.NFe_v300
         private string vIPIField;
 
         /// <remarks/>
-        public TNFeInfNFeDetImpostoIPIIPITribCST CST
+        public TIpiIPITribCST CST
         {
             get
             {
@@ -13919,7 +14911,7 @@ namespace RDI.NFe2.SchemaXML.NFe_v300
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.1432")]
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://www.portalfiscal.inf.br/nfe")]
-    public enum TNFeInfNFeDetImpostoIPIIPITribCST
+    public enum TIpiIPITribCST
     {
 
         /// <remarks/>
@@ -13978,7 +14970,29 @@ namespace RDI.NFe2.SchemaXML.NFe_v300
 
         private TCListServ cListServField;
 
-        private TNFeInfNFeDetImpostoISSQNCSitTrib cSitTribField;
+        private string vDeducaoField;
+
+        private string vOutroField;
+
+        private string vDescIncondField;
+
+        private string vDescCondField;
+
+        private string vISSRetField;
+
+        private TNFeInfNFeDetImpostoISSQNIndISS indISSField;
+
+        private string cServicoField;
+
+        private string cMunField;
+
+        private Tpais cPaisField;
+
+        private bool cPaisFieldSpecified;
+
+        private string nProcessoField;
+
+        private TNFeInfNFeDetImpostoISSQNIndIncentivo indIncentivoField;
 
         /// <remarks/>
         public string vBC
@@ -14046,15 +15060,159 @@ namespace RDI.NFe2.SchemaXML.NFe_v300
         }
 
         /// <remarks/>
-        public TNFeInfNFeDetImpostoISSQNCSitTrib cSitTrib
+        public string vDeducao
         {
             get
             {
-                return this.cSitTribField;
+                return this.vDeducaoField;
             }
             set
             {
-                this.cSitTribField = value;
+                this.vDeducaoField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string vOutro
+        {
+            get
+            {
+                return this.vOutroField;
+            }
+            set
+            {
+                this.vOutroField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string vDescIncond
+        {
+            get
+            {
+                return this.vDescIncondField;
+            }
+            set
+            {
+                this.vDescIncondField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string vDescCond
+        {
+            get
+            {
+                return this.vDescCondField;
+            }
+            set
+            {
+                this.vDescCondField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string vISSRet
+        {
+            get
+            {
+                return this.vISSRetField;
+            }
+            set
+            {
+                this.vISSRetField = value;
+            }
+        }
+
+        /// <remarks/>
+        public TNFeInfNFeDetImpostoISSQNIndISS indISS
+        {
+            get
+            {
+                return this.indISSField;
+            }
+            set
+            {
+                this.indISSField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string cServico
+        {
+            get
+            {
+                return this.cServicoField;
+            }
+            set
+            {
+                this.cServicoField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string cMun
+        {
+            get
+            {
+                return this.cMunField;
+            }
+            set
+            {
+                this.cMunField = value;
+            }
+        }
+
+        /// <remarks/>
+        public Tpais cPais
+        {
+            get
+            {
+                return this.cPaisField;
+            }
+            set
+            {
+                this.cPaisField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool cPaisSpecified
+        {
+            get
+            {
+                return this.cPaisFieldSpecified;
+            }
+            set
+            {
+                this.cPaisFieldSpecified = value;
+            }
+        }
+
+        /// <remarks/>
+        public string nProcesso
+        {
+            get
+            {
+                return this.nProcessoField;
+            }
+            set
+            {
+                this.nProcessoField = value;
+            }
+        }
+
+        /// <remarks/>
+        public TNFeInfNFeDetImpostoISSQNIndIncentivo indIncentivo
+        {
+            get
+            {
+                return this.indIncentivoField;
+            }
+            set
+            {
+                this.indIncentivoField = value;
             }
         }
     }
@@ -14067,775 +15225,775 @@ namespace RDI.NFe2.SchemaXML.NFe_v300
     {
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("101")]
-        Item101,
+        [System.Xml.Serialization.XmlEnumAttribute("01.01")]
+        Item0101,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("102")]
-        Item102,
+        [System.Xml.Serialization.XmlEnumAttribute("01.02")]
+        Item0102,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("103")]
-        Item103,
+        [System.Xml.Serialization.XmlEnumAttribute("01.03")]
+        Item0103,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("104")]
-        Item104,
+        [System.Xml.Serialization.XmlEnumAttribute("01.04")]
+        Item0104,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("105")]
-        Item105,
+        [System.Xml.Serialization.XmlEnumAttribute("01.05")]
+        Item0105,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("106")]
-        Item106,
+        [System.Xml.Serialization.XmlEnumAttribute("01.06")]
+        Item0106,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("107")]
-        Item107,
+        [System.Xml.Serialization.XmlEnumAttribute("01.07")]
+        Item0107,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("108")]
-        Item108,
+        [System.Xml.Serialization.XmlEnumAttribute("01.08")]
+        Item0108,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("201")]
-        Item201,
+        [System.Xml.Serialization.XmlEnumAttribute("02.01")]
+        Item0201,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("302")]
-        Item302,
+        [System.Xml.Serialization.XmlEnumAttribute("03.02")]
+        Item0302,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("303")]
-        Item303,
+        [System.Xml.Serialization.XmlEnumAttribute("03.03")]
+        Item0303,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("304")]
-        Item304,
+        [System.Xml.Serialization.XmlEnumAttribute("03.04")]
+        Item0304,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("305")]
-        Item305,
+        [System.Xml.Serialization.XmlEnumAttribute("03.05")]
+        Item0305,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("401")]
-        Item401,
+        [System.Xml.Serialization.XmlEnumAttribute("04.01")]
+        Item0401,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("402")]
-        Item402,
+        [System.Xml.Serialization.XmlEnumAttribute("04.02")]
+        Item0402,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("403")]
-        Item403,
+        [System.Xml.Serialization.XmlEnumAttribute("04.03")]
+        Item0403,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("404")]
-        Item404,
+        [System.Xml.Serialization.XmlEnumAttribute("04.04")]
+        Item0404,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("405")]
-        Item405,
+        [System.Xml.Serialization.XmlEnumAttribute("04.05")]
+        Item0405,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("406")]
-        Item406,
+        [System.Xml.Serialization.XmlEnumAttribute("04.06")]
+        Item0406,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("407")]
-        Item407,
+        [System.Xml.Serialization.XmlEnumAttribute("04.07")]
+        Item0407,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("408")]
-        Item408,
+        [System.Xml.Serialization.XmlEnumAttribute("04.08")]
+        Item0408,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("409")]
-        Item409,
+        [System.Xml.Serialization.XmlEnumAttribute("04.09")]
+        Item0409,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("410")]
-        Item410,
+        [System.Xml.Serialization.XmlEnumAttribute("04.10")]
+        Item0410,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("411")]
-        Item411,
+        [System.Xml.Serialization.XmlEnumAttribute("04.11")]
+        Item0411,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("412")]
-        Item412,
+        [System.Xml.Serialization.XmlEnumAttribute("04.12")]
+        Item0412,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("413")]
-        Item413,
+        [System.Xml.Serialization.XmlEnumAttribute("04.13")]
+        Item0413,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("414")]
-        Item414,
+        [System.Xml.Serialization.XmlEnumAttribute("04.14")]
+        Item0414,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("415")]
-        Item415,
+        [System.Xml.Serialization.XmlEnumAttribute("04.15")]
+        Item0415,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("416")]
-        Item416,
+        [System.Xml.Serialization.XmlEnumAttribute("04.16")]
+        Item0416,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("417")]
-        Item417,
+        [System.Xml.Serialization.XmlEnumAttribute("04.17")]
+        Item0417,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("418")]
-        Item418,
+        [System.Xml.Serialization.XmlEnumAttribute("04.18")]
+        Item0418,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("419")]
-        Item419,
+        [System.Xml.Serialization.XmlEnumAttribute("04.19")]
+        Item0419,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("420")]
-        Item420,
+        [System.Xml.Serialization.XmlEnumAttribute("04.20")]
+        Item0420,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("421")]
-        Item421,
+        [System.Xml.Serialization.XmlEnumAttribute("04.21")]
+        Item0421,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("422")]
-        Item422,
+        [System.Xml.Serialization.XmlEnumAttribute("04.22")]
+        Item0422,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("423")]
-        Item423,
+        [System.Xml.Serialization.XmlEnumAttribute("04.23")]
+        Item0423,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("501")]
-        Item501,
+        [System.Xml.Serialization.XmlEnumAttribute("05.01")]
+        Item0501,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("502")]
-        Item502,
+        [System.Xml.Serialization.XmlEnumAttribute("05.02")]
+        Item0502,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("503")]
-        Item503,
+        [System.Xml.Serialization.XmlEnumAttribute("05.03")]
+        Item0503,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("504")]
-        Item504,
+        [System.Xml.Serialization.XmlEnumAttribute("05.04")]
+        Item0504,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("505")]
-        Item505,
+        [System.Xml.Serialization.XmlEnumAttribute("05.05")]
+        Item0505,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("506")]
-        Item506,
+        [System.Xml.Serialization.XmlEnumAttribute("05.06")]
+        Item0506,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("507")]
-        Item507,
+        [System.Xml.Serialization.XmlEnumAttribute("05.07")]
+        Item0507,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("508")]
-        Item508,
+        [System.Xml.Serialization.XmlEnumAttribute("05.08")]
+        Item0508,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("509")]
-        Item509,
+        [System.Xml.Serialization.XmlEnumAttribute("05.09")]
+        Item0509,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("601")]
-        Item601,
+        [System.Xml.Serialization.XmlEnumAttribute("06.01")]
+        Item0601,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("602")]
-        Item602,
+        [System.Xml.Serialization.XmlEnumAttribute("06.02")]
+        Item0602,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("603")]
-        Item603,
+        [System.Xml.Serialization.XmlEnumAttribute("06.03")]
+        Item0603,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("604")]
-        Item604,
+        [System.Xml.Serialization.XmlEnumAttribute("06.04")]
+        Item0604,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("605")]
-        Item605,
+        [System.Xml.Serialization.XmlEnumAttribute("06.05")]
+        Item0605,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("701")]
-        Item701,
+        [System.Xml.Serialization.XmlEnumAttribute("07.01")]
+        Item0701,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("702")]
-        Item702,
+        [System.Xml.Serialization.XmlEnumAttribute("07.02")]
+        Item0702,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("703")]
-        Item703,
+        [System.Xml.Serialization.XmlEnumAttribute("07.03")]
+        Item0703,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("704")]
-        Item704,
+        [System.Xml.Serialization.XmlEnumAttribute("07.04")]
+        Item0704,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("705")]
-        Item705,
+        [System.Xml.Serialization.XmlEnumAttribute("07.05")]
+        Item0705,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("706")]
-        Item706,
+        [System.Xml.Serialization.XmlEnumAttribute("07.06")]
+        Item0706,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("707")]
-        Item707,
+        [System.Xml.Serialization.XmlEnumAttribute("07.07")]
+        Item0707,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("708")]
-        Item708,
+        [System.Xml.Serialization.XmlEnumAttribute("07.08")]
+        Item0708,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("709")]
-        Item709,
+        [System.Xml.Serialization.XmlEnumAttribute("07.09")]
+        Item0709,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("710")]
-        Item710,
+        [System.Xml.Serialization.XmlEnumAttribute("07.10")]
+        Item0710,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("711")]
-        Item711,
+        [System.Xml.Serialization.XmlEnumAttribute("07.11")]
+        Item0711,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("712")]
-        Item712,
+        [System.Xml.Serialization.XmlEnumAttribute("07.12")]
+        Item0712,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("713")]
-        Item713,
+        [System.Xml.Serialization.XmlEnumAttribute("07.13")]
+        Item0713,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("716")]
-        Item716,
+        [System.Xml.Serialization.XmlEnumAttribute("07.16")]
+        Item0716,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("717")]
-        Item717,
+        [System.Xml.Serialization.XmlEnumAttribute("07.17")]
+        Item0717,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("718")]
-        Item718,
+        [System.Xml.Serialization.XmlEnumAttribute("07.18")]
+        Item0718,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("719")]
-        Item719,
+        [System.Xml.Serialization.XmlEnumAttribute("07.19")]
+        Item0719,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("720")]
-        Item720,
+        [System.Xml.Serialization.XmlEnumAttribute("07.20")]
+        Item0720,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("721")]
-        Item721,
+        [System.Xml.Serialization.XmlEnumAttribute("07.21")]
+        Item0721,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("722")]
-        Item722,
+        [System.Xml.Serialization.XmlEnumAttribute("07.22")]
+        Item0722,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("801")]
-        Item801,
+        [System.Xml.Serialization.XmlEnumAttribute("08.01")]
+        Item0801,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("802")]
-        Item802,
+        [System.Xml.Serialization.XmlEnumAttribute("08.02")]
+        Item0802,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("901")]
-        Item901,
+        [System.Xml.Serialization.XmlEnumAttribute("09.01")]
+        Item0901,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("902")]
-        Item902,
+        [System.Xml.Serialization.XmlEnumAttribute("09.02")]
+        Item0902,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("903")]
-        Item903,
+        [System.Xml.Serialization.XmlEnumAttribute("09.03")]
+        Item0903,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1001")]
+        [System.Xml.Serialization.XmlEnumAttribute("10.01")]
         Item1001,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1002")]
+        [System.Xml.Serialization.XmlEnumAttribute("10.02")]
         Item1002,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1003")]
+        [System.Xml.Serialization.XmlEnumAttribute("10.03")]
         Item1003,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1004")]
+        [System.Xml.Serialization.XmlEnumAttribute("10.04")]
         Item1004,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1005")]
+        [System.Xml.Serialization.XmlEnumAttribute("10.05")]
         Item1005,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1006")]
+        [System.Xml.Serialization.XmlEnumAttribute("10.06")]
         Item1006,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1007")]
+        [System.Xml.Serialization.XmlEnumAttribute("10.07")]
         Item1007,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1008")]
+        [System.Xml.Serialization.XmlEnumAttribute("10.08")]
         Item1008,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1009")]
+        [System.Xml.Serialization.XmlEnumAttribute("10.09")]
         Item1009,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1010")]
+        [System.Xml.Serialization.XmlEnumAttribute("10.10")]
         Item1010,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1101")]
+        [System.Xml.Serialization.XmlEnumAttribute("11.01")]
         Item1101,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1102")]
+        [System.Xml.Serialization.XmlEnumAttribute("11.02")]
         Item1102,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1103")]
+        [System.Xml.Serialization.XmlEnumAttribute("11.03")]
         Item1103,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1104")]
+        [System.Xml.Serialization.XmlEnumAttribute("11.04")]
         Item1104,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1201")]
+        [System.Xml.Serialization.XmlEnumAttribute("12.01")]
         Item1201,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1202")]
+        [System.Xml.Serialization.XmlEnumAttribute("12.02")]
         Item1202,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1203")]
+        [System.Xml.Serialization.XmlEnumAttribute("12.03")]
         Item1203,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1204")]
+        [System.Xml.Serialization.XmlEnumAttribute("12.04")]
         Item1204,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1205")]
+        [System.Xml.Serialization.XmlEnumAttribute("12.05")]
         Item1205,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1206")]
+        [System.Xml.Serialization.XmlEnumAttribute("12.06")]
         Item1206,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1207")]
+        [System.Xml.Serialization.XmlEnumAttribute("12.07")]
         Item1207,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1208")]
+        [System.Xml.Serialization.XmlEnumAttribute("12.08")]
         Item1208,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1209")]
+        [System.Xml.Serialization.XmlEnumAttribute("12.09")]
         Item1209,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1210")]
+        [System.Xml.Serialization.XmlEnumAttribute("12.10")]
         Item1210,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1211")]
+        [System.Xml.Serialization.XmlEnumAttribute("12.11")]
         Item1211,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1212")]
+        [System.Xml.Serialization.XmlEnumAttribute("12.12")]
         Item1212,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1213")]
+        [System.Xml.Serialization.XmlEnumAttribute("12.13")]
         Item1213,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1214")]
+        [System.Xml.Serialization.XmlEnumAttribute("12.14")]
         Item1214,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1215")]
+        [System.Xml.Serialization.XmlEnumAttribute("12.15")]
         Item1215,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1216")]
+        [System.Xml.Serialization.XmlEnumAttribute("12.16")]
         Item1216,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1217")]
+        [System.Xml.Serialization.XmlEnumAttribute("12.17")]
         Item1217,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1302")]
+        [System.Xml.Serialization.XmlEnumAttribute("13.02")]
         Item1302,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1303")]
+        [System.Xml.Serialization.XmlEnumAttribute("13.03")]
         Item1303,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1304")]
+        [System.Xml.Serialization.XmlEnumAttribute("13.04")]
         Item1304,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1305")]
+        [System.Xml.Serialization.XmlEnumAttribute("13.05")]
         Item1305,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1401")]
+        [System.Xml.Serialization.XmlEnumAttribute("14.01")]
         Item1401,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1402")]
+        [System.Xml.Serialization.XmlEnumAttribute("14.02")]
         Item1402,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1403")]
+        [System.Xml.Serialization.XmlEnumAttribute("14.03")]
         Item1403,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1404")]
+        [System.Xml.Serialization.XmlEnumAttribute("14.04")]
         Item1404,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1405")]
+        [System.Xml.Serialization.XmlEnumAttribute("14.05")]
         Item1405,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1406")]
+        [System.Xml.Serialization.XmlEnumAttribute("14.06")]
         Item1406,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1407")]
+        [System.Xml.Serialization.XmlEnumAttribute("14.07")]
         Item1407,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1408")]
+        [System.Xml.Serialization.XmlEnumAttribute("14.08")]
         Item1408,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1409")]
+        [System.Xml.Serialization.XmlEnumAttribute("14.09")]
         Item1409,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1410")]
+        [System.Xml.Serialization.XmlEnumAttribute("14.10")]
         Item1410,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1411")]
+        [System.Xml.Serialization.XmlEnumAttribute("14.11")]
         Item1411,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1412")]
+        [System.Xml.Serialization.XmlEnumAttribute("14.12")]
         Item1412,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1413")]
+        [System.Xml.Serialization.XmlEnumAttribute("14.13")]
         Item1413,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1501")]
+        [System.Xml.Serialization.XmlEnumAttribute("15.01")]
         Item1501,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1502")]
+        [System.Xml.Serialization.XmlEnumAttribute("15.02")]
         Item1502,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1503")]
+        [System.Xml.Serialization.XmlEnumAttribute("15.03")]
         Item1503,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1504")]
+        [System.Xml.Serialization.XmlEnumAttribute("15.04")]
         Item1504,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1505")]
+        [System.Xml.Serialization.XmlEnumAttribute("15.05")]
         Item1505,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1506")]
+        [System.Xml.Serialization.XmlEnumAttribute("15.06")]
         Item1506,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1507")]
+        [System.Xml.Serialization.XmlEnumAttribute("15.07")]
         Item1507,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1508")]
+        [System.Xml.Serialization.XmlEnumAttribute("15.08")]
         Item1508,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1509")]
+        [System.Xml.Serialization.XmlEnumAttribute("15.09")]
         Item1509,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1510")]
+        [System.Xml.Serialization.XmlEnumAttribute("15.10")]
         Item1510,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1511")]
+        [System.Xml.Serialization.XmlEnumAttribute("15.11")]
         Item1511,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1512")]
+        [System.Xml.Serialization.XmlEnumAttribute("15.12")]
         Item1512,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1513")]
+        [System.Xml.Serialization.XmlEnumAttribute("15.13")]
         Item1513,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1514")]
+        [System.Xml.Serialization.XmlEnumAttribute("15.14")]
         Item1514,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1515")]
+        [System.Xml.Serialization.XmlEnumAttribute("15.15")]
         Item1515,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1516")]
+        [System.Xml.Serialization.XmlEnumAttribute("15.16")]
         Item1516,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1517")]
+        [System.Xml.Serialization.XmlEnumAttribute("15.17")]
         Item1517,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1518")]
+        [System.Xml.Serialization.XmlEnumAttribute("15.18")]
         Item1518,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1601")]
+        [System.Xml.Serialization.XmlEnumAttribute("16.01")]
         Item1601,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1701")]
+        [System.Xml.Serialization.XmlEnumAttribute("17.01")]
         Item1701,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1702")]
+        [System.Xml.Serialization.XmlEnumAttribute("17.02")]
         Item1702,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1703")]
+        [System.Xml.Serialization.XmlEnumAttribute("17.03")]
         Item1703,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1704")]
+        [System.Xml.Serialization.XmlEnumAttribute("17.04")]
         Item1704,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1705")]
+        [System.Xml.Serialization.XmlEnumAttribute("17.05")]
         Item1705,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1706")]
+        [System.Xml.Serialization.XmlEnumAttribute("17.06")]
         Item1706,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1708")]
+        [System.Xml.Serialization.XmlEnumAttribute("17.08")]
         Item1708,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1709")]
+        [System.Xml.Serialization.XmlEnumAttribute("17.09")]
         Item1709,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1710")]
+        [System.Xml.Serialization.XmlEnumAttribute("17.10")]
         Item1710,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1711")]
+        [System.Xml.Serialization.XmlEnumAttribute("17.11")]
         Item1711,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1712")]
+        [System.Xml.Serialization.XmlEnumAttribute("17.12")]
         Item1712,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1713")]
+        [System.Xml.Serialization.XmlEnumAttribute("17.13")]
         Item1713,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1714")]
+        [System.Xml.Serialization.XmlEnumAttribute("17.14")]
         Item1714,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1715")]
+        [System.Xml.Serialization.XmlEnumAttribute("17.15")]
         Item1715,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1716")]
+        [System.Xml.Serialization.XmlEnumAttribute("17.16")]
         Item1716,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1717")]
+        [System.Xml.Serialization.XmlEnumAttribute("17.17")]
         Item1717,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1718")]
+        [System.Xml.Serialization.XmlEnumAttribute("17.18")]
         Item1718,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1719")]
+        [System.Xml.Serialization.XmlEnumAttribute("17.19")]
         Item1719,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1720")]
+        [System.Xml.Serialization.XmlEnumAttribute("17.20")]
         Item1720,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1721")]
+        [System.Xml.Serialization.XmlEnumAttribute("17.21")]
         Item1721,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1722")]
+        [System.Xml.Serialization.XmlEnumAttribute("17.22")]
         Item1722,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1723")]
+        [System.Xml.Serialization.XmlEnumAttribute("17.23")]
         Item1723,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1724")]
+        [System.Xml.Serialization.XmlEnumAttribute("17.24")]
         Item1724,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1801")]
+        [System.Xml.Serialization.XmlEnumAttribute("18.01")]
         Item1801,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1901")]
+        [System.Xml.Serialization.XmlEnumAttribute("19.01")]
         Item1901,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("2001")]
+        [System.Xml.Serialization.XmlEnumAttribute("20.01")]
         Item2001,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("2002")]
+        [System.Xml.Serialization.XmlEnumAttribute("20.02")]
         Item2002,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("2003")]
+        [System.Xml.Serialization.XmlEnumAttribute("20.03")]
         Item2003,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("2101")]
+        [System.Xml.Serialization.XmlEnumAttribute("21.01")]
         Item2101,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("2201")]
+        [System.Xml.Serialization.XmlEnumAttribute("22.01")]
         Item2201,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("2301")]
+        [System.Xml.Serialization.XmlEnumAttribute("23.01")]
         Item2301,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("2401")]
+        [System.Xml.Serialization.XmlEnumAttribute("24.01")]
         Item2401,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("2501")]
+        [System.Xml.Serialization.XmlEnumAttribute("25.01")]
         Item2501,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("2502")]
+        [System.Xml.Serialization.XmlEnumAttribute("25.02")]
         Item2502,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("2503")]
+        [System.Xml.Serialization.XmlEnumAttribute("25.03")]
         Item2503,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("2504")]
+        [System.Xml.Serialization.XmlEnumAttribute("25.04")]
         Item2504,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("2601")]
+        [System.Xml.Serialization.XmlEnumAttribute("26.01")]
         Item2601,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("2701")]
+        [System.Xml.Serialization.XmlEnumAttribute("27.01")]
         Item2701,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("2801")]
+        [System.Xml.Serialization.XmlEnumAttribute("28.01")]
         Item2801,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("2901")]
+        [System.Xml.Serialization.XmlEnumAttribute("29.01")]
         Item2901,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("3001")]
+        [System.Xml.Serialization.XmlEnumAttribute("30.01")]
         Item3001,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("3101")]
+        [System.Xml.Serialization.XmlEnumAttribute("31.01")]
         Item3101,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("3201")]
+        [System.Xml.Serialization.XmlEnumAttribute("32.01")]
         Item3201,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("3301")]
+        [System.Xml.Serialization.XmlEnumAttribute("33.01")]
         Item3301,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("3401")]
+        [System.Xml.Serialization.XmlEnumAttribute("34.01")]
         Item3401,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("3501")]
+        [System.Xml.Serialization.XmlEnumAttribute("35.01")]
         Item3501,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("3601")]
+        [System.Xml.Serialization.XmlEnumAttribute("36.01")]
         Item3601,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("3701")]
+        [System.Xml.Serialization.XmlEnumAttribute("37.01")]
         Item3701,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("3801")]
+        [System.Xml.Serialization.XmlEnumAttribute("38.01")]
         Item3801,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("3901")]
+        [System.Xml.Serialization.XmlEnumAttribute("39.01")]
         Item3901,
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("4001")]
+        [System.Xml.Serialization.XmlEnumAttribute("40.01")]
         Item4001,
     }
 
@@ -14843,20 +16001,52 @@ namespace RDI.NFe2.SchemaXML.NFe_v300
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.1432")]
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://www.portalfiscal.inf.br/nfe")]
-    public enum TNFeInfNFeDetImpostoISSQNCSitTrib
+    public enum TNFeInfNFeDetImpostoISSQNIndISS
     {
 
         /// <remarks/>
-        N,
+        [System.Xml.Serialization.XmlEnumAttribute("1")]
+        Item1,
 
         /// <remarks/>
-        R,
+        [System.Xml.Serialization.XmlEnumAttribute("2")]
+        Item2,
 
         /// <remarks/>
-        S,
+        [System.Xml.Serialization.XmlEnumAttribute("3")]
+        Item3,
 
         /// <remarks/>
-        I,
+        [System.Xml.Serialization.XmlEnumAttribute("4")]
+        Item4,
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("5")]
+        Item5,
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("6")]
+        Item6,
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("7")]
+        Item7,
+    }
+
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.1432")]
+    [System.SerializableAttribute()]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://www.portalfiscal.inf.br/nfe")]
+    public enum TNFeInfNFeDetImpostoISSQNIndIncentivo
+    {
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("1")]
+        Item1,
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("2")]
+        Item2,
     }
 
     /// <remarks/>
@@ -15009,6 +16199,10 @@ namespace RDI.NFe2.SchemaXML.NFe_v300
         /// <remarks/>
         [System.Xml.Serialization.XmlEnumAttribute("04")]
         Item04,
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("05")]
+        Item05,
 
         /// <remarks/>
         [System.Xml.Serialization.XmlEnumAttribute("06")]
@@ -15544,6 +16738,10 @@ namespace RDI.NFe2.SchemaXML.NFe_v300
         Item04,
 
         /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("05")]
+        Item05,
+
+        /// <remarks/>
         [System.Xml.Serialization.XmlEnumAttribute("06")]
         Item06,
 
@@ -15931,6 +17129,71 @@ namespace RDI.NFe2.SchemaXML.NFe_v300
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://www.portalfiscal.inf.br/nfe")]
+    public partial class TNFeInfNFeDetImpostoDevol
+    {
+
+        private string pDevolField;
+
+        private TNFeInfNFeDetImpostoDevolIPI iPIField;
+
+        /// <remarks/>
+        public string pDevol
+        {
+            get
+            {
+                return this.pDevolField;
+            }
+            set
+            {
+                this.pDevolField = value;
+            }
+        }
+
+        /// <remarks/>
+        public TNFeInfNFeDetImpostoDevolIPI IPI
+        {
+            get
+            {
+                return this.iPIField;
+            }
+            set
+            {
+                this.iPIField = value;
+            }
+        }
+    }
+
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.1432")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://www.portalfiscal.inf.br/nfe")]
+    public partial class TNFeInfNFeDetImpostoDevolIPI
+    {
+
+        private string vIPIDevolField;
+
+        /// <remarks/>
+        public string vIPIDevol
+        {
+            get
+            {
+                return this.vIPIDevolField;
+            }
+            set
+            {
+                this.vIPIDevolField = value;
+            }
+        }
+    }
+
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.1432")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://www.portalfiscal.inf.br/nfe")]
     public partial class TNFeInfNFeTotal
     {
 
@@ -15993,6 +17256,14 @@ namespace RDI.NFe2.SchemaXML.NFe_v300
 
         private string vICMSField;
 
+        private string vICMSDesonField;
+
+        private string vFCPUFDestField;
+
+        private string vICMSUFDestField;
+
+        private string vICMSUFRemetField;
+
         private string vBCSTField;
 
         private string vSTField;
@@ -16042,6 +17313,58 @@ namespace RDI.NFe2.SchemaXML.NFe_v300
             set
             {
                 this.vICMSField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string vICMSDeson
+        {
+            get
+            {
+                return this.vICMSDesonField;
+            }
+            set
+            {
+                this.vICMSDesonField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string vFCPUFDest
+        {
+            get
+            {
+                return this.vFCPUFDestField;
+            }
+            set
+            {
+                this.vFCPUFDestField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string vICMSUFDest
+        {
+            get
+            {
+                return this.vICMSUFDestField;
+            }
+            set
+            {
+                this.vICMSUFDestField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string vICMSUFRemet
+        {
+            get
+            {
+                return this.vICMSUFRemetField;
+            }
+            set
+            {
+                this.vICMSUFRemetField = value;
             }
         }
 
@@ -16234,6 +17557,22 @@ namespace RDI.NFe2.SchemaXML.NFe_v300
 
         private string vCOFINSField;
 
+        private string dCompetField;
+
+        private string vDeducaoField;
+
+        private string vOutroField;
+
+        private string vDescIncondField;
+
+        private string vDescCondField;
+
+        private string vISSRetField;
+
+        private TNFeInfNFeTotalISSQNtotCRegTrib cRegTribField;
+
+        private bool cRegTribFieldSpecified;
+
         /// <remarks/>
         public string vServ
         {
@@ -16298,6 +17637,143 @@ namespace RDI.NFe2.SchemaXML.NFe_v300
                 this.vCOFINSField = value;
             }
         }
+
+        /// <remarks/>
+        public string dCompet
+        {
+            get
+            {
+                return this.dCompetField;
+            }
+            set
+            {
+                this.dCompetField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string vDeducao
+        {
+            get
+            {
+                return this.vDeducaoField;
+            }
+            set
+            {
+                this.vDeducaoField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string vOutro
+        {
+            get
+            {
+                return this.vOutroField;
+            }
+            set
+            {
+                this.vOutroField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string vDescIncond
+        {
+            get
+            {
+                return this.vDescIncondField;
+            }
+            set
+            {
+                this.vDescIncondField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string vDescCond
+        {
+            get
+            {
+                return this.vDescCondField;
+            }
+            set
+            {
+                this.vDescCondField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string vISSRet
+        {
+            get
+            {
+                return this.vISSRetField;
+            }
+            set
+            {
+                this.vISSRetField = value;
+            }
+        }
+
+        /// <remarks/>
+        public TNFeInfNFeTotalISSQNtotCRegTrib cRegTrib
+        {
+            get
+            {
+                return this.cRegTribField;
+            }
+            set
+            {
+                this.cRegTribField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool cRegTribSpecified
+        {
+            get
+            {
+                return this.cRegTribFieldSpecified;
+            }
+            set
+            {
+                this.cRegTribFieldSpecified = value;
+            }
+        }
+    }
+
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.1432")]
+    [System.SerializableAttribute()]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://www.portalfiscal.inf.br/nfe")]
+    public enum TNFeInfNFeTotalISSQNtotCRegTrib
+    {
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("1")]
+        Item1,
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("2")]
+        Item2,
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("3")]
+        Item3,
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("4")]
+        Item4,
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("5")]
+        Item5,
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("6")]
+        Item6,
     }
 
     /// <remarks/>
@@ -16699,7 +18175,7 @@ namespace RDI.NFe2.SchemaXML.NFe_v300
 
         private string vICMSRetField;
 
-        private TCfopTransp cFOPField;
+        private string cFOPField;
 
         private string cMunFGField;
 
@@ -16756,7 +18232,7 @@ namespace RDI.NFe2.SchemaXML.NFe_v300
         }
 
         /// <remarks/>
-        public TCfopTransp CFOP
+        public string CFOP
         {
             get
             {
@@ -16782,105 +18258,105 @@ namespace RDI.NFe2.SchemaXML.NFe_v300
         }
     }
 
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.1432")]
-    [System.SerializableAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe")]
-    public enum TCfopTransp
-    {
+    ///// <remarks/>
+    //[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.1432")]
+    //[System.SerializableAttribute()]
+    //[System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe")]
+    //public enum TCfopTransp
+    //{
 
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("5351")]
-        Item5351,
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("5351")]
+    //    Item5351,
 
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("5352")]
-        Item5352,
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("5352")]
+    //    Item5352,
 
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("5353")]
-        Item5353,
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("5353")]
+    //    Item5353,
 
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("5354")]
-        Item5354,
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("5354")]
+    //    Item5354,
 
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("5355")]
-        Item5355,
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("5355")]
+    //    Item5355,
 
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("5356")]
-        Item5356,
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("5356")]
+    //    Item5356,
 
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("5357")]
-        Item5357,
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("5357")]
+    //    Item5357,
 
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("5359")]
-        Item5359,
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("5359")]
+    //    Item5359,
 
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("5360")]
-        Item5360,
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("5360")]
+    //    Item5360,
 
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("5931")]
-        Item5931,
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("5931")]
+    //    Item5931,
 
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("5932")]
-        Item5932,
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("5932")]
+    //    Item5932,
 
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6351")]
-        Item6351,
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("6351")]
+    //    Item6351,
 
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6352")]
-        Item6352,
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("6352")]
+    //    Item6352,
 
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6353")]
-        Item6353,
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("6353")]
+    //    Item6353,
 
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6354")]
-        Item6354,
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("6354")]
+    //    Item6354,
 
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6355")]
-        Item6355,
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("6355")]
+    //    Item6355,
 
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6356")]
-        Item6356,
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("6356")]
+    //    Item6356,
 
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6357")]
-        Item6357,
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("6357")]
+    //    Item6357,
 
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6359")]
-        Item6359,
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("6359")]
+    //    Item6359,
 
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6360")]
-        Item6360,
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("6360")]
+    //    Item6360,
 
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6931")]
-        Item6931,
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("6931")]
+    //    Item6931,
 
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("6932")]
-        Item6932,
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("6932")]
+    //    Item6932,
 
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("7358")]
-        Item7358,
-    }
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlEnumAttribute("7358")]
+    //    Item7358,
+    //}
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.1432")]
@@ -17375,12 +18851,42 @@ namespace RDI.NFe2.SchemaXML.NFe_v300
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://www.portalfiscal.inf.br/nfe")]
     public partial class TNFeInfNFePagCard
     {
+        private TNFeInfNFePagCardTpIntegra tpIntegraField;
+
+        private bool tpIntegraFieldSpecified;
 
         private string cNPJField;
 
         private TNFeInfNFePagCardTBand tBandField;
 
         private string cAutField;
+
+        /// <remarks/>
+        public TNFeInfNFePagCardTpIntegra tpIntegra
+        {
+            get
+            {
+                return this.tpIntegraField;
+            }
+            set
+            {
+                this.tpIntegraField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool tpIntegraSpecified
+        {
+            get
+            {
+                return this.tpIntegraFieldSpecified;
+            }
+            set
+            {
+                this.tpIntegraFieldSpecified = value;
+            }
+        }
 
         /// <remarks/>
         public string CNPJ
@@ -17421,6 +18927,23 @@ namespace RDI.NFe2.SchemaXML.NFe_v300
             }
         }
     }
+
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.1432")]
+    [System.SerializableAttribute()]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://www.portalfiscal.inf.br/nfe")]
+    public enum TNFeInfNFePagCardTpIntegra
+    {
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("1")]
+        Item1,
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("2")]
+        Item2,
+    }
+
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.1432")]
@@ -17537,7 +19060,6 @@ namespace RDI.NFe2.SchemaXML.NFe_v300
             }
         }
     }
-
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.1432")]
     [System.SerializableAttribute()]
@@ -17697,33 +19219,48 @@ namespace RDI.NFe2.SchemaXML.NFe_v300
     public partial class TNFeInfNFeExporta
     {
 
-        private TUf uFEmbarqField;
+        private TUfEmi uFSaidaPaisField;
 
-        private string xLocEmbarqField;
+        private string xLocExportaField;
+
+        private string xLocDespachoField;
 
         /// <remarks/>
-        public TUf UFEmbarq
+        public TUfEmi UFSaidaPais
         {
             get
             {
-                return this.uFEmbarqField;
+                return this.uFSaidaPaisField;
             }
             set
             {
-                this.uFEmbarqField = value;
+                this.uFSaidaPaisField = value;
             }
         }
 
         /// <remarks/>
-        public string xLocEmbarq
+        public string xLocExporta
         {
             get
             {
-                return this.xLocEmbarqField;
+                return this.xLocExportaField;
             }
             set
             {
-                this.xLocEmbarqField = value;
+                this.xLocExportaField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string xLocDespacho
+        {
+            get
+            {
+                return this.xLocDespachoField;
+            }
+            set
+            {
+                this.xLocDespachoField = value;
             }
         }
     }
@@ -17904,6 +19441,7 @@ namespace RDI.NFe2.SchemaXML.NFe_v300
                 this.deducField = value;
             }
         }
+
 
         /// <remarks/>
         public string vFor
@@ -19451,20 +20989,6 @@ namespace RDI.NFe2.SchemaXML.NFe_v300
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.1432")]
     [System.SerializableAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe", IncludeInSchema = false)]
-    public enum ItemChoiceType7
-    {
-
-        /// <remarks/>
-        CNPJDest,
-
-        /// <remarks/>
-        CPFDest,
-    }
-
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.1432")]
-    [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe")]
@@ -19486,9 +21010,7 @@ namespace RDI.NFe2.SchemaXML.NFe_v300
 
         private string tMedField;
 
-        private System.DateTime dhRetornoField;
-
-        private bool dhRetornoFieldSpecified;
+        private string dhRetornoField;
 
         private string xObsField;
 
@@ -19586,7 +21108,7 @@ namespace RDI.NFe2.SchemaXML.NFe_v300
         }
 
         /// <remarks/>
-        public System.DateTime dhRetorno
+        public string dhRetorno
         {
             get
             {
@@ -19595,20 +21117,6 @@ namespace RDI.NFe2.SchemaXML.NFe_v300
             set
             {
                 this.dhRetornoField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool dhRetornoSpecified
-        {
-            get
-            {
-                return this.dhRetornoFieldSpecified;
-            }
-            set
-            {
-                this.dhRetornoFieldSpecified = value;
             }
         }
 
@@ -19810,6 +21318,160 @@ namespace RDI.NFe2.SchemaXML.NFe_v300
             set
             {
                 this.tMedField = value;
+            }
+        }
+    }
+
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.1432")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://www.portalfiscal.inf.br/nfe")]
+    public partial class TNFeInfNFeSupl
+    {
+        private string qrCodeField;
+
+        /// <remarks/>
+        public XmlCDataSection qrCode
+        {
+            get
+            {
+                return XMLUtils.CreateCData(this.qrCodeField);
+            }
+            set
+            {
+                this.qrCodeField = value?.Value;
+            }
+        }
+    }
+
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.1432")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://www.portalfiscal.inf.br/nfe")]
+    public partial class TNFeInfNFeDetImpostoICMSUFDest
+    {
+
+        private string vBCUFDestField;
+
+        private string pFCPUFDestField;
+
+        private string pICMSUFDestField;
+
+        private string pICMSInterField;
+
+        private string pICMSInterPartField;
+
+        private string vFCPUFDestField;
+
+        private string vICMSUFDestField;
+
+        private string vICMSUFRemetField;
+
+        /// <remarks/>
+        public string vBCUFDest
+        {
+            get
+            {
+                return this.vBCUFDestField;
+            }
+            set
+            {
+                this.vBCUFDestField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string pFCPUFDest
+        {
+            get
+            {
+                return this.pFCPUFDestField;
+            }
+            set
+            {
+                this.pFCPUFDestField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string pICMSUFDest
+        {
+            get
+            {
+                return this.pICMSUFDestField;
+            }
+            set
+            {
+                this.pICMSUFDestField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string pICMSInter
+        {
+            get
+            {
+                return this.pICMSInterField;
+            }
+            set
+            {
+                this.pICMSInterField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string pICMSInterPart
+        {
+            get
+            {
+                return this.pICMSInterPartField;
+            }
+            set
+            {
+                this.pICMSInterPartField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string vFCPUFDest
+        {
+            get
+            {
+                return this.vFCPUFDestField;
+            }
+            set
+            {
+                this.vFCPUFDestField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string vICMSUFDest
+        {
+            get
+            {
+                return this.vICMSUFDestField;
+            }
+            set
+            {
+                this.vICMSUFDestField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string vICMSUFRemet
+        {
+            get
+            {
+                return this.vICMSUFRemetField;
+            }
+            set
+            {
+                this.vICMSUFRemetField = value;
             }
         }
     }

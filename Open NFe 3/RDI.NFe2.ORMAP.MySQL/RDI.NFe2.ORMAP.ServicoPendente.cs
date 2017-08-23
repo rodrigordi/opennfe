@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using RDI.Lince;
-using RDI.NFe2.SchemaXML200;
+using RDI.NFe2.SchemaXML.Eventos;
 using RDI.NFe2.SchemaXML;
 
 

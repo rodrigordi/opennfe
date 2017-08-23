@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
+
 namespace RDI.NFe2.SchemaXML
 {
     [AttributeUsage(AttributeTargets.Field)]

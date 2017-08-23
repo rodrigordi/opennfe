@@ -5,7 +5,7 @@ using System.Text;
 using System.IO;
 using System.Xml.Serialization;
 using System.Xml;
-using RDI.NFe2.SchemaXML310;
+using RDI.NFe2.SchemaXML.NFe_v310;
 using System.ComponentModel;
 using System.Reflection;
 

@@ -17,12 +17,13 @@ using RDI.NFe2.ORMAP;
 using System.IO.Compression;
 using System.Collections.Generic;
 using RDI.OpenSigner;
+using RDI.NFe2.SchemaXML.GNRE;
 
 namespace RDI.NFe2.Business
 {
     public static class Servicos
     {
-        public static string VersaoBusiness { get { return "v3.10.4.0"; } }
+        public static string VersaoBusiness { get { return "v3.10.4.2"; } }
 
 
 
@@ -247,59 +248,59 @@ namespace RDI.NFe2.Business
         }
 
 
-        public static KeyValuePair<string, RDI.NFe2.GNRE.TRetLote_GNRE> Interface_GNRERecepcaoLote(SoapHttpClientProtocol oServico,
-            RDI.NFe2.GNRE.TLote_GNRE xmlEnvio,
+        public static KeyValuePair<string, TRetLote_GNRE> Interface_GNRERecepcaoLote(SoapHttpClientProtocol oServico,
+            TLote_GNRE xmlEnvio,
             Parametro oParam,
             VersaoXML versao)
         {
             var Key = ExecutaServico(oServico, xmlEnvio, oParam);
             try
             {
-                var Value = (RDI.NFe2.GNRE.TRetLote_GNRE)XMLUtils.CarregaXML_STR(Key, versao, "TRetLote_GNRE");
-                return new KeyValuePair<string, RDI.NFe2.GNRE.TRetLote_GNRE>(Key, Value);
+                var Value = (RDI.NFe2.SchemaXML.GNRE.TRetLote_GNRE)XMLUtils.CarregaXML_STR(Key, versao, "TRetLote_GNRE");
+                return new KeyValuePair<string, TRetLote_GNRE>(Key, Value);
             }
             catch (Exception ex)
             {
                 Key = ex.Message + " - " + Key;
-                return new KeyValuePair<string, RDI.NFe2.GNRE.TRetLote_GNRE>(Key, null);
+                return new KeyValuePair<string, TRetLote_GNRE>(Key, null);
             }
 
         }
 
-        public static KeyValuePair<string, RDI.NFe2.GNRE.TResultLote_GNRE> Interface_GNREConsultaLote(SoapHttpClientProtocol oServico,
-            RDI.NFe2.GNRE.TConsLote_GNRE xmlEnvio,
+        public static KeyValuePair<string, RDI.NFe2.SchemaXML.GNRE.TResultLote_GNRE> Interface_GNREConsultaLote(SoapHttpClientProtocol oServico,
+            TConsLote_GNRE xmlEnvio,
             Parametro oParam,
             VersaoXML versao)
         {
             var Key = ExecutaServico(oServico, xmlEnvio, oParam);
             try
             {
-                var Value = (RDI.NFe2.GNRE.TResultLote_GNRE)XMLUtils.CarregaXML_STR(Key, versao, "TResultLote_GNRE");
-                return new KeyValuePair<string, RDI.NFe2.GNRE.TResultLote_GNRE>(Key, Value);
+                var Value = (TResultLote_GNRE)XMLUtils.CarregaXML_STR(Key, versao, "TResultLote_GNRE");
+                return new KeyValuePair<string, TResultLote_GNRE>(Key, Value);
             }
             catch (Exception ex)
             {
                 Key = ex.Message + " - " + Key;
-                return new KeyValuePair<string, RDI.NFe2.GNRE.TResultLote_GNRE>(Key, null);
+                return new KeyValuePair<string, TResultLote_GNRE>(Key, null);
             }
 
         }
 
-        public static KeyValuePair<string, RDI.NFe2.GNRE.TConfigUf> Interface_GNREConfigUF(SoapHttpClientProtocol oServico,
-            RDI.NFe2.GNRE.TConsultaConfigUf xmlEnvio,
+        public static KeyValuePair<string, TConfigUf> Interface_GNREConfigUF(SoapHttpClientProtocol oServico,
+            TConsultaConfigUf xmlEnvio,
             Parametro oParam,
             VersaoXML versao)
         {
             var Key = ExecutaServico(oServico, xmlEnvio, oParam);
             try
             {
-                var Value = (RDI.NFe2.GNRE.TConfigUf)XMLUtils.CarregaXML_STR(Key, versao, "TConfigUf");
-                return new KeyValuePair<string, RDI.NFe2.GNRE.TConfigUf>(Key, Value);
+                var Value = (TConfigUf)XMLUtils.CarregaXML_STR(Key, versao, "TConfigUf");
+                return new KeyValuePair<string, TConfigUf>(Key, Value);
             }
             catch (Exception ex)
             {
                 Key = ex.Message + " - " + Key;
-                return new KeyValuePair<string, RDI.NFe2.GNRE.TConfigUf>(Key, null);
+                return new KeyValuePair<string, TConfigUf>(Key, null);
             }
 
         }
@@ -328,8 +329,8 @@ namespace RDI.NFe2.Business
             // forçar aceitação de todos os certificados dos servidores da SEFAZ
             // independentemente de ter a cadeia de certificação instalada
             System.Net.ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
-            //permitir os protocolos: TLS1.0 TLS1.1 TLS1.2 
-            System.Net.ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
+            //permitir os protocolos: SSL3 TLS1.0 TLS1.1 TLS1.2 
+            System.Net.ServicePointManager.SecurityProtocol = SecurityProtocolType.Ssl3 | SecurityProtocolType.Tls | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
         }
 
 
@@ -341,9 +342,9 @@ namespace RDI.NFe2.Business
             {
                 string dados = XMLUtils.GetXML(DADOS, oParam.versao);
                 #region particularidades
-                if (oParam.UF == TCodUfIBGE.Parana && (DADOS.GetType() == typeof(SchemaXML200.TEnviNFe)
-                                                    || DADOS.GetType() == typeof(SchemaXML300.TEnviNFe)
-                                                    || DADOS.GetType() == typeof(SchemaXML310.TEnviNFe)))
+                if (oParam.UF == TCodUfIBGE.Parana && (DADOS.GetType() == typeof(SchemaXML.NFe_v200.TEnviNFe)
+                                                    || DADOS.GetType() == typeof(SchemaXML.NFe_v300.TEnviNFe)
+                                                    || DADOS.GetType() == typeof(SchemaXML.NFe_v310.TEnviNFe)))
                 {
                     dados = dados.Replace("<NFe>", "<NFe xmlns=\"http://www.portalfiscal.inf.br/nfe\">");
                 }
@@ -359,7 +360,7 @@ namespace RDI.NFe2.Business
                 InicializaServico(oServico, oParam);
 
 
-                if (DADOS.GetType() == typeof(RDI.NFe2.GNRE.TLote_GNRE))
+                if (DADOS.GetType() == typeof(TLote_GNRE))
                 {
                     XmlNode ret = (XmlNode)oServico.GetType().InvokeMember("processar",
                                                         System.Reflection.BindingFlags.InvokeMethod,
@@ -367,7 +368,7 @@ namespace RDI.NFe2.Business
 
                     return XMLUtils.GetXML(ret, oParam.versao);
                 }
-                else if (DADOS.GetType() == typeof(RDI.NFe2.GNRE.TConsLote_GNRE))
+                else if (DADOS.GetType() == typeof(TConsLote_GNRE))
                 {
                     XmlNode ret = (XmlNode)oServico.GetType().InvokeMember("consultar",
                                                         System.Reflection.BindingFlags.InvokeMethod,
@@ -375,7 +376,7 @@ namespace RDI.NFe2.Business
 
                     return XMLUtils.GetXML(ret, oParam.versao);
                 }
-                else if (DADOS.GetType() == typeof(RDI.NFe2.GNRE.TConsultaConfigUf))
+                else if (DADOS.GetType() == typeof(TConsultaConfigUf))
                 {
                     XmlNode ret = (XmlNode)oServico.GetType().InvokeMember("consultar",
                                                         System.Reflection.BindingFlags.InvokeMethod,

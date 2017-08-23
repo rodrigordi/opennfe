@@ -7,7 +7,6 @@ using RDI.OpenSigner;
 
 public interface IUtilitario
 {
-
     String GetUltimaValidacao();
 
     void SetUtilitario_v1(String nomeCertificado, Boolean ContaComputador, Boolean Producao, Boolean TpEmisNormal, String UF);

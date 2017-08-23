@@ -9,7 +9,6 @@ using RDI.Lince;
 using RDI.NFe2.Business;
 using System.Collections;
 using RDI.NFe2.ORMAP;
-using RDI.NFe2.SchemaXML200;
 using RDI.NFe2.SchemaXML;
 
 

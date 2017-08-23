@@ -127,14 +127,14 @@ namespace RDI.NFe.Visual
                 Parametro oParam = Program.GetParametro(oServicoPendente.empresa, manager);
 
                 //criar o recibo no disco
-                RDI.NFe2.SchemaXML200.TRetEnviNFe oRetEnviNFe = new RDI.NFe2.SchemaXML200.TRetEnviNFe();
+                RDI.NFe2.SchemaXML.NFe_v200.TRetEnviNFe oRetEnviNFe = new RDI.NFe2.SchemaXML.NFe_v200.TRetEnviNFe();
                 oRetEnviNFe.tpAmb = oServicoPendente.tipoAmbiente;
                 oRetEnviNFe.verAplic = "2.00";
                 oRetEnviNFe.cUF = oServicoPendente.UF;
                 oRetEnviNFe.cStat = "103";
                 oRetEnviNFe.xMotivo = "Lote recebido com sucesso";
                 oRetEnviNFe.dhRecbto = DateTime.Now;
-                oRetEnviNFe.infRec = new RDI.NFe2.SchemaXML200.TRetEnviNFeInfRec();
+                oRetEnviNFe.infRec = new RDI.NFe2.SchemaXML.NFe_v200.TRetEnviNFeInfRec();
 
                 oRetEnviNFe.infRec.nRec = nRec;
                 oRetEnviNFe.infRec.tMed = "1";

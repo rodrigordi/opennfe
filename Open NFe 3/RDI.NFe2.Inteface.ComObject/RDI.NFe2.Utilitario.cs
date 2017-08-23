@@ -7,6 +7,7 @@ using System.IO;
 using RDI.NFe2.ORMAP;
 using RDI.NFe2.SchemaXML;
 using RDI.OpenSigner;
+using RDI.NFe2.SchemaXML.GNRE;
 
 namespace RDI.NFe2.Business
 {
@@ -1668,7 +1669,7 @@ namespace RDI.NFe2.Business
 
         public Boolean GNRE_RecepcaoLoteHD(String caminhoXMLEnvio, String caminhoXMLRetorno)
         {
-            RDI.NFe2.GNRE.TLote_GNRE oXMLEnvio;
+            TLote_GNRE oXMLEnvio;
             try
             {
                 if (!File.Exists(caminhoXMLEnvio))
@@ -1676,7 +1677,7 @@ namespace RDI.NFe2.Business
 
                 try
                 {
-                    oXMLEnvio = (RDI.NFe2.GNRE.TLote_GNRE)XMLUtils.CarregaXML_HD(caminhoXMLEnvio, VersaoXML.GNRE, "TLote_GNRE");
+                    oXMLEnvio = (TLote_GNRE)XMLUtils.CarregaXML_HD(caminhoXMLEnvio, VersaoXML.GNRE, "TLote_GNRE");
                 }
                 catch (Exception ex)
                 {
@@ -1709,12 +1710,12 @@ namespace RDI.NFe2.Business
         }
         public String GNRE_RecepcaoLoteST(String XMLEnvio)
         {
-            RDI.NFe2.GNRE.TLote_GNRE oXMLEnvio;
+            TLote_GNRE oXMLEnvio;
             try
             {
                 try
                 {
-                    oXMLEnvio = (RDI.NFe2.GNRE.TLote_GNRE)XMLUtils.CarregaXML_STR(XMLEnvio, VersaoXML.GNRE, "TLote_GNRE");
+                    oXMLEnvio = (TLote_GNRE)XMLUtils.CarregaXML_STR(XMLEnvio, VersaoXML.GNRE, "TLote_GNRE");
                 }
                 catch (Exception ex)
                 {
@@ -1746,7 +1747,7 @@ namespace RDI.NFe2.Business
 
         public Boolean GNRE_ConsultaLoteHD(String caminhoXMLEnvio, String caminhoXMLRetorno)
         {
-            RDI.NFe2.GNRE.TConsLote_GNRE oXMLEnvio;
+            TConsLote_GNRE oXMLEnvio;
             try
             {
                 if (!File.Exists(caminhoXMLEnvio))
@@ -1754,7 +1755,7 @@ namespace RDI.NFe2.Business
 
                 try
                 {
-                    oXMLEnvio = (RDI.NFe2.GNRE.TConsLote_GNRE)XMLUtils.CarregaXML_HD(caminhoXMLEnvio, VersaoXML.GNRE, "TConsLote_GNRE");
+                    oXMLEnvio = (TConsLote_GNRE)XMLUtils.CarregaXML_HD(caminhoXMLEnvio, VersaoXML.GNRE, "TConsLote_GNRE");
                 }
                 catch (Exception ex)
                 {
@@ -1787,12 +1788,12 @@ namespace RDI.NFe2.Business
         }
         public String GNRE_ConsultaLoteST(String XMLEnvio)
         {
-            RDI.NFe2.GNRE.TConsLote_GNRE oXMLEnvio;
+            TConsLote_GNRE oXMLEnvio;
             try
             {
                 try
                 {
-                    oXMLEnvio = (RDI.NFe2.GNRE.TConsLote_GNRE)XMLUtils.CarregaXML_STR(XMLEnvio, VersaoXML.GNRE, "TConsLote_GNRE");
+                    oXMLEnvio = (TConsLote_GNRE)XMLUtils.CarregaXML_STR(XMLEnvio, VersaoXML.GNRE, "TConsLote_GNRE");
                 }
                 catch (Exception ex)
                 {
@@ -1824,7 +1825,7 @@ namespace RDI.NFe2.Business
 
         public Boolean GNRE_ConsultaConfigHD(String caminhoXMLEnvio, String caminhoXMLRetorno)
         {
-            RDI.NFe2.GNRE.TConsultaConfigUf oXMLEnvio;
+            TConsultaConfigUf oXMLEnvio;
             try
             {
                 if (!File.Exists(caminhoXMLEnvio))
@@ -1832,7 +1833,7 @@ namespace RDI.NFe2.Business
 
                 try
                 {
-                    oXMLEnvio = (RDI.NFe2.GNRE.TConsultaConfigUf)XMLUtils.CarregaXML_HD(caminhoXMLEnvio, VersaoXML.GNRE, "TConsultaConfigUf");
+                    oXMLEnvio = (TConsultaConfigUf)XMLUtils.CarregaXML_HD(caminhoXMLEnvio, VersaoXML.GNRE, "TConsultaConfigUf");
                 }
                 catch (Exception ex)
                 {
@@ -1865,12 +1866,12 @@ namespace RDI.NFe2.Business
         }
         public String GNRE_ConsultaConfigST(String XMLEnvio)
         {
-            RDI.NFe2.GNRE.TConsultaConfigUf oXMLEnvio;
+            TConsultaConfigUf oXMLEnvio;
             try
             {
                 try
                 {
-                    oXMLEnvio = (RDI.NFe2.GNRE.TConsultaConfigUf)XMLUtils.CarregaXML_STR(XMLEnvio, VersaoXML.GNRE, "TConsultaConfigUf");
+                    oXMLEnvio = (TConsultaConfigUf)XMLUtils.CarregaXML_STR(XMLEnvio, VersaoXML.GNRE, "TConsultaConfigUf");
                 }
                 catch (Exception ex)
                 {

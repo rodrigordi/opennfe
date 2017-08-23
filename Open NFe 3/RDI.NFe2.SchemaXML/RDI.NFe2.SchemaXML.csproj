@@ -71,12 +71,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GNRE.cs" />
-    <Compile Include="DownloadNF.cs" />
+    <Compile Include="RDI.NFe2.SchemaXML.GNRE.cs" />
+    <Compile Include="RDI.NFe2.SchemaXML.DFe.cs" />
+    <Compile Include="RDI.NFe2.SchemaXML.ConsultaCadastro.cs" />
+    <Compile Include="RDI.NFe2.SchemaXML.Signature.cs" />
+    <Compile Include="RDI.NFe2.SchemaXML.Tipos.cs" />
     <Compile Include="RDI.NFe2.SchemaXML.EnvEvento.cs" />
     <Compile Include="RDI.NFe2.SchemaXML.Interfaces.cs" />
-    <Compile Include="RDI.NFe2.SchemaXML.Tipos.cs" />
     <Compile Include="RDI.NFe2.SchemaXML.XMLUtils.cs" />
+    <Compile Include="RDI.NFe2.SchemaXML400.cs" />
     <Compile Include="RDI.NFe2.SchemaXML310.cs" />
     <Compile Include="RDI.NFe2.SchemaXML.Integracao.cs" />
     <Compile Include="RDI.NFe2.SchemaXML200.cs" />
