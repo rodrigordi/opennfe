@@ -229,9 +229,7 @@ namespace RDI.NFe.Visual
                     else
                         sufixo = ".xml";
 
-                    sfdProcNFeCCe.FileName = ((ITEvento)XMLUtils.CarregaXML_STR(oEvento.XMLPedido,
-                        oNFe.versao,
-                    "TEvento")).infEvento.Id + sufixo;
+                    sfdProcNFeCCe.FileName = ((ITEvento)XMLUtils.LoadXML(oEvento.XMLPedido, oEvento.versao, "TEvento")).infEvento.Id + sufixo;
 
                     sfdProcNFeCCe.ShowDialog();
                 }
@@ -276,14 +274,9 @@ namespace RDI.NFe.Visual
                     else
                         sufixo = ".xml";
 
-                    String nomeArquivo = ((ITEvento)XMLUtils.CarregaXML_STR(oEvento.XMLPedido,
-                        oNFe.versao,
-                    "TEvento")).infEvento.Id + sufixo;
+                    String nomeArquivo = ((ITEvento)XMLUtils.LoadXML(oEvento.XMLPedido, oEvento.versao, "TEvento")).infEvento.Id + sufixo;
 
-                    ITNFe oNFeXML = (ITNFe)
-                        XMLUtils.CarregaXML_STR(oNFe.xmlNota,
-                        oNFe.versao,
-                        "TNFe");
+                    ITNFe oNFeXML = (ITNFe)XMLUtils.LoadXML(oNFe.xmlNota, oNFe.versao, "TNFe");
 
                     //salvar TXT com dados complementares
                     if (File.Exists(oParam.pastaImpressao + nomeArquivo.Replace(".xml", ".txt")))
@@ -320,7 +313,7 @@ namespace RDI.NFe.Visual
                     }
                     GC.Collect();
 
-                    NFeUtils.GeraArquivoProcEventoNFe(oEvento, oParam.pastaImpressao + nomeArquivo, oNFe.versao);
+                    NFeUtils.GeraArquivoProcEventoNFe(oEvento, oParam.pastaImpressao + nomeArquivo, oEvento.versao);
 
                     MessageBox.Show("Arquivo enviado para servidor de impressão.");
 
@@ -348,7 +341,7 @@ namespace RDI.NFe.Visual
             {
 
 
-                NFeUtils.GeraArquivoProcEventoNFe(oEvento, sfdProcNFeCCe.FileName, oNFe.versao);
+                NFeUtils.GeraArquivoProcEventoNFe(oEvento, sfdProcNFeCCe.FileName, oEvento.versao);
 
                 MessageBox.Show("Arquivo gerado com sucesso em : " + sfdProcNFeCCe.FileName);
             }
@@ -419,7 +412,7 @@ namespace RDI.NFe.Visual
                         + 1;
 
                 var oEvento = (ITEvento)XMLUtils.XMLFactory(oParam.versao, "TEvento");
-                var oProtNFe = (ITProtNFe)XMLUtils.CarregaXML_STR(oNFe.xmlProcesso, oNFe.versao, "TProtNFe");
+                var oProtNFe = (ITProtNFe)XMLUtils.LoadXML(oNFe.xmlProcesso, oNFe.versao, "TProtNFe");
 
                 //carregar dados do evento - Cancelamento
                 oEvento.versao = oParam.versaoDadosEventos;
@@ -453,7 +446,7 @@ namespace RDI.NFe.Visual
 
                 //salvar na caixa de entrada
                 var date = DateTime.Now;
-                XMLUtils.SalvaXML(oParam.pastaEntrada + "evtCanc_" + date.ToString("yyMMdd") + oParam.empresa + date.Ticks.ToString() + ".xml", oEvento, oParam.versao);
+                XMLUtils.SaveXML(oParam.pastaEntrada + "evtCanc_" + date.ToString("yyMMdd") + oParam.empresa + date.Ticks.ToString() + ".xml", oEvento, oParam.versaoEventos);
 
                 String msgRet = "Pedido gerado com sucesso!";
                 if (!Program.empresasHabilitadas.First(em => em.cnpj == Program.empresaSelecionada).AutomacaoHabilitada && !Program.ServicoHabilitado)
@@ -532,7 +525,7 @@ namespace RDI.NFe.Visual
                         + 1;
 
                 ITEvento oEvento = (ITEvento)XMLUtils.XMLFactory(oParam.versao, "TEvento");
-                ITProtNFe oProtNFe = (ITProtNFe)XMLUtils.CarregaXML_STR(oNFe.xmlProcesso, oNFe.versao, "TProtNFe");
+                ITProtNFe oProtNFe = (ITProtNFe)XMLUtils.LoadXML(oNFe.xmlProcesso, oNFe.versao, "TProtNFe");
 
                 //carregar dados do evento - CCe
                 oEvento.versao = oParam.versaoDadosEventos;
@@ -553,7 +546,7 @@ namespace RDI.NFe.Visual
                 //Ex.: 2010-08-19T13:00:15-03:00.
                 oEvento.infEvento.dhEvento = DateTime.Now.ToString("yyyy-MM-ddTHH:mm:sszzzz");
 
-                
+
                 oEvento.infEvento.tpEvento = TEventoInfEventoTpEvento.CartaCorrecao.GetXmlEnumAttributeValueFromEnum();
                 oEvento.infEvento.nSeqEvento = nSeqEvento.ToString();
                 oEvento.infEvento.verEvento = TEventoInfEventoVerEvento.Item100;
@@ -568,7 +561,7 @@ namespace RDI.NFe.Visual
 
                 //salvar na caixa de entrada
                 var date = DateTime.Now;
-                XMLUtils.SalvaXML(oParam.pastaEntrada + "CCe_" + date.ToString("yyMMdd") + oParam.empresa + date.Ticks.ToString() + ".xml", oEvento, oParam.versao);
+                XMLUtils.SaveXML(oParam.pastaEntrada + "CCe_" + date.ToString("yyMMdd") + oParam.empresa + date.Ticks.ToString() + ".xml", oEvento, oParam.versaoEventos);
 
                 String msgRet = "Pedido gerado com sucesso!";
                 if (!Program.empresasHabilitadas.First(em => em.cnpj == Program.empresaSelecionada).AutomacaoHabilitada && !Program.ServicoHabilitado)
@@ -760,7 +753,7 @@ namespace RDI.NFe.Visual
                         String nomeArquivo = oNFe.nProtCancelamento + "_v2.00-procCancNFe.xml";
 
                         //enviar email para destinatário ?
-                        ITNFe oNFeXML = (ITNFe)XMLUtils.CarregaXML_STR(oNFe.xmlNota, oNFe.versao, "TNFe");
+                        ITNFe oNFeXML = (ITNFe)XMLUtils.LoadXML(oNFe.xmlNota, oNFe.versao, "TNFe");
                         if (!String.IsNullOrEmpty(oNFeXML.infNFe.dest.email))
                         {
                             if (File.Exists(oParam.pastaImpressao + nomeArquivo.Replace(".xml", ".txt")))

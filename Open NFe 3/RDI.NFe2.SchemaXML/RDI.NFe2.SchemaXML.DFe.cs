@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace RDI.NFe2.SchemaXML.DFe
+namespace RDI.NFe2.SchemaXML.DocumentosFiscaisEletronicos_v101
 {
     
 

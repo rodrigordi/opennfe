@@ -26,6 +26,8 @@ namespace RDI.NFe2.ORMAP
                     return "3.00";
                 else if (versao == VersaoXML.NFe_v310)
                     return "3.10";
+                else if (versao == VersaoXML.NFe_v400)
+                    return "4.00";
                 else throw new Exception("Não foi possível obter versaoDados. VersaoNFe não está definido.");
             }
         }
@@ -172,6 +174,12 @@ namespace RDI.NFe2.ORMAP
         {
             get { return _versao; }
             set { if (_versao != value) { _versao = value; isModified = true; }; }
+        }
+
+        //TODO : criar um campo no banco de dados. atualmente só existe uma versão de eventos.
+        public VersaoXML versaoEventos
+        {
+            get { return VersaoXML.Eventos_v100; }
         }
 
         public override DALObject GetDAL()

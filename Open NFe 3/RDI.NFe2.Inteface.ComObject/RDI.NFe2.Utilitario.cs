@@ -218,7 +218,7 @@ namespace RDI.NFe2.Business
             if (File.Exists(caminhoArquivoOrigem))
             {
                 #region carregar arquivo a ser assinado
-                _stringXml = XMLUtils.GetXML(XMLUtils.CarregaXML_HD(caminhoArquivoOrigem, versao, stType), versao);
+                _stringXml = XMLUtils.GetXML(XMLUtils.LoadXMLFile(caminhoArquivoOrigem, versao, stType), versao);
 
                 #endregion
 
@@ -235,7 +235,7 @@ namespace RDI.NFe2.Business
                     if (File.Exists(caminhoArquivoDestino))
                         File.Delete(caminhoArquivoDestino);
 
-                    XMLUtils.SalvaXML(caminhoArquivoDestino, (XMLUtils.CarregaXML_STR(AD.XMLStringAssinado, versao, stType)), versao);
+                    XMLUtils.SaveXML(caminhoArquivoDestino, (XMLUtils.LoadXML(AD.XMLStringAssinado, versao, stType)), versao);
                 }
                 else
                 {
@@ -250,6 +250,7 @@ namespace RDI.NFe2.Business
 
         public String AssinaXMLST(String ArquivoOrigem, String uri)
         {
+            var versaoXML = VersaoXML.NFe_v310; // HARDCODE
             X509Certificate2 oCertificado = null;
 
             //busca o certificado digital
@@ -295,7 +296,7 @@ namespace RDI.NFe2.Business
                     return TRetornoAssinatura.RefURiNaoExiste.ToString(); //erro refURi
                 }
 
-                XMLString = XMLUtils.GetXML(XMLUtils.CarregaXML_STR(ArquivoOrigem, VersaoXML.NFe_v310, stType), VersaoXML.NFe_v310);
+                XMLString = XMLUtils.GetXML(XMLUtils.LoadXML(ArquivoOrigem, versaoXML, stType), versaoXML);
             }
             catch (Exception exLoad)
             {
@@ -412,7 +413,7 @@ namespace RDI.NFe2.Business
 
                 try
                 {
-                    oEnviNFe2 = (ITEnviNFe)XMLUtils.CarregaXML_HD(caminhoArquivoEnviNFe2, _Parametro.versao, "TEnviNFe");
+                    oEnviNFe2 = (ITEnviNFe)XMLUtils.LoadXMLFile(caminhoArquivoEnviNFe2, _Parametro.versao, "TEnviNFe");
                 }
                 catch (Exception ex)
                 {
@@ -437,7 +438,7 @@ namespace RDI.NFe2.Business
                 if (temp.Value == null)
                     throw new Exception(temp.Key);
 
-                XMLUtils.SalvaXML(caminhoArquivoRetEnviNFe2, temp.Value, _Parametro.versao);
+                XMLUtils.SaveXML(caminhoArquivoRetEnviNFe2, temp.Value, _Parametro.versao);
 
                 return true;
             }
@@ -458,7 +459,7 @@ namespace RDI.NFe2.Business
 
                 try
                 {
-                    oConsReciNFe2 = (ITConsReciNFe)XMLUtils.CarregaXML_HD(caminhoArquivoConsReciNFe2, _Parametro.versao, "TConsReciNFe");
+                    oConsReciNFe2 = (ITConsReciNFe)XMLUtils.LoadXMLFile(caminhoArquivoConsReciNFe2, _Parametro.versao, "TConsReciNFe");
                 }
                 catch (Exception ex)
                 {
@@ -479,7 +480,7 @@ namespace RDI.NFe2.Business
                 if (temp.Value == null)
                     throw new Exception(temp.Key);
 
-                XMLUtils.SalvaXML(caminhoArquivoRetConsReciNFe2, temp.Value, _Parametro.versao);
+                XMLUtils.SaveXML(caminhoArquivoRetConsReciNFe2, temp.Value, _Parametro.versao);
 
                 return true;
             }
@@ -500,7 +501,7 @@ namespace RDI.NFe2.Business
 
                 try
                 {
-                    oInutNFe2 = (ITInutNFe)XMLUtils.CarregaXML_HD(caminhoArquivoInutNFe2, _Parametro.versao, "TInutNFe");
+                    oInutNFe2 = (ITInutNFe)XMLUtils.LoadXMLFile(caminhoArquivoInutNFe2, _Parametro.versao, "TInutNFe");
                 }
                 catch (Exception ex)
                 {
@@ -521,7 +522,7 @@ namespace RDI.NFe2.Business
                 if (temp.Value == null)
                     throw new Exception(temp.Key);
 
-                XMLUtils.SalvaXML(caminhoArquivoRetInutNFe2, temp.Value, _Parametro.versao);
+                XMLUtils.SaveXML(caminhoArquivoRetInutNFe2, temp.Value, _Parametro.versao);
 
                 return true;
             }
@@ -546,14 +547,14 @@ namespace RDI.NFe2.Business
                 oConsStatServ.tpAmb = _Parametro.tipoAmbiente;
                 oConsStatServ.versao = _Parametro.versaoDados;
 
-                XMLUtils.SalvaXML(caminhoArquivoConsStatServ, oConsStatServ, _Parametro.versao);
+                XMLUtils.SaveXML(caminhoArquivoConsStatServ, oConsStatServ, _Parametro.versao);
 
                 if (!File.Exists(caminhoArquivoConsStatServ))
                     throw new Exception("Arquivo ConsStatServ não existe ou não esta acessível.");
 
                 try
                 {
-                    oConsStatServ = (ITConsStatServ)XMLUtils.CarregaXML_HD(caminhoArquivoConsStatServ, _Parametro.versao, "TConsStatServ");
+                    oConsStatServ = (ITConsStatServ)XMLUtils.LoadXMLFile(caminhoArquivoConsStatServ, _Parametro.versao, "TConsStatServ");
                 }
                 catch (Exception ex)
                 {
@@ -574,7 +575,7 @@ namespace RDI.NFe2.Business
                 if (temp.Value == null)
                     throw new Exception(temp.Key);
 
-                XMLUtils.SalvaXML(caminhoArquivoRetConsStatServ, temp.Value, _Parametro.versao);
+                XMLUtils.SaveXML(caminhoArquivoRetConsStatServ, temp.Value, _Parametro.versao);
 
                 return true;
             }
@@ -592,7 +593,7 @@ namespace RDI.NFe2.Business
             {
                 try
                 {
-                    oEnviNFe2 = (ITEnviNFe)XMLUtils.CarregaXML_STR(ArquivoEnviNFe2, _Parametro.versao, "TEnviNFe");
+                    oEnviNFe2 = (ITEnviNFe)XMLUtils.LoadXML(ArquivoEnviNFe2, _Parametro.versao, "TEnviNFe");
                 }
                 catch (Exception ex)
                 {
@@ -629,7 +630,7 @@ namespace RDI.NFe2.Business
             {
                 try
                 {
-                    oConsReciNFe2 = (ITConsReciNFe)XMLUtils.CarregaXML_STR(ArquivoConsReciNFe2, _Parametro.versao, "TConsReciNFe");
+                    oConsReciNFe2 = (ITConsReciNFe)XMLUtils.LoadXML(ArquivoConsReciNFe2, _Parametro.versao, "TConsReciNFe");
                 }
                 catch (Exception ex)
                 {
@@ -667,7 +668,7 @@ namespace RDI.NFe2.Business
 
                 try
                 {
-                    oInutNFe2 = (ITInutNFe)XMLUtils.CarregaXML_STR(ArquivoInutNFe2, _Parametro.versao, "TInutNFe");
+                    oInutNFe2 = (ITInutNFe)XMLUtils.LoadXML(ArquivoInutNFe2, _Parametro.versao, "TInutNFe");
                 }
                 catch (Exception ex)
                 {
@@ -712,14 +713,14 @@ namespace RDI.NFe2.Business
                 oConsStatServ.cUF = _Parametro.UF;
                 oConsStatServ.versao = _Parametro.versaoDados;
 
-                XMLUtils.SalvaXML(caminhoArquivoConsStatServ, oConsStatServ, _Parametro.versao);
+                XMLUtils.SaveXML(caminhoArquivoConsStatServ, oConsStatServ, _Parametro.versao);
 
                 if (!File.Exists(caminhoArquivoConsStatServ))
                     throw new Exception("Arquivo ConsStatServ não existe ou não esta acessível.");
 
                 try
                 {
-                    oConsStatServ = (ITConsStatServ)XMLUtils.CarregaXML_HD(caminhoArquivoConsStatServ, _Parametro.versao, "TConsStatServ");
+                    oConsStatServ = (ITConsStatServ)XMLUtils.LoadXMLFile(caminhoArquivoConsStatServ, _Parametro.versao, "TConsStatServ");
                 }
                 catch (Exception ex)
                 {
@@ -764,7 +765,7 @@ namespace RDI.NFe2.Business
 
                 try
                 {
-                    oEnviCCe = (ITEnvEvento)XMLUtils.CarregaXML_HD(caminhoArquivoEnvEvento, _Parametro.versao, "TEnvEvento");
+                    oEnviCCe = (ITEnvEvento)XMLUtils.LoadXMLFile(caminhoArquivoEnvEvento, _Parametro.versaoEventos, "TEnvEvento");
                 }
                 catch (Exception ex)
                 {
@@ -781,11 +782,11 @@ namespace RDI.NFe2.Business
                     throw new Exception("Não foi possível criar o serviço de comunicação com o webservice - " + ex.Message);
                 }
 
-                var temp = Servicos.Interface_EnviarEnvelopeEvento(oServico, oEnviCCe, _Parametro, _Parametro.versao);
+                var temp = Servicos.Interface_EnviarEnvelopeEvento(oServico, oEnviCCe, _Parametro, _Parametro.versaoEventos);
                 if (temp.Value == null)
                     throw new Exception(temp.Key);
 
-                XMLUtils.SalvaXML(caminhoArquivoRetEnvEvento, temp.Value, _Parametro.versao);
+                XMLUtils.SaveXML(caminhoArquivoRetEnvEvento, temp.Value, _Parametro.versaoEventos);
 
                 return true;
             }
@@ -806,7 +807,7 @@ namespace RDI.NFe2.Business
 
                 try
                 {
-                    oConsSitCCe = (ITConsSitNFe)XMLUtils.CarregaXML_HD(caminhoArquivoConsSitCCe, _Parametro.versao, "TConsSitNFe");
+                    oConsSitCCe = (ITConsSitNFe)XMLUtils.LoadXMLFile(caminhoArquivoConsSitCCe, _Parametro.versao, "TConsSitNFe");
                 }
                 catch (Exception ex)
                 {
@@ -827,7 +828,7 @@ namespace RDI.NFe2.Business
                 if (temp.Value == null)
                     throw new Exception(temp.Key);
 
-                XMLUtils.SalvaXML(caminhoArquivoRetConsSitCCe, temp.Value, _Parametro.versao);
+                XMLUtils.SaveXML(caminhoArquivoRetConsSitCCe, temp.Value, _Parametro.versao);
 
                 return true;
             }
@@ -845,7 +846,7 @@ namespace RDI.NFe2.Business
             {
                 try
                 {
-                    oEnviCCe = (ITEnvEvento)XMLUtils.CarregaXML_STR(ArquivoEnvEvento, _Parametro.versao, "TEnvEvento");
+                    oEnviCCe = (ITEnvEvento)XMLUtils.LoadXML(ArquivoEnvEvento, _Parametro.versaoEventos, "TEnvEvento");
                 }
                 catch (Exception ex)
                 {
@@ -862,11 +863,11 @@ namespace RDI.NFe2.Business
                     throw new Exception("Não foi possível criar o serviço de comunicação com o webservice - " + ex.Message);
                 }
 
-                var temp = Servicos.Interface_EnviarEnvelopeEvento(oServico, oEnviCCe, _Parametro, _Parametro.versao);
+                var temp = Servicos.Interface_EnviarEnvelopeEvento(oServico, oEnviCCe, _Parametro, _Parametro.versaoEventos);
                 if (temp.Value == null)
                     throw new Exception(temp.Key);
 
-                return XMLUtils.GetXML(temp.Value, _Parametro.versao);
+                return XMLUtils.GetXML(temp.Value, _Parametro.versaoEventos);
             }
             catch (Exception ex)
             {
@@ -882,7 +883,7 @@ namespace RDI.NFe2.Business
             {
                 try
                 {
-                    oConsSitCCe = (ITConsSitNFe)XMLUtils.CarregaXML_STR(ArquivoConsSitNFe, _Parametro.versao, "TConsSitNFe");
+                    oConsSitCCe = (ITConsSitNFe)XMLUtils.LoadXML(ArquivoConsSitNFe, _Parametro.versao, "TConsSitNFe");
                 }
                 catch (Exception ex)
                 {
@@ -924,7 +925,7 @@ namespace RDI.NFe2.Business
 
                 try
                 {
-                    oEnviNFe3 = (ITEnviNFe)XMLUtils.CarregaXML_HD(caminhoArquivoEnviNFCe3, _Parametro.versao, "TEnviNFe");
+                    oEnviNFe3 = (ITEnviNFe)XMLUtils.LoadXMLFile(caminhoArquivoEnviNFCe3, _Parametro.versao, "TEnviNFe");
                 }
                 catch (Exception ex)
                 {
@@ -945,7 +946,7 @@ namespace RDI.NFe2.Business
                 if (temp.Value == null)
                     throw new Exception(temp.Key);
 
-                XMLUtils.SalvaXML(caminhoArquivoRetEnviNFCe3, temp.Value, _Parametro.versao);
+                XMLUtils.SaveXML(caminhoArquivoRetEnviNFCe3, temp.Value, _Parametro.versao);
 
                 return true;
             }
@@ -966,7 +967,7 @@ namespace RDI.NFe2.Business
 
                 try
                 {
-                    oConsReciNFCe3 = (ITConsReciNFe)XMLUtils.CarregaXML_HD(caminhoArquivoConsReciNFCe3, _Parametro.versao, "TConsReciNFe");
+                    oConsReciNFCe3 = (ITConsReciNFe)XMLUtils.LoadXMLFile(caminhoArquivoConsReciNFCe3, _Parametro.versao, "TConsReciNFe");
                 }
                 catch (Exception ex)
                 {
@@ -987,7 +988,7 @@ namespace RDI.NFe2.Business
                 if (temp.Value == null)
                     throw new Exception(temp.Key);
 
-                XMLUtils.SalvaXML(caminhoArquivoRetConsReciNFCe3, temp.Value, _Parametro.versao);
+                XMLUtils.SaveXML(caminhoArquivoRetConsReciNFCe3, temp.Value, _Parametro.versao);
 
                 return true;
             }
@@ -1008,7 +1009,7 @@ namespace RDI.NFe2.Business
 
                 try
                 {
-                    oInutNFCe3 = (ITInutNFe)XMLUtils.CarregaXML_HD(caminhoArquivoInutNFCe3, _Parametro.versao, "TInutNFe");
+                    oInutNFCe3 = (ITInutNFe)XMLUtils.LoadXMLFile(caminhoArquivoInutNFCe3, _Parametro.versao, "TInutNFe");
                 }
                 catch (Exception ex)
                 {
@@ -1029,7 +1030,7 @@ namespace RDI.NFe2.Business
                 if (temp.Value == null)
                     throw new Exception(temp.Key);
 
-                XMLUtils.SalvaXML(caminhoArquivoRetInutNFCe3, temp.Value, _Parametro.versao);
+                XMLUtils.SaveXML(caminhoArquivoRetInutNFCe3, temp.Value, _Parametro.versao);
 
                 return true;
             }
@@ -1047,7 +1048,7 @@ namespace RDI.NFe2.Business
             {
                 try
                 {
-                    oEnviNFCe3 = (ITEnviNFe)XMLUtils.CarregaXML_STR(ArquivoEnviNFCe3, _Parametro.versao, "TEnviNFe");
+                    oEnviNFCe3 = (ITEnviNFe)XMLUtils.LoadXML(ArquivoEnviNFCe3, _Parametro.versao, "TEnviNFe");
                 }
                 catch (Exception ex)
                 {
@@ -1084,7 +1085,7 @@ namespace RDI.NFe2.Business
             {
                 try
                 {
-                    oConsReciNFCe3 = (ITConsReciNFe)XMLUtils.CarregaXML_STR(ArquivoConsReciNFCe3, _Parametro.versao, "TConsReciNFe");
+                    oConsReciNFCe3 = (ITConsReciNFe)XMLUtils.LoadXML(ArquivoConsReciNFCe3, _Parametro.versao, "TConsReciNFe");
                 }
                 catch (Exception ex)
                 {
@@ -1122,7 +1123,7 @@ namespace RDI.NFe2.Business
 
                 try
                 {
-                    oInutNFCe3 = (ITInutNFe)XMLUtils.CarregaXML_STR(ArquivoInutNFCe3, _Parametro.versao, "TInutNFe");
+                    oInutNFCe3 = (ITInutNFe)XMLUtils.LoadXML(ArquivoInutNFCe3, _Parametro.versao, "TInutNFe");
                 }
                 catch (Exception ex)
                 {
@@ -1162,7 +1163,7 @@ namespace RDI.NFe2.Business
 
                 try
                 {
-                    oEnviCCe = (ITEnvEvento)XMLUtils.CarregaXML_HD(caminhoArquivoEvento, _Parametro.versao, "TEnvEvento");
+                    oEnviCCe = (ITEnvEvento)XMLUtils.LoadXMLFile(caminhoArquivoEvento, _Parametro.versaoEventos, "TEnvEvento");
                 }
                 catch (Exception ex)
                 {
@@ -1179,11 +1180,11 @@ namespace RDI.NFe2.Business
                     throw new Exception("Não foi possível criar o serviço de comunicação com o webservice - " + ex.Message);
                 }
 
-                var temp = Servicos.Interface_EnviarEnvelopeEvento(oServico, oEnviCCe, _Parametro, _Parametro.versao);
+                var temp = Servicos.Interface_EnviarEnvelopeEvento(oServico, oEnviCCe, _Parametro, _Parametro.versaoEventos);
                 if (temp.Value == null)
                     throw new Exception(temp.Key);
 
-                XMLUtils.SalvaXML(caminhoArquivoRetEvento, temp.Value, _Parametro.versao);
+                XMLUtils.SaveXML(caminhoArquivoRetEvento, temp.Value, _Parametro.versaoEventos);
 
                 return true;
             }
@@ -1204,7 +1205,7 @@ namespace RDI.NFe2.Business
 
                 try
                 {
-                    oConsSitNFCe3 = (ITConsSitNFe)XMLUtils.CarregaXML_HD(caminhoArquivoConsSitNFCe3, _Parametro.versao, "TConsSitNFe");
+                    oConsSitNFCe3 = (ITConsSitNFe)XMLUtils.LoadXMLFile(caminhoArquivoConsSitNFCe3, _Parametro.versao, "TConsSitNFe");
                 }
                 catch (Exception ex)
                 {
@@ -1225,7 +1226,7 @@ namespace RDI.NFe2.Business
                 if (temp.Value == null)
                     throw new Exception(temp.Key);
 
-                XMLUtils.SalvaXML(caminhoArquivoRetConsSitNFCe3, temp.Value, _Parametro.versao);
+                XMLUtils.SaveXML(caminhoArquivoRetConsSitNFCe3, temp.Value, _Parametro.versao);
 
                 return true;
             }
@@ -1243,7 +1244,7 @@ namespace RDI.NFe2.Business
             {
                 try
                 {
-                    oEnviCCe = (ITEnvEvento)XMLUtils.CarregaXML_STR(ArquivoEvento, _Parametro.versao, "TEnvEvento");
+                    oEnviCCe = (ITEnvEvento)XMLUtils.LoadXML(ArquivoEvento, _Parametro.versaoEventos, "TEnvEvento");
                 }
                 catch (Exception ex)
                 {
@@ -1260,7 +1261,7 @@ namespace RDI.NFe2.Business
                     throw new Exception("Não foi possível criar o serviço de comunicação com o webservice - " + ex.Message);
                 }
 
-                var temp = Servicos.Interface_EnviarEnvelopeEvento(oServico, oEnviCCe, _Parametro, _Parametro.versao);
+                var temp = Servicos.Interface_EnviarEnvelopeEvento(oServico, oEnviCCe, _Parametro, _Parametro.versaoEventos);
                 if (temp.Value == null)
                     throw new Exception(temp.Key);
 
@@ -1280,7 +1281,7 @@ namespace RDI.NFe2.Business
             {
                 try
                 {
-                    oConsSitNFCe3 = (ITConsSitNFe)XMLUtils.CarregaXML_STR(ArquivoConsSitNFCe3, _Parametro.versao, "TConsSitNFe");
+                    oConsSitNFCe3 = (ITConsSitNFe)XMLUtils.LoadXML(ArquivoConsSitNFCe3, _Parametro.versao, "TConsSitNFe");
                 }
                 catch (Exception ex)
                 {
@@ -1321,7 +1322,7 @@ namespace RDI.NFe2.Business
 
                 try
                 {
-                    oXMLEnvio = (ITConsCad)XMLUtils.CarregaXML_HD(caminhoXMLEnvio, VersaoXML.NFe_v200, "TConsCad");
+                    oXMLEnvio = (ITConsCad)XMLUtils.LoadXMLFile<SchemaXML.ConsultaCadastro.TConsCad>(caminhoXMLEnvio);
                 }
                 catch (Exception ex)
                 {
@@ -1342,7 +1343,7 @@ namespace RDI.NFe2.Business
                 if (temp.Value == null)
                     throw new Exception(temp.Key);
 
-                XMLUtils.SalvaXML(caminhoXMLRetorno, temp.Value, _Parametro.versao);
+                XMLUtils.SaveXML(caminhoXMLRetorno, temp.Value, _Parametro.versao);
 
                 return true;
             }
@@ -1359,7 +1360,7 @@ namespace RDI.NFe2.Business
             {
                 try
                 {
-                    oXMLEnvio = (ITConsCad)XMLUtils.CarregaXML_STR(XMLEnvio, VersaoXML.NFe_v200, "TConsCad");
+                    oXMLEnvio = (ITConsCad)XMLUtils.LoadXML(XMLEnvio, VersaoXML.ConsultaCadastro_v100, "TConsCad");
                 }
                 catch (Exception ex)
                 {
@@ -1401,7 +1402,7 @@ namespace RDI.NFe2.Business
 
                 try
                 {
-                    oXMLEnvio = (IDistDFeInt)XMLUtils.CarregaXML_HD(caminhoXMLEnvio, _Parametro.versao, "distDFeInt");
+                    oXMLEnvio = (IDistDFeInt)XMLUtils.LoadXMLFile<SchemaXML.DocumentosFiscaisEletronicos_v101.distDFeInt>(caminhoXMLEnvio);
                 }
                 catch (Exception ex)
                 {
@@ -1424,7 +1425,7 @@ namespace RDI.NFe2.Business
 
                 oXMLRetorno = Servicos.ConsultarDFe(oServico, oXMLEnvio, _Parametro, _Parametro.versao);
 
-                XMLUtils.SalvaXML(caminhoXMLRetorno, oXMLRetorno, _Parametro.versao);
+                XMLUtils.SaveXML(caminhoXMLRetorno, oXMLRetorno, _Parametro.versao);
 
                 return true;
             }
@@ -1442,7 +1443,7 @@ namespace RDI.NFe2.Business
             {
                 try
                 {
-                    oXMLEnvio = (IDistDFeInt)XMLUtils.CarregaXML_STR(XMLEnvio, _Parametro.versao, "distDFeInt");
+                    oXMLEnvio = (IDistDFeInt)XMLUtils.LoadXML<SchemaXML.DocumentosFiscaisEletronicos_v101.distDFeInt>(XMLEnvio);
                 }
                 catch (Exception ex)
                 {
@@ -1484,7 +1485,7 @@ namespace RDI.NFe2.Business
 
                 try
                 {
-                    oXMLEnvio = (ITDownloadNFe)XMLUtils.CarregaXML_HD(caminhoXMLEnvio, _Parametro.versao, "TDownloadNFe");
+                    oXMLEnvio = (ITDownloadNFe)XMLUtils.LoadXMLFile<SchemaXML.DocumentosFiscaisEletronicos_v101.TDownloadNFe>(caminhoXMLEnvio);
                 }
                 catch (Exception ex)
                 {
@@ -1505,11 +1506,11 @@ namespace RDI.NFe2.Business
                     throw new Exception("Não foi possível criar o serviço de comunicação com o webservice - " + ex.Message);
                 }
 
-                var temp = Servicos.Interface_DownloadNF(oServico, oXMLEnvio, _Parametro, _Parametro.versao);
+                var temp = Servicos.Interface_DownloadNF(oServico, oXMLEnvio, _Parametro);
                 if (temp.Value == null)
                     throw new Exception(temp.Key);
 
-                XMLUtils.SalvaXML(caminhoXMLRetorno, temp.Value, _Parametro.versao);
+                XMLUtils.SaveXML(caminhoXMLRetorno, temp.Value, _Parametro.versao);
 
                 return true;
             }
@@ -1526,7 +1527,7 @@ namespace RDI.NFe2.Business
             {
                 try
                 {
-                    oXMLEnvio = (ITDownloadNFe)XMLUtils.CarregaXML_STR(XMLEnvio, _Parametro.versao, "TDownloadNFe");
+                    oXMLEnvio = (ITDownloadNFe)XMLUtils.LoadXML<SchemaXML.DocumentosFiscaisEletronicos_v101.TDownloadNFe>(XMLEnvio);
                 }
                 catch (Exception ex)
                 {
@@ -1547,7 +1548,7 @@ namespace RDI.NFe2.Business
                     throw new Exception("Não foi possível criar o serviço de comunicação com o webservice - " + ex.Message);
                 }
 
-                var temp = Servicos.Interface_DownloadNF(oServico, oXMLEnvio, _Parametro, _Parametro.versao);
+                var temp = Servicos.Interface_DownloadNF(oServico, oXMLEnvio, _Parametro);
                 if (temp.Value == null)
                     throw new Exception(temp.Key);
 
@@ -1567,7 +1568,7 @@ namespace RDI.NFe2.Business
             {
                 try
                 {
-                    oEnviCCe = (ITEnvEvento)XMLUtils.CarregaXML_STR(ArquivoEnvEvento, _Parametro.versao, "TEnvEvento");
+                    oEnviCCe = (ITEnvEvento)XMLUtils.LoadXML(ArquivoEnvEvento, _Parametro.versaoEventos, "TEnvEvento");
                 }
                 catch (Exception ex)
                 {
@@ -1584,11 +1585,11 @@ namespace RDI.NFe2.Business
                     throw new Exception("Não foi possível criar o serviço de comunicação com o webservice - " + ex.Message);
                 }
 
-                var temp = Servicos.Interface_EnviarEnvelopeEvento(oServico, oEnviCCe, _Parametro, _Parametro.versao);
+                var temp = Servicos.Interface_EnviarEnvelopeEvento(oServico, oEnviCCe, _Parametro, _Parametro.versaoEventos);
                 if (temp.Value == null)
                     throw new Exception(temp.Key);
 
-                return XMLUtils.GetXML(temp.Value, _Parametro.versao);
+                return XMLUtils.GetXML(temp.Value, _Parametro.versaoEventos);
             }
             catch (Exception ex)
             {
@@ -1606,7 +1607,7 @@ namespace RDI.NFe2.Business
 
                 try
                 {
-                    oEnviCCe = (ITEnvEvento)XMLUtils.CarregaXML_HD(caminhoArquivoEnvEvento, _Parametro.versao, "TEnvEvento");
+                    oEnviCCe = (ITEnvEvento)XMLUtils.LoadXMLFile(caminhoArquivoEnvEvento, _Parametro.versaoEventos, "TEnvEvento");
                 }
                 catch (Exception ex)
                 {
@@ -1623,11 +1624,11 @@ namespace RDI.NFe2.Business
                     throw new Exception("Não foi possível criar o serviço de comunicação com o webservice - " + ex.Message);
                 }
 
-                var temp = Servicos.Interface_EnviarEnvelopeEvento(oServico, oEnviCCe, _Parametro, _Parametro.versao);
+                var temp = Servicos.Interface_EnviarEnvelopeEvento(oServico, oEnviCCe, _Parametro, _Parametro.versaoEventos);
                 if (temp.Value == null)
                     throw new Exception(temp.Key);
 
-                XMLUtils.SalvaXML(caminhoArquivoRetEnvEvento, temp.Value, _Parametro.versao);
+                XMLUtils.SaveXML(caminhoArquivoRetEnvEvento, temp.Value, _Parametro.versaoEventos);
 
                 return true;
             }
@@ -1677,7 +1678,7 @@ namespace RDI.NFe2.Business
 
                 try
                 {
-                    oXMLEnvio = (TLote_GNRE)XMLUtils.CarregaXML_HD(caminhoXMLEnvio, VersaoXML.GNRE, "TLote_GNRE");
+                    oXMLEnvio = (TLote_GNRE)XMLUtils.LoadXMLFile<TLote_GNRE>(caminhoXMLEnvio);
                 }
                 catch (Exception ex)
                 {
@@ -1694,11 +1695,11 @@ namespace RDI.NFe2.Business
                     throw new Exception("Não foi possível criar o serviço de comunicação com o webservice - " + ex.Message);
                 }
 
-                var temp = Servicos.Interface_GNRERecepcaoLote(oServico, oXMLEnvio, _Parametro, VersaoXML.GNRE);
+                var temp = Servicos.Interface_GNRERecepcaoLote(oServico, oXMLEnvio, _Parametro);
                 if (temp.Value == null)
                     throw new Exception(temp.Key);
 
-                XMLUtils.SalvaXML(caminhoXMLRetorno, temp.Value, _Parametro.versao);
+                XMLUtils.SaveXML(caminhoXMLRetorno, temp.Value, VersaoXML.GNRE);
 
                 return true;
             }
@@ -1715,7 +1716,7 @@ namespace RDI.NFe2.Business
             {
                 try
                 {
-                    oXMLEnvio = (TLote_GNRE)XMLUtils.CarregaXML_STR(XMLEnvio, VersaoXML.GNRE, "TLote_GNRE");
+                    oXMLEnvio = (TLote_GNRE)XMLUtils.LoadXML<TLote_GNRE>(XMLEnvio);
                 }
                 catch (Exception ex)
                 {
@@ -1732,7 +1733,7 @@ namespace RDI.NFe2.Business
                     throw new Exception("Não foi possível criar o serviço de comunicação com o webservice - " + ex.Message);
                 }
 
-                var temp = Servicos.Interface_GNRERecepcaoLote(oServico, oXMLEnvio, _Parametro, VersaoXML.GNRE);
+                var temp = Servicos.Interface_GNRERecepcaoLote(oServico, oXMLEnvio, _Parametro);
                 if (temp.Value == null)
                     throw new Exception(temp.Key);
 
@@ -1755,7 +1756,7 @@ namespace RDI.NFe2.Business
 
                 try
                 {
-                    oXMLEnvio = (TConsLote_GNRE)XMLUtils.CarregaXML_HD(caminhoXMLEnvio, VersaoXML.GNRE, "TConsLote_GNRE");
+                    oXMLEnvio = (TConsLote_GNRE)XMLUtils.LoadXMLFile<TConsLote_GNRE>(caminhoXMLEnvio);
                 }
                 catch (Exception ex)
                 {
@@ -1772,11 +1773,11 @@ namespace RDI.NFe2.Business
                     throw new Exception("Não foi possível criar o serviço de comunicação com o webservice - " + ex.Message);
                 }
 
-                var temp = Servicos.Interface_GNREConsultaLote(oServico, oXMLEnvio, _Parametro, VersaoXML.GNRE);
+                var temp = Servicos.Interface_GNREConsultaLote(oServico, oXMLEnvio, _Parametro);
                 if (temp.Value == null)
                     throw new Exception(temp.Key);
 
-                XMLUtils.SalvaXML(caminhoXMLRetorno, temp.Value, _Parametro.versao);
+                XMLUtils.SaveXML(caminhoXMLRetorno, temp.Value, VersaoXML.GNRE);
 
                 return true;
             }
@@ -1793,7 +1794,7 @@ namespace RDI.NFe2.Business
             {
                 try
                 {
-                    oXMLEnvio = (TConsLote_GNRE)XMLUtils.CarregaXML_STR(XMLEnvio, VersaoXML.GNRE, "TConsLote_GNRE");
+                    oXMLEnvio = (TConsLote_GNRE)XMLUtils.LoadXML<TConsLote_GNRE>(XMLEnvio);
                 }
                 catch (Exception ex)
                 {
@@ -1810,7 +1811,7 @@ namespace RDI.NFe2.Business
                     throw new Exception("Não foi possível criar o serviço de comunicação com o webservice - " + ex.Message);
                 }
 
-                var temp = Servicos.Interface_GNREConsultaLote(oServico, oXMLEnvio, _Parametro, VersaoXML.GNRE);
+                var temp = Servicos.Interface_GNREConsultaLote(oServico, oXMLEnvio, _Parametro);
                 if (temp.Value == null)
                     throw new Exception(temp.Key);
 
@@ -1833,7 +1834,7 @@ namespace RDI.NFe2.Business
 
                 try
                 {
-                    oXMLEnvio = (TConsultaConfigUf)XMLUtils.CarregaXML_HD(caminhoXMLEnvio, VersaoXML.GNRE, "TConsultaConfigUf");
+                    oXMLEnvio = (TConsultaConfigUf)XMLUtils.LoadXMLFile<TConsultaConfigUf>(caminhoXMLEnvio);
                 }
                 catch (Exception ex)
                 {
@@ -1850,11 +1851,11 @@ namespace RDI.NFe2.Business
                     throw new Exception("Não foi possível criar o serviço de comunicação com o webservice - " + ex.Message);
                 }
 
-                var temp = Servicos.Interface_GNREConfigUF(oServico, oXMLEnvio, _Parametro, VersaoXML.GNRE);
+                var temp = Servicos.Interface_GNREConfigUF(oServico, oXMLEnvio, _Parametro);
                 if (temp.Value == null)
                     throw new Exception(temp.Key);
 
-                XMLUtils.SalvaXML(caminhoXMLRetorno, temp.Value, _Parametro.versao);
+                XMLUtils.SaveXML(caminhoXMLRetorno, temp.Value, VersaoXML.GNRE);
 
                 return true;
             }
@@ -1871,7 +1872,7 @@ namespace RDI.NFe2.Business
             {
                 try
                 {
-                    oXMLEnvio = (TConsultaConfigUf)XMLUtils.CarregaXML_STR(XMLEnvio, VersaoXML.GNRE, "TConsultaConfigUf");
+                    oXMLEnvio = XMLUtils.LoadXML<TConsultaConfigUf>(XMLEnvio);
                 }
                 catch (Exception ex)
                 {
@@ -1888,7 +1889,7 @@ namespace RDI.NFe2.Business
                     throw new Exception("Não foi possível criar o serviço de comunicação com o webservice - " + ex.Message);
                 }
 
-                var temp = Servicos.Interface_GNREConfigUF(oServico, oXMLEnvio, _Parametro, VersaoXML.GNRE);
+                var temp = Servicos.Interface_GNREConfigUF(oServico, oXMLEnvio, _Parametro);
                 if (temp.Value == null)
                     throw new Exception(temp.Key);
 

@@ -177,7 +177,8 @@ namespace RDI.NFe2.SchemaXML
 
     public interface ITProtNFe
     {
-        ITProtNFeInfProt infProt { get; }
+        string versao { get; set; }
+        ITProtNFeInfProt infProt { get; set; }
 
     }
 
@@ -406,7 +407,7 @@ namespace RDI.NFe2.SchemaXML.ConsultaCadastro
     }
 }
 
-namespace RDI.NFe2.SchemaXML.Eventos
+namespace RDI.NFe2.SchemaXML.Eventos_v100
 {
 
     public partial class TEventoInfEventoDetEvento : RDI.NFe2.SchemaXML.ITEventoInfEventoDetEvento
@@ -716,6 +717,7 @@ namespace RDI.NFe2.SchemaXML.NFe_v200
         SchemaXML.ITProtNFeInfProt SchemaXML.ITProtNFe.infProt
         {
             get { return this.infProt; }
+            set { this.infProt = (TProtNFeInfProt)value; }
         }
     }
 
@@ -997,6 +999,7 @@ namespace RDI.NFe2.SchemaXML.NFe_v300
         SchemaXML.ITProtNFeInfProt SchemaXML.ITProtNFe.infProt
         {
             get { return this.infProt; }
+            set { this.infProt = (TProtNFeInfProt)value; }
         }
     }
 
@@ -1281,6 +1284,7 @@ namespace RDI.NFe2.SchemaXML.NFe_v310
         SchemaXML.ITProtNFeInfProt SchemaXML.ITProtNFe.infProt
         {
             get { return this.infProt; }
+            set { this.infProt = (TProtNFeInfProt)value; }
         }
     }
 
@@ -1376,290 +1380,290 @@ namespace RDI.NFe2.SchemaXML.NFe_v310
 
 namespace RDI.NFe2.SchemaXML.NFe_v400
 {
-    public partial class TRetEnviNFeInfRec : RDI.NFe2.SchemaXML.ITRetEnviNFeInfRec
-    {
+    //public partial class TRetEnviNFeInfRec : RDI.NFe2.SchemaXML.ITRetEnviNFeInfRec
+    //{
 
-    }
+    //}
 
-    public partial class TRetCancNFe_v200107InfCanc : RDI.NFe2.SchemaXML.ITRetCancNFe_v200107InfCanc
-    {
+    //public partial class TRetCancNFe_v200107InfCanc : RDI.NFe2.SchemaXML.ITRetCancNFe_v200107InfCanc
+    //{
 
-        string SchemaXML.ITRetCancNFe_v200107InfCanc.nProt
-        {
-            get
-            {
-                return null;
-            }
-            set
-            {
-                //throw new System.NotImplementedException();
-            }
-        }
-    }
-
-
-
-    public partial class TRetCancNFe_v200107 : RDI.NFe2.SchemaXML.ITRetCancNFe_v200107
-    {
-
-        SchemaXML.ITRetCancNFe_v200107InfCanc SchemaXML.ITRetCancNFe_v200107.infCanc
-        {
-            get
-            {
-                return null;
-            }
-        }
-    }
+    //    string SchemaXML.ITRetCancNFe_v200107InfCanc.nProt
+    //    {
+    //        get
+    //        {
+    //            return null;
+    //        }
+    //        set
+    //        {
+    //            //throw new System.NotImplementedException();
+    //        }
+    //    }
+    //}
 
 
 
-    public partial class TRetCancNFe : RDI.NFe2.SchemaXML.ITRetCancNFe
-    {
+    //public partial class TRetCancNFe_v200107 : RDI.NFe2.SchemaXML.ITRetCancNFe_v200107
+    //{
 
-    }
-
-
-    public partial class TCancNFe : RDI.NFe2.SchemaXML.ITCancNFe
-    {
-
-    }
-
-
-    public partial class TInutNFeInfInut : RDI.NFe2.SchemaXML.ITInutNFeInfInut
-    {
-
-    }
+    //    SchemaXML.ITRetCancNFe_v200107InfCanc SchemaXML.ITRetCancNFe_v200107.infCanc
+    //    {
+    //        get
+    //        {
+    //            return null;
+    //        }
+    //    }
+    //}
 
 
 
+    //public partial class TRetCancNFe : RDI.NFe2.SchemaXML.ITRetCancNFe
+    //{
+
+    //}
 
 
-    public partial class TEnviNFe : RDI.NFe2.SchemaXML.ITEnviNFe
-    {
-        SchemaXML.ITNFe[] SchemaXML.ITEnviNFe.NFe
-        {
-            get
-            {
-                return this.NFe;
-            }
-            set
-            {
-                this.NFe = (TNFe[])value;
-            }
-        }
-    }
-    public partial class TRetEnviNFe : RDI.NFe2.SchemaXML.ITRetEnviNFe
-    {
-        SchemaXML.ITRetEnviNFeInfRec SchemaXML.ITRetEnviNFe.infRec
-        {
-            get
-            {
-                if (typeof(TRetEnviNFeInfRec) == this.Item.GetType())
-                {
-                    return (TRetEnviNFeInfRec)this.Item;
-                }
-                else
-                {
-                    throw new System.NotImplementedException();
-                }
-            }
-            set
-            {
-                if (typeof(TRetEnviNFeInfRec) == this.Item.GetType())
-                {
-                    this.Item = (TRetEnviNFeInfRec)value;
-                }
-                else
-                {
-                    throw new System.NotImplementedException();
-                }
-            }
-        }
-    }
-    public partial class TConsReciNFe : RDI.NFe2.SchemaXML.ITConsReciNFe { }
-    public partial class TRetConsReciNFe : RDI.NFe2.SchemaXML.ITRetConsReciNFe
-    {
-        SchemaXML.ITProtNFe[] SchemaXML.ITRetConsReciNFe.protNFe
-        {
-            get
-            {
-                return this.protNFe;
-            }
-        }
-    }
-    public partial class TConsStatServ : RDI.NFe2.SchemaXML.ITConsStatServ { }
-    public partial class TRetConsStatServ : RDI.NFe2.SchemaXML.ITRetConsStatServ { }
-    public partial class TInutNFe : RDI.NFe2.SchemaXML.ITInutNFe
-    {
-        SchemaXML.ITInutNFeInfInut SchemaXML.ITInutNFe.infInut
-        {
-            get { return this.infInut; }
-            set { this.infInut = (TInutNFeInfInut)value; }
-        }
-    }
-    public partial class TRetInutNFe : RDI.NFe2.SchemaXML.ITRetInutNFe
-    {
-        SchemaXML.ITRetInutNFeInfInut SchemaXML.ITRetInutNFe.infInut
-        {
-            get { return this.infInut; }
-        }
-    }
+    //public partial class TCancNFe : RDI.NFe2.SchemaXML.ITCancNFe
+    //{
 
-    public partial class TRetInutNFeInfInut : RDI.NFe2.SchemaXML.ITRetInutNFeInfInut
-    {
-
-    }
+    //}
 
 
-    public partial class TConsSitNFe : RDI.NFe2.SchemaXML.ITConsSitNFe { }
-    public partial class TRetConsSitNFe : RDI.NFe2.SchemaXML.ITRetConsSitNFe
-    {
-        SchemaXML.ITProtNFe SchemaXML.ITRetConsSitNFe.protNFe
-        {
-            get { return this.protNFe; }
-        }
+    //public partial class TInutNFeInfInut : RDI.NFe2.SchemaXML.ITInutNFeInfInut
+    //{
 
-        SchemaXML.ITProcEvento[] SchemaXML.ITRetConsSitNFe.procEventoNFe
-        {
-            get { return this.procEventoNFe; }
-        }
-
-        SchemaXML.ITRetCancNFe_v200107 SchemaXML.ITRetConsSitNFe.retCancNFe
-        {
-            get
-            {
-                return null;
-            }
-            set
-            {
-                //throw new System.NotImplementedException();
-            }
-        }
-    }
-
-
-
-    public partial class TNfeProc : RDI.NFe2.SchemaXML.ITNfeProc
-    {
-        SchemaXML.ITNFe SchemaXML.ITNfeProc.NFe
-        {
-            get
-            {
-                return this.NFe;
-            }
-            set
-            {
-                this.NFe = (TNFe)value;
-            }
-        }
-
-        SchemaXML.ITProtNFe SchemaXML.ITNfeProc.protNFe
-        {
-            get
-            {
-                return this.protNFe;
-            }
-            set
-            {
-                this.protNFe = (TProtNFe)value;
-            }
-        }
-    }
-    public partial class TProtNFe : RDI.NFe2.SchemaXML.ITProtNFe
-    {
-        SchemaXML.ITProtNFeInfProt SchemaXML.ITProtNFe.infProt
-        {
-            get { return this.infProt; }
-        }
-    }
-
-    public partial class TProtNFeInfProt : RDI.NFe2.SchemaXML.ITProtNFeInfProt
-    {
-
-    }
+    //}
 
 
 
 
-    public partial class TNFe : RDI.NFe2.SchemaXML.ITNFe
-    {
-        RDI.NFe2.SchemaXML.ITNFeInfNFe RDI.NFe2.SchemaXML.ITNFe.infNFe
-        {
-            get
-            {
-                return this.infNFe;
-            }
-            set
-            {
-                this.infNFe = (TNFeInfNFe)value;
-            }
-        }
 
-        SchemaXML.ISignatureType SchemaXML.ITNFe.Signature
-        {
-            get { return this.Signature; }
-        }
-    }
+    //public partial class TEnviNFe : RDI.NFe2.SchemaXML.ITEnviNFe
+    //{
+    //    SchemaXML.ITNFe[] SchemaXML.ITEnviNFe.NFe
+    //    {
+    //        get
+    //        {
+    //            return this.NFe;
+    //        }
+    //        set
+    //        {
+    //            this.NFe = (TNFe[])value;
+    //        }
+    //    }
+    //}
+    //public partial class TRetEnviNFe : RDI.NFe2.SchemaXML.ITRetEnviNFe
+    //{
+    //    SchemaXML.ITRetEnviNFeInfRec SchemaXML.ITRetEnviNFe.infRec
+    //    {
+    //        get
+    //        {
+    //            if (typeof(TRetEnviNFeInfRec) == this.Item.GetType())
+    //            {
+    //                return (TRetEnviNFeInfRec)this.Item;
+    //            }
+    //            else
+    //            {
+    //                throw new System.NotImplementedException();
+    //            }
+    //        }
+    //        set
+    //        {
+    //            if (typeof(TRetEnviNFeInfRec) == this.Item.GetType())
+    //            {
+    //                this.Item = (TRetEnviNFeInfRec)value;
+    //            }
+    //            else
+    //            {
+    //                throw new System.NotImplementedException();
+    //            }
+    //        }
+    //    }
+    //}
+    //public partial class TConsReciNFe : RDI.NFe2.SchemaXML.ITConsReciNFe { }
+    //public partial class TRetConsReciNFe : RDI.NFe2.SchemaXML.ITRetConsReciNFe
+    //{
+    //    SchemaXML.ITProtNFe[] SchemaXML.ITRetConsReciNFe.protNFe
+    //    {
+    //        get
+    //        {
+    //            return this.protNFe;
+    //        }
+    //    }
+    //}
+    //public partial class TConsStatServ : RDI.NFe2.SchemaXML.ITConsStatServ { }
+    //public partial class TRetConsStatServ : RDI.NFe2.SchemaXML.ITRetConsStatServ { }
+    //public partial class TInutNFe : RDI.NFe2.SchemaXML.ITInutNFe
+    //{
+    //    SchemaXML.ITInutNFeInfInut SchemaXML.ITInutNFe.infInut
+    //    {
+    //        get { return this.infInut; }
+    //        set { this.infInut = (TInutNFeInfInut)value; }
+    //    }
+    //}
+    //public partial class TRetInutNFe : RDI.NFe2.SchemaXML.ITRetInutNFe
+    //{
+    //    SchemaXML.ITRetInutNFeInfInut SchemaXML.ITRetInutNFe.infInut
+    //    {
+    //        get { return this.infInut; }
+    //    }
+    //}
 
-    public partial class TNFeInfNFe : RDI.NFe2.SchemaXML.ITNFeInfNFe
-    {
-        SchemaXML.ITNFeInfNFeIde SchemaXML.ITNFeInfNFe.ide
-        {
-            get { return this.ide; }
-        }
+    //public partial class TRetInutNFeInfInut : RDI.NFe2.SchemaXML.ITRetInutNFeInfInut
+    //{
 
-        SchemaXML.ITNFeInfNFeDest SchemaXML.ITNFeInfNFe.dest
-        {
-            get { return this.dest; }
-        }
+    //}
 
-        SchemaXML.ITNFeInfNFeEmit SchemaXML.ITNFeInfNFe.emit
-        {
-            get { return this.emit; }
-        }
-    }
 
-    public partial class TNFeInfNFeIde : RDI.NFe2.SchemaXML.ITNFeInfNFeIde
-    {
+    //public partial class TConsSitNFe : RDI.NFe2.SchemaXML.ITConsSitNFe { }
+    //public partial class TRetConsSitNFe : RDI.NFe2.SchemaXML.ITRetConsSitNFe
+    //{
+    //    SchemaXML.ITProtNFe SchemaXML.ITRetConsSitNFe.protNFe
+    //    {
+    //        get { return this.protNFe; }
+    //    }
 
-        string SchemaXML.ITNFeInfNFeIde.dEmi
-        {
-            get { return this.dhEmi; }
-        }
+    //    SchemaXML.ITProcEvento[] SchemaXML.ITRetConsSitNFe.procEventoNFe
+    //    {
+    //        get { return this.procEventoNFe; }
+    //    }
 
-    }
+    //    SchemaXML.ITRetCancNFe_v200107 SchemaXML.ITRetConsSitNFe.retCancNFe
+    //    {
+    //        get
+    //        {
+    //            return null;
+    //        }
+    //        set
+    //        {
+    //            //throw new System.NotImplementedException();
+    //        }
+    //    }
+    //}
 
-    public partial class TNFeInfNFeDest : RDI.NFe2.SchemaXML.ITNFeInfNFeDest
-    {
 
-        SchemaXML.ITEndereco SchemaXML.ITNFeInfNFeDest.enderDest
-        {
-            get
-            {
-                return this.enderDest;
-            }
-        }
-    }
 
-    public partial class TNFeInfNFeEmit : RDI.NFe2.SchemaXML.ITNFeInfNFeEmit
-    {
-        SchemaXML.ITEnderEmi SchemaXML.ITNFeInfNFeEmit.enderEmit
-        {
-            get
-            {
-                return this.enderEmit;
-            }
-        }
-    }
+    //public partial class TNfeProc : RDI.NFe2.SchemaXML.ITNfeProc
+    //{
+    //    SchemaXML.ITNFe SchemaXML.ITNfeProc.NFe
+    //    {
+    //        get
+    //        {
+    //            return this.NFe;
+    //        }
+    //        set
+    //        {
+    //            this.NFe = (TNFe)value;
+    //        }
+    //    }
 
-    public partial class TEndereco : RDI.NFe2.SchemaXML.ITEndereco
-    {
+    //    SchemaXML.ITProtNFe SchemaXML.ITNfeProc.protNFe
+    //    {
+    //        get
+    //        {
+    //            return this.protNFe;
+    //        }
+    //        set
+    //        {
+    //            this.protNFe = (TProtNFe)value;
+    //        }
+    //    }
+    //}
+    //public partial class TProtNFe : RDI.NFe2.SchemaXML.ITProtNFe
+    //{
+    //    SchemaXML.ITProtNFeInfProt SchemaXML.ITProtNFe.infProt
+    //    {
+    //        get { return this.infProt; }
+    //    }
+    //}
 
-    }
+    //public partial class TProtNFeInfProt : RDI.NFe2.SchemaXML.ITProtNFeInfProt
+    //{
 
-    public partial class TEnderEmi : RDI.NFe2.SchemaXML.ITEnderEmi
-    {
+    //}
 
-    }
+
+
+
+    //public partial class TNFe : RDI.NFe2.SchemaXML.ITNFe
+    //{
+    //    RDI.NFe2.SchemaXML.ITNFeInfNFe RDI.NFe2.SchemaXML.ITNFe.infNFe
+    //    {
+    //        get
+    //        {
+    //            return this.infNFe;
+    //        }
+    //        set
+    //        {
+    //            this.infNFe = (TNFeInfNFe)value;
+    //        }
+    //    }
+
+    //    SchemaXML.ISignatureType SchemaXML.ITNFe.Signature
+    //    {
+    //        get { return this.Signature; }
+    //    }
+    //}
+
+    //public partial class TNFeInfNFe : RDI.NFe2.SchemaXML.ITNFeInfNFe
+    //{
+    //    SchemaXML.ITNFeInfNFeIde SchemaXML.ITNFeInfNFe.ide
+    //    {
+    //        get { return this.ide; }
+    //    }
+
+    //    SchemaXML.ITNFeInfNFeDest SchemaXML.ITNFeInfNFe.dest
+    //    {
+    //        get { return this.dest; }
+    //    }
+
+    //    SchemaXML.ITNFeInfNFeEmit SchemaXML.ITNFeInfNFe.emit
+    //    {
+    //        get { return this.emit; }
+    //    }
+    //}
+
+    //public partial class TNFeInfNFeIde : RDI.NFe2.SchemaXML.ITNFeInfNFeIde
+    //{
+
+    //    string SchemaXML.ITNFeInfNFeIde.dEmi
+    //    {
+    //        get { return this.dhEmi; }
+    //    }
+
+    //}
+
+    //public partial class TNFeInfNFeDest : RDI.NFe2.SchemaXML.ITNFeInfNFeDest
+    //{
+
+    //    SchemaXML.ITEndereco SchemaXML.ITNFeInfNFeDest.enderDest
+    //    {
+    //        get
+    //        {
+    //            return this.enderDest;
+    //        }
+    //    }
+    //}
+
+    //public partial class TNFeInfNFeEmit : RDI.NFe2.SchemaXML.ITNFeInfNFeEmit
+    //{
+    //    SchemaXML.ITEnderEmi SchemaXML.ITNFeInfNFeEmit.enderEmit
+    //    {
+    //        get
+    //        {
+    //            return this.enderEmit;
+    //        }
+    //    }
+    //}
+
+    //public partial class TEndereco : RDI.NFe2.SchemaXML.ITEndereco
+    //{
+
+    //}
+
+    //public partial class TEnderEmi : RDI.NFe2.SchemaXML.ITEnderEmi
+    //{
+
+    //}
 }
 #endregion

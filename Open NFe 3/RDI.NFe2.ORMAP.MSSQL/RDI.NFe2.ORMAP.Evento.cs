@@ -20,7 +20,7 @@ namespace RDI.NFe2.ORMAP
         private String _XMLPedido;
         private String _XMLResposta;
         private TipoSituacaoEvento _codigoSituacao;
-
+        
 
         public String empresa
         {
@@ -85,6 +85,13 @@ namespace RDI.NFe2.ORMAP
                 }
             }
         }
+
+        //TODO : criar um campo no banco de dados. atualmente só existe uma versão de eventos.
+        public VersaoXML versao
+        {
+            get { return VersaoXML.Eventos_v100; }
+        }
+
 
         public String descSituacao
         {

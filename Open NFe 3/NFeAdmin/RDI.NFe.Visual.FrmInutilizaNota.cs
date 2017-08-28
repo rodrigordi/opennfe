@@ -106,12 +106,9 @@ namespace RDI.NFe.Visual
                 if (cStat != "102")
                     throw new Exception(xMotivo);
 
-                ITRetInutNFe oRetInut = (ITRetInutNFe)
-                                    XMLUtils.CarregaXML_HD(oParam.pastaRecibo + oInutilizacao.infInut.Id + "-inu.xml",
-                                    oParam.versao, "TRetInutNFe");
+                var oRetInut = (ITRetInutNFe) XMLUtils.LoadXMLFile(oParam.pastaRecibo + oInutilizacao.infInut.Id + "-inu.xml", oParam.versao, "TRetInutNFe");
 
-                oInutilizacao = (ITInutNFe)XMLUtils.CarregaXML_HD(oParam.pastaRecibo + oInutilizacao.infInut.Id + "-ped-inu.xml",
-                                                            oParam.versao, "TInutNFe");
+                oInutilizacao = (ITInutNFe)XMLUtils.LoadXMLFile(oParam.pastaRecibo + oInutilizacao.infInut.Id + "-ped-inu.xml", oParam.versao, "TInutNFe");
 
 
 

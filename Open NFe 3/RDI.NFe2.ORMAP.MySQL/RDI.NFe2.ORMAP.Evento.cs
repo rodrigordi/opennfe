@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Text;
 using System.Collections;
 using RDI.Lince;
-using RDI.NFe2.SchemaXML.Eventos;
 using RDI.NFe2.SchemaXML;
 
 

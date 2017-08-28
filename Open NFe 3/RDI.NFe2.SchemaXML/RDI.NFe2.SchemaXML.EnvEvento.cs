@@ -1,7 +1,7 @@
 ﻿using System.Xml.Serialization;
 using RDI.NFe2.SchemaXML.Signature;
 
-namespace RDI.NFe2.SchemaXML.Eventos
+namespace RDI.NFe2.SchemaXML.Eventos_v100
 {
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]

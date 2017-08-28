@@ -105,7 +105,7 @@ namespace RDI.NFe2.SchemaXML
         public static SPEDNFe Parser(string caminhoXMLNFe)
         {
             var sped = new SPEDNFe();
-            var oNFeProc = (TNfeProc)XMLUtils.CarregaXML_HD(caminhoXMLNFe, VersaoXML.NFe_v310, "TNfeProc");
+            var oNFeProc = XMLUtils.LoadXMLFile<TNfeProc>(caminhoXMLNFe);
             var oNFe = oNFeProc.NFe;
 
             if (oNFe.infNFe.versao != "3.10")

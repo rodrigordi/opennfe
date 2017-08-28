@@ -18,12 +18,13 @@ using System.IO.Compression;
 using System.Collections.Generic;
 using RDI.OpenSigner;
 using RDI.NFe2.SchemaXML.GNRE;
+using RDI.NFe2.SchemaXML.DocumentosFiscaisEletronicos_v101;
 
 namespace RDI.NFe2.Business
 {
     public static class Servicos
     {
-        public static string VersaoBusiness { get { return "v3.10.4.2"; } }
+        public static string VersaoBusiness { get { return "v3.11.0.0"; } }
 
 
 
@@ -31,7 +32,7 @@ namespace RDI.NFe2.Business
              System.Web.Services.Protocols.SoapHttpClientProtocol oServico,
              ITEnvEvento oEnvEvento, Parametro oParam, VersaoXML versao)
         {
-            return (ITRetEnvEvento)XMLUtils.CarregaXML_STR(ExecutaServico(oServico, oEnvEvento, oParam),
+            return (ITRetEnvEvento)XMLUtils.LoadXML(ExecutaServico(oServico, oEnvEvento, oParam),
                 versao, "TRetEnvEvento");
         }
 
@@ -39,7 +40,7 @@ namespace RDI.NFe2.Business
             System.Web.Services.Protocols.SoapHttpClientProtocol oServico,
             ITEnviNFe oEnviNFe, Parametro oParam, VersaoXML versao)
         {
-            return (ITRetEnviNFe)XMLUtils.CarregaXML_STR(ExecutaServico(oServico, oEnviNFe, oParam),
+            return (ITRetEnviNFe)XMLUtils.LoadXML(ExecutaServico(oServico, oEnviNFe, oParam),
                 versao, "TRetEnviNFe");
         }
 
@@ -47,7 +48,7 @@ namespace RDI.NFe2.Business
             System.Web.Services.Protocols.SoapHttpClientProtocol oServico,
             ITConsReciNFe oConsReciNFe, Parametro oParam, VersaoXML versao)
         {
-            return (ITRetConsReciNFe)XMLUtils.CarregaXML_STR(ExecutaServico(oServico, oConsReciNFe, oParam),
+            return (ITRetConsReciNFe)XMLUtils.LoadXML(ExecutaServico(oServico, oConsReciNFe, oParam),
                 versao, "TRetConsReciNFe");
         }
 
@@ -55,7 +56,7 @@ namespace RDI.NFe2.Business
             System.Web.Services.Protocols.SoapHttpClientProtocol oServico,
             ITConsStatServ oConsStatServ, Parametro oParam, VersaoXML versao)
         {
-            return (ITRetConsStatServ)XMLUtils.CarregaXML_STR(ExecutaServico(oServico, oConsStatServ, oParam),
+            return (ITRetConsStatServ)XMLUtils.LoadXML(ExecutaServico(oServico, oConsStatServ, oParam),
                 versao, "TRetConsStatServ");
         }
 
@@ -63,7 +64,7 @@ namespace RDI.NFe2.Business
             System.Web.Services.Protocols.SoapHttpClientProtocol oServico,
             ITInutNFe oInutNFe, Parametro oParam, VersaoXML versao)
         {
-            return (ITRetInutNFe)XMLUtils.CarregaXML_STR(ExecutaServico(oServico, oInutNFe, oParam),
+            return (ITRetInutNFe)XMLUtils.LoadXML(ExecutaServico(oServico, oInutNFe, oParam),
                 versao, "TRetInutNFe");
         }
 
@@ -71,25 +72,25 @@ namespace RDI.NFe2.Business
             System.Web.Services.Protocols.SoapHttpClientProtocol oServico,
             ITConsSitNFe oConsSitNFe, Parametro oParam, VersaoXML versao)
         {
-            return (ITRetConsSitNFe)XMLUtils.CarregaXML_STR(ExecutaServico(oServico, oConsSitNFe, oParam),
+            return (ITRetConsSitNFe)XMLUtils.LoadXML(ExecutaServico(oServico, oConsSitNFe, oParam),
                 versao, "TRetConsSitNFe");
         }
 
         public static ITRetConsCad ConsultarCadastro(SoapHttpClientProtocol oServico, ITConsCad oEnviNFe3, Parametro oParam, VersaoXML versao)
         {
-            return (ITRetConsCad)XMLUtils.CarregaXML_STR(ExecutaServico(oServico, oEnviNFe3, oParam),
+            return (ITRetConsCad)XMLUtils.LoadXML(ExecutaServico(oServico, oEnviNFe3, oParam),
                 versao, "TRetConsCad");
         }
 
         public static IRetDistDFeInt ConsultarDFe(SoapHttpClientProtocol oServico, IDistDFeInt xmlEnvio, Parametro oParam, VersaoXML versao)
         {
-            return (IRetDistDFeInt)XMLUtils.CarregaXML_STR(ExecutaServico(oServico, xmlEnvio, oParam),
+            return (IRetDistDFeInt)XMLUtils.LoadXML(ExecutaServico(oServico, xmlEnvio, oParam),
                 versao, "retDistDFeInt");
         }
 
         public static ITRetDownloadNFe DownloadNF(SoapHttpClientProtocol oServico, ITDownloadNFe xmlEnvio, Parametro oParam, VersaoXML versao)
         {
-            return (ITRetDownloadNFe)XMLUtils.CarregaXML_STR(ExecutaServico(oServico, xmlEnvio, oParam),
+            return (ITRetDownloadNFe)XMLUtils.LoadXML(ExecutaServico(oServico, xmlEnvio, oParam),
                 versao, "TRetDownloadNFe");
         }
 
@@ -102,7 +103,7 @@ namespace RDI.NFe2.Business
             var Key = ExecutaServico(oServico, oEnvEvento, oParam);
             try
             {
-                var Value = (ITRetEnvEvento)XMLUtils.CarregaXML_STR(Key, versao, "TRetEnvEvento");
+                var Value = (ITRetEnvEvento)XMLUtils.LoadXML(Key, versao, "TRetEnvEvento");
                 return new KeyValuePair<string, ITRetEnvEvento>(Key, Value);
             }
             catch (Exception ex)
@@ -119,7 +120,7 @@ namespace RDI.NFe2.Business
             var Key = ExecutaServico(oServico, oEnviNFe, oParam);
             try
             {
-                var Value = (ITRetEnviNFe)XMLUtils.CarregaXML_STR(Key, versao, "TRetEnviNFe");
+                var Value = (ITRetEnviNFe)XMLUtils.LoadXML(Key, versao, "TRetEnviNFe");
                 return new KeyValuePair<string, ITRetEnviNFe>(Key, Value);
             }
             catch (Exception ex)
@@ -136,7 +137,7 @@ namespace RDI.NFe2.Business
             var Key = ExecutaServico(oServico, oConsReciNFe, oParam);
             try
             {
-                var Value = (ITRetConsReciNFe)XMLUtils.CarregaXML_STR(Key, versao, "TRetConsReciNFe");
+                var Value = (ITRetConsReciNFe)XMLUtils.LoadXML(Key, versao, "TRetConsReciNFe");
                 return new KeyValuePair<string, ITRetConsReciNFe>(Key, Value);
             }
             catch (Exception ex)
@@ -153,7 +154,7 @@ namespace RDI.NFe2.Business
             var Key = ExecutaServico(oServico, oConsStatServ, oParam);
             try
             {
-                var Value = (ITRetConsStatServ)XMLUtils.CarregaXML_STR(Key, versao, "TRetConsStatServ");
+                var Value = (ITRetConsStatServ)XMLUtils.LoadXML(Key, versao, "TRetConsStatServ");
                 return new KeyValuePair<string, ITRetConsStatServ>(Key, Value);
             }
             catch (Exception ex)
@@ -171,7 +172,7 @@ namespace RDI.NFe2.Business
             var Key = ExecutaServico(oServico, oInutNFe, oParam);
             try
             {
-                var Value = (ITRetInutNFe)XMLUtils.CarregaXML_STR(Key, versao, "TRetInutNFe");
+                var Value = (ITRetInutNFe)XMLUtils.LoadXML(Key, versao, "TRetInutNFe");
                 return new KeyValuePair<string, ITRetInutNFe>(Key, Value);
             }
             catch (Exception ex)
@@ -188,7 +189,7 @@ namespace RDI.NFe2.Business
             var Key = ExecutaServico(oServico, oConsSitNFe, oParam);
             try
             {
-                var Value = (ITRetConsSitNFe)XMLUtils.CarregaXML_STR(Key, versao, "TRetConsSitNFe");
+                var Value = (ITRetConsSitNFe)XMLUtils.LoadXML(Key, versao, "TRetConsSitNFe");
                 return new KeyValuePair<string, ITRetConsSitNFe>(Key, Value);
             }
             catch (Exception ex)
@@ -204,7 +205,7 @@ namespace RDI.NFe2.Business
             var Key = ExecutaServico(oServico, oEnviNFe3, oParam);
             try
             {
-                var Value = (ITRetConsCad)XMLUtils.CarregaXML_STR(Key, versao, "TRetConsCad");
+                var Value = (ITRetConsCad)XMLUtils.LoadXML(Key, versao, "TRetConsCad");
                 return new KeyValuePair<string, ITRetConsCad>(Key, Value);
             }
             catch (Exception ex)
@@ -220,7 +221,7 @@ namespace RDI.NFe2.Business
             var Key = ExecutaServico(oServico, xmlEnvio, oParam);
             try
             {
-                var Value = (IRetDistDFeInt)XMLUtils.CarregaXML_STR(Key, versao, "retDistDFeInt");
+                var Value = (IRetDistDFeInt)XMLUtils.LoadXML(Key, versao, "retDistDFeInt");
                 return new KeyValuePair<string, IRetDistDFeInt>(Key, Value);
             }
             catch (Exception ex)
@@ -231,12 +232,12 @@ namespace RDI.NFe2.Business
 
         }
 
-        public static KeyValuePair<string, ITRetDownloadNFe> Interface_DownloadNF(SoapHttpClientProtocol oServico, ITDownloadNFe xmlEnvio, Parametro oParam, VersaoXML versao)
+        public static KeyValuePair<string, ITRetDownloadNFe> Interface_DownloadNF(SoapHttpClientProtocol oServico, ITDownloadNFe xmlEnvio, Parametro oParam)
         {
             var Key = ExecutaServico(oServico, xmlEnvio, oParam);
             try
             {
-                var Value = (ITRetDownloadNFe)XMLUtils.CarregaXML_STR(Key, versao, "TRetDownloadNFe");
+                var Value = (ITRetDownloadNFe)XMLUtils.LoadXML<TRetDownloadNFe>(Key);
                 return new KeyValuePair<string, ITRetDownloadNFe>(Key, Value);
             }
             catch (Exception ex)
@@ -248,15 +249,12 @@ namespace RDI.NFe2.Business
         }
 
 
-        public static KeyValuePair<string, TRetLote_GNRE> Interface_GNRERecepcaoLote(SoapHttpClientProtocol oServico,
-            TLote_GNRE xmlEnvio,
-            Parametro oParam,
-            VersaoXML versao)
+        public static KeyValuePair<string, TRetLote_GNRE> Interface_GNRERecepcaoLote(SoapHttpClientProtocol oServico, TLote_GNRE xmlEnvio, Parametro oParam)
         {
             var Key = ExecutaServico(oServico, xmlEnvio, oParam);
             try
             {
-                var Value = (RDI.NFe2.SchemaXML.GNRE.TRetLote_GNRE)XMLUtils.CarregaXML_STR(Key, versao, "TRetLote_GNRE");
+                var Value = XMLUtils.LoadXML<RDI.NFe2.SchemaXML.GNRE.TRetLote_GNRE>(Key);
                 return new KeyValuePair<string, TRetLote_GNRE>(Key, Value);
             }
             catch (Exception ex)
@@ -267,15 +265,12 @@ namespace RDI.NFe2.Business
 
         }
 
-        public static KeyValuePair<string, RDI.NFe2.SchemaXML.GNRE.TResultLote_GNRE> Interface_GNREConsultaLote(SoapHttpClientProtocol oServico,
-            TConsLote_GNRE xmlEnvio,
-            Parametro oParam,
-            VersaoXML versao)
+        public static KeyValuePair<string, RDI.NFe2.SchemaXML.GNRE.TResultLote_GNRE> Interface_GNREConsultaLote(SoapHttpClientProtocol oServico, TConsLote_GNRE xmlEnvio,Parametro oParam)
         {
             var Key = ExecutaServico(oServico, xmlEnvio, oParam);
             try
             {
-                var Value = (TResultLote_GNRE)XMLUtils.CarregaXML_STR(Key, versao, "TResultLote_GNRE");
+                var Value = XMLUtils.LoadXML<TResultLote_GNRE>(Key);
                 return new KeyValuePair<string, TResultLote_GNRE>(Key, Value);
             }
             catch (Exception ex)
@@ -283,18 +278,14 @@ namespace RDI.NFe2.Business
                 Key = ex.Message + " - " + Key;
                 return new KeyValuePair<string, TResultLote_GNRE>(Key, null);
             }
-
         }
 
-        public static KeyValuePair<string, TConfigUf> Interface_GNREConfigUF(SoapHttpClientProtocol oServico,
-            TConsultaConfigUf xmlEnvio,
-            Parametro oParam,
-            VersaoXML versao)
+        public static KeyValuePair<string, TConfigUf> Interface_GNREConfigUF(SoapHttpClientProtocol oServico, TConsultaConfigUf xmlEnvio, Parametro oParam)
         {
             var Key = ExecutaServico(oServico, xmlEnvio, oParam);
             try
             {
-                var Value = (TConfigUf)XMLUtils.CarregaXML_STR(Key, versao, "TConfigUf");
+                var Value = XMLUtils.LoadXML<TConfigUf>(Key);
                 return new KeyValuePair<string, TConfigUf>(Key, Value);
             }
             catch (Exception ex)
@@ -302,9 +293,7 @@ namespace RDI.NFe2.Business
                 Key = ex.Message + " - " + Key;
                 return new KeyValuePair<string, TConfigUf>(Key, null);
             }
-
         }
-
 
         public static void InicializaServico(
             System.Web.Services.Protocols.SoapHttpClientProtocol oServico,

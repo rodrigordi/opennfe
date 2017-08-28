@@ -70,7 +70,7 @@ namespace RDI.NFe2.Business
                     chave = oNotaFiscalXML.infNFe.Id + chave + oNotaFiscalXML.infNFe.ide.cDV;
 
                     oNotaFiscalXML.infNFe.Id = chave;
-                    XMLUtils.SalvaXML(oParam.pastaEntrada + chave + ".xml", oNotaFiscalXML, versao);
+                    XMLUtils.SaveXML(oParam.pastaEntrada + chave + ".xml", oNotaFiscalXML, versao);
                     File.Delete(arqTXT);
                 }
                 else

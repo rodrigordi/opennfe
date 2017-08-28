@@ -33,6 +33,101 @@ namespace RDI.NFe2.SchemaXML
         public const string NFeNAMESPACE = "http://www.portalfiscal.inf.br/nfe";
         public const string GNRENAMESPACE = "http://www.gnre.pe.gov.br";
 
+        public const string NFeSchema200ns = "RDI.NFe2.SchemaXML.NFe_v200.";
+        public const string NFeSchema300ns = "RDI.NFe2.SchemaXML.NFe_v300.";
+        public const string NFeSchema310ns = "RDI.NFe2.SchemaXML.NFe_v310.";
+        public const string NFeSchema400ns = "RDI.NFe2.SchemaXML.NFe_v400.";
+        public const string IntegracaoSchema100ns = "RDI.NFe2.SchemaXML.";
+        public const string EventosSchema100ns = "RDI.NFe2.SchemaXML.Eventos_v100.";
+        public const string DFeSchema101ns = "RDI.NFe2.SchemaXML.DocumentosFiscaisEletronicos_v101.";
+        public const string ConsCad100ns = "RDI.NFe2.SchemaXML.ConsultaCadastro.";
+        public const string GNRESchema100ns = "RDI.NFe2.GNRE.";
+
+        public static string GetXMLNamespace(VersaoXML version)
+        {
+            var stNamespace = string.Empty;
+            switch (version)
+            {
+                case VersaoXML.NFe_v200:
+                    stNamespace = NFeNAMESPACE;
+                    break;
+                case VersaoXML.NFe_v300:
+                    stNamespace = NFeNAMESPACE;
+                    break;
+                case VersaoXML.NFe_v310:
+                    stNamespace = NFeNAMESPACE;
+                    break;
+                case VersaoXML.Integracao:
+                    stNamespace = RDINAMESPACE;
+                    break;
+                case VersaoXML.GNRE:
+                    stNamespace = GNRENAMESPACE;
+                    break;
+                case VersaoXML.NFe_v400:
+                    stNamespace = NFeNAMESPACE;
+                    break;
+                case VersaoXML.Eventos_v100:
+                    stNamespace = NFeNAMESPACE;
+                    break;
+                case VersaoXML.ConsultaCadastro_v100:
+                    stNamespace = NFeNAMESPACE;
+                    break;
+                case VersaoXML.DocumentosFiscaisEletronicos_v101:
+                    stNamespace = NFeNAMESPACE;
+                    break;
+                default:
+                    break;
+            }
+
+            return stNamespace;
+        }
+        public static Type GetXMLType(VersaoXML version, string stType)
+        {
+            Type tipo = null;
+            switch (version)
+            {
+                case VersaoXML.NFe_v200:
+                    tipo = Type.GetType(NFeSchema200ns + stType);
+                    break;
+                case VersaoXML.NFe_v300:
+                    tipo = Type.GetType(NFeSchema300ns + stType);
+                    break;
+                case VersaoXML.NFe_v310:
+                    tipo = Type.GetType(NFeSchema310ns + stType);
+                    break;
+                case VersaoXML.Integracao:
+                    tipo = Type.GetType(IntegracaoSchema100ns + stType);
+                    break;
+                case VersaoXML.GNRE:
+                    tipo = Type.GetType(GNRESchema100ns + stType);
+                    break;
+                case VersaoXML.NFe_v400:
+                    tipo = Type.GetType(NFeSchema400ns + stType);
+                    break;
+                case VersaoXML.Eventos_v100:
+                    tipo = Type.GetType(EventosSchema100ns + stType);
+                    break;
+                case VersaoXML.ConsultaCadastro_v100:
+                    tipo = Type.GetType(ConsCad100ns + stType);
+                    break;
+                case VersaoXML.DocumentosFiscaisEletronicos_v101:
+                    tipo = Type.GetType(DFeSchema101ns + stType);
+                    break;
+                default:
+                    break;
+            }
+
+            return tipo;
+        }
+        public static object XMLFactory(VersaoXML version, string stType, int size = -1)
+        {
+            Type type = GetXMLType(version, stType);
+            if (size == -1)
+                return Activator.CreateInstance(type);
+            else
+                return Activator.CreateInstance(type, size);
+        }
+
         public static XmlCDataSection CreateCData(string text)
         {
             XmlDocument document = new XmlDocument();
@@ -230,89 +325,11 @@ namespace RDI.NFe2.SchemaXML
             byte[] byteArray = encoding.GetBytes(pXmlString);
             return byteArray;
         }
-        public static object XMLFactory(VersaoXML version, string stType, int size = -1)
-        {
-            Type type = Factory.GetXMLType(version, stType);
-            if (size == -1)
-                return Activator.CreateInstance(type);
-            else
-                return Activator.CreateInstance(type, size);
 
-        }
-        public static object CarregaXML_HD(string filename, VersaoXML versao, string stTipo)
-        {
-            String _xml = String.Empty;
-            using (StreamReader SR = File.OpenText(filename))
-            {
-                _xml = SR.ReadToEnd();
-                SR.Close();
-                SR.Dispose();
-            }
-            GC.Collect();
-            return CarregaXML_STR(_xml, versao, stTipo);
-        }
-        public static object CarregaXML_STR(string XML, VersaoXML versao, string stTipo)
-        {
-            try
-            {
-                XmlSerializer xs = new XmlSerializer(Factory.GetXMLType(versao, stTipo));
-                MemoryStream memoryStream = new MemoryStream(StringToUTF8ByteArray(XML));
-                XmlTextWriter xmlTextWriter = new XmlTextWriter(memoryStream, Encoding.UTF8);
-                return xs.Deserialize(memoryStream);
-            }
-            catch (Exception ex)
-            {
-                throw new XMLValidationException("Erro ao carregar o XML", ex);
-            }
-        }
-        public static void SalvaXML_versao310(string filename, Object oXML)
-        {
-            SalvaXML(filename, oXML, VersaoXML.NFe_v310);
-        }
-        public static void SalvaXML(string filename, Object oXML, VersaoXML versao)
-        {
-            string stNamespace = "";
-            if (versao == VersaoXML.GNRE)
-                stNamespace = GNRENAMESPACE;
-            else if (versao == VersaoXML.NFe_v200 ||
-                versao == VersaoXML.NFe_v300 ||
-                versao == VersaoXML.NFe_v310 ||
-                versao == VersaoXML.NFe_v400)
-                stNamespace = NFeNAMESPACE;
-            else if (versao == VersaoXML.Integracao)
-                stNamespace = RDINAMESPACE;
-            else
-                stNamespace = "";//padrao
 
-            if (System.IO.File.Exists(filename))
-                System.IO.File.Delete(filename);
-
-            MemoryStream memoryStream = new MemoryStream();
-            XmlSerializerNamespaces xsn = new XmlSerializerNamespaces();
-            xsn.Add("", stNamespace);
-            XmlSerializer xs = new XmlSerializer(oXML.GetType());
-            XmlTextWriter xmlTextWriter = new XmlTextWriter(memoryStream, new System.Text.UTF8Encoding(false));
-            xs.Serialize(xmlTextWriter, oXML, xsn);
-            memoryStream = (MemoryStream)xmlTextWriter.BaseStream;
-            Byte[] characters = memoryStream.ToArray();
-            System.Text.UTF8Encoding encoding = new System.Text.UTF8Encoding();
-            StreamWriter oSW = File.CreateText(filename);
-            oSW.Write(encoding.GetString(characters));
-            oSW.Close();
-        }
-        public static String GetXML(Object oXML, VersaoXML versao)
+        public static string GetXML(object oXML, VersaoXML versao)
         {
-            string stNamespace = "";
-            if (versao == VersaoXML.GNRE)
-                stNamespace = GNRENAMESPACE;
-            else if (versao == VersaoXML.NFe_v200 ||
-                versao == VersaoXML.NFe_v300 ||
-                versao == VersaoXML.NFe_v310)
-                stNamespace = NFeNAMESPACE;
-            else if (versao == VersaoXML.Integracao)
-                stNamespace = RDINAMESPACE;
-            else
-                stNamespace = "";//padrao
+            string stNamespace = GetXMLNamespace(versao);
 
             MemoryStream memoryStream = new MemoryStream();
             XmlSerializerNamespaces xsn = new XmlSerializerNamespaces();
@@ -325,7 +342,79 @@ namespace RDI.NFe2.SchemaXML
             System.Text.UTF8Encoding encoding = new System.Text.UTF8Encoding();
             return encoding.GetString(characters);
         }
+        public static void SaveXML(string fileName, object oXML, VersaoXML versao)
+        {
+            string stNamespace = GetXMLNamespace(versao);
+
+            if (System.IO.File.Exists(fileName))
+                System.IO.File.Delete(fileName);
+
+            MemoryStream memoryStream = new MemoryStream();
+            XmlSerializerNamespaces xsn = new XmlSerializerNamespaces();
+            xsn.Add("", stNamespace);
+            XmlSerializer xs = new XmlSerializer(oXML.GetType());
+            XmlTextWriter xmlTextWriter = new XmlTextWriter(memoryStream, new System.Text.UTF8Encoding(false));
+            xs.Serialize(xmlTextWriter, oXML, xsn);
+            memoryStream = (MemoryStream)xmlTextWriter.BaseStream;
+            Byte[] characters = memoryStream.ToArray();
+            System.Text.UTF8Encoding encoding = new System.Text.UTF8Encoding();
+            StreamWriter oSW = File.CreateText(fileName);
+            oSW.Write(encoding.GetString(characters));
+            oSW.Close();
+        }
 
 
+        public static object LoadXMLFile(string fileName, VersaoXML versao, string stTipo)
+        {
+            String _xml = String.Empty;
+            using (StreamReader SR = File.OpenText(fileName))
+            {
+                _xml = SR.ReadToEnd();
+                SR.Close();
+                SR.Dispose();
+            }
+            GC.Collect();
+            return LoadXML(_xml, versao, stTipo);
+        }
+        public static T LoadXMLFile<T>(string fileName)
+        {
+            String _xml = String.Empty;
+            using (StreamReader SR = File.OpenText(fileName))
+            {
+                _xml = SR.ReadToEnd();
+                SR.Close();
+                SR.Dispose();
+            }
+            GC.Collect();
+            return LoadXML<T>(_xml);
+        }
+        public static object LoadXML(string XML, VersaoXML versao, string stTipo)
+        {
+            try
+            {
+                XmlSerializer xs = new XmlSerializer(GetXMLType(versao, stTipo));
+                MemoryStream memoryStream = new MemoryStream(StringToUTF8ByteArray(XML));
+                XmlTextWriter xmlTextWriter = new XmlTextWriter(memoryStream, Encoding.UTF8);
+                return xs.Deserialize(memoryStream);
+            }
+            catch (Exception ex)
+            {
+                throw new XMLValidationException("Erro ao carregar o XML", ex);
+            }
+        }
+        public static T LoadXML<T>(string XML)
+        {
+            try
+            {
+                XmlSerializer xs = new XmlSerializer(typeof(T));
+                MemoryStream memoryStream = new MemoryStream(StringToUTF8ByteArray(XML));
+                XmlTextWriter xmlTextWriter = new XmlTextWriter(memoryStream, Encoding.UTF8);
+                return (T)xs.Deserialize(memoryStream);
+            }
+            catch (Exception ex)
+            {
+                throw new XMLValidationException("Erro ao carregar o XML", ex);
+            }
+        }
     }
 }

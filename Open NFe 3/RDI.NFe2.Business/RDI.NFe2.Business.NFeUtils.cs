@@ -173,13 +173,13 @@ namespace RDI.NFe2.Business
 
             ITNfeProc oNFeProc = (ITNfeProc)XMLUtils.XMLFactory(oNotaAprovada.versao, "TNfeProc");
             oNFeProc.versao = versaoDados;
-            oNFeProc.NFe = (ITNFe)XMLUtils.CarregaXML_STR(oNotaAprovada.xmlNota, oNotaAprovada.versao, "TNFe");
-            oNFeProc.protNFe = (ITProtNFe)XMLUtils.CarregaXML_STR(oNotaAprovada.xmlProcesso, oNotaAprovada.versao, "TProtNFe");
+            oNFeProc.NFe = (ITNFe)XMLUtils.LoadXML(oNotaAprovada.xmlNota, oNotaAprovada.versao, "TNFe");
+            oNFeProc.protNFe = (ITProtNFe)XMLUtils.LoadXML(oNotaAprovada.xmlProcesso, oNotaAprovada.versao, "TProtNFe");
 
             if (File.Exists(nomeArquivo))
                 File.Delete(nomeArquivo);
 
-            XMLUtils.SalvaXML(nomeArquivo, oNFeProc, oNotaAprovada.versao);
+            XMLUtils.SaveXML(nomeArquivo, oNFeProc, oNotaAprovada.versao);
         }
 
         /// <summary>
@@ -201,13 +201,13 @@ namespace RDI.NFe2.Business
 
             ITProcCancNFe oCancProc = (ITProcCancNFe)XMLUtils.XMLFactory(oNotaCancelada.versao, "TProcCancNFe");
             oCancProc.versao = versaoDados;
-            oCancProc.cancNFe = (ITCancNFe)XMLUtils.CarregaXML_STR(oNotaCancelada.xmlPedidoCancelamento, oNotaCancelada.versao, "TCancNFe");
-            oCancProc.retCancNFe = (ITRetCancNFe)XMLUtils.CarregaXML_STR(oNotaCancelada.xmlProcessoCancelamento, oNotaCancelada.versao, "TRetCancNFe");
+            oCancProc.cancNFe = (ITCancNFe)XMLUtils.LoadXML(oNotaCancelada.xmlPedidoCancelamento, oNotaCancelada.versao, "TCancNFe");
+            oCancProc.retCancNFe = (ITRetCancNFe)XMLUtils.LoadXML(oNotaCancelada.xmlProcessoCancelamento, oNotaCancelada.versao, "TRetCancNFe");
 
             if (File.Exists(nomeArquivo))
                 File.Delete(nomeArquivo);
 
-            XMLUtils.SalvaXML(nomeArquivo, oCancProc, oNotaCancelada.versao);
+            XMLUtils.SaveXML(nomeArquivo, oCancProc, oNotaCancelada.versao);
         }
 
         /// <summary>
@@ -233,13 +233,13 @@ namespace RDI.NFe2.Business
             //gerar evento
             ITProcEvento oProcEvento = (ITProcEvento)XMLUtils.XMLFactory(versao, "TProcEvento");
             oProcEvento.versao = "1.00";
-            oProcEvento.evento = (ITEvento)XMLUtils.CarregaXML_STR(oEvento.XMLPedido, versao, "TEvento");
-            oProcEvento.retEvento = ((ITRetEnvEvento)XMLUtils.CarregaXML_STR(oEvento.XMLResposta, versao, "TRetEnvEvento")).retEvento[0];
+            oProcEvento.evento = (ITEvento)XMLUtils.LoadXML(oEvento.XMLPedido, oEvento.versao, "TEvento");
+            oProcEvento.retEvento = ((ITRetEnvEvento)XMLUtils.LoadXML(oEvento.XMLResposta, oEvento.versao, "TRetEnvEvento")).retEvento[0];
 
             if (File.Exists(nomeArquivo))
                 File.Delete(nomeArquivo);
 
-            XMLUtils.SalvaXML(nomeArquivo, oProcEvento, versao);
+            XMLUtils.SaveXML(nomeArquivo, oProcEvento, versao);
 
         }
 
@@ -278,7 +278,7 @@ namespace RDI.NFe2.Business
                 if (File.Exists(stNomeArq))
                     File.Delete(stNomeArq);
 
-                XMLUtils.SalvaXML(stNomeArq, oIntegracao, VersaoXML.Integracao);
+                XMLUtils.SaveXML(stNomeArq, oIntegracao, VersaoXML.Integracao);
             }
             catch { }
         }
@@ -304,7 +304,7 @@ namespace RDI.NFe2.Business
                 if (File.Exists(stNomeArq))
                     File.Delete(stNomeArq);
 
-                XMLUtils.SalvaXML(stNomeArq, oIntegracao, VersaoXML.Integracao);
+                XMLUtils.SaveXML(stNomeArq, oIntegracao, VersaoXML.Integracao);
             }
             catch { }
         }
@@ -342,7 +342,7 @@ namespace RDI.NFe2.Business
                 if (File.Exists(stNomeArq))
                     File.Delete(stNomeArq);
 
-                XMLUtils.SalvaXML(stNomeArq, oIntegracao, VersaoXML.Integracao);
+                XMLUtils.SaveXML(stNomeArq, oIntegracao, VersaoXML.Integracao);
             }
             catch { }
         }
@@ -368,7 +368,7 @@ namespace RDI.NFe2.Business
                     ((RDI.NFe2.SchemaXML.THeartBeat)oIntegracao.item).emExecucao = RDI.NFe2.SchemaXML.TSimNao.Nao;
                 }
 
-                XMLUtils.SalvaXML("heartbeat_" + empresa + ".xml", oIntegracao, VersaoXML.Integracao);
+                XMLUtils.SaveXML("heartbeat_" + empresa + ".xml", oIntegracao, VersaoXML.Integracao);
             }
             catch { }
         }
@@ -476,7 +476,7 @@ namespace RDI.NFe2.Business
             //Verifica se arquivo da nota Existe;
             if (File.Exists(arqxml))
             {
-                _stringXml = XMLUtils.GetXML(XMLUtils.CarregaXML_HD(arqxml, versao, stType), versao);
+                _stringXml = XMLUtils.GetXML(XMLUtils.LoadXMLFile(arqxml, versao, stType), versao);
 
                 // realiza assinatura
                 AssinaturaDigital AD = new AssinaturaDigital();
@@ -492,7 +492,7 @@ namespace RDI.NFe2.Business
                     if (File.Exists(newArqXml))
                         File.Delete(newArqXml);
 
-                    XMLUtils.SalvaXML(newArqXml, (XMLUtils.CarregaXML_STR(AD.XMLStringAssinado, versao, stType)), versao);
+                    XMLUtils.SaveXML(newArqXml, (XMLUtils.LoadXML(AD.XMLStringAssinado, versao, stType)), versao);
                 }
                 else
                 {

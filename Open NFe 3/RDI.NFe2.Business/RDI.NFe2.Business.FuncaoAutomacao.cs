@@ -200,7 +200,7 @@ namespace RDI.NFe2.Business
                             }
                             catch { }
 
-                            oInut = (ITInutNFe)XMLUtils.CarregaXML_HD(oParam.pastaEntrada + origem, oParam.versao, "TInutNFe");
+                            oInut = (ITInutNFe)XMLUtils.LoadXMLFile(oParam.pastaEntrada + origem, oParam.versao, "TInutNFe");
 
                             String cStat = String.Empty;
                             String xMotivo = String.Empty;
@@ -215,10 +215,9 @@ namespace RDI.NFe2.Business
                             {
                                 //atualizar registro
 
-                                ITRetInutNFe oRetInut = (ITRetInutNFe)
-                                    XMLUtils.CarregaXML_HD(oParam.pastaRecibo + oInut.infInut.Id + "-inu.xml", oParam.versao, "TRetInutNFe");
+                                ITRetInutNFe oRetInut = (ITRetInutNFe)XMLUtils.LoadXMLFile(oParam.pastaRecibo + oInut.infInut.Id + "-inu.xml", oParam.versao, "TRetInutNFe");
 
-                                oInut = (ITInutNFe)XMLUtils.CarregaXML_HD(oParam.pastaRecibo + oInut.infInut.Id + "-ped-inu.xml", oParam.versao, "TInutNFe");
+                                oInut = (ITInutNFe)XMLUtils.LoadXMLFile(oParam.pastaRecibo + oInut.infInut.Id + "-ped-inu.xml", oParam.versao, "TInutNFe");
 
                                 nProt = oRetInut.infInut.nProt;
 
@@ -329,13 +328,13 @@ namespace RDI.NFe2.Business
                             #region verificar serializacao antes de assinar jogar na classe de NFe
                             try
                             {
-                                oEvento = (ITEvento)XMLUtils.CarregaXML_STR(xmlEvento, oParam.versao, "TEvento");
+                                oEvento = (ITEvento)XMLUtils.LoadXML(xmlEvento, oParam.versao, "TEvento");
 
                                 oNotaFiscalQry.empresa = oParam.empresa;// oEvento.infEvento.Item;
                                 oNotaFiscalQry.chaveNota = "NFe" + oEvento.infEvento.chNFe;
                                 nomeArquivoAssinado = oParam.pastaRecibo + oEvento.infEvento.Id + "-ev.xml";
 
-                                XMLUtils.SalvaXML(nomeArquivoAssinado, oEvento, oParam.versao);
+                                XMLUtils.SaveXML(nomeArquivoAssinado, oEvento, oParam.versaoEventos);
                                 oEvento = null;
                             }
                             catch (Exception ex)
@@ -380,7 +379,7 @@ namespace RDI.NFe2.Business
 
                             //arquivo esta assinado
                             //carregar o xml assinado
-                            oEvento = (ITEvento)XMLUtils.CarregaXML_HD(nomeArquivoAssinado, oParam.versao, "TEvento");
+                            oEvento = (ITEvento)XMLUtils.LoadXMLFile(nomeArquivoAssinado, oParam.versaoEventos, "TEvento");
                             xmlEvento = XMLUtils.GetXML(oEvento, oParam.versao);
 
                             RecepcaoEvento(oEvento, numeroNovoLote, ref xmlRetorno, oParam.versao);
@@ -388,7 +387,7 @@ namespace RDI.NFe2.Business
                             if (string.IsNullOrEmpty(xmlRetorno)) //recebeu resposta da sefaz
                                 throw new Exception("Não foi possível executar RecepcaoEvento-CCe. Consulte o LOG do sistema.");
 
-                            ITRetEnvEvento oRetEnvEvento = (ITRetEnvEvento)XMLUtils.CarregaXML_STR(xmlRetorno, oParam.versao, "TRetEnvEvento");
+                            ITRetEnvEvento oRetEnvEvento = (ITRetEnvEvento)XMLUtils.LoadXML(xmlRetorno, oParam.versaoEventos, "TRetEnvEvento");
 
                             if (oRetEnvEvento.cStat == "128")
                             {
@@ -421,7 +420,7 @@ namespace RDI.NFe2.Business
                                     oProcEvento.versao = "1.00";
                                     //salvar arquivo na caixa de saida
 
-                                    XMLUtils.SalvaXML(oParam.pastaSaida + oEvento.infEvento.Id + "_v1.00-procCCe.xml", oProcEvento, oParam.versao);
+                                    XMLUtils.SaveXML(oParam.pastaSaida + oEvento.infEvento.Id + "_v1.00-procCCe.xml", oProcEvento, oParam.versaoEventos);
                                 }
                                 else
                                 {
@@ -488,7 +487,7 @@ namespace RDI.NFe2.Business
                                         string sufixo = "_v1.00-procCCe.xml";
                                         String nomeArquivo = oEvento.infEvento.Id + sufixo;
 
-                                        ITNFe oNFeXML = (ITNFe)XMLUtils.CarregaXML_STR(oNotaFiscal.xmlNota, oParam.versao, "TNFe");
+                                        ITNFe oNFeXML = (ITNFe)XMLUtils.LoadXML(oNotaFiscal.xmlNota, oParam.versao, "TNFe");
 
                                         //salvar TXT com dados complementares
                                         if (File.Exists(oParam.pastaImpressao + nomeArquivo.Replace(".xml", ".txt")))
@@ -527,7 +526,7 @@ namespace RDI.NFe2.Business
 
                                         oNFeXML = null;
 
-                                        NFeUtils.GeraArquivoProcEventoNFe(oTbEvento, oParam.pastaImpressao + nomeArquivo, oNotaFiscal.versao);
+                                        NFeUtils.GeraArquivoProcEventoNFe(oTbEvento, oParam.pastaImpressao + nomeArquivo, oTbEvento.versao);
                                     }
                                     #endregion
                                 }
@@ -600,13 +599,13 @@ namespace RDI.NFe2.Business
                             #region verificar serializacao antes de assinar jogar na classe de NFe
                             try
                             {
-                                oEvento = (ITEvento)XMLUtils.CarregaXML_STR(xmlEvento, oParam.versao, "TEvento");
+                                oEvento = (ITEvento)XMLUtils.LoadXML(xmlEvento, oParam.versaoEventos, "TEvento");
 
                                 oNotaFiscalQry.empresa = oParam.empresa;
                                 oNotaFiscalQry.chaveNota = "NFe" + oEvento.infEvento.chNFe;
                                 nomeArquivoAssinado = oParam.pastaRecibo + oEvento.infEvento.Id + "-ev.xml";
 
-                                XMLUtils.SalvaXML(nomeArquivoAssinado, oEvento, oParam.versao);
+                                XMLUtils.SaveXML(nomeArquivoAssinado, oEvento, oParam.versaoEventos);
                                 oEvento = null;
                             }
                             catch (Exception ex)
@@ -652,7 +651,7 @@ namespace RDI.NFe2.Business
 
                             //arquivo esta assinado
                             //carregar o xml assinado
-                            oEvento = (ITEvento)XMLUtils.CarregaXML_HD(nomeArquivoAssinado, oParam.versao, "TEvento");
+                            oEvento = (ITEvento)XMLUtils.LoadXMLFile(nomeArquivoAssinado, oParam.versaoEventos, "TEvento");
                             xmlEvento = XMLUtils.GetXML(oEvento, oParam.versao);
 
                             RecepcaoEvento(oEvento, numeroNovoLote, ref xmlRetorno, oParam.versao);
@@ -660,7 +659,7 @@ namespace RDI.NFe2.Business
                             if (string.IsNullOrEmpty(xmlRetorno)) //recebeu resposta da sefaz
                                 throw new Exception("Não foi possível executar RecepcaoEvento-Cancelamento. Consulte o LOG do sistema.");
 
-                            ITRetEnvEvento oRetEnvEvento = (ITRetEnvEvento)XMLUtils.CarregaXML_STR(xmlRetorno, oParam.versao, "TRetEnvEvento");
+                            ITRetEnvEvento oRetEnvEvento = (ITRetEnvEvento)XMLUtils.LoadXML(xmlRetorno, oParam.versaoEventos, "TRetEnvEvento");
 
                             if (oRetEnvEvento.cStat == "128")
                             {
@@ -708,7 +707,7 @@ namespace RDI.NFe2.Business
                                     oProcEvento.versao = "1.00";
                                     //salvar arquivo na caixa de saida
 
-                                    XMLUtils.SalvaXML(oParam.pastaSaida + oEvento.infEvento.Id + "_v1.00-procEventoCancNFe.xml", oProcEvento, oParam.versao);
+                                    XMLUtils.SaveXML(oParam.pastaSaida + oEvento.infEvento.Id + "_v1.00-procEventoCancNFe.xml", oProcEvento, oParam.versaoEventos);
 
                                     //integracao - aprovado
                                     NFeUtils.GeraRetornoCancelamentoNFe(oNotaFiscal.chaveNota, oRetEnvEvento.retEvento[0].infEvento.cStat, oRetEnvEvento.retEvento[0].infEvento.xMotivo, oParam.pastaSaida);
@@ -798,8 +797,7 @@ namespace RDI.NFe2.Business
                                         string sufixo = "_v1.00-procEventoCancNFe.xml";
                                         String nomeArquivo = oEvento.infEvento.Id + sufixo;
 
-                                        ITNFe oNFeXML = (ITNFe)
-                                            XMLUtils.CarregaXML_STR(oNotaFiscal.xmlNota, oNotaFiscal.versao, "TNFe");
+                                        ITNFe oNFeXML = (ITNFe)XMLUtils.LoadXML(oNotaFiscal.xmlNota, oNotaFiscal.versao, "TNFe");
 
                                         //salvar TXT com dados complementares
                                         if (File.Exists(oParam.pastaImpressao + nomeArquivo.Replace(".xml", ".txt")))
@@ -837,7 +835,7 @@ namespace RDI.NFe2.Business
 
                                         oNFeXML = null;
 
-                                        NFeUtils.GeraArquivoProcEventoNFe(oTbEvento, oParam.pastaImpressao + nomeArquivo, oNotaFiscal.versao);
+                                        NFeUtils.GeraArquivoProcEventoNFe(oTbEvento, oParam.pastaImpressao + nomeArquivo, oTbEvento.versao);
                                     }
                                     #endregion
                                 }
@@ -953,7 +951,7 @@ namespace RDI.NFe2.Business
                                 #region verificar serializacao
                                 try
                                 {
-                                    oIntegracao = (SchemaXML.TIntegracao)XMLUtils.CarregaXML_STR(xmlIntegracao, VersaoXML.Integracao, "TIntegracao");
+                                    oIntegracao = XMLUtils.LoadXML<TIntegracao>(xmlIntegracao);
 
                                     oNotaFiscalQry.empresa = oParam.empresa;
                                     oNotaFiscalQry.chaveNota = "NFe" + ((SchemaXML.TImpressao)oIntegracao.item).chNFe;
@@ -1299,13 +1297,17 @@ namespace RDI.NFe2.Business
                 oEnviNFe.versao = oParam.versaoDados;
 
                 //Trabalhar sempre com envelopes assincronos
-                if (oParam.versao == VersaoXML.NFe_v310)
+                if (oParam.versao == VersaoXML.NFe_v400)
                 {
-                    ((SchemaXML.NFe_v310.TEnviNFe)oEnviNFe).indSinc = SchemaXML.NFe_v310.TEnviNFeIndSinc.Item0;
+                    //((SchemaXML.NFe_v400.TEnviNFe)oEnviNFe).indSinc = SchemaXML.TEnviNFeIndSinc.Item0;
+                }
+                else if (oParam.versao == VersaoXML.NFe_v310)
+                {
+                    ((SchemaXML.NFe_v310.TEnviNFe)oEnviNFe).indSinc = SchemaXML.TEnviNFeIndSinc.Item0;
                 }
                 else if (oParam.versao == VersaoXML.NFe_v300)
                 {
-                    ((SchemaXML.NFe_v300.TEnviNFe)oEnviNFe).indSinc = SchemaXML.NFe_v300.TEnviNFeIndSinc.Item0;
+                    ((SchemaXML.NFe_v300.TEnviNFe)oEnviNFe).indSinc = SchemaXML.TEnviNFeIndSinc.Item0;
                 }
 
                 #endregion
@@ -1362,8 +1364,8 @@ namespace RDI.NFe2.Business
                         #region verificar serializacao antes de assinar jogar na classe de NFe
                         try
                         {
-                            oNFe = (ITNFe)XMLUtils.CarregaXML_STR(xmlNotaStr, oParam.versao, "TNFe");
-                            XMLUtils.SalvaXML(oParam.pastaEntrada + origem, oNFe, oParam.versao);
+                            oNFe = (ITNFe)XMLUtils.LoadXML(xmlNotaStr, oParam.versao, "TNFe");
+                            XMLUtils.SaveXML(oParam.pastaEntrada + origem, oNFe, oParam.versao);
                             oNFe = null;
                         }
                         catch (Exception ex)
@@ -1390,7 +1392,7 @@ namespace RDI.NFe2.Business
                         }
 
                         #region carregar a nfe assinada
-                        oNFe = (ITNFe)XMLUtils.CarregaXML_HD(oParam.pastaEntrada + "ass" + origem, oParam.versao, "TNFe");
+                        oNFe = (ITNFe)XMLUtils.LoadXMLFile(oParam.pastaEntrada + "ass" + origem, oParam.versao, "TNFe");
 
 
                         //todo validar a chave da NFe
@@ -1560,7 +1562,7 @@ namespace RDI.NFe2.Business
                     if (File.Exists(oParam.pastaSaida + oEnviNFe.idLote + "-env-lot.xml"))
                         File.Delete(oParam.pastaSaida + oEnviNFe.idLote + "-env-lot.xml");
 
-                    XMLUtils.SalvaXML(oParam.pastaSaida + oEnviNFe.idLote + "-env-lot.xml", oEnviNFe, oParam.versao);
+                    XMLUtils.SaveXML(oParam.pastaSaida + oEnviNFe.idLote + "-env-lot.xml", oEnviNFe, oParam.versao);
                 }
                 else
                 {
@@ -1608,7 +1610,7 @@ namespace RDI.NFe2.Business
                     throw new Exception("Não foi possível localizar o arquivo : " + nomeArquivo);
 
                 //carregar envelope
-                oEnviNFe = (ITEnviNFe)XMLUtils.CarregaXML_HD(nomeArquivo, oParam.versao, "TEnviNFe");
+                oEnviNFe = (ITEnviNFe)XMLUtils.LoadXMLFile(nomeArquivo, oParam.versao, "TEnviNFe");
 
 
                 //pronto para enviar
@@ -1636,7 +1638,7 @@ namespace RDI.NFe2.Business
                         Directory.CreateDirectory(oParam.pastaRecibo);
 
                     //salvar o recibo do envio
-                    XMLUtils.SalvaXML(oParam.pastaRecibo + oServicoPendente.numeroLote.ToString() + "-rec.xml", oRetEnviNFe, oServicoPendente.versao);
+                    XMLUtils.SaveXML(oParam.pastaRecibo + oServicoPendente.numeroLote.ToString() + "-rec.xml", oRetEnviNFe, oServicoPendente.versao);
 
                     if (!string.IsNullOrEmpty(oRetEnviNFe.infRec.nRec))
                     {
@@ -1742,7 +1744,7 @@ namespace RDI.NFe2.Business
                 oServicoPendente.dataSituacao = DateTime.Now;
                 oServicoPendente.Save(manager);
 
-                oRetEnviNFe = (ITRetEnviNFe)XMLUtils.CarregaXML_STR(oServicoPendente.xmlRecibo, oServicoPendente.versao, "TRetEnviNFe");
+                oRetEnviNFe = (ITRetEnviNFe)XMLUtils.LoadXML(oServicoPendente.xmlRecibo, oServicoPendente.versao, "TRetEnviNFe");
 
                 if (oRetEnviNFe.infRec.nRec != oServicoPendente.numeroRecibo)
                 {
@@ -1772,7 +1774,7 @@ namespace RDI.NFe2.Business
                     }
 
                     //salvar o arquivo de retorno da consulta
-                    XMLUtils.SalvaXML(oParam.pastaRecibo + oServicoPendente.numeroRecibo + "-pro-rec.xml", oRetConsReciNFe, oServicoPendente.versao);
+                    XMLUtils.SaveXML(oParam.pastaRecibo + oServicoPendente.numeroRecibo + "-pro-rec.xml", oRetConsReciNFe, oServicoPendente.versao);
 
                     //testar retorno
                     #region trata Retorno do processamento
@@ -1990,14 +1992,14 @@ namespace RDI.NFe2.Business
                 System.Web.Services.Protocols.SoapHttpClientProtocol oServico =
                     NFeUtils.ClientProxyFactory(oParam, TServico.Status);
 
-                XMLUtils.SalvaXML(oParam.pastaRecibo + oParam.UF.ToString() + "consulta-ped-sta.xml", oConsStatServ, oParam.versao);
+                XMLUtils.SaveXML(oParam.pastaRecibo + oParam.UF.ToString() + "consulta-ped-sta.xml", oConsStatServ, oParam.versao);
 
                 oRetConsStatServ = Servicos.ConsultarStatusServidor(oServico, oConsStatServ, oParam, oParam.versao);
 
                 if (!Directory.Exists(oParam.pastaRecibo))
                     Directory.CreateDirectory(oParam.pastaRecibo);
 
-                XMLUtils.SalvaXML(oParam.pastaRecibo + oParam.UF.ToString() + "consulta-sta.xml", oRetConsStatServ, oParam.versao);
+                XMLUtils.SaveXML(oParam.pastaRecibo + oParam.UF.ToString() + "consulta-sta.xml", oRetConsStatServ, oParam.versao);
 
 
                 //teste de operação
@@ -2137,7 +2139,7 @@ namespace RDI.NFe2.Business
                 if (File.Exists(oParam.pastaRecibo + ChaveNFe + "-ped-sit.xml"))
                     File.Delete(oParam.pastaRecibo + ChaveNFe + "-ped-sit.xml");
 
-                XMLUtils.SalvaXML(oParam.pastaRecibo + ChaveNFe + "-ped-sit.xml", oConsSitNFe, oParam.versao);
+                XMLUtils.SaveXML(oParam.pastaRecibo + ChaveNFe + "-ped-sit.xml", oConsSitNFe, oParam.versao);
 
                 System.Web.Services.Protocols.SoapHttpClientProtocol oServico = NFeUtils.ClientProxyFactory(oParam, TServico.Consulta);
 
@@ -2146,7 +2148,7 @@ namespace RDI.NFe2.Business
                     // Executa servico
                     oRetConsSitNFe = Servicos.ConsultarSituacaoNFe(oServico, oConsSitNFe, oParam, oParam.versao);
 
-                    XMLUtils.SalvaXML(oParam.pastaRecibo + ChaveNFe + "-sit.xml", oRetConsSitNFe, oParam.versao);
+                    XMLUtils.SaveXML(oParam.pastaRecibo + ChaveNFe + "-sit.xml", oRetConsSitNFe, oParam.versao);
 
                     return true;
                 }
@@ -2189,7 +2191,7 @@ namespace RDI.NFe2.Business
                     File.Delete(nomeArquivoPedido);
 
                 //salvar o arquivo
-                XMLUtils.SalvaXML(nomeArquivoPedido, oInutNFe, versao);
+                XMLUtils.SaveXML(nomeArquivoPedido, oInutNFe, versao);
 
                 //assinar pedido
                 X509Certificate2 certificadoX509 = Certificado.BuscaNome(oParam.certificado, oParam.usaWService, oParam.tipoBuscaCertificado);
@@ -2217,7 +2219,7 @@ namespace RDI.NFe2.Business
                     else //ESTA TUDO OK 
                     {
                         //carrega o pedido assinado
-                        oInutNFe = (ITInutNFe)XMLUtils.CarregaXML_HD(nomeArquivoPedidoAss, oParam.versao, "TInutNFe");
+                        oInutNFe = (ITInutNFe)XMLUtils.LoadXMLFile(nomeArquivoPedidoAss, oParam.versao, "TInutNFe");
                         //cria servico
                         System.Web.Services.Protocols.SoapHttpClientProtocol oServico = NFeUtils.ClientProxyFactory(oParam, TServico.Inutilizacao);
                         try
@@ -2228,7 +2230,7 @@ namespace RDI.NFe2.Business
                             cStat = oRetInutNFe.infInut.cStat;
                             xMotivo = oRetInutNFe.infInut.xMotivo;
                             //salva resultado no HD
-                            XMLUtils.SalvaXML(nomeArquivoPedidoAss.Replace("-ped", ""), oRetInutNFe, versao);
+                            XMLUtils.SaveXML(nomeArquivoPedidoAss.Replace("-ped", ""), oRetInutNFe, versao);
 
                             //integracao
                             NFeUtils.GeraRetornoInutilizacaoNFe(oInutNFe.infInut.Id, cStat, xMotivo, oParam.pastaSaida);
@@ -2260,7 +2262,7 @@ namespace RDI.NFe2.Business
             {
                 if (ConsultaProcNFe(oNotaFiscal.chaveNota.Replace("NFe", "")))
                 {
-                    ITRetConsSitNFe oRetConsSitNFe = (ITRetConsSitNFe)XMLUtils.CarregaXML_HD(oParam.pastaRecibo + oNotaFiscal.chaveNota.Replace("NFe", "") + "-sit.xml", oNotaFiscal.versao, "TRetConsSitNFe");
+                    ITRetConsSitNFe oRetConsSitNFe = (ITRetConsSitNFe)XMLUtils.LoadXMLFile(oParam.pastaRecibo + oNotaFiscal.chaveNota.Replace("NFe", "") + "-sit.xml", oNotaFiscal.versao, "TRetConsSitNFe");
 
                     //100-uso autorizado, 150-uso autorizado fora de prazo
                     //101-cancelado ou 151-cancelado fora de prazo.
@@ -2278,7 +2280,7 @@ namespace RDI.NFe2.Business
                         }
                         #endregion
 
-                        ITNFe oNFeXML = (ITNFe)XMLUtils.CarregaXML_STR(oNotaFiscal.xmlNota, oNotaFiscal.versao, "TNFe");
+                        ITNFe oNFeXML = (ITNFe)XMLUtils.LoadXML(oNotaFiscal.xmlNota, oNotaFiscal.versao, "TNFe");
 
                         if (oNFeXML.Signature == null || oNFeXML.Signature.SignedInfo == null ||
                             oNFeXML.Signature.SignedInfo.Reference == null)
@@ -2333,9 +2335,7 @@ namespace RDI.NFe2.Business
                                 {
                                     if (!String.IsNullOrEmpty(oEvento.XMLPedido))
                                     {
-                                        ITEvento XmlEvento =
-                                            (ITEvento)
-                                            XMLUtils.CarregaXML_STR(oEvento.XMLPedido, oNotaFiscal.versao, "TEvento");
+                                        ITEvento XmlEvento = (ITEvento) XMLUtils.LoadXML(oEvento.XMLPedido, oEvento.versao, "TEvento");
 
                                         //comparar pela assinatura
                                         if (Convert.ToBase64String(XmlEvento.Signature.SignedInfo.Reference.DigestValue) ==

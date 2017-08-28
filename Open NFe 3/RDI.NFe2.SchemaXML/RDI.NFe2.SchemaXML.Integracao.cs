@@ -35,47 +35,6 @@ namespace RDI.NFe2.SchemaXML
         GNRE_ConfigUF,
     }
 
-    public static class Factory
-    {
-        public const string NFeSchema200ns = "RDI.NFe2.SchemaXML.NFe_v200.";
-        public const string NFeSchema300ns = "RDI.NFe2.SchemaXML.NFe_v300.";
-        public const string NFeSchema310ns = "RDI.NFe2.SchemaXML.NFe_v310.";
-        public const string NFeSchema400ns = "RDI.NFe2.SchemaXML.NFe_v400.";
-        public const string GNRESchema100ns = "RDI.NFe2.GNRE.";
-
-
-        public static Type GetXMLType(VersaoXML version, string stType)
-        {
-            Type tipo = null;
-            if (version == VersaoXML.NFe_v200)
-            {
-                tipo = Type.GetType(NFeSchema200ns + stType);
-            }
-            else if (version == VersaoXML.NFe_v300)
-            {
-                tipo = Type.GetType(NFeSchema300ns + stType);
-            }
-            else if (version == VersaoXML.NFe_v310)
-            {
-                tipo = Type.GetType(NFeSchema310ns + stType);
-            }
-            else if (version == VersaoXML.Integracao)
-            {
-                tipo = Type.GetType("SchemaXML." + stType);
-            }
-            else if (version == VersaoXML.GNRE)
-            {
-                tipo = Type.GetType(GNRESchema100ns + stType);
-            }
-            else
-            {
-                throw new Exception("Tipo não pode ser definido.");
-            }
-            return tipo;
-        }
-    }
-
-
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.1")]
     [System.SerializableAttribute()]
@@ -117,6 +76,474 @@ namespace RDI.NFe2.SchemaXML
         /// <remarks/>
         [System.Xml.Serialization.XmlEnumAttribute("1")]
         Item1,
+    }
+
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.1432")]
+    [System.SerializableAttribute()]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://www.portalfiscal.inf.br/nfe")]
+    public enum TEnderEmiCPais
+    {
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("1058")]
+        Item1058,
+    }
+
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.1432")]
+    [System.SerializableAttribute()]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://www.portalfiscal.inf.br/nfe")]
+    public enum TEnderEmiXPais
+    {
+
+        /// <remarks/>
+        Brasil,
+
+        /// <remarks/>
+        BRASIL,
+    }
+
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.1432")]
+    [System.SerializableAttribute()]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://www.portalfiscal.inf.br/nfe")]
+    public enum TNFeInfNFeEmitCRT
+    {
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("1")]
+        Item1,
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("2")]
+        Item2,
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("3")]
+        Item3,
+    }
+
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.1432")]
+    [System.SerializableAttribute()]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://www.portalfiscal.inf.br/nfe")]
+    public enum TNFeInfNFeDestIndIEDest
+    {
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("1")]
+        Item1,
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("2")]
+        Item2,
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("9")]
+        Item9,
+    }
+
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
+    [System.SerializableAttribute()]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://www.portalfiscal.inf.br/nfe")]
+    public enum TNFeInfNFeDetProdIndEscala
+    {
+
+        /// <remarks/>
+        S,
+
+        /// <remarks/>
+        N,
+    }
+
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
+    [System.SerializableAttribute()]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://www.portalfiscal.inf.br/nfe")]
+    public enum TNFeInfNFeDetProdIndTot
+    {
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("0")]
+        Item0,
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("1")]
+        Item1,
+    }
+
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.1432")]
+    [System.SerializableAttribute()]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://www.portalfiscal.inf.br/nfe")]
+    public enum TNFeInfNFeDetProdDITpViaTransp
+    {
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("1")]
+        Item1,
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("2")]
+        Item2,
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("3")]
+        Item3,
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("4")]
+        Item4,
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("5")]
+        Item5,
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("6")]
+        Item6,
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("7")]
+        Item7,
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("8")]
+        Item8,
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("9")]
+        Item9,
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("10")]
+        Item10,
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("11")]
+        Item11,
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("12")]
+        Item12,
+
+    }
+
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.1432")]
+    [System.SerializableAttribute()]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://www.portalfiscal.inf.br/nfe")]
+    public enum TNFeInfNFeDetProdDITpIntermedio
+    {
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("1")]
+        Item1,
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("2")]
+        Item2,
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("3")]
+        Item3,
+    }
+
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.1432")]
+    [System.SerializableAttribute()]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://www.portalfiscal.inf.br/nfe")]
+    public enum TNFeInfNFeDetProdArmaTpArma
+    {
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("0")]
+        Item0,
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("1")]
+        Item1,
+    }
+
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.1432")]
+    [System.SerializableAttribute()]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://www.portalfiscal.inf.br/nfe")]
+    public enum TNFeInfNFeDetProdVeicProdTpOp
+    {
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("0")]
+        Item0,
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("1")]
+        Item1,
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("2")]
+        Item2,
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("3")]
+        Item3,
+    }
+
+
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.1432")]
+    [System.SerializableAttribute()]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://www.portalfiscal.inf.br/nfe")]
+    public enum TNFeInfNFeDetProdVeicProdVIN
+    {
+
+        /// <remarks/>
+        R,
+
+        /// <remarks/>
+        N,
+    }
+
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.1432")]
+    [System.SerializableAttribute()]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://www.portalfiscal.inf.br/nfe")]
+    public enum TNFeInfNFeDetProdVeicProdCondVeic
+    {
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("1")]
+        Item1,
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("2")]
+        Item2,
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("3")]
+        Item3,
+    }
+
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
+    [System.SerializableAttribute()]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://www.portalfiscal.inf.br/nfe")]
+    public enum TNFeInfNFeDetProdVeicProdTpRest
+    {
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("0")]
+        Item0,
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("1")]
+        Item1,
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("2")]
+        Item2,
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("3")]
+        Item3,
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("4")]
+        Item4,
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("9")]
+        Item9,
+    }
+
+
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
+    [System.SerializableAttribute()]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe")]
+    public enum Torig
+    {
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("0")]
+        Item0,
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("1")]
+        Item1,
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("2")]
+        Item2,
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("3")]
+        Item3,
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("4")]
+        Item4,
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("5")]
+        Item5,
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("6")]
+        Item6,
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("7")]
+        Item7,
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("8")]
+        Item8,
+    }
+
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.1432")]
+    [System.SerializableAttribute()]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://www.portalfiscal.inf.br/nfe")]
+    public enum TNFeInfNFeDetImpostoICMSICMS00CST
+    {
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("00")]
+        Item00,
+    }
+
+
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.1432")]
+    [System.SerializableAttribute()]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://www.portalfiscal.inf.br/nfe")]
+    public enum TNFeInfNFeDetImpostoICMSICMS00ModBC
+    {
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("0")]
+        Item0,
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("1")]
+        Item1,
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("2")]
+        Item2,
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("3")]
+        Item3,
+    }
+
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.1432")]
+    [System.SerializableAttribute()]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://www.portalfiscal.inf.br/nfe")]
+    public enum TNFeInfNFeDetImpostoICMSICMS10CST
+    {
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("10")]
+        Item10,
+    }
+
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.1432")]
+    [System.SerializableAttribute()]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://www.portalfiscal.inf.br/nfe")]
+    public enum TNFeInfNFeDetImpostoICMSICMS10ModBC
+    {
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("0")]
+        Item0,
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("1")]
+        Item1,
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("2")]
+        Item2,
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("3")]
+        Item3,
+    }
+
+
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
+    [System.SerializableAttribute()]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://www.portalfiscal.inf.br/nfe")]
+    public enum TNFeInfNFeDetImpostoICMSICMS10ModBCST
+    {
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("0")]
+        Item0,
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("1")]
+        Item1,
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("2")]
+        Item2,
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("3")]
+        Item3,
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("4")]
+        Item4,
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("5")]
+        Item5,
+    }
+
+
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.1432")]
+    [System.SerializableAttribute()]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://www.portalfiscal.inf.br/nfe")]
+    public enum TNFeInfNFeDetImpostoICMSICMS20CST
+    {
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("20")]
+        Item20,
+    }
+
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.1432")]
+    [System.SerializableAttribute()]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://www.portalfiscal.inf.br/nfe")]
+    public enum TNFeInfNFeDetImpostoICMSICMS20ModBC
+    {
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("0")]
+        Item0,
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("1")]
+        Item1,
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("2")]
+        Item2,
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("3")]
+        Item3,
     }
 
     /// <remarks/>
@@ -223,6 +650,122 @@ namespace RDI.NFe2.SchemaXML
     }
 
     /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.1432")]
+    [System.SerializableAttribute()]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://www.portalfiscal.inf.br/nfe")]
+    public enum TEnviNFeIndSinc
+    {
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("0")]
+        Item0,
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("1")]
+        Item1,
+    }
+
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.1432")]
+    [System.SerializableAttribute()]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://www.portalfiscal.inf.br/nfe")]
+    public enum TNFeInfNFeIdeIndPag
+    {
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("0")]
+        AVista,
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("1")]
+        APrazo,
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("2")]
+        Outros,
+    }
+
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.1432")]
+    [System.SerializableAttribute()]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://www.portalfiscal.inf.br/nfe")]
+    public enum TNFeInfNFeIdeTpNF
+    {
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("0")]
+        Entrada,
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("1")]
+        Saida,
+    }
+
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.1432")]
+    [System.SerializableAttribute()]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://www.portalfiscal.inf.br/nfe")]
+    public enum TNFeInfNFeIdeIdDest
+    {
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("1")]
+        OperacaoInterna,
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("2")]
+        OperacaoInterestadual,
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("3")]
+        OperacaoExterior,
+    }
+
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.1432")]
+    [System.SerializableAttribute()]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe")]
+    public enum TFinNFe_v200_v300
+    {
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("1")]
+        Normal,
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("2")]
+        NFeComplementar,
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("3")]
+        NFeAjuste,
+    }
+
+
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.1432")]
+    [System.SerializableAttribute()]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe")]
+    public enum TFinNFe_v310_v400
+    {
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("1")]
+        Normal,
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("2")]
+        NFeComplementar,
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("3")]
+        NFeAjuste,
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("4")]
+        Devolucao,
+    }
+
+    /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://www.portalfiscal.inf.br/nfe")]
@@ -265,6 +808,64 @@ namespace RDI.NFe2.SchemaXML
         /// <remarks/>
         IE,
     }
+
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.1432")]
+    [System.SerializableAttribute()]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe", IncludeInSchema = false)]
+    public enum ITCTypeCNPJCPFIdEstrangeiro
+    {
+
+        /// <remarks/>
+        CNPJ,
+
+        /// <remarks/>
+        CPF,
+
+        /// <remarks/>
+        idEstrangeiro,
+    }
+
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.1432")]
+    [System.SerializableAttribute()]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://www.portalfiscal.inf.br/nfe")]
+    public enum TNFeInfNFeIdeNFrefRefNFPMod
+    {
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("01")]
+        Item01,
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("04")]
+        Item04,
+    }
+
+
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.1432")]
+    [System.SerializableAttribute()]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe", IncludeInSchema = false)]
+    public enum ITCTypeRefNF
+    {
+
+        /// <remarks/>
+        refCTe,
+
+        /// <remarks/>
+        refECF,
+
+        /// <remarks/>
+        refNF,
+
+        /// <remarks/>
+        refNFP,
+
+        /// <remarks/>
+        refNFe,
+    }
+
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
@@ -358,6 +959,9 @@ namespace RDI.NFe2.SchemaXML
         [System.Xml.Serialization.XmlEnumAttribute("3.10")]
         Item310,
 
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("4.00")]
+        Item400,
     }
 
     /// <remarks/>
@@ -515,6 +1119,222 @@ namespace RDI.NFe2.SchemaXML
         [System.Xml.Serialization.XmlEnumAttribute("9")]
         [System.ComponentModel.Description("Contingência off-line da NFC-e")]
         ContingenciaOffLineNFCe = 9,
+    }
+
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.1432")]
+    [System.SerializableAttribute()]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://www.portalfiscal.inf.br/nfe")]
+    public enum TNFeInfNFeIdeIndFinal
+    {
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("0")]
+        Normal,
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("1")]
+        ConsumidorFinal,
+    }
+
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
+    [System.SerializableAttribute()]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://www.portalfiscal.inf.br/nfe")]
+    public enum TNFeInfNFeIdeTpImp
+    {
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("0")]
+        Item0,
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("1")]
+        Item1,
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("2")]
+        Item2,
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("3")]
+        Item3,
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("4")]
+        Item4,
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("5")]
+        Item5,
+    }
+
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.1432")]
+    [System.SerializableAttribute()]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://www.portalfiscal.inf.br/nfe")]
+    public enum TNFeInfNFeIdeIndPres_v300
+    {
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("0")]
+        Item0,
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("1")]
+        Item1,
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("2")]
+        Item2,
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("3")]
+        Item3,
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("9")]
+        Item9,
+    }
+
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.1432")]
+    [System.SerializableAttribute()]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://www.portalfiscal.inf.br/nfe")]
+    public enum TNFeInfNFeIdeIndPres_v310
+    {
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("0")]
+        Item0,
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("1")]
+        Item1,
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("2")]
+        Item2,
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("3")]
+        Item3,
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("4")]
+        Item4,
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("9")]
+        Item9,
+    }
+
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
+    [System.SerializableAttribute()]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://www.portalfiscal.inf.br/nfe")]
+    public enum TNFeInfNFeIdeIndPres_v400
+    {
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("0")]
+        Item0,
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("1")]
+        Item1,
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("2")]
+        Item2,
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("3")]
+        Item3,
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("4")]
+        Item4,
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("5")]
+        Item5,
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("9")]
+        Item9,
+    }
+
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.1432")]
+    [System.SerializableAttribute()]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe")]
+    public enum TProcEmi
+    {
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("0")]
+        Item0,
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("1")]
+        Item1,
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("2")]
+        Item2,
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("3")]
+        Item3,
+    }
+
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.1432")]
+    [System.SerializableAttribute()]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://www.portalfiscal.inf.br/nfe")]
+    public enum TNFeInfNFeIdeNFrefRefECFMod
+    {
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("2B")]
+        Item2B,
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("2C")]
+        Item2C,
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("2D")]
+        Item2D,
+    }
+
+
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.1432")]
+    [System.SerializableAttribute()]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://www.portalfiscal.inf.br/nfe")]
+    public enum TNFeInfNFeIdeNFrefRefNFMod
+    {
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("01")]
+        Item01,
+    }
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
+    [System.SerializableAttribute()]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://www.portalfiscal.inf.br/nfe")]
+    public enum TNFeInfNFeIdeNFrefRefNFMod_v400
+    {
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("01")]
+        Item01,
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("02")]
+        Item02,
     }
 
     /// <remarks/>
@@ -1090,6 +1910,9 @@ namespace RDI.NFe2.SchemaXML
         Integracao = 4,
         GNRE = 5,
         NFe_v400 = 6,
+        Eventos_v100 = 7,
+        ConsultaCadastro_v100 = 8,
+        DocumentosFiscaisEletronicos_v101 = 9,
     }
 
     /// <remarks/>

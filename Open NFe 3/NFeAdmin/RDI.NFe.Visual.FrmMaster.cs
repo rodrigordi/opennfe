@@ -443,8 +443,7 @@ namespace RDI.NFe.Visual
                 else
                 {
                     //arquivo de retorno estara em oParam.pastaRecibo + ChaveNFe + "-sit.xml",
-                    ITRetConsSitNFe oRetConsSitNFe =
-                    (ITRetConsSitNFe)XMLUtils.CarregaXML_HD(Program.GetParametro(Program.empresaSelecionada, manager).pastaRecibo + oFrmChave.TextResposta.Text + "-sit.xml",
+                    ITRetConsSitNFe oRetConsSitNFe = (ITRetConsSitNFe)XMLUtils.LoadXMLFile(Program.GetParametro(Program.empresaSelecionada, manager).pastaRecibo + oFrmChave.TextResposta.Text + "-sit.xml",
                     oFuncao.oParam.versao,
                     "TRetConsSitNFe");
 
@@ -543,11 +542,11 @@ namespace RDI.NFe.Visual
                 manager = Conexao.CreateManager(Program.ConAux);
                 var oParam = Program.GetParametro(Program.empresaSelecionada, manager);
                 var xml = "<NFe xmlns=\"http://www.portalfiscal.inf.br/nfe\">" + frm.TextResposta.Text + "</NFe>";
-                var oNFe = (ITNFe)XMLUtils.CarregaXML_STR(xml, oParam.versao, "TNFe");
+                var oNFe = (ITNFe)XMLUtils.LoadXML(xml, oParam.versao, "TNFe");
 
                 var fileName = oParam.pastaEntrada + oNFe.infNFe.Id + ".xml";
 
-                XMLUtils.SalvaXML(fileName, oNFe, oParam.versao);
+                XMLUtils.SaveXML(fileName, oNFe, oParam.versao);
 
                 MessageBox.Show("Arquivo gerado com sucesso na caixa de entrada. " + fileName);
 

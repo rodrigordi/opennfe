@@ -138,7 +138,7 @@ namespace RDI.NFe.Visual
 
                 oRetEnviNFe.infRec.nRec = nRec;
                 oRetEnviNFe.infRec.tMed = "1";
-                XMLUtils.SalvaXML(oParam.pastaRecibo + oServicoPendente.numeroLote.ToString() + "-rec.xml", oRetEnviNFe, oServicoPendente.versao);
+                XMLUtils.SaveXML(oParam.pastaRecibo + oServicoPendente.numeroLote.ToString() + "-rec.xml", oRetEnviNFe, oServicoPendente.versao);
 
                 oServicoPendente.xmlRecibo = XMLUtils.GetXML(oRetEnviNFe, oServicoPendente.versao);
 
