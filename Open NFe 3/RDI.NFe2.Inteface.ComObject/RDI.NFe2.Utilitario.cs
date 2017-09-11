@@ -8,6 +8,7 @@ using RDI.NFe2.ORMAP;
 using RDI.NFe2.SchemaXML;
 using RDI.OpenSigner;
 using RDI.NFe2.SchemaXML.GNRE;
+using RDI.NFe2.Webservices;
 
 namespace RDI.NFe2.Business
 {
@@ -383,18 +384,16 @@ namespace RDI.NFe2.Business
                 System.Web.Services.Protocols.SoapHttpClientProtocol oServico = null;
                 try
                 {
-                    oServico = NFeUtils.ClientProxyFactory(_Parametro, TServico.Status);
+                    oServico = NFeUtils.ClientProxyFactory(_Parametro, TService.Status);
                 }
                 catch (Exception ex)
                 {
                     throw new Exception("Não foi possível criar o serviço de comunicação com o webservice - " + ex.Message);
                 }
 
-                var temp = Servicos.Interface_ConsultarStatusServidor(oServico, oConsStatServ, _Parametro, _Parametro.versao);
-                if (temp.Value == null)
-                    throw new Exception(temp.Key);
+                var temp = Servicos.ConsultarStatusServidor(oServico, oConsStatServ, _Parametro, _Parametro.versao);
 
-                return (temp.Value.cStat == "107");
+                return (temp.cStat == "107");
             }
             catch (Exception ex)
             {
@@ -427,18 +426,15 @@ namespace RDI.NFe2.Business
                 System.Web.Services.Protocols.SoapHttpClientProtocol oServico = null;
                 try
                 {
-                    oServico = NFeUtils.ClientProxyFactory(_Parametro, TServico.Autorizacao);
+                    oServico = NFeUtils.ClientProxyFactory(_Parametro, TService.Autorizacao);
                 }
                 catch (Exception ex)
                 {
                     throw new Exception("Não foi possível criar o serviço de comunicação com o webservice - " + ex.Message);
                 }
 
-                var temp = Servicos.Interface_EnviarEnvelope(oServico, oEnviNFe2, _Parametro, _Parametro.versao);
-                if (temp.Value == null)
-                    throw new Exception(temp.Key);
-
-                XMLUtils.SaveXML(caminhoArquivoRetEnviNFe2, temp.Value, _Parametro.versao);
+                var temp = Servicos.EnviarEnvelope(oServico, oEnviNFe2, _Parametro, _Parametro.versao);
+                XMLUtils.SaveXML(caminhoArquivoRetEnviNFe2, temp, _Parametro.versao);
 
                 return true;
             }
@@ -469,18 +465,15 @@ namespace RDI.NFe2.Business
                 System.Web.Services.Protocols.SoapHttpClientProtocol oServico = null;
                 try
                 {
-                    oServico = NFeUtils.ClientProxyFactory(_Parametro, TServico.RetAutorizacao);
+                    oServico = NFeUtils.ClientProxyFactory(_Parametro, TService.RetAutorizacao);
                 }
                 catch (Exception ex)
                 {
                     throw new Exception("Não foi possível criar o serviço de comunicação com o webservice - " + ex.Message);
                 }
 
-                var temp = Servicos.Interface_ConsultarProcessamentoEnvelope(oServico, oConsReciNFe2, _Parametro, _Parametro.versao);
-                if (temp.Value == null)
-                    throw new Exception(temp.Key);
-
-                XMLUtils.SaveXML(caminhoArquivoRetConsReciNFe2, temp.Value, _Parametro.versao);
+                var temp = Servicos.ConsultarProcessamentoEnvelope(oServico, oConsReciNFe2, _Parametro, _Parametro.versao);
+                XMLUtils.SaveXML(caminhoArquivoRetConsReciNFe2, temp, _Parametro.versao);
 
                 return true;
             }
@@ -511,18 +504,15 @@ namespace RDI.NFe2.Business
                 System.Web.Services.Protocols.SoapHttpClientProtocol oServico = null;
                 try
                 {
-                    oServico = NFeUtils.ClientProxyFactory(_Parametro, TServico.Inutilizacao);
+                    oServico = NFeUtils.ClientProxyFactory(_Parametro, TService.Inutilizacao);
                 }
                 catch (Exception ex)
                 {
                     throw new Exception("Não foi possível criar o serviço de comunicação com o webservice - " + ex.Message);
                 }
 
-                var temp = Servicos.Interface_InutilizarNFe(oServico, oInutNFe2, _Parametro, _Parametro.versao);
-                if (temp.Value == null)
-                    throw new Exception(temp.Key);
-
-                XMLUtils.SaveXML(caminhoArquivoRetInutNFe2, temp.Value, _Parametro.versao);
+                var temp = Servicos.InutilizarNFe(oServico, oInutNFe2, _Parametro, _Parametro.versao);
+                XMLUtils.SaveXML(caminhoArquivoRetInutNFe2, temp, _Parametro.versao);
 
                 return true;
             }
@@ -564,18 +554,16 @@ namespace RDI.NFe2.Business
                 System.Web.Services.Protocols.SoapHttpClientProtocol oServico = null;
                 try
                 {
-                    oServico = NFeUtils.ClientProxyFactory(_Parametro, TServico.Status);
+                    oServico = NFeUtils.ClientProxyFactory(_Parametro, TService.Status);
                 }
                 catch (Exception ex)
                 {
                     throw new Exception("Não foi possível criar o serviço de comunicação com o webservice - " + ex.Message);
                 }
 
-                var temp = Servicos.Interface_ConsultarStatusServidor(oServico, oConsStatServ, _Parametro, _Parametro.versao);
-                if (temp.Value == null)
-                    throw new Exception(temp.Key);
+                var temp = Servicos.ConsultarStatusServidor(oServico, oConsStatServ, _Parametro, _Parametro.versao);
 
-                XMLUtils.SaveXML(caminhoArquivoRetConsStatServ, temp.Value, _Parametro.versao);
+                XMLUtils.SaveXML(caminhoArquivoRetConsStatServ, temp, _Parametro.versao);
 
                 return true;
             }
@@ -603,18 +591,15 @@ namespace RDI.NFe2.Business
                 System.Web.Services.Protocols.SoapHttpClientProtocol oServico = null;
                 try
                 {
-                    oServico = NFeUtils.ClientProxyFactory(_Parametro, TServico.Autorizacao);
+                    oServico = NFeUtils.ClientProxyFactory(_Parametro, TService.Autorizacao);
                 }
                 catch (Exception ex)
                 {
                     throw new Exception("Não foi possível criar o serviço de comunicação com o webservice - " + ex.Message);
                 }
 
-                var temp = Servicos.Interface_EnviarEnvelope(oServico, oEnviNFe2, _Parametro, _Parametro.versao);
-                if (temp.Value == null)
-                    throw new Exception(temp.Key);
-
-                return XMLUtils.GetXML(temp.Value, _Parametro.versao);
+                var temp = Servicos.EnviarEnvelope(oServico, oEnviNFe2, _Parametro, _Parametro.versao);
+                return XMLUtils.GetXML(temp, _Parametro.versao);
             }
             catch (Exception ex)
             {
@@ -640,18 +625,15 @@ namespace RDI.NFe2.Business
                 System.Web.Services.Protocols.SoapHttpClientProtocol oServico = null;
                 try
                 {
-                    oServico = NFeUtils.ClientProxyFactory(_Parametro, TServico.RetAutorizacao);
+                    oServico = NFeUtils.ClientProxyFactory(_Parametro, TService.RetAutorizacao);
                 }
                 catch (Exception ex)
                 {
                     throw new Exception("Não foi possível criar o serviço de comunicação com o webservice - " + ex.Message);
                 }
 
-                var temp = Servicos.Interface_ConsultarProcessamentoEnvelope(oServico, oConsReciNFe2, _Parametro, _Parametro.versao);
-                if (temp.Value == null)
-                    throw new Exception(temp.Key);
-
-                return XMLUtils.GetXML(temp.Value, _Parametro.versao);
+                var temp = Servicos.ConsultarProcessamentoEnvelope(oServico, oConsReciNFe2, _Parametro, _Parametro.versao);
+                return XMLUtils.GetXML(temp, _Parametro.versao);
             }
             catch (Exception ex)
             {
@@ -678,18 +660,15 @@ namespace RDI.NFe2.Business
                 System.Web.Services.Protocols.SoapHttpClientProtocol oServico = null;
                 try
                 {
-                    oServico = NFeUtils.ClientProxyFactory(_Parametro, TServico.Inutilizacao);
+                    oServico = NFeUtils.ClientProxyFactory(_Parametro, TService.Inutilizacao);
                 }
                 catch (Exception ex)
                 {
                     throw new Exception("Não foi possível criar o serviço de comunicação com o webservice - " + ex.Message);
                 }
 
-                var temp = Servicos.Interface_InutilizarNFe(oServico, oInutNFe2, _Parametro, _Parametro.versao);
-                if (temp.Value == null)
-                    throw new Exception(temp.Key);
-
-                return XMLUtils.GetXML(temp.Value, _Parametro.versao);
+                var temp = Servicos.InutilizarNFe(oServico, oInutNFe2, _Parametro, _Parametro.versao);
+                return XMLUtils.GetXML(temp, _Parametro.versao);
             }
             catch (Exception ex)
             {
@@ -730,18 +709,15 @@ namespace RDI.NFe2.Business
                 System.Web.Services.Protocols.SoapHttpClientProtocol oServico = null;
                 try
                 {
-                    oServico = NFeUtils.ClientProxyFactory(_Parametro, TServico.Status);
+                    oServico = NFeUtils.ClientProxyFactory(_Parametro, TService.Status);
                 }
                 catch (Exception ex)
                 {
                     throw new Exception("Não foi possível criar o serviço de comunicação com o webservice - " + ex.Message);
                 }
 
-                var temp = Servicos.Interface_ConsultarStatusServidor(oServico, oConsStatServ, _Parametro, _Parametro.versao);
-                if (temp.Value == null)
-                    throw new Exception(temp.Key);
-
-                return (temp.Value.cStat == "107");
+                var temp = Servicos.ConsultarStatusServidor(oServico, oConsStatServ, _Parametro, _Parametro.versao);
+                return (temp.cStat == "107");
             }
             catch (Exception ex)
             {
@@ -775,18 +751,15 @@ namespace RDI.NFe2.Business
                 System.Web.Services.Protocols.SoapHttpClientProtocol oServico = null;
                 try
                 {
-                    oServico = NFeUtils.ClientProxyFactory(_Parametro, TServico.RecepcaoEvento);
+                    oServico = NFeUtils.ClientProxyFactory(_Parametro, TService.RecepcaoEvento);
                 }
                 catch (Exception ex)
                 {
                     throw new Exception("Não foi possível criar o serviço de comunicação com o webservice - " + ex.Message);
                 }
 
-                var temp = Servicos.Interface_EnviarEnvelopeEvento(oServico, oEnviCCe, _Parametro, _Parametro.versaoEventos);
-                if (temp.Value == null)
-                    throw new Exception(temp.Key);
-
-                XMLUtils.SaveXML(caminhoArquivoRetEnvEvento, temp.Value, _Parametro.versaoEventos);
+                var temp = Servicos.EnviarEnvelopeEvento(oServico, oEnviCCe, _Parametro, _Parametro.versaoEventos);
+                XMLUtils.SaveXML(caminhoArquivoRetEnvEvento, temp, _Parametro.versaoEventos);
 
                 return true;
             }
@@ -817,18 +790,15 @@ namespace RDI.NFe2.Business
                 System.Web.Services.Protocols.SoapHttpClientProtocol oServico = null;
                 try
                 {
-                    oServico = NFeUtils.ClientProxyFactory(_Parametro, TServico.Consulta);
+                    oServico = NFeUtils.ClientProxyFactory(_Parametro, TService.Consulta);
                 }
                 catch (Exception ex)
                 {
                     throw new Exception("Não foi possível criar o serviço de comunicação com o webservice - " + ex.Message);
                 }
 
-                var temp = Servicos.Interface_ConsultarSituacaoNFe(oServico, oConsSitCCe, _Parametro, _Parametro.versao);
-                if (temp.Value == null)
-                    throw new Exception(temp.Key);
-
-                XMLUtils.SaveXML(caminhoArquivoRetConsSitCCe, temp.Value, _Parametro.versao);
+                var temp = Servicos.ConsultarSituacaoNFe(oServico, oConsSitCCe, _Parametro, _Parametro.versao);
+                XMLUtils.SaveXML(caminhoArquivoRetConsSitCCe, temp, _Parametro.versao);
 
                 return true;
             }
@@ -856,18 +826,15 @@ namespace RDI.NFe2.Business
                 System.Web.Services.Protocols.SoapHttpClientProtocol oServico = null;
                 try
                 {
-                    oServico = NFeUtils.ClientProxyFactory(_Parametro, TServico.RecepcaoEvento);
+                    oServico = NFeUtils.ClientProxyFactory(_Parametro, TService.RecepcaoEvento);
                 }
                 catch (Exception ex)
                 {
                     throw new Exception("Não foi possível criar o serviço de comunicação com o webservice - " + ex.Message);
                 }
 
-                var temp = Servicos.Interface_EnviarEnvelopeEvento(oServico, oEnviCCe, _Parametro, _Parametro.versaoEventos);
-                if (temp.Value == null)
-                    throw new Exception(temp.Key);
-
-                return XMLUtils.GetXML(temp.Value, _Parametro.versaoEventos);
+                var temp = Servicos.EnviarEnvelopeEvento(oServico, oEnviCCe, _Parametro, _Parametro.versaoEventos);
+                return XMLUtils.GetXML(temp, _Parametro.versaoEventos);
             }
             catch (Exception ex)
             {
@@ -893,18 +860,15 @@ namespace RDI.NFe2.Business
                 System.Web.Services.Protocols.SoapHttpClientProtocol oServico = null;
                 try
                 {
-                    oServico = NFeUtils.ClientProxyFactory(_Parametro, TServico.Consulta);
+                    oServico = NFeUtils.ClientProxyFactory(_Parametro, TService.Consulta);
                 }
                 catch (Exception ex)
                 {
                     throw new Exception("Não foi possível criar o serviço de comunicação com o webservice - " + ex.Message);
                 }
 
-                var temp = Servicos.Interface_ConsultarSituacaoNFe(oServico, oConsSitCCe, _Parametro, _Parametro.versao);
-                if (temp.Value == null)
-                    throw new Exception(temp.Key);
-
-                return XMLUtils.GetXML(temp.Value, _Parametro.versao);
+                var temp = Servicos.ConsultarSituacaoNFe(oServico, oConsSitCCe, _Parametro, _Parametro.versao);
+                return XMLUtils.GetXML(temp, _Parametro.versao);
             }
             catch (Exception ex)
             {
@@ -935,18 +899,15 @@ namespace RDI.NFe2.Business
                 System.Web.Services.Protocols.SoapHttpClientProtocol oServico = null;
                 try
                 {
-                    oServico = NFeUtils.ClientProxyFactory(_Parametro, TServico.Autorizacao);
+                    oServico = NFeUtils.ClientProxyFactory(_Parametro, TService.Autorizacao);
                 }
                 catch (Exception ex)
                 {
                     throw new Exception("Não foi possível criar o serviço de comunicação com o webservice - " + ex.Message);
                 }
 
-                var temp = Servicos.Interface_EnviarEnvelope(oServico, oEnviNFe3, _Parametro, _Parametro.versao);
-                if (temp.Value == null)
-                    throw new Exception(temp.Key);
-
-                XMLUtils.SaveXML(caminhoArquivoRetEnviNFCe3, temp.Value, _Parametro.versao);
+                var temp = Servicos.EnviarEnvelope(oServico, oEnviNFe3, _Parametro, _Parametro.versao);
+                XMLUtils.SaveXML(caminhoArquivoRetEnviNFCe3, temp, _Parametro.versao);
 
                 return true;
             }
@@ -977,18 +938,15 @@ namespace RDI.NFe2.Business
                 System.Web.Services.Protocols.SoapHttpClientProtocol oServico = null;
                 try
                 {
-                    oServico = NFeUtils.ClientProxyFactory(_Parametro, TServico.RetAutorizacao);
+                    oServico = NFeUtils.ClientProxyFactory(_Parametro, TService.RetAutorizacao);
                 }
                 catch (Exception ex)
                 {
                     throw new Exception("Não foi possível criar o serviço de comunicação com o webservice - " + ex.Message);
                 }
 
-                var temp = Servicos.Interface_ConsultarProcessamentoEnvelope(oServico, oConsReciNFCe3, _Parametro, _Parametro.versao);
-                if (temp.Value == null)
-                    throw new Exception(temp.Key);
-
-                XMLUtils.SaveXML(caminhoArquivoRetConsReciNFCe3, temp.Value, _Parametro.versao);
+                var temp = Servicos.ConsultarProcessamentoEnvelope(oServico, oConsReciNFCe3, _Parametro, _Parametro.versao);
+                XMLUtils.SaveXML(caminhoArquivoRetConsReciNFCe3, temp, _Parametro.versao);
 
                 return true;
             }
@@ -1019,18 +977,15 @@ namespace RDI.NFe2.Business
                 System.Web.Services.Protocols.SoapHttpClientProtocol oServico = null;
                 try
                 {
-                    oServico = NFeUtils.ClientProxyFactory(_Parametro, TServico.Inutilizacao);
+                    oServico = NFeUtils.ClientProxyFactory(_Parametro, TService.Inutilizacao);
                 }
                 catch (Exception ex)
                 {
                     throw new Exception("Não foi possível criar o serviço de comunicação com o webservice - " + ex.Message);
                 }
 
-                var temp = Servicos.Interface_InutilizarNFe(oServico, oInutNFCe3, _Parametro, _Parametro.versao);
-                if (temp.Value == null)
-                    throw new Exception(temp.Key);
-
-                XMLUtils.SaveXML(caminhoArquivoRetInutNFCe3, temp.Value, _Parametro.versao);
+                var temp = Servicos.InutilizarNFe(oServico, oInutNFCe3, _Parametro, _Parametro.versao);
+                XMLUtils.SaveXML(caminhoArquivoRetInutNFCe3, temp, _Parametro.versao);
 
                 return true;
             }
@@ -1058,18 +1013,15 @@ namespace RDI.NFe2.Business
                 System.Web.Services.Protocols.SoapHttpClientProtocol oServico = null;
                 try
                 {
-                    oServico = NFeUtils.ClientProxyFactory(_Parametro, TServico.Autorizacao);
+                    oServico = NFeUtils.ClientProxyFactory(_Parametro, TService.Autorizacao);
                 }
                 catch (Exception ex)
                 {
                     throw new Exception("Não foi possível criar o serviço de comunicação com o webservice - " + ex.Message);
                 }
 
-                var temp = Servicos.Interface_EnviarEnvelope(oServico, oEnviNFCe3, _Parametro, _Parametro.versao);
-                if (temp.Value == null)
-                    throw new Exception(temp.Key);
-
-                return XMLUtils.GetXML(temp.Value, _Parametro.versao);
+                var temp = Servicos.EnviarEnvelope(oServico, oEnviNFCe3, _Parametro, _Parametro.versao);
+                return XMLUtils.GetXML(temp, _Parametro.versao);
             }
             catch (Exception ex)
             {
@@ -1095,18 +1047,15 @@ namespace RDI.NFe2.Business
                 System.Web.Services.Protocols.SoapHttpClientProtocol oServico = null;
                 try
                 {
-                    oServico = NFeUtils.ClientProxyFactory(_Parametro, TServico.RetAutorizacao);
+                    oServico = NFeUtils.ClientProxyFactory(_Parametro, TService.RetAutorizacao);
                 }
                 catch (Exception ex)
                 {
                     throw new Exception("Não foi possível criar o serviço de comunicação com o webservice - " + ex.Message);
                 }
 
-                var temp = Servicos.Interface_ConsultarProcessamentoEnvelope(oServico, oConsReciNFCe3, _Parametro, _Parametro.versao);
-                if (temp.Value == null)
-                    throw new Exception(temp.Key);
-
-                return XMLUtils.GetXML(temp.Value, _Parametro.versao);
+                var temp = Servicos.ConsultarProcessamentoEnvelope(oServico, oConsReciNFCe3, _Parametro, _Parametro.versao);
+                return XMLUtils.GetXML(temp, _Parametro.versao);
             }
             catch (Exception ex)
             {
@@ -1133,18 +1082,15 @@ namespace RDI.NFe2.Business
                 System.Web.Services.Protocols.SoapHttpClientProtocol oServico = null;
                 try
                 {
-                    oServico = NFeUtils.ClientProxyFactory(_Parametro, TServico.Inutilizacao);
+                    oServico = NFeUtils.ClientProxyFactory(_Parametro, TService.Inutilizacao);
                 }
                 catch (Exception ex)
                 {
                     throw new Exception("Não foi possível criar o serviço de comunicação com o webservice - " + ex.Message);
                 }
 
-                var temp = Servicos.Interface_InutilizarNFe(oServico, oInutNFCe3, _Parametro, _Parametro.versao);
-                if (temp.Value == null)
-                    throw new Exception(temp.Key);
-
-                return XMLUtils.GetXML(temp.Value, _Parametro.versao);
+                var temp = Servicos.InutilizarNFe(oServico, oInutNFCe3, _Parametro, _Parametro.versao);
+                return XMLUtils.GetXML(temp, _Parametro.versao);
             }
             catch (Exception ex)
             {
@@ -1173,18 +1119,15 @@ namespace RDI.NFe2.Business
                 System.Web.Services.Protocols.SoapHttpClientProtocol oServico = null;
                 try
                 {
-                    oServico = NFeUtils.ClientProxyFactory(_Parametro, TServico.RecepcaoEvento);
+                    oServico = NFeUtils.ClientProxyFactory(_Parametro, TService.RecepcaoEvento);
                 }
                 catch (Exception ex)
                 {
                     throw new Exception("Não foi possível criar o serviço de comunicação com o webservice - " + ex.Message);
                 }
 
-                var temp = Servicos.Interface_EnviarEnvelopeEvento(oServico, oEnviCCe, _Parametro, _Parametro.versaoEventos);
-                if (temp.Value == null)
-                    throw new Exception(temp.Key);
-
-                XMLUtils.SaveXML(caminhoArquivoRetEvento, temp.Value, _Parametro.versaoEventos);
+                var temp = Servicos.EnviarEnvelopeEvento(oServico, oEnviCCe, _Parametro, _Parametro.versaoEventos);
+                XMLUtils.SaveXML(caminhoArquivoRetEvento, temp, _Parametro.versaoEventos);
 
                 return true;
             }
@@ -1215,18 +1158,15 @@ namespace RDI.NFe2.Business
                 System.Web.Services.Protocols.SoapHttpClientProtocol oServico = null;
                 try
                 {
-                    oServico = NFeUtils.ClientProxyFactory(_Parametro, TServico.Consulta);
+                    oServico = NFeUtils.ClientProxyFactory(_Parametro, TService.Consulta);
                 }
                 catch (Exception ex)
                 {
                     throw new Exception("Não foi possível criar o serviço de comunicação com o webservice - " + ex.Message);
                 }
 
-                var temp = Servicos.Interface_ConsultarSituacaoNFe(oServico, oConsSitNFCe3, _Parametro, _Parametro.versao);
-                if (temp.Value == null)
-                    throw new Exception(temp.Key);
-
-                XMLUtils.SaveXML(caminhoArquivoRetConsSitNFCe3, temp.Value, _Parametro.versao);
+                var temp = Servicos.ConsultarSituacaoNFe(oServico, oConsSitNFCe3, _Parametro, _Parametro.versao);
+                XMLUtils.SaveXML(caminhoArquivoRetConsSitNFCe3, temp, _Parametro.versao);
 
                 return true;
             }
@@ -1254,18 +1194,15 @@ namespace RDI.NFe2.Business
                 System.Web.Services.Protocols.SoapHttpClientProtocol oServico = null;
                 try
                 {
-                    oServico = NFeUtils.ClientProxyFactory(_Parametro, TServico.RecepcaoEvento);
+                    oServico = NFeUtils.ClientProxyFactory(_Parametro, TService.RecepcaoEvento);
                 }
                 catch (Exception ex)
                 {
                     throw new Exception("Não foi possível criar o serviço de comunicação com o webservice - " + ex.Message);
                 }
 
-                var temp = Servicos.Interface_EnviarEnvelopeEvento(oServico, oEnviCCe, _Parametro, _Parametro.versaoEventos);
-                if (temp.Value == null)
-                    throw new Exception(temp.Key);
-
-                return XMLUtils.GetXML(temp.Value, _Parametro.versao);
+                var temp = Servicos.EnviarEnvelopeEvento(oServico, oEnviCCe, _Parametro, _Parametro.versaoEventos);
+                return XMLUtils.GetXML(temp, _Parametro.versao);
             }
             catch (Exception ex)
             {
@@ -1291,18 +1228,15 @@ namespace RDI.NFe2.Business
                 System.Web.Services.Protocols.SoapHttpClientProtocol oServico = null;
                 try
                 {
-                    oServico = NFeUtils.ClientProxyFactory(_Parametro, TServico.Consulta);
+                    oServico = NFeUtils.ClientProxyFactory(_Parametro, TService.Consulta);
                 }
                 catch (Exception ex)
                 {
                     throw new Exception("Não foi possível criar o serviço de comunicação com o webservice - " + ex.Message);
                 }
 
-                var temp = Servicos.Interface_ConsultarSituacaoNFe(oServico, oConsSitNFCe3, _Parametro, _Parametro.versao);
-                if (temp.Value == null)
-                    throw new Exception(temp.Key);
-
-                return XMLUtils.GetXML(temp.Value, _Parametro.versao);
+                var temp = Servicos.ConsultarSituacaoNFe(oServico, oConsSitNFCe3, _Parametro, _Parametro.versao);
+                return XMLUtils.GetXML(temp, _Parametro.versao);
             }
             catch (Exception ex)
             {
@@ -1332,18 +1266,15 @@ namespace RDI.NFe2.Business
                 System.Web.Services.Protocols.SoapHttpClientProtocol oServico = null;
                 try
                 {
-                    oServico = NFeUtils.ClientProxyFactory(_Parametro, TServico.Cadastro);
+                    oServico = NFeUtils.ClientProxyFactory(_Parametro, TService.Cadastro);
                 }
                 catch (Exception ex)
                 {
                     throw new Exception("Não foi possível criar o serviço de comunicação com o webservice - " + ex.Message);
                 }
 
-                var temp = Servicos.Interface_ConsultarCadastro(oServico, oXMLEnvio, _Parametro, VersaoXML.NFe_v200);
-                if (temp.Value == null)
-                    throw new Exception(temp.Key);
-
-                XMLUtils.SaveXML(caminhoXMLRetorno, temp.Value, _Parametro.versao);
+                var temp = Servicos.ConsultarCadastro(oServico, oXMLEnvio, _Parametro, VersaoXML.NFe_v200);
+                XMLUtils.SaveXML(caminhoXMLRetorno, temp, _Parametro.versao);
 
                 return true;
             }
@@ -1370,18 +1301,15 @@ namespace RDI.NFe2.Business
                 System.Web.Services.Protocols.SoapHttpClientProtocol oServico = null;
                 try
                 {
-                    oServico = NFeUtils.ClientProxyFactory(_Parametro, TServico.Cadastro);
+                    oServico = NFeUtils.ClientProxyFactory(_Parametro, TService.Cadastro);
                 }
                 catch (Exception ex)
                 {
                     throw new Exception("Não foi possível criar o serviço de comunicação com o webservice - " + ex.Message);
                 }
 
-                var temp = Servicos.Interface_ConsultarCadastro(oServico, oXMLEnvio, _Parametro, VersaoXML.NFe_v200);
-                if (temp.Value == null)
-                    throw new Exception(temp.Key);
-
-                return XMLUtils.GetXML(temp.Value, _Parametro.versao);
+                var temp = Servicos.ConsultarCadastro(oServico, oXMLEnvio, _Parametro, VersaoXML.NFe_v200);
+                return XMLUtils.GetXML(temp, _Parametro.versao);
             }
             catch (Exception ex)
             {
@@ -1416,7 +1344,7 @@ namespace RDI.NFe2.Business
                 System.Web.Services.Protocols.SoapHttpClientProtocol oServico = null;
                 try
                 {
-                    oServico = NFeUtils.ClientProxyFactory(_Parametro, TServico.ConsultaDFe);
+                    oServico = NFeUtils.ClientProxyFactory(_Parametro, TService.ConsultaDFe);
                 }
                 catch (Exception ex)
                 {
@@ -1457,7 +1385,7 @@ namespace RDI.NFe2.Business
                 System.Web.Services.Protocols.SoapHttpClientProtocol oServico = null;
                 try
                 {
-                    oServico = NFeUtils.ClientProxyFactory(_Parametro, TServico.ConsultaDFe);
+                    oServico = NFeUtils.ClientProxyFactory(_Parametro, TService.ConsultaDFe);
                 }
                 catch (Exception ex)
                 {
@@ -1465,7 +1393,6 @@ namespace RDI.NFe2.Business
                 }
 
                 oXMLRetorno = Servicos.ConsultarDFe(oServico, oXMLEnvio, _Parametro, _Parametro.versao);
-
                 return XMLUtils.GetXML(oXMLRetorno, _Parametro.versao);
             }
             catch (Exception ex)
@@ -1499,18 +1426,15 @@ namespace RDI.NFe2.Business
                 System.Web.Services.Protocols.SoapHttpClientProtocol oServico = null;
                 try
                 {
-                    oServico = NFeUtils.ClientProxyFactory(_Parametro, TServico.DownloadNF);
+                    oServico = NFeUtils.ClientProxyFactory(_Parametro, TService.DownloadNF);
                 }
                 catch (Exception ex)
                 {
                     throw new Exception("Não foi possível criar o serviço de comunicação com o webservice - " + ex.Message);
                 }
 
-                var temp = Servicos.Interface_DownloadNF(oServico, oXMLEnvio, _Parametro);
-                if (temp.Value == null)
-                    throw new Exception(temp.Key);
-
-                XMLUtils.SaveXML(caminhoXMLRetorno, temp.Value, _Parametro.versao);
+                var temp = Servicos.DownloadNF(oServico, oXMLEnvio, _Parametro, _Parametro.versao);
+                XMLUtils.SaveXML(caminhoXMLRetorno, temp, _Parametro.versao);
 
                 return true;
             }
@@ -1541,18 +1465,15 @@ namespace RDI.NFe2.Business
                 System.Web.Services.Protocols.SoapHttpClientProtocol oServico = null;
                 try
                 {
-                    oServico = NFeUtils.ClientProxyFactory(_Parametro, TServico.DownloadNF);
+                    oServico = NFeUtils.ClientProxyFactory(_Parametro, TService.DownloadNF);
                 }
                 catch (Exception ex)
                 {
                     throw new Exception("Não foi possível criar o serviço de comunicação com o webservice - " + ex.Message);
                 }
 
-                var temp = Servicos.Interface_DownloadNF(oServico, oXMLEnvio, _Parametro);
-                if (temp.Value == null)
-                    throw new Exception(temp.Key);
-
-                return XMLUtils.GetXML(temp.Value, _Parametro.versao);
+                var temp = Servicos.DownloadNF(oServico, oXMLEnvio, _Parametro, _Parametro.versao);
+                return XMLUtils.GetXML(temp, _Parametro.versao);
             }
             catch (Exception ex)
             {
@@ -1578,18 +1499,15 @@ namespace RDI.NFe2.Business
                 System.Web.Services.Protocols.SoapHttpClientProtocol oServico = null;
                 try
                 {
-                    oServico = NFeUtils.ClientProxyFactory(_Parametro, TServico.ManifestacaoDestinatario);
+                    oServico = NFeUtils.ClientProxyFactory(_Parametro, TService.ManifestacaoDestinatario);
                 }
                 catch (Exception ex)
                 {
                     throw new Exception("Não foi possível criar o serviço de comunicação com o webservice - " + ex.Message);
                 }
 
-                var temp = Servicos.Interface_EnviarEnvelopeEvento(oServico, oEnviCCe, _Parametro, _Parametro.versaoEventos);
-                if (temp.Value == null)
-                    throw new Exception(temp.Key);
-
-                return XMLUtils.GetXML(temp.Value, _Parametro.versaoEventos);
+                var temp = Servicos.EnviarEnvelopeEvento(oServico, oEnviCCe, _Parametro, _Parametro.versaoEventos);
+                return XMLUtils.GetXML(temp, _Parametro.versaoEventos);
             }
             catch (Exception ex)
             {
@@ -1617,18 +1535,15 @@ namespace RDI.NFe2.Business
                 System.Web.Services.Protocols.SoapHttpClientProtocol oServico = null;
                 try
                 {
-                    oServico = NFeUtils.ClientProxyFactory(_Parametro, TServico.ManifestacaoDestinatario);
+                    oServico = NFeUtils.ClientProxyFactory(_Parametro, TService.ManifestacaoDestinatario);
                 }
                 catch (Exception ex)
                 {
                     throw new Exception("Não foi possível criar o serviço de comunicação com o webservice - " + ex.Message);
                 }
 
-                var temp = Servicos.Interface_EnviarEnvelopeEvento(oServico, oEnviCCe, _Parametro, _Parametro.versaoEventos);
-                if (temp.Value == null)
-                    throw new Exception(temp.Key);
-
-                XMLUtils.SaveXML(caminhoArquivoRetEnvEvento, temp.Value, _Parametro.versaoEventos);
+                var temp = Servicos.EnviarEnvelopeEvento(oServico, oEnviCCe, _Parametro, _Parametro.versaoEventos);
+                XMLUtils.SaveXML(caminhoArquivoRetEnvEvento, temp, _Parametro.versaoEventos);
 
                 return true;
             }
@@ -1688,18 +1603,15 @@ namespace RDI.NFe2.Business
                 System.Web.Services.Protocols.SoapHttpClientProtocol oServico = null;
                 try
                 {
-                    oServico = NFeUtils.ClientProxyFactory(_Parametro, TServico.GNRE_RecepcaoLote);
+                    oServico = NFeUtils.ClientProxyFactory(_Parametro, TService.GNRE_RecepcaoLote);
                 }
                 catch (Exception ex)
                 {
                     throw new Exception("Não foi possível criar o serviço de comunicação com o webservice - " + ex.Message);
                 }
 
-                var temp = Servicos.Interface_GNRERecepcaoLote(oServico, oXMLEnvio, _Parametro);
-                if (temp.Value == null)
-                    throw new Exception(temp.Key);
-
-                XMLUtils.SaveXML(caminhoXMLRetorno, temp.Value, VersaoXML.GNRE);
+                var temp = Servicos.GNRERecepcaoLote(oServico, oXMLEnvio, _Parametro, _Parametro.versao);
+                XMLUtils.SaveXML(caminhoXMLRetorno, temp, VersaoXML.GNRE);
 
                 return true;
             }
@@ -1726,18 +1638,15 @@ namespace RDI.NFe2.Business
                 System.Web.Services.Protocols.SoapHttpClientProtocol oServico = null;
                 try
                 {
-                    oServico = NFeUtils.ClientProxyFactory(_Parametro, TServico.GNRE_RecepcaoLote);
+                    oServico = NFeUtils.ClientProxyFactory(_Parametro, TService.GNRE_RecepcaoLote);
                 }
                 catch (Exception ex)
                 {
                     throw new Exception("Não foi possível criar o serviço de comunicação com o webservice - " + ex.Message);
                 }
 
-                var temp = Servicos.Interface_GNRERecepcaoLote(oServico, oXMLEnvio, _Parametro);
-                if (temp.Value == null)
-                    throw new Exception(temp.Key);
-
-                return XMLUtils.GetXML(temp.Value, _Parametro.versao);
+                var temp = Servicos.GNRERecepcaoLote(oServico, oXMLEnvio, _Parametro, _Parametro.versao);
+                return XMLUtils.GetXML(temp, _Parametro.versao);
             }
             catch (Exception ex)
             {
@@ -1766,18 +1675,15 @@ namespace RDI.NFe2.Business
                 System.Web.Services.Protocols.SoapHttpClientProtocol oServico = null;
                 try
                 {
-                    oServico = NFeUtils.ClientProxyFactory(_Parametro, TServico.GNRE_ConsultaLote);
+                    oServico = NFeUtils.ClientProxyFactory(_Parametro, TService.GNRE_ConsultaLote);
                 }
                 catch (Exception ex)
                 {
                     throw new Exception("Não foi possível criar o serviço de comunicação com o webservice - " + ex.Message);
                 }
 
-                var temp = Servicos.Interface_GNREConsultaLote(oServico, oXMLEnvio, _Parametro);
-                if (temp.Value == null)
-                    throw new Exception(temp.Key);
-
-                XMLUtils.SaveXML(caminhoXMLRetorno, temp.Value, VersaoXML.GNRE);
+                var temp = Servicos.GNREConsultaLote(oServico, oXMLEnvio, _Parametro, _Parametro.versao);
+                XMLUtils.SaveXML(caminhoXMLRetorno, temp, VersaoXML.GNRE);
 
                 return true;
             }
@@ -1804,18 +1710,15 @@ namespace RDI.NFe2.Business
                 System.Web.Services.Protocols.SoapHttpClientProtocol oServico = null;
                 try
                 {
-                    oServico = NFeUtils.ClientProxyFactory(_Parametro, TServico.GNRE_ConsultaLote);
+                    oServico = NFeUtils.ClientProxyFactory(_Parametro, TService.GNRE_ConsultaLote);
                 }
                 catch (Exception ex)
                 {
                     throw new Exception("Não foi possível criar o serviço de comunicação com o webservice - " + ex.Message);
                 }
 
-                var temp = Servicos.Interface_GNREConsultaLote(oServico, oXMLEnvio, _Parametro);
-                if (temp.Value == null)
-                    throw new Exception(temp.Key);
-
-                return XMLUtils.GetXML(temp.Value, _Parametro.versao);
+                var temp = Servicos.GNREConsultaLote(oServico, oXMLEnvio, _Parametro, _Parametro.versao);
+                return XMLUtils.GetXML(temp, _Parametro.versao);
             }
             catch (Exception ex)
             {
@@ -1844,18 +1747,15 @@ namespace RDI.NFe2.Business
                 System.Web.Services.Protocols.SoapHttpClientProtocol oServico = null;
                 try
                 {
-                    oServico = NFeUtils.ClientProxyFactory(_Parametro, TServico.GNRE_ConfigUF);
+                    oServico = NFeUtils.ClientProxyFactory(_Parametro, TService.GNRE_ConfigUF);
                 }
                 catch (Exception ex)
                 {
                     throw new Exception("Não foi possível criar o serviço de comunicação com o webservice - " + ex.Message);
                 }
 
-                var temp = Servicos.Interface_GNREConfigUF(oServico, oXMLEnvio, _Parametro);
-                if (temp.Value == null)
-                    throw new Exception(temp.Key);
-
-                XMLUtils.SaveXML(caminhoXMLRetorno, temp.Value, VersaoXML.GNRE);
+                var temp = Servicos.GNREConfigUF(oServico, oXMLEnvio, _Parametro, _Parametro.versao);
+                XMLUtils.SaveXML(caminhoXMLRetorno, temp, VersaoXML.GNRE);
 
                 return true;
             }
@@ -1882,18 +1782,15 @@ namespace RDI.NFe2.Business
                 System.Web.Services.Protocols.SoapHttpClientProtocol oServico = null;
                 try
                 {
-                    oServico = NFeUtils.ClientProxyFactory(_Parametro, TServico.GNRE_ConfigUF);
+                    oServico = NFeUtils.ClientProxyFactory(_Parametro, TService.GNRE_ConfigUF);
                 }
                 catch (Exception ex)
                 {
                     throw new Exception("Não foi possível criar o serviço de comunicação com o webservice - " + ex.Message);
                 }
 
-                var temp = Servicos.Interface_GNREConfigUF(oServico, oXMLEnvio, _Parametro);
-                if (temp.Value == null)
-                    throw new Exception(temp.Key);
-
-                return XMLUtils.GetXML(temp.Value, _Parametro.versao);
+                var temp = Servicos.GNREConfigUF(oServico, oXMLEnvio, _Parametro, _Parametro.versao);
+                return XMLUtils.GetXML(temp, _Parametro.versao);
             }
             catch (Exception ex)
             {

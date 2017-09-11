@@ -17,6 +17,8 @@ using RDI.NFe2.ORMAP;
 using RDI.Lince;
 using System.Threading;
 using RDI.OpenSigner;
+using RDI.NFe2.Webservices;
+using System.Linq;
 
 namespace RDI.NFe2.Business
 {
@@ -373,6 +375,11 @@ namespace RDI.NFe2.Business
             catch { }
         }
 
+        public static SoapHttpClientProtocol ClientProxyFactory(Parametro parametro, object status)
+        {
+            throw new NotImplementedException();
+        }
+
         public static void RemoveHeartBeat()
         {
             try
@@ -508,7 +515,7 @@ namespace RDI.NFe2.Business
             }
         }
 
-        private static string GetAmbWebService(Parametro oParam, TServico tipoServico)
+        private static string GetAmbWebService(Parametro oParam, TService tipoServico)
         {
             String ambiente = string.Empty;
 
@@ -535,22 +542,22 @@ namespace RDI.NFe2.Business
             else
             {
 
-                if ((tipoServico == TServico.Autorizacao || tipoServico == TServico.RetAutorizacao) && oParam.versao != VersaoXML.NFe_v310)
+                if ((tipoServico == TService.Autorizacao || tipoServico == TService.RetAutorizacao) && oParam.versao != VersaoXML.NFe_v310)
                     throw new ArgumentException("V200 não possui Webservice de " + tipoServico.ToString());
 
 
                 // HNF|PNF :  são utilizados pelos novos servicos de todas as UFs e por todos os servicos de SP e PR
                 // os demais servicos utilizam [HWS|PWS]
-                if ((tipoServico != TServico.Cadastro) && //Cadastro deverá usar PWS|HWS
-                    (tipoServico != TServico.ConsultaDFe) && //ConsultaDFe deverá usar PWS|HWS
-                    (tipoServico != TServico.DownloadNF) && //DownloadNF deverá usar PWS|HWS
-                    (tipoServico != TServico.ManifestacaoDestinatario) && //ManifestacaoDestinatario deverá usar PWS|HWS
-                    (tipoServico == TServico.Autorizacao || tipoServico == TServico.RetAutorizacao
+                if ((tipoServico != TService.Cadastro) && //Cadastro deverá usar PWS|HWS
+                    (tipoServico != TService.ConsultaDFe) && //ConsultaDFe deverá usar PWS|HWS
+                    (tipoServico != TService.DownloadNF) && //DownloadNF deverá usar PWS|HWS
+                    (tipoServico != TService.ManifestacaoDestinatario) && //ManifestacaoDestinatario deverá usar PWS|HWS
+                    (tipoServico == TService.Autorizacao || tipoServico == TService.RetAutorizacao
                     //particularidades
                     || (oParam.UF == TCodUfIBGE.RioGrandedoSul) //atualizado somente com os WS da versão 3.1 //25/05/2015
                     || (oParam.UF == TCodUfIBGE.SaoPaulo && oParam.versao == VersaoXML.NFe_v310)
                     || (oParam.UF == TCodUfIBGE.Parana && oParam.versao == VersaoXML.NFe_v310)
-                    || (oParam.UF == TCodUfIBGE.Bahia && oParam.versao == VersaoXML.NFe_v310 && tipoServico != TServico.RecepcaoEvento)))
+                    || (oParam.UF == TCodUfIBGE.Bahia && oParam.versao == VersaoXML.NFe_v310 && tipoServico != TService.RecepcaoEvento)))
                 {
                     //[HNF|PNF].
                     if (oParam.tipoAmbiente == TAmb.Homologacao)
@@ -580,10 +587,10 @@ namespace RDI.NFe2.Business
                 foreach (SVC_AtendidoPor atr in
                     oParam.UF.GetType().GetField(oParam.UF.ToString()).GetCustomAttributes(typeof(SVC_AtendidoPor), false))
                 {
-                    if (String.IsNullOrEmpty(atr.value))
+                    if (String.IsNullOrEmpty(atr.ServidorAutorizador))
                         throw new Exception("UF não esta sendo atendida por nenhum WebService do SVC.");
 
-                    ambiente += atr.value;
+                    ambiente += atr.ServidorAutorizador;
                 }
             }
             else if (oParam.tipoEmissao == TNFeInfNFeIdeTpEmis.ContigenciaSCAN)
@@ -593,11 +600,11 @@ namespace RDI.NFe2.Business
             else
             {
                 //particularidade
-                if (tipoServico == TServico.Cadastro && oParam.UF == TCodUfIBGE.EspiritoSanto)
+                if (tipoServico == TService.Cadastro && oParam.UF == TCodUfIBGE.EspiritoSanto)
                 {
                     ambiente += "ES";
                 }
-                else if (tipoServico == TServico.ManifestacaoDestinatario || tipoServico == TServico.ConsultaDFe || tipoServico == TServico.DownloadNF)
+                else if (tipoServico == TService.ManifestacaoDestinatario || tipoServico == TService.ConsultaDFe || tipoServico == TService.DownloadNF)
                 {
                     ambiente += "AN";
                 }
@@ -607,10 +614,10 @@ namespace RDI.NFe2.Business
                     {
                         foreach (NFCe_AtendidoPor atr in oParam.UF.GetType().GetField(oParam.UF.ToString()).GetCustomAttributes(typeof(NFCe_AtendidoPor), false))
                         {
-                            if (String.IsNullOrEmpty(atr.value))
+                            if (String.IsNullOrEmpty(atr.ServidorAutorizador))
                                 throw new Exception("UF não esta sendo atendida por nenhum WebService.");
 
-                            ambiente += atr.value;
+                            ambiente += atr.ServidorAutorizador;
                         }
                     }
                     else if (oParam.conexao == TipoConexao.NFCe)
@@ -621,10 +628,10 @@ namespace RDI.NFe2.Business
                     {
                         foreach (NFe_AtendidoPor atr in oParam.UF.GetType().GetField(oParam.UF.ToString()).GetCustomAttributes(typeof(NFe_AtendidoPor), false))
                         {
-                            if (String.IsNullOrEmpty(atr.value))
+                            if (String.IsNullOrEmpty(atr.ServidorAutorizador))
                                 throw new Exception("UF não esta sendo atendida por nenhum WebService.");
 
-                            ambiente += atr.value;
+                            ambiente += atr.ServidorAutorizador;
                         }
                     }
                 }
@@ -639,106 +646,122 @@ namespace RDI.NFe2.Business
             return typeof(FuncaoAutomacao).Assembly;
         }
 
-        public static System.Web.Services.Protocols.SoapHttpClientProtocol ClientProxyFactory(
-            Parametro oParam,
-            TServico TipoServico)
+        public static System.Web.Services.Protocols.SoapHttpClientProtocol ClientProxyFactory(Parametro oParam, TService TipoServico)
         {
-
-            String ClassName = "";
-            try
+            if (oParam.conexao == TipoConexao.NFe &&
+                oParam.versao == VersaoXML.NFe_v400 &&
+                (TipoServico == TService.Autorizacao ||
+                 TipoServico == TService.RetAutorizacao ||
+                 TipoServico == TService.Consulta ||
+                 TipoServico == TService.Inutilizacao ||
+                 TipoServico == TService.RecepcaoEvento ||
+                 TipoServico == TService.Cadastro))
             {
+                var AtendidoPor = (NFe_AtendidoPor)typeof(TCodUfIBGE).GetField(oParam.UF.ToString()).GetCustomAttributes(typeof(NFe_AtendidoPor), false).FirstOrDefault();
+                if (AtendidoPor == null)
+                    throw new Exception("UF não está associado com nenhum Servidor Autorizador.");
 
-                string nomeClasse = string.Empty;
-                //buscar nome do metodo pelo tServico
-                foreach (ClasseServico atr in TipoServico.GetType().GetField(TipoServico.ToString()).GetCustomAttributes(typeof(ClasseServico), false))
-                {
-                    if (String.IsNullOrEmpty(atr.value))
-                        throw new Exception("Serviço não esta associado com nenhuma classe cliente.");
-                    nomeClasse = atr.value;
-                }
+                string Ambiente = oParam.tipoAmbiente.ToString();
 
-                //particularidades
-                if (oParam.UF == TCodUfIBGE.Bahia && oParam.tipoEmissao == TNFeInfNFeIdeTpEmis.Normal)//Bahia
-                {
-                    if (TipoServico == TServico.Status && oParam.versao == VersaoXML.NFe_v310)
-                        nomeClasse = "NfeStatusServico";
-
-                    if (TipoServico == TServico.Consulta && oParam.versao == VersaoXML.NFe_v310)
-                        nomeClasse = "NfeConsulta";
-
-                    if (TipoServico == TServico.Inutilizacao && oParam.versao == VersaoXML.NFe_v310)
-                        nomeClasse = "NfeInutilizacao";
-                }
-
-                ClassName =
-                    "RDI.NFe2.Business."
-                    + GetAmbWebService(oParam, TipoServico) + "."
-                    + TipoServico.ToString() + ".";
-
-                String headerClassName = ClassName + "nfeCabecMsg";
-                ClassName += nomeClasse;
-
-                Type classType = GetMyAssembly().GetType(ClassName);
-
-                if (classType == null)
-                    throw new Exception("Não foi possível definir o tipo do cliente de webservice. #ClientProxyFactory");
-
-                System.Web.Services.Protocols.SoapHttpClientProtocol oServico =
-                    (System.Web.Services.Protocols.SoapHttpClientProtocol)System.Activator.CreateInstance(classType);
-
-                if (TipoServico != TServico.ConsultaDFe) //ConsultaDFe não tem header
-                {
-                    #region Instancia cabecalho
-
-                    Type headerClassType = GetMyAssembly().GetType(headerClassName);
-
-                    if (headerClassType == null)
-                        throw new Exception("Não foi possível definir o tipo do header do cliente de webservice. #ClientProxyFactory");
-
-                    System.Web.Services.Protocols.SoapHeader oCabecalho =
-                        (System.Web.Services.Protocols.SoapHeader)System.Activator.CreateInstance(headerClassType);
-
-
-                    if ((TipoServico == TServico.ManifestacaoDestinatario) || //ManifestacaoDestinatario deverá usar AN 91
-                        (TipoServico == TServico.DownloadNF)) //DownloadNF deverá usar AN 91
-                    {
-                        oCabecalho.GetType().GetProperty("cUF").SetValue(oCabecalho, "91", null);
-                    }
-                    else
-                    {
-                        oCabecalho.GetType().GetProperty("cUF").SetValue(oCabecalho,
-                            ((System.Xml.Serialization.XmlEnumAttribute)oParam.UF.GetType().GetField(
-                                oParam.UF.ToString()).GetCustomAttributes(
-                                    typeof(System.Xml.Serialization.XmlEnumAttribute), false)[0]).Name,
-                                                                         null);
-                    }
-                    string versao = oParam.versaoDados;
-
-                    //particularidade para ConsSitNFe usando v200
-                    if (TipoServico == TServico.Consulta && oParam.versao == VersaoXML.NFe_v200)
-                        versao = "2.01";
-
-                    //Particularidade para RecepcaoEvento
-                    if (TipoServico == TServico.RecepcaoEvento)
-                        versao = oParam.versaoDadosEventos;
-
-                    //particularidade para consultaCadastro
-                    if (TipoServico == TServico.Cadastro)
-                        versao = "2.00";
-
-                    //particularidade para manifestacao destinatario
-                    if (TipoServico == TServico.ManifestacaoDestinatario || TipoServico == TServico.DownloadNF)
-                        versao = "1.00";
-
-                    oCabecalho.GetType().GetProperty("versaoDados").SetValue(oCabecalho, versao, null);
-                    oServico.GetType().GetProperty("nfeCabecMsgValue").SetValue(oServico, oCabecalho, null);
-                    #endregion
-                }
-                return oServico;
+                return RDI.NFe2.Webservices.WSUtils.SoapHttpClientFactory(AtendidoPor.ServidorAutorizador, Ambiente, TipoServico);
             }
-            catch (Exception ex)
+            else
             {
-                throw new Exception("ClientProxyFactory # não foi possível criar o cliente (" + ClassName + ") para acesso aos webservices da SEFAZ. InnerException: " + ex.Message);
+                //TODO : enviar todos os webservices ativos para o projeto rdi.nfe.webservices após a desativação da versao 3.10
+
+                String ClassName = "";
+                try
+                {
+                    string nomeClasse = string.Empty;
+                    //buscar nome do metodo pelo tServico
+                    foreach (ClasseServico atr in TipoServico.GetType().GetField(TipoServico.ToString()).GetCustomAttributes(typeof(ClasseServico), false))
+                    {
+                        if (String.IsNullOrEmpty(atr.NomeClasse))
+                            throw new Exception("Serviço não esta associado com nenhuma classe cliente.");
+                        nomeClasse = atr.NomeClasse;
+                    }
+
+                    //particularidades
+                    if (oParam.UF == TCodUfIBGE.Bahia && oParam.tipoEmissao == TNFeInfNFeIdeTpEmis.Normal)//Bahia
+                    {
+                        if (TipoServico == TService.Status && oParam.versao == VersaoXML.NFe_v310)
+                            nomeClasse = "NfeStatusServico";
+
+                        if (TipoServico == TService.Consulta && oParam.versao == VersaoXML.NFe_v310)
+                            nomeClasse = "NfeConsulta";
+
+                        if (TipoServico == TService.Inutilizacao && oParam.versao == VersaoXML.NFe_v310)
+                            nomeClasse = "NfeInutilizacao";
+                    }
+
+                    ClassName = "RDI.NFe2.Business." + GetAmbWebService(oParam, TipoServico) + "." + TipoServico.ToString() + ".";
+
+                    String headerClassName = ClassName + "nfeCabecMsg";
+                    ClassName += nomeClasse;
+
+                    Type classType = GetMyAssembly().GetType(ClassName);
+
+                    if (classType == null)
+                        throw new Exception("Não foi possível definir o tipo do cliente de webservice. #ClientProxyFactory");
+
+                    System.Web.Services.Protocols.SoapHttpClientProtocol oServico =
+                        (System.Web.Services.Protocols.SoapHttpClientProtocol)System.Activator.CreateInstance(classType);
+
+                    if (TipoServico != TService.ConsultaDFe) //ConsultaDFe não tem header
+                    {
+                        #region Instancia cabecalho
+
+                        Type headerClassType = GetMyAssembly().GetType(headerClassName);
+
+                        if (headerClassType == null)
+                            throw new Exception("Não foi possível definir o tipo do header do cliente de webservice. #ClientProxyFactory");
+
+                        System.Web.Services.Protocols.SoapHeader oCabecalho =
+                            (System.Web.Services.Protocols.SoapHeader)System.Activator.CreateInstance(headerClassType);
+
+
+                        if ((TipoServico == TService.ManifestacaoDestinatario) || //ManifestacaoDestinatario deverá usar AN 91
+                            (TipoServico == TService.DownloadNF)) //DownloadNF deverá usar AN 91
+                        {
+                            oCabecalho.GetType().GetProperty("cUF").SetValue(oCabecalho, "91", null);
+                        }
+                        else
+                        {
+                            oCabecalho.GetType().GetProperty("cUF").SetValue(oCabecalho,
+                                ((System.Xml.Serialization.XmlEnumAttribute)oParam.UF.GetType().GetField(
+                                    oParam.UF.ToString()).GetCustomAttributes(
+                                        typeof(System.Xml.Serialization.XmlEnumAttribute), false)[0]).Name,
+                                                                             null);
+                        }
+                        string versao = oParam.versaoDados;
+
+                        //particularidade para ConsSitNFe usando v200
+                        if (TipoServico == TService.Consulta && oParam.versao == VersaoXML.NFe_v200)
+                            versao = "2.01";
+
+                        //Particularidade para RecepcaoEvento
+                        if (TipoServico == TService.RecepcaoEvento)
+                            versao = oParam.versaoDadosEventos;
+
+                        //particularidade para consultaCadastro
+                        if (TipoServico == TService.Cadastro)
+                            versao = "2.00";
+
+                        //particularidade para manifestacao destinatario
+                        if (TipoServico == TService.ManifestacaoDestinatario || TipoServico == TService.DownloadNF)
+                            versao = "1.00";
+
+                        oCabecalho.GetType().GetProperty("versaoDados").SetValue(oCabecalho, versao, null);
+                        oServico.GetType().GetProperty("nfeCabecMsgValue").SetValue(oServico, oCabecalho, null);
+                        #endregion
+                    }
+                    return oServico;
+
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception("ClientProxyFactory # não foi possível criar o cliente (" + ClassName + ") para acesso aos webservices da SEFAZ. InnerException: " + ex.Message);
+                }
             }
         }
 

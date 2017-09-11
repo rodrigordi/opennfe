@@ -434,6 +434,14 @@
       <Project>{fb4a7d0e-da64-4fa6-9ad7-47184a92ad33}</Project>
       <Name>OpenSigner</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\OpenDanfe\DanfeSharp\OpenDanfe.csproj">
+      <Project>{2436ae11-2c3d-48c4-9dc2-3e0dd2ff8ccb}</Project>
+      <Name>OpenDanfe</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\pdfclown.lib\pdfclown.lib\pdfclown.lib.csproj">
+      <Project>{dbed0809-ee4c-45b0-92fa-e4789ecc2aec}</Project>
+      <Name>pdfclown.lib</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MMCustom\RDI.NFe2.MMCustom.csproj">
       <Project>{527202fa-b5b5-4f59-a099-dd54013f656c}</Project>
       <Name>RDI.NFe2.MMCustom</Name>
@@ -445,6 +453,10 @@
     <ProjectReference Include="..\RDI.NFe2.SchemaXML\RDI.NFe2.SchemaXML.csproj">
       <Project>{691ce23f-0ad0-467a-8fe7-956384a0773d}</Project>
       <Name>RDI.NFe2.SchemaXML</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RDI.NFe2.Webservices\RDI.NFe2.Webservices.csproj">
+      <Project>{e94406e9-77e0-4f7a-9e58-026f58ffcf3f}</Project>
+      <Name>RDI.NFe2.Webservices</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

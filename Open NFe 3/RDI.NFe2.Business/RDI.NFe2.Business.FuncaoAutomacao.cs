@@ -12,6 +12,7 @@ using System.Linq;
 using RDI.NFe2.SchemaXML;
 using System.ServiceModel;
 using RDI.OpenSigner;
+using RDI.NFe2.Webservices;
 
 namespace RDI.NFe2.Business
 {
@@ -1614,7 +1615,7 @@ namespace RDI.NFe2.Business
 
 
                 //pronto para enviar
-                System.Web.Services.Protocols.SoapHttpClientProtocol oServico = NFeUtils.ClientProxyFactory(oParam, TServico.Autorizacao);
+                System.Web.Services.Protocols.SoapHttpClientProtocol oServico = NFeUtils.ClientProxyFactory(oParam, TService.Autorizacao);
 
                 try
                 {
@@ -1760,7 +1761,7 @@ namespace RDI.NFe2.Business
                     oConsReciNFe.nRec = oRetEnviNFe.infRec.nRec;
 
                     //executar o servico
-                    System.Web.Services.Protocols.SoapHttpClientProtocol oServico = NFeUtils.ClientProxyFactory(oParam, TServico.RetAutorizacao);
+                    System.Web.Services.Protocols.SoapHttpClientProtocol oServico = NFeUtils.ClientProxyFactory(oParam, TService.RetAutorizacao);
 
                     try
                     {
@@ -1990,7 +1991,7 @@ namespace RDI.NFe2.Business
                 #endregion
 
                 System.Web.Services.Protocols.SoapHttpClientProtocol oServico =
-                    NFeUtils.ClientProxyFactory(oParam, TServico.Status);
+                    NFeUtils.ClientProxyFactory(oParam, TService.Status);
 
                 XMLUtils.SaveXML(oParam.pastaRecibo + oParam.UF.ToString() + "consulta-ped-sta.xml", oConsStatServ, oParam.versao);
 
@@ -2079,7 +2080,7 @@ namespace RDI.NFe2.Business
                 oEnvEvento.versao = "1.00";
 
                 //cria servico
-                System.Web.Services.Protocols.SoapHttpClientProtocol oServico = NFeUtils.ClientProxyFactory(oParam, TServico.RecepcaoEvento);
+                System.Web.Services.Protocols.SoapHttpClientProtocol oServico = NFeUtils.ClientProxyFactory(oParam, TService.RecepcaoEvento);
                 try
                 {
                     //executa servico
@@ -2141,7 +2142,7 @@ namespace RDI.NFe2.Business
 
                 XMLUtils.SaveXML(oParam.pastaRecibo + ChaveNFe + "-ped-sit.xml", oConsSitNFe, oParam.versao);
 
-                System.Web.Services.Protocols.SoapHttpClientProtocol oServico = NFeUtils.ClientProxyFactory(oParam, TServico.Consulta);
+                System.Web.Services.Protocols.SoapHttpClientProtocol oServico = NFeUtils.ClientProxyFactory(oParam, TService.Consulta);
 
                 try
                 {
@@ -2221,7 +2222,7 @@ namespace RDI.NFe2.Business
                         //carrega o pedido assinado
                         oInutNFe = (ITInutNFe)XMLUtils.LoadXMLFile(nomeArquivoPedidoAss, oParam.versao, "TInutNFe");
                         //cria servico
-                        System.Web.Services.Protocols.SoapHttpClientProtocol oServico = NFeUtils.ClientProxyFactory(oParam, TServico.Inutilizacao);
+                        System.Web.Services.Protocols.SoapHttpClientProtocol oServico = NFeUtils.ClientProxyFactory(oParam, TService.Inutilizacao);
                         try
                         {
                             //executa servico

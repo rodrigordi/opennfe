@@ -100,6 +100,10 @@
       <Project>{691CE23F-0AD0-467A-8FE7-956384A0773D}</Project>
       <Name>RDI.NFe2.SchemaXML</Name>
     </ProjectReference>
+    <ProjectReference Include="..\RDI.NFe2.Webservices\RDI.NFe2.Webservices.csproj">
+      <Project>{e94406e9-77e0-4f7a-9e58-026f58ffcf3f}</Project>
+      <Name>RDI.NFe2.Webservices</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">

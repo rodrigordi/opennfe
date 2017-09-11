@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
+# Visual Studio 15
+VisualStudioVersion = 15.0.26730.10
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NFeAdmin", "Open NFe 3\NFeAdmin\NFeAdmin.csproj", "{CEAE939F-458B-4ABD-BA2D-C2900DFD2A41}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -26,6 +26,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RDI.NFe2.MMCustom", "Open NFe 3\MMCustom\RDI.NFe2.MMCustom.csproj", "{527202FA-B5B5-4F59-A099-DD54013F656C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenSigner", "Open Signer\Open Signer\OpenSigner.csproj", "{FB4A7D0E-DA64-4FA6-9AD7-47184A92AD33}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RDI.NFe2.Webservices", "Open NFe 3\RDI.NFe2.Webservices\RDI.NFe2.Webservices.csproj", "{E94406E9-77E0-4F7A-9E58-026F58FFCF3F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -129,8 +131,23 @@ Global
 		{FB4A7D0E-DA64-4FA6-9AD7-47184A92AD33}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{FB4A7D0E-DA64-4FA6-9AD7-47184A92AD33}.Release|x86.ActiveCfg = Release|Any CPU
 		{FB4A7D0E-DA64-4FA6-9AD7-47184A92AD33}.Release|x86.Build.0 = Release|Any CPU
+		{E94406E9-77E0-4F7A-9E58-026F58FFCF3F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E94406E9-77E0-4F7A-9E58-026F58FFCF3F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E94406E9-77E0-4F7A-9E58-026F58FFCF3F}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{E94406E9-77E0-4F7A-9E58-026F58FFCF3F}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{E94406E9-77E0-4F7A-9E58-026F58FFCF3F}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{E94406E9-77E0-4F7A-9E58-026F58FFCF3F}.Debug|x86.Build.0 = Debug|Any CPU
+		{E94406E9-77E0-4F7A-9E58-026F58FFCF3F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E94406E9-77E0-4F7A-9E58-026F58FFCF3F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E94406E9-77E0-4F7A-9E58-026F58FFCF3F}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{E94406E9-77E0-4F7A-9E58-026F58FFCF3F}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{E94406E9-77E0-4F7A-9E58-026F58FFCF3F}.Release|x86.ActiveCfg = Release|Any CPU
+		{E94406E9-77E0-4F7A-9E58-026F58FFCF3F}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {16C28633-10EE-4C76-B795-AEEBB0E4D8CC}
 	EndGlobalSection
 EndGlobal
