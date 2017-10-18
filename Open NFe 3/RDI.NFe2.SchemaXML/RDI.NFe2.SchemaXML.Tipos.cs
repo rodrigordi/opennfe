@@ -89,9 +89,9 @@ namespace RDI.NFe2.SchemaXML
         [Description("Processado com erro")]
         Rejeitado = -1,
         [Description("Aguardando Envio")]
-        Assinado = 1,
+        AguardandoEnvio = 1,
         [Description("Aguardando Aprovação")]
-        Enviado = 2,
+        AguardandoRetornoAprovacao = 2,
         [Description("Processado")]
         Processado = 3,
         [Description("Finalizado")]

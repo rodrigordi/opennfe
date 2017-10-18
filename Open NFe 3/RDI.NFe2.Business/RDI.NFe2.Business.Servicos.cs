@@ -56,7 +56,7 @@ namespace RDI.NFe2.Business
 
         public static ITRetConsSitNFe ConsultarSituacaoNFe(SoapHttpClientProtocol oServico, ITConsSitNFe oConsSitNFe, Parametro oParam, VersaoXML versao)
         {
-            return ExecutaServico<ITRetConsSitNFe, ITConsSitNFe>(oServico, TService.Consulta, oConsSitNFe, oParam, versao, "TRetConsSitNFe");
+            return ExecutaServico<ITRetConsSitNFe, ITConsSitNFe>(oServico, TService.ConsultaProtocolo, oConsSitNFe, oParam, versao, "TRetConsSitNFe");
         }
 
         public static ITRetConsCad ConsultarCadastro(SoapHttpClientProtocol oServico, ITConsCad oEnviNFe3, Parametro oParam, VersaoXML versao)
@@ -105,7 +105,7 @@ namespace RDI.NFe2.Business
 
         private static void InicializaServico(System.Web.Services.Protocols.SoapHttpClientProtocol oServico, Parametro oParam)
         {
-            X509Certificate2 certificadoX509 = Certificado.BuscaNome(oParam.certificado, oParam.usaWService, oParam.tipoBuscaCertificado);
+            X509Certificate2 certificadoX509 = Certificado.Carregar(oParam.certificado, oParam.tipoBuscaCertificado);
 
             oServico.ClientCertificates.Clear();
             oServico.ClientCertificates.Add(certificadoX509);
@@ -163,8 +163,8 @@ namespace RDI.NFe2.Business
 
 
                 if (oParam.conexao == TipoConexao.NFe && oParam.versao == VersaoXML.NFe_v400 &&
-                (TipoServico == TService.Autorizacao || TipoServico == TService.RetAutorizacao || TipoServico == TService.Consulta ||
-                 TipoServico == TService.Inutilizacao || TipoServico == TService.RecepcaoEvento || TipoServico == TService.Cadastro))
+                (TipoServico == TService.Autorizacao || TipoServico == TService.RetAutorizacao || TipoServico == TService.ConsultaProtocolo ||
+                 TipoServico == TService.Inutilizacao || TipoServico == TService.RecepcaoEvento || TipoServico == TService.Cadastro || TipoServico == TService.Status))
                 {
                     var wsMethod = Webservices.WSUtils.GetWSMethod(TipoServico);
 

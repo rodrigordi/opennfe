@@ -48,6 +48,8 @@
     <Compile Include="RDI.OpenSigner.AssinaturaDigital.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RDI.OpenSigner.Certificado.cs" />
+    <Compile Include="RDI.OpenSigner.TBuscaCertificado.cs" />
+    <Compile Include="RDI.OpenSigner.TRetornoAssinatura.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

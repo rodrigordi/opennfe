@@ -87,6 +87,7 @@
     <Compile Include="RDI.NFe2.SchemaXML.Atributo.cs" />
     <Compile Include="RDI.NFe2.SchemaXML300.cs" />
     <Compile Include="RDI.NFe2.SchemaXML.SPEDParser.cs" />
+    <Compile Include="RDI.NFe2.SchemaXML.TServer.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">

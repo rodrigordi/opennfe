@@ -21,6 +21,7 @@ namespace RDI.NFe2.Webservices.NF4.HUB.ConsultaCadastro
             this.Url = url;
         }
 
+        //[TraceExtensionAttribute(Filename = "c:\\temp\\consultaCadastro.txt")]
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://www.portalfiscal.inf.br/nfe/wsdl/CadConsultaCadastro4/consultaCadastro", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Bare)]
         [return: System.Xml.Serialization.XmlElementAttribute("nfeResultMsg", Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/CadConsultaCadastro4")]
         public System.Xml.XmlNode consultaCadastro([System.Xml.Serialization.XmlElementAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/CadConsultaCadastro4")] System.Xml.XmlNode nfeDadosMsg)

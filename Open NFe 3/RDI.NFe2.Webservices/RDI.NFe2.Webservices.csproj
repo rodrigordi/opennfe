@@ -47,6 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="RDI.NFe2.Webservices.TraceExtension.cs" />
     <Compile Include="RDI.NFe2.Webservices.URLConfiguration.cs" />
     <Compile Include="RDI.NFe2.Webservices.HubConfiguration.cs" />
     <Compile Include="RDI.NFe2.Webservices.TService.cs" />
@@ -57,7 +58,7 @@
     <Compile Include="TWS\NF4.HUB.RecepcaoEvento.cs" />
     <Compile Include="TWS\NF4.HUB.Inutilizacao.cs" />
     <Compile Include="TWS\NF4.HUB.ConsultaCadastro.cs" />
-    <Compile Include="TWS\NF4.HUB.Consulta.cs" />
+    <Compile Include="TWS\NF4.HUB.ConsultaProtocolo.cs" />
     <Compile Include="TWS\NF4.HUB.Autorizacao.cs" />
   </ItemGroup>
   <ItemGroup>

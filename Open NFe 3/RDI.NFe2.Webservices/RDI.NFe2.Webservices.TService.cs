@@ -25,7 +25,7 @@ namespace RDI.NFe2.Webservices
 
         [ClasseServico(NomeClasse = "NfeConsulta2")]
         [HubConfiguration(WSName = "NFeConsultaProtocolo4", WSMethod = "nfeConsultaNF")]
-        Consulta,
+        ConsultaProtocolo,
 
         [ClasseServico(NomeClasse = "NfeAutorizacao")]
         [HubConfiguration(WSName = "NFeAutorizacao4", WSMethod = "nfeAutorizacaoLote")]

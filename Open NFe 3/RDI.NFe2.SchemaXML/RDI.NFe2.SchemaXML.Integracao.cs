@@ -5,6 +5,12 @@ using System.Reflection;
 
 namespace RDI.NFe2.SchemaXML
 {
+
+
+
+    //daqui pra cima veio do nfe 400
+
+
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.1")]
     [System.SerializableAttribute()]
@@ -1462,225 +1468,225 @@ namespace RDI.NFe2.SchemaXML
         /// <remarks/>
         [System.Xml.Serialization.XmlEnumAttribute("0")]
         [System.ComponentModel.Description("Não definido")]
-        [NFe_AtendidoPor(ServidorAutorizador = "")]
-        [NFCe_AtendidoPor(ServidorAutorizador = "")]
-        [SVC_AtendidoPor(ServidorAutorizador = "")]
+        [NFe_AtendidoPor(ServidorAutorizador =  TServer.NaoMapeado)]
+        [NFCe_AtendidoPor(ServidorAutorizador = TServer.NaoMapeado)]
+        [SVC_AtendidoPor(ServidorAutorizador = TServer.NaoMapeado)]
         NaoDefinido = 0,
 
         /// <remarks/>
         [System.Xml.Serialization.XmlEnumAttribute("11")]
         [System.ComponentModel.Description("Rondônia")]
-        [NFe_AtendidoPor(ServidorAutorizador = "SVRS")]
-        [NFCe_AtendidoPor(ServidorAutorizador = "")]
-        [SVC_AtendidoPor(ServidorAutorizador = "SVCAN")]
+        [NFe_AtendidoPor(ServidorAutorizador = TServer.SVRS)]
+        [NFCe_AtendidoPor(ServidorAutorizador = TServer.NaoMapeado)]
+        [SVC_AtendidoPor(ServidorAutorizador = TServer.SVCAN)]
         Rondonia = 11,
 
         /// <remarks/>
         [System.Xml.Serialization.XmlEnumAttribute("12")]
         [System.ComponentModel.Description("Acre")]
-        [NFe_AtendidoPor(ServidorAutorizador = "SVRS")]
-        [NFCe_AtendidoPor(ServidorAutorizador = "")]
-        [SVC_AtendidoPor(ServidorAutorizador = "SVCAN")]
+        [NFe_AtendidoPor(ServidorAutorizador = TServer.SVRS)]
+        [NFCe_AtendidoPor(ServidorAutorizador = TServer.NaoMapeado)]
+        [SVC_AtendidoPor(ServidorAutorizador = TServer.SVCAN)]
         Acre = 12,
 
         /// <remarks/>
         [System.Xml.Serialization.XmlEnumAttribute("13")]
         [System.ComponentModel.Description("Amazonas")]
-        [NFe_AtendidoPor(ServidorAutorizador = "AM")]
-        [NFCe_AtendidoPor(ServidorAutorizador = "AM")]
-        [SVC_AtendidoPor(ServidorAutorizador = "SVCRS")]
+        [NFe_AtendidoPor(ServidorAutorizador = TServer.AM)]
+        [NFCe_AtendidoPor(ServidorAutorizador = TServer.AM)]
+        [SVC_AtendidoPor(ServidorAutorizador = TServer.SVCRS)]
         Amazonas = 13,
 
         /// <remarks/>
         [System.Xml.Serialization.XmlEnumAttribute("14")]
         [System.ComponentModel.Description("Roraima")]
-        [NFe_AtendidoPor(ServidorAutorizador = "SVRS")]
-        [NFCe_AtendidoPor(ServidorAutorizador = "")]
-        [SVC_AtendidoPor(ServidorAutorizador = "SVCAN")]
+        [NFe_AtendidoPor(ServidorAutorizador = TServer.SVRS)]
+        [NFCe_AtendidoPor(ServidorAutorizador = TServer.NaoMapeado)]
+        [SVC_AtendidoPor(ServidorAutorizador = TServer.SVCAN)]
         Roraima = 14,
 
         /// <remarks/>
         [System.Xml.Serialization.XmlEnumAttribute("15")]
         [System.ComponentModel.Description("Pará")]
-        [NFe_AtendidoPor(ServidorAutorizador = "SVAN")]
-        [NFCe_AtendidoPor(ServidorAutorizador = "AM")]
-        [SVC_AtendidoPor(ServidorAutorizador = "SVCRS")]
+        [NFe_AtendidoPor(ServidorAutorizador = TServer.SVAN)]
+        [NFCe_AtendidoPor(ServidorAutorizador = TServer.AM)]
+        [SVC_AtendidoPor(ServidorAutorizador = TServer.SVCRS)]
         Para = 15,
 
         /// <remarks/>
         [System.Xml.Serialization.XmlEnumAttribute("16")]
         [System.ComponentModel.Description("Amapá")]
-        [NFe_AtendidoPor(ServidorAutorizador = "SVRS")]
-        [NFCe_AtendidoPor(ServidorAutorizador = "")]
-        [SVC_AtendidoPor(ServidorAutorizador = "SVCAN")]
+        [NFe_AtendidoPor(ServidorAutorizador = TServer.SVRS)]
+        [NFCe_AtendidoPor(ServidorAutorizador = TServer.NaoMapeado)]
+        [SVC_AtendidoPor(ServidorAutorizador = TServer.SVCAN)]
         Amapa = 16,
 
         /// <remarks/>
         [System.Xml.Serialization.XmlEnumAttribute("17")]
         [System.ComponentModel.Description("Tocantins")]
-        [NFe_AtendidoPor(ServidorAutorizador = "SVRS")]
-        [NFCe_AtendidoPor(ServidorAutorizador = "")]
-        [SVC_AtendidoPor(ServidorAutorizador = "SVCAN")]
+        [NFe_AtendidoPor(ServidorAutorizador = TServer.SVRS)]
+        [NFCe_AtendidoPor(ServidorAutorizador = TServer.NaoMapeado)]
+        [SVC_AtendidoPor(ServidorAutorizador = TServer.SVCAN)]
         Tocantins = 17,
 
         /// <remarks/>
         [System.Xml.Serialization.XmlEnumAttribute("21")]
         [System.ComponentModel.Description("Maranhão")]
-        [NFe_AtendidoPor(ServidorAutorizador = "SVAN")]
-        [NFCe_AtendidoPor(ServidorAutorizador = "")]
-        [SVC_AtendidoPor(ServidorAutorizador = "SVCRS")]
+        [NFe_AtendidoPor(ServidorAutorizador = TServer.SVAN)]
+        [NFCe_AtendidoPor(ServidorAutorizador = TServer.NaoMapeado)]
+        [SVC_AtendidoPor(ServidorAutorizador = TServer.SVCRS)]
         Maranhao = 21,
 
         /// <remarks/>
         [System.Xml.Serialization.XmlEnumAttribute("22")]
         [System.ComponentModel.Description("Piauí")]
-        [NFe_AtendidoPor(ServidorAutorizador = "SVAN")]
-        [NFCe_AtendidoPor(ServidorAutorizador = "")]
-        [SVC_AtendidoPor(ServidorAutorizador = "SVCRS")]
+        [NFe_AtendidoPor(ServidorAutorizador = TServer.SVAN)]
+        [NFCe_AtendidoPor(ServidorAutorizador = TServer.NaoMapeado)]
+        [SVC_AtendidoPor(ServidorAutorizador = TServer.SVCRS)]
         Piaui = 22,
 
         /// <remarks/>
         [System.Xml.Serialization.XmlEnumAttribute("23")]
         [System.ComponentModel.Description("Ceará")]
-        [NFe_AtendidoPor(ServidorAutorizador = "CE")]
-        [NFCe_AtendidoPor(ServidorAutorizador = "")]
-        [SVC_AtendidoPor(ServidorAutorizador = "SVCRS")]
+        [NFe_AtendidoPor(ServidorAutorizador = TServer.CE)]
+        [NFCe_AtendidoPor(ServidorAutorizador = TServer.NaoMapeado)]
+        [SVC_AtendidoPor(ServidorAutorizador = TServer.SVCRS)]
         Ceara = 23,
 
         /// <remarks/>
         [System.Xml.Serialization.XmlEnumAttribute("24")]
         [System.ComponentModel.Description("Rio Grande do Norte")]
-        [NFe_AtendidoPor(ServidorAutorizador = "SVRS")]
-        [NFCe_AtendidoPor(ServidorAutorizador = "")]
-        [SVC_AtendidoPor(ServidorAutorizador = "SVCAN")]
+        [NFe_AtendidoPor(ServidorAutorizador = TServer.SVRS)]
+        [NFCe_AtendidoPor(ServidorAutorizador = TServer.NaoMapeado)]
+        [SVC_AtendidoPor(ServidorAutorizador = TServer.SVCAN)]
         RioGrandedoNorte = 24,
 
         /// <remarks/>
         [System.Xml.Serialization.XmlEnumAttribute("25")]
         [System.ComponentModel.Description("Paraíba")]
-        [NFe_AtendidoPor(ServidorAutorizador = "SVRS")]
-        [NFCe_AtendidoPor(ServidorAutorizador = "")]
-        [SVC_AtendidoPor(ServidorAutorizador = "SVCAN")]
+        [NFe_AtendidoPor(ServidorAutorizador = TServer.SVRS)]
+        [NFCe_AtendidoPor(ServidorAutorizador = TServer.NaoMapeado)]
+        [SVC_AtendidoPor(ServidorAutorizador = TServer.SVCAN)]
         Paraiba = 25,
 
         /// <remarks/>
         [System.Xml.Serialization.XmlEnumAttribute("26")]
         [System.ComponentModel.Description("Pernambuco")]
-        [NFe_AtendidoPor(ServidorAutorizador = "PE")]
-        [NFCe_AtendidoPor(ServidorAutorizador = "")]
-        [SVC_AtendidoPor(ServidorAutorizador = "SVCRS")]
+        [NFe_AtendidoPor(ServidorAutorizador = TServer.PE)]
+        [NFCe_AtendidoPor(ServidorAutorizador = TServer.NaoMapeado)]
+        [SVC_AtendidoPor(ServidorAutorizador = TServer.SVCRS)]
         Pernambuco = 26,
 
         /// <remarks/>
         [System.Xml.Serialization.XmlEnumAttribute("27")]
         [System.ComponentModel.Description("Alagoas")]
-        [NFe_AtendidoPor(ServidorAutorizador = "SVRS")]
-        [NFCe_AtendidoPor(ServidorAutorizador = "")]
-        [SVC_AtendidoPor(ServidorAutorizador = "SVCAN")]
+        [NFe_AtendidoPor(ServidorAutorizador = TServer.SVRS)]
+        [NFCe_AtendidoPor(ServidorAutorizador = TServer.NaoMapeado)]
+        [SVC_AtendidoPor(ServidorAutorizador = TServer.SVCAN)]
         Alagoas = 27,
 
         /// <remarks/>
         [System.Xml.Serialization.XmlEnumAttribute("28")]
         [System.ComponentModel.Description("Sergipe")]
-        [NFe_AtendidoPor(ServidorAutorizador = "SVRS")]
-        [NFCe_AtendidoPor(ServidorAutorizador = "SVRS")]
-        [SVC_AtendidoPor(ServidorAutorizador = "SVCAN")]
+        [NFe_AtendidoPor(ServidorAutorizador = TServer.SVRS)]
+        [NFCe_AtendidoPor(ServidorAutorizador = TServer.SVRS)]
+        [SVC_AtendidoPor(ServidorAutorizador = TServer.SVCAN)]
         Sergipe = 28,
 
         /// <remarks/>
         [System.Xml.Serialization.XmlEnumAttribute("29")]
         [System.ComponentModel.Description("Bahia")]
-        [NFe_AtendidoPor(ServidorAutorizador = "BA")]
-        [NFCe_AtendidoPor(ServidorAutorizador = "SVRS")]
-        [SVC_AtendidoPor(ServidorAutorizador = "SVCRS")]
+        [NFe_AtendidoPor(ServidorAutorizador = TServer.BA)]
+        [NFCe_AtendidoPor(ServidorAutorizador = TServer.SVRS)]
+        [SVC_AtendidoPor(ServidorAutorizador = TServer.SVCRS)]
         Bahia = 29,
 
         /// <remarks/>
         [System.Xml.Serialization.XmlEnumAttribute("31")]
         [System.ComponentModel.Description("Minas Gerais")]
-        [NFe_AtendidoPor(ServidorAutorizador = "MG")]
-        [NFCe_AtendidoPor(ServidorAutorizador = "")]
-        [SVC_AtendidoPor(ServidorAutorizador = "SVCAN")]
+        [NFe_AtendidoPor(ServidorAutorizador = TServer.MG)]
+        [NFCe_AtendidoPor(ServidorAutorizador = TServer.NaoMapeado)]
+        [SVC_AtendidoPor(ServidorAutorizador = TServer.SVCAN)]
         MinasGerais = 31,
 
         /// <remarks/>
         [System.Xml.Serialization.XmlEnumAttribute("32")]
         [System.ComponentModel.Description("Espírito Santo")]
-        [NFe_AtendidoPor(ServidorAutorizador = "SVRS")]
-        [NFCe_AtendidoPor(ServidorAutorizador = "")]
-        [SVC_AtendidoPor(ServidorAutorizador = "SVCAN")]
+        [NFe_AtendidoPor(ServidorAutorizador = TServer.SVRS)]
+        [NFCe_AtendidoPor(ServidorAutorizador = TServer.NaoMapeado)]
+        [SVC_AtendidoPor(ServidorAutorizador = TServer.SVCAN)]
         EspiritoSanto = 32,
 
         /// <remarks/>
         [System.Xml.Serialization.XmlEnumAttribute("33")]
         [System.ComponentModel.Description("Rio de Janeiro")]
-        [NFe_AtendidoPor(ServidorAutorizador = "SVRS")]
-        [NFCe_AtendidoPor(ServidorAutorizador = "")]
-        [SVC_AtendidoPor(ServidorAutorizador = "SVCAN")]
+        [NFe_AtendidoPor(ServidorAutorizador = TServer.SVRS)]
+        [NFCe_AtendidoPor(ServidorAutorizador = TServer.NaoMapeado)]
+        [SVC_AtendidoPor(ServidorAutorizador = TServer.SVCAN)]
         RiodeJaneiro = 33,
 
         /// <remarks/>
         [System.Xml.Serialization.XmlEnumAttribute("35")]
         [System.ComponentModel.Description("São Paulo")]
-        [NFe_AtendidoPor(ServidorAutorizador = "SP")]
-        [NFCe_AtendidoPor(ServidorAutorizador = "SP")]
-        [SVC_AtendidoPor(ServidorAutorizador = "SVCAN")]
+        [NFe_AtendidoPor(ServidorAutorizador = TServer.SP)]
+        [NFCe_AtendidoPor(ServidorAutorizador = TServer.SP)]
+        [SVC_AtendidoPor(ServidorAutorizador = TServer.SVCAN)]
         SaoPaulo = 35,
 
         /// <remarks/>
         [System.Xml.Serialization.XmlEnumAttribute("41")]
         [System.ComponentModel.Description("Paraná")]
-        [NFe_AtendidoPor(ServidorAutorizador = "PR")]
-        [NFCe_AtendidoPor(ServidorAutorizador = "")]
-        [SVC_AtendidoPor(ServidorAutorizador = "SVCRS")]
+        [NFe_AtendidoPor(ServidorAutorizador = TServer.PR)]
+        [NFCe_AtendidoPor(ServidorAutorizador = TServer.NaoMapeado)]
+        [SVC_AtendidoPor(ServidorAutorizador = TServer.SVCRS)]
         Parana = 41,
 
         /// <remarks/>
         [System.Xml.Serialization.XmlEnumAttribute("42")]
         [System.ComponentModel.Description("Santa Catarina")]
-        [NFe_AtendidoPor(ServidorAutorizador = "SVRS")]
-        [NFCe_AtendidoPor(ServidorAutorizador = "")]
-        [SVC_AtendidoPor(ServidorAutorizador = "SVCAN")]
+        [NFe_AtendidoPor(ServidorAutorizador = TServer.SVRS)]
+        [NFCe_AtendidoPor(ServidorAutorizador = TServer.NaoMapeado)]
+        [SVC_AtendidoPor(ServidorAutorizador = TServer.SVCAN)]
         SantaCatarina = 42,
 
         /// <remarks/>
         [System.Xml.Serialization.XmlEnumAttribute("43")]
         [System.ComponentModel.Description("Rio Grande do Sul")]
-        [NFe_AtendidoPor(ServidorAutorizador = "RS")]
-        [NFCe_AtendidoPor(ServidorAutorizador = "")]
-        [SVC_AtendidoPor(ServidorAutorizador = "SVCAN")]
+        [NFe_AtendidoPor(ServidorAutorizador = TServer.RS)]
+        [NFCe_AtendidoPor(ServidorAutorizador = TServer.NaoMapeado)]
+        [SVC_AtendidoPor(ServidorAutorizador = TServer.SVCAN)]
         RioGrandedoSul = 43,
 
         /// <remarks/>
         [System.Xml.Serialization.XmlEnumAttribute("50")]
         [System.ComponentModel.Description("Mato Grosso do Sul")]
-        [NFe_AtendidoPor(ServidorAutorizador = "MS")]
-        [NFCe_AtendidoPor(ServidorAutorizador = "")]
-        [SVC_AtendidoPor(ServidorAutorizador = "SVCRS")]
+        [NFe_AtendidoPor(ServidorAutorizador = TServer.MS)]
+        [NFCe_AtendidoPor(ServidorAutorizador = TServer.NaoMapeado)]
+        [SVC_AtendidoPor(ServidorAutorizador = TServer.SVCRS)]
         MatoGrossodoSul = 50,
 
         /// <remarks/>
         [System.Xml.Serialization.XmlEnumAttribute("51")]
         [System.ComponentModel.Description("Mato Grosso")]
-        [NFe_AtendidoPor(ServidorAutorizador = "MT")]
-        [NFCe_AtendidoPor(ServidorAutorizador = "")]
-        [SVC_AtendidoPor(ServidorAutorizador = "SVCRS")]
+        [NFe_AtendidoPor(ServidorAutorizador = TServer.MT)]
+        [NFCe_AtendidoPor(ServidorAutorizador = TServer.NaoMapeado)]
+        [SVC_AtendidoPor(ServidorAutorizador = TServer.SVCRS)]
         MatoGrosso = 51,
 
         /// <remarks/>
         [System.Xml.Serialization.XmlEnumAttribute("52")]
         [System.ComponentModel.Description("Goiás")]
-        [NFe_AtendidoPor(ServidorAutorizador = "GO")]
-        [NFCe_AtendidoPor(ServidorAutorizador = "")]
-        [SVC_AtendidoPor(ServidorAutorizador = "SVCRS")]
+        [NFe_AtendidoPor(ServidorAutorizador = TServer.GO)]
+        [NFCe_AtendidoPor(ServidorAutorizador = TServer.NaoMapeado)]
+        [SVC_AtendidoPor(ServidorAutorizador = TServer.SVCRS)]
         Goias = 52,
 
         /// <remarks/>
         [System.Xml.Serialization.XmlEnumAttribute("53")]
         [System.ComponentModel.Description("Distrito Federal")]
-        [NFe_AtendidoPor(ServidorAutorizador = "SVRS")]
-        [NFCe_AtendidoPor(ServidorAutorizador = "")]
-        [SVC_AtendidoPor(ServidorAutorizador = "SVCAN")]
+        [NFe_AtendidoPor(ServidorAutorizador = TServer.SVRS)]
+        [NFCe_AtendidoPor(ServidorAutorizador = TServer.NaoMapeado)]
+        [SVC_AtendidoPor(ServidorAutorizador = TServer.SVCAN)]
         DistritoFederal = 53,
     }
 
@@ -1914,6 +1920,49 @@ namespace RDI.NFe2.SchemaXML
         [System.ComponentModel.Description("Sim")]
         Sim
     }
+
+
+
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
+    [System.SerializableAttribute()]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe", IncludeInSchema = false)]
+    public enum CE_pPIS
+    {
+
+        /// <remarks/>
+        pPIS,
+
+        /// <remarks/>
+        qBCProd,
+
+        /// <remarks/>
+        vAliqProd,
+
+        /// <remarks/>
+        vBC,
+    }
+
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
+    [System.SerializableAttribute()]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe", IncludeInSchema = false)]
+    public enum CE_pCOFINS
+    {
+
+        /// <remarks/>
+        pCOFINS,
+
+        /// <remarks/>
+        qBCProd,
+
+        /// <remarks/>
+        vAliqProd,
+
+        /// <remarks/>
+        vBC,
+    }
+
 
 
     /// <summary>

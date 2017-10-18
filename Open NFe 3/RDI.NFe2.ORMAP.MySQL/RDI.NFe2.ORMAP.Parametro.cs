@@ -12,7 +12,7 @@ namespace RDI.NFe2.ORMAP
     {
         //propriedades não persistentes
         public TipoConexao conexao { get; set; }
-        public BuscaCertificado tipoBuscaCertificado { get; set; }
+        public TBuscaCertificado tipoBuscaCertificado { get; set; }
         public string caminhoCertificado { get { return certificado.Split('|')[0]; } }
         public string senhaCertificado { get { return certificado.Split('|')[1]; } }
 

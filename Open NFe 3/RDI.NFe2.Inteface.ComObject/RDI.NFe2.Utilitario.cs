@@ -25,32 +25,12 @@ namespace RDI.NFe2.Business
 
         public String UltimaValidacao = string.Empty;
 
-        public void SetUtilitario_v1(String nomeCertificado, Boolean ContaComputador, Boolean Producao, Boolean TpEmisNormal, String UF)
-        {
-            SetUtilitario_v3(nomeCertificado, ContaComputador, Producao, TpEmisNormal, UF, false, 1);
-        }
-
-        public void SetUtilitario_v2(String nomeCertificado, Boolean ContaComputador, Boolean Producao, Boolean TpEmisNormal, String UF, int versao)
-        {
-            SetUtilitario_v3(nomeCertificado, ContaComputador, Producao, TpEmisNormal, UF, false, versao);
-        }
-
-        public void SetUtilitario_v3(String nomeCertificado, Boolean ContaComputador, Boolean Producao, Boolean TpEmisNormal, String UF, Boolean NFCe, int versao)
-        {
-            SetUtilitario_v4(nomeCertificado, ContaComputador, Producao, TpEmisNormal, UF, (NFCe ? TipoConexao.NFCe : TipoConexao.NFe), versao);
-        }
-
-        public void SetUtilitario_v4(String nomeCertificado, Boolean ContaComputador, Boolean Producao, Boolean TpEmisNormal, String UF, TipoConexao conexao, int versao)
-        {
-            SetUtilitario_v5(nomeCertificado, ContaComputador, Producao, TpEmisNormal, UF, conexao, (nomeCertificado == null ? BuscaCertificado.Nome : (nomeCertificado.Contains("|") ? BuscaCertificado.ArquivoDisco : BuscaCertificado.Nome)), versao);
-        }
-
-        public void SetUtilitario_v5(String nomeCertificado, Boolean ContaComputador, Boolean Producao, Boolean TpEmisNormal, String UF, TipoConexao conexao, BuscaCertificado tipoBusca, int versao)
+        public void SetUtilitario(String certificado, Boolean Producao, Boolean TpEmisNormal, String UF, TipoConexao conexao, TBuscaCertificado tipoBusca, int versaoXML)
         {
             //Cria Parametro
             _Parametro = new Parametro();
 
-            _Parametro.versao = (VersaoXML)versao;
+            _Parametro.versao = (VersaoXML)versaoXML;
 
             _Parametro.conexao = conexao;
 
@@ -63,8 +43,8 @@ namespace RDI.NFe2.Business
 
             _Parametro.prx = false;
             _Parametro.tipoBuscaCertificado = tipoBusca;
-            _Parametro.certificado = nomeCertificado;
-            _Parametro.usaWService = ContaComputador;
+            _Parametro.certificado = certificado;
+            _Parametro.usaWService = (tipoBusca == TBuscaCertificado.Nome_MaquinaLocal || tipoBusca == TBuscaCertificado.Serial_MaquinaLocal);
 
             if (Producao)
                 _Parametro.tipoAmbiente = TAmb.Producao;
@@ -154,7 +134,7 @@ namespace RDI.NFe2.Business
 
             try
             {
-                X509Certificate2 oCertificado = Certificado.BuscaNome("", _Parametro.usaWService);
+                X509Certificate2 oCertificado = Certificado.Carregar(string.Empty, _Parametro.tipoBuscaCertificado);
 
                 if (oCertificado == null)
                 {
@@ -171,15 +151,14 @@ namespace RDI.NFe2.Business
 
         }
 
-        public int AssinaXMLHD(String caminhoArquivoOrigem, String SUri,
-                            String caminhoArquivoDestino)
+        public int AssinaXMLHD(String caminhoArquivoOrigem, String SUri, String caminhoArquivoDestino)
         {
 
             X509Certificate2 oCertificado = null;
             //busca o certificado digital
             try
             {
-                oCertificado = Certificado.BuscaNome(_Parametro.certificado, _Parametro.usaWService, _Parametro.tipoBuscaCertificado);
+                oCertificado = Certificado.Carregar(_Parametro.certificado, _Parametro.tipoBuscaCertificado);
             }
             catch
             {
@@ -257,7 +236,7 @@ namespace RDI.NFe2.Business
             //busca o certificado digital
             try
             {
-                oCertificado = Certificado.BuscaNome(_Parametro.certificado, _Parametro.usaWService, _Parametro.tipoBuscaCertificado);
+                oCertificado = Certificado.Carregar(_Parametro.certificado, _Parametro.tipoBuscaCertificado);
             }
             catch (Exception ex)
             {
@@ -337,7 +316,7 @@ namespace RDI.NFe2.Business
             //busca o certificado digital
             try
             {
-                oCertificado = Certificado.BuscaNome(_Parametro.certificado, _Parametro.usaWService, _Parametro.tipoBuscaCertificado);
+                oCertificado = Certificado.Carregar(_Parametro.certificado, _Parametro.tipoBuscaCertificado);
             }
             catch (Exception ex)
             {
@@ -367,9 +346,18 @@ namespace RDI.NFe2.Business
             oAssinador = null;
             return ret;
         }
-        #endregion
 
-        #region NFe
+        public String ValidaXML(String caminhoXML, String caminhoXSD)
+        {
+            return NFeUtils.ValidacaoXML(caminhoXML, caminhoXSD);
+        }
+        public string Unzip(string stZipped)
+        {
+            //string para byte[]
+            var bZipped = System.Convert.FromBase64String(stZipped);
+
+            return XMLUtils.Unzip(bZipped);
+        }
         public Boolean StatusWebService()
         {
             ITConsStatServ oConsStatServ;
@@ -392,504 +380,29 @@ namespace RDI.NFe2.Business
                 }
 
                 var temp = Servicos.ConsultarStatusServidor(oServico, oConsStatServ, _Parametro, _Parametro.versao);
-
                 return (temp.cStat == "107");
             }
             catch (Exception ex)
             {
                 UltimaValidacao = ex.Message;
                 return false;
-            }
-        }
-
-        public Boolean RecepcaoNFe2HD(String caminhoArquivoEnviNFe2, String caminhoArquivoRetEnviNFe2)
-        {
-            ITEnviNFe oEnviNFe2;
-            try
-            {
-                if (!File.Exists(caminhoArquivoEnviNFe2))
-                    throw new Exception("Arquivo EnviNFe2 não existe ou não esta acessível.");
-
-                try
-                {
-                    oEnviNFe2 = (ITEnviNFe)XMLUtils.LoadXMLFile(caminhoArquivoEnviNFe2, _Parametro.versao, "TEnviNFe");
-                }
-                catch (Exception ex)
-                {
-                    string msgErro = "Não foi possível carregar o Arquivo EnviNFe2 - " + ex.Message;
-                    if (ex.InnerException != null)
-                        msgErro += " - Detalhe : " + ex.InnerException.Message;
-
-                    throw new Exception(msgErro);
-                }
-
-                System.Web.Services.Protocols.SoapHttpClientProtocol oServico = null;
-                try
-                {
-                    oServico = NFeUtils.ClientProxyFactory(_Parametro, TService.Autorizacao);
-                }
-                catch (Exception ex)
-                {
-                    throw new Exception("Não foi possível criar o serviço de comunicação com o webservice - " + ex.Message);
-                }
-
-                var temp = Servicos.EnviarEnvelope(oServico, oEnviNFe2, _Parametro, _Parametro.versao);
-                XMLUtils.SaveXML(caminhoArquivoRetEnviNFe2, temp, _Parametro.versao);
-
-                return true;
-            }
-            catch (Exception ex)
-            {
-                UltimaValidacao = ex.Message;
-                return false;
-            }
-        }
-
-        public Boolean RetRecepcaoNFe2HD(String caminhoArquivoConsReciNFe2, String caminhoArquivoRetConsReciNFe2)
-        {
-            ITConsReciNFe oConsReciNFe2;
-            try
-            {
-                if (!File.Exists(caminhoArquivoConsReciNFe2))
-                    throw new Exception("Arquivo ConsReciNFe2 não existe ou não esta acessível.");
-
-                try
-                {
-                    oConsReciNFe2 = (ITConsReciNFe)XMLUtils.LoadXMLFile(caminhoArquivoConsReciNFe2, _Parametro.versao, "TConsReciNFe");
-                }
-                catch (Exception ex)
-                {
-                    throw new Exception("Não foi possível carregar o Arquivo ConsReciNFe2 - " + ex.Message);
-                }
-
-                System.Web.Services.Protocols.SoapHttpClientProtocol oServico = null;
-                try
-                {
-                    oServico = NFeUtils.ClientProxyFactory(_Parametro, TService.RetAutorizacao);
-                }
-                catch (Exception ex)
-                {
-                    throw new Exception("Não foi possível criar o serviço de comunicação com o webservice - " + ex.Message);
-                }
-
-                var temp = Servicos.ConsultarProcessamentoEnvelope(oServico, oConsReciNFe2, _Parametro, _Parametro.versao);
-                XMLUtils.SaveXML(caminhoArquivoRetConsReciNFe2, temp, _Parametro.versao);
-
-                return true;
-            }
-            catch (Exception ex)
-            {
-                UltimaValidacao = ex.Message;
-                return false;
-            }
-        }
-
-        public Boolean InutilizaNFe2HD(String caminhoArquivoInutNFe2, String caminhoArquivoRetInutNFe2)
-        {
-            ITInutNFe oInutNFe2;
-            try
-            {
-                if (!File.Exists(caminhoArquivoInutNFe2))
-                    throw new Exception("Arquivo InutNFe2 não existe ou não esta acessível.");
-
-                try
-                {
-                    oInutNFe2 = (ITInutNFe)XMLUtils.LoadXMLFile(caminhoArquivoInutNFe2, _Parametro.versao, "TInutNFe");
-                }
-                catch (Exception ex)
-                {
-                    throw new Exception("Não foi possível carregar o Arquivo InutNFe2 - " + ex.Message);
-                }
-
-                System.Web.Services.Protocols.SoapHttpClientProtocol oServico = null;
-                try
-                {
-                    oServico = NFeUtils.ClientProxyFactory(_Parametro, TService.Inutilizacao);
-                }
-                catch (Exception ex)
-                {
-                    throw new Exception("Não foi possível criar o serviço de comunicação com o webservice - " + ex.Message);
-                }
-
-                var temp = Servicos.InutilizarNFe(oServico, oInutNFe2, _Parametro, _Parametro.versao);
-                XMLUtils.SaveXML(caminhoArquivoRetInutNFe2, temp, _Parametro.versao);
-
-                return true;
-            }
-            catch (Exception ex)
-            {
-                UltimaValidacao = ex.Message;
-                return false;
-            }
-        }
-
-        public Boolean StatusWebServiceHD(String caminhoArquivoRetConsStatServ)
-        {
-            ITConsStatServ oConsStatServ;
-
-            try
-            {
-                String hhmmss = DateTime.Now.ToString("yyMMddhhmmss");
-                String caminhoArquivoConsStatServ = "oConsStatServ" + hhmmss + ".xml";
-
-                oConsStatServ = (ITConsStatServ)XMLUtils.XMLFactory(_Parametro.versao, "TConsStatServ");
-                oConsStatServ.cUF = _Parametro.UF;
-                oConsStatServ.tpAmb = _Parametro.tipoAmbiente;
-                oConsStatServ.versao = _Parametro.versaoDados;
-
-                XMLUtils.SaveXML(caminhoArquivoConsStatServ, oConsStatServ, _Parametro.versao);
-
-                if (!File.Exists(caminhoArquivoConsStatServ))
-                    throw new Exception("Arquivo ConsStatServ não existe ou não esta acessível.");
-
-                try
-                {
-                    oConsStatServ = (ITConsStatServ)XMLUtils.LoadXMLFile(caminhoArquivoConsStatServ, _Parametro.versao, "TConsStatServ");
-                }
-                catch (Exception ex)
-                {
-                    throw new Exception("Não foi possível carregar o Arquivo ConsStatServ - " + ex.Message);
-                }
-
-                System.Web.Services.Protocols.SoapHttpClientProtocol oServico = null;
-                try
-                {
-                    oServico = NFeUtils.ClientProxyFactory(_Parametro, TService.Status);
-                }
-                catch (Exception ex)
-                {
-                    throw new Exception("Não foi possível criar o serviço de comunicação com o webservice - " + ex.Message);
-                }
-
-                var temp = Servicos.ConsultarStatusServidor(oServico, oConsStatServ, _Parametro, _Parametro.versao);
-
-                XMLUtils.SaveXML(caminhoArquivoRetConsStatServ, temp, _Parametro.versao);
-
-                return true;
-            }
-            catch (Exception ex)
-            {
-                UltimaValidacao = ex.Message;
-                return false;
-            }
-        }
-
-        public String RecepcaoNFe2ST(String ArquivoEnviNFe2)
-        {
-            ITEnviNFe oEnviNFe2;
-            try
-            {
-                try
-                {
-                    oEnviNFe2 = (ITEnviNFe)XMLUtils.LoadXML(ArquivoEnviNFe2, _Parametro.versao, "TEnviNFe");
-                }
-                catch (Exception ex)
-                {
-                    throw new Exception("Não foi possível carregar o Arquivo EnviNFe2 - " + ex.Message);
-                }
-
-                System.Web.Services.Protocols.SoapHttpClientProtocol oServico = null;
-                try
-                {
-                    oServico = NFeUtils.ClientProxyFactory(_Parametro, TService.Autorizacao);
-                }
-                catch (Exception ex)
-                {
-                    throw new Exception("Não foi possível criar o serviço de comunicação com o webservice - " + ex.Message);
-                }
-
-                var temp = Servicos.EnviarEnvelope(oServico, oEnviNFe2, _Parametro, _Parametro.versao);
-                return XMLUtils.GetXML(temp, _Parametro.versao);
-            }
-            catch (Exception ex)
-            {
-                UltimaValidacao = ex.Message;
-                return string.Empty;
-            }
-        }
-
-        public String RetRecepcaoNFe2ST(String ArquivoConsReciNFe2)
-        {
-            ITConsReciNFe oConsReciNFe2;
-            try
-            {
-                try
-                {
-                    oConsReciNFe2 = (ITConsReciNFe)XMLUtils.LoadXML(ArquivoConsReciNFe2, _Parametro.versao, "TConsReciNFe");
-                }
-                catch (Exception ex)
-                {
-                    throw new Exception("Não foi possível carregar o Arquivo ConsReciNFe2 - " + ex.Message);
-                }
-
-                System.Web.Services.Protocols.SoapHttpClientProtocol oServico = null;
-                try
-                {
-                    oServico = NFeUtils.ClientProxyFactory(_Parametro, TService.RetAutorizacao);
-                }
-                catch (Exception ex)
-                {
-                    throw new Exception("Não foi possível criar o serviço de comunicação com o webservice - " + ex.Message);
-                }
-
-                var temp = Servicos.ConsultarProcessamentoEnvelope(oServico, oConsReciNFe2, _Parametro, _Parametro.versao);
-                return XMLUtils.GetXML(temp, _Parametro.versao);
-            }
-            catch (Exception ex)
-            {
-                UltimaValidacao = ex.Message;
-                return string.Empty;
-            }
-        }
-
-        public String InutilizaNFe2ST(String ArquivoInutNFe2)
-        {
-            ITInutNFe oInutNFe2;
-            try
-            {
-
-                try
-                {
-                    oInutNFe2 = (ITInutNFe)XMLUtils.LoadXML(ArquivoInutNFe2, _Parametro.versao, "TInutNFe");
-                }
-                catch (Exception ex)
-                {
-                    throw new Exception("Não foi possível carregar o Arquivo InutNFe2 - " + ex.Message);
-                }
-
-                System.Web.Services.Protocols.SoapHttpClientProtocol oServico = null;
-                try
-                {
-                    oServico = NFeUtils.ClientProxyFactory(_Parametro, TService.Inutilizacao);
-                }
-                catch (Exception ex)
-                {
-                    throw new Exception("Não foi possível criar o serviço de comunicação com o webservice - " + ex.Message);
-                }
-
-                var temp = Servicos.InutilizarNFe(oServico, oInutNFe2, _Parametro, _Parametro.versao);
-                return XMLUtils.GetXML(temp, _Parametro.versao);
-            }
-            catch (Exception ex)
-            {
-                UltimaValidacao = ex.Message;
-                return string.Empty;
-            }
-        }
-
-        public Boolean StatusWebServiceST()
-        {
-            ITConsStatServ oConsStatServ;
-
-            try
-            {
-                String hhmmss = DateTime.Now.ToString("yyMMddhhmmss");
-                String caminhoArquivoConsStatServ = "oConsStatServ" + hhmmss + ".xml";
-
-                oConsStatServ = (ITConsStatServ)XMLUtils.XMLFactory(_Parametro.versao, "TConsStatServ");
-
-                oConsStatServ.tpAmb = _Parametro.tipoAmbiente;
-                oConsStatServ.cUF = _Parametro.UF;
-                oConsStatServ.versao = _Parametro.versaoDados;
-
-                XMLUtils.SaveXML(caminhoArquivoConsStatServ, oConsStatServ, _Parametro.versao);
-
-                if (!File.Exists(caminhoArquivoConsStatServ))
-                    throw new Exception("Arquivo ConsStatServ não existe ou não esta acessível.");
-
-                try
-                {
-                    oConsStatServ = (ITConsStatServ)XMLUtils.LoadXMLFile(caminhoArquivoConsStatServ, _Parametro.versao, "TConsStatServ");
-                }
-                catch (Exception ex)
-                {
-                    throw new Exception("Não foi possível carregar o Arquivo ConsStatServ - " + ex.Message);
-                }
-
-                System.Web.Services.Protocols.SoapHttpClientProtocol oServico = null;
-                try
-                {
-                    oServico = NFeUtils.ClientProxyFactory(_Parametro, TService.Status);
-                }
-                catch (Exception ex)
-                {
-                    throw new Exception("Não foi possível criar o serviço de comunicação com o webservice - " + ex.Message);
-                }
-
-                var temp = Servicos.ConsultarStatusServidor(oServico, oConsStatServ, _Parametro, _Parametro.versao);
-                return (temp.cStat == "107");
-            }
-            catch (Exception ex)
-            {
-                UltimaValidacao = ex.Message;
-                return false;
-            }
-        }
-
-        public String ValidaXML(String caminhoXML, String caminhoXSD)
-        {
-            return NFeUtils.ValidacaoXML(caminhoXML, caminhoXSD);
-        }
-
-        public Boolean RecepcaoEventoHD(String caminhoArquivoEnvEvento, String caminhoArquivoRetEnvEvento)
-        {
-            ITEnvEvento oEnviCCe;
-            try
-            {
-                if (!File.Exists(caminhoArquivoEnvEvento))
-                    throw new Exception("Arquivo EnvEvento não existe ou não esta acessível.");
-
-                try
-                {
-                    oEnviCCe = (ITEnvEvento)XMLUtils.LoadXMLFile(caminhoArquivoEnvEvento, _Parametro.versaoEventos, "TEnvEvento");
-                }
-                catch (Exception ex)
-                {
-                    throw new Exception("Não foi possível carregar o Arquivo EnvEvento - " + ex.Message);
-                }
-
-                System.Web.Services.Protocols.SoapHttpClientProtocol oServico = null;
-                try
-                {
-                    oServico = NFeUtils.ClientProxyFactory(_Parametro, TService.RecepcaoEvento);
-                }
-                catch (Exception ex)
-                {
-                    throw new Exception("Não foi possível criar o serviço de comunicação com o webservice - " + ex.Message);
-                }
-
-                var temp = Servicos.EnviarEnvelopeEvento(oServico, oEnviCCe, _Parametro, _Parametro.versaoEventos);
-                XMLUtils.SaveXML(caminhoArquivoRetEnvEvento, temp, _Parametro.versaoEventos);
-
-                return true;
-            }
-            catch (Exception ex)
-            {
-                UltimaValidacao = ex.Message;
-                return false;
-            }
-        }
-
-        public Boolean ConsultaSituacao201NFeHD(String caminhoArquivoConsSitCCe, String caminhoArquivoRetConsSitCCe)
-        {
-            ITConsSitNFe oConsSitCCe;
-            try
-            {
-                if (!File.Exists(caminhoArquivoConsSitCCe))
-                    throw new Exception("Arquivo ConsSitCCe não existe ou não esta acessível.");
-
-                try
-                {
-                    oConsSitCCe = (ITConsSitNFe)XMLUtils.LoadXMLFile(caminhoArquivoConsSitCCe, _Parametro.versao, "TConsSitNFe");
-                }
-                catch (Exception ex)
-                {
-                    throw new Exception("Não foi possível carregar o Arquivo ConsSitCCe - " + ex.Message);
-                }
-
-                System.Web.Services.Protocols.SoapHttpClientProtocol oServico = null;
-                try
-                {
-                    oServico = NFeUtils.ClientProxyFactory(_Parametro, TService.Consulta);
-                }
-                catch (Exception ex)
-                {
-                    throw new Exception("Não foi possível criar o serviço de comunicação com o webservice - " + ex.Message);
-                }
-
-                var temp = Servicos.ConsultarSituacaoNFe(oServico, oConsSitCCe, _Parametro, _Parametro.versao);
-                XMLUtils.SaveXML(caminhoArquivoRetConsSitCCe, temp, _Parametro.versao);
-
-                return true;
-            }
-            catch (Exception ex)
-            {
-                UltimaValidacao = ex.Message;
-                return false;
-            }
-        }
-
-        public String RecepcaoEventoST(String ArquivoEnvEvento)
-        {
-            ITEnvEvento oEnviCCe;
-            try
-            {
-                try
-                {
-                    oEnviCCe = (ITEnvEvento)XMLUtils.LoadXML(ArquivoEnvEvento, _Parametro.versaoEventos, "TEnvEvento");
-                }
-                catch (Exception ex)
-                {
-                    throw new Exception("Não foi possível carregar o Arquivo EnvEvento - " + ex.Message);
-                }
-
-                System.Web.Services.Protocols.SoapHttpClientProtocol oServico = null;
-                try
-                {
-                    oServico = NFeUtils.ClientProxyFactory(_Parametro, TService.RecepcaoEvento);
-                }
-                catch (Exception ex)
-                {
-                    throw new Exception("Não foi possível criar o serviço de comunicação com o webservice - " + ex.Message);
-                }
-
-                var temp = Servicos.EnviarEnvelopeEvento(oServico, oEnviCCe, _Parametro, _Parametro.versaoEventos);
-                return XMLUtils.GetXML(temp, _Parametro.versaoEventos);
-            }
-            catch (Exception ex)
-            {
-                UltimaValidacao = ex.Message;
-                return string.Empty;
-            }
-        }
-
-        public String ConsultaSituacao201NFeST(String ArquivoConsSitNFe)
-        {
-            ITConsSitNFe oConsSitCCe;
-            try
-            {
-                try
-                {
-                    oConsSitCCe = (ITConsSitNFe)XMLUtils.LoadXML(ArquivoConsSitNFe, _Parametro.versao, "TConsSitNFe");
-                }
-                catch (Exception ex)
-                {
-                    throw new Exception("Não foi possível carregar o Arquivo ConsSitNFe - " + ex.Message);
-                }
-
-                System.Web.Services.Protocols.SoapHttpClientProtocol oServico = null;
-                try
-                {
-                    oServico = NFeUtils.ClientProxyFactory(_Parametro, TService.Consulta);
-                }
-                catch (Exception ex)
-                {
-                    throw new Exception("Não foi possível criar o serviço de comunicação com o webservice - " + ex.Message);
-                }
-
-                var temp = Servicos.ConsultarSituacaoNFe(oServico, oConsSitCCe, _Parametro, _Parametro.versao);
-                return XMLUtils.GetXML(temp, _Parametro.versao);
-            }
-            catch (Exception ex)
-            {
-                UltimaValidacao = ex.Message;
-                return string.Empty;
             }
         }
         #endregion
 
-        #region NFCe
-        public bool AutorizacaoNFCe3HD(string caminhoArquivoEnviNFCe3, string caminhoArquivoRetEnviNFCe3)
+        #region NFe 
+        //HD
+        public bool AutorizacaoHD(string caminhoArquivoEnviNFe, string caminhoArquivoRetEnviNFe)
         {
             ITEnviNFe oEnviNFe3;
             try
             {
-                if (!File.Exists(caminhoArquivoEnviNFCe3))
-                    throw new Exception("Arquivo EnviNFe3 não existe ou não esta acessível.");
+                if (!File.Exists(caminhoArquivoEnviNFe))
+                    throw new Exception("Arquivo EnviNFe não existe ou não esta acessível.");
 
                 try
                 {
-                    oEnviNFe3 = (ITEnviNFe)XMLUtils.LoadXMLFile(caminhoArquivoEnviNFCe3, _Parametro.versao, "TEnviNFe");
+                    oEnviNFe3 = (ITEnviNFe)XMLUtils.LoadXMLFile(caminhoArquivoEnviNFe, _Parametro.versao, "TEnviNFe");
                 }
                 catch (Exception ex)
                 {
@@ -907,7 +420,7 @@ namespace RDI.NFe2.Business
                 }
 
                 var temp = Servicos.EnviarEnvelope(oServico, oEnviNFe3, _Parametro, _Parametro.versao);
-                XMLUtils.SaveXML(caminhoArquivoRetEnviNFCe3, temp, _Parametro.versao);
+                XMLUtils.SaveXML(caminhoArquivoRetEnviNFe, temp, _Parametro.versao);
 
                 return true;
             }
@@ -917,18 +430,17 @@ namespace RDI.NFe2.Business
                 return false;
             }
         }
-
-        public bool RetAutorizacaoNFCe3HD(string caminhoArquivoConsReciNFCe3, string caminhoArquivoRetConsReciNFCe3)
+        public bool RetAutorizacaoHD(string caminhoArquivoConsReciNFe, string caminhoArquivoRetConsReciNFe)
         {
             ITConsReciNFe oConsReciNFCe3;
             try
             {
-                if (!File.Exists(caminhoArquivoConsReciNFCe3))
-                    throw new Exception("Arquivo ConsReciNFCe3 não existe ou não esta acessível.");
+                if (!File.Exists(caminhoArquivoConsReciNFe))
+                    throw new Exception("Arquivo ConsReciNFe não existe ou não esta acessível.");
 
                 try
                 {
-                    oConsReciNFCe3 = (ITConsReciNFe)XMLUtils.LoadXMLFile(caminhoArquivoConsReciNFCe3, _Parametro.versao, "TConsReciNFe");
+                    oConsReciNFCe3 = (ITConsReciNFe)XMLUtils.LoadXMLFile(caminhoArquivoConsReciNFe, _Parametro.versao, "TConsReciNFe");
                 }
                 catch (Exception ex)
                 {
@@ -946,7 +458,7 @@ namespace RDI.NFe2.Business
                 }
 
                 var temp = Servicos.ConsultarProcessamentoEnvelope(oServico, oConsReciNFCe3, _Parametro, _Parametro.versao);
-                XMLUtils.SaveXML(caminhoArquivoRetConsReciNFCe3, temp, _Parametro.versao);
+                XMLUtils.SaveXML(caminhoArquivoRetConsReciNFe, temp, _Parametro.versao);
 
                 return true;
             }
@@ -956,18 +468,17 @@ namespace RDI.NFe2.Business
                 return false;
             }
         }
-
-        public bool InutilizaNFCe3HD(string caminhoArquivoInutNFCe3, string caminhoArquivoRetInutNFCe3)
+        public bool InutilizacaoHD(string caminhoArquivoInutNFe, string caminhoArquivoRetInutNFe)
         {
             ITInutNFe oInutNFCe3;
             try
             {
-                if (!File.Exists(caminhoArquivoInutNFCe3))
-                    throw new Exception("Arquivo InutNFCe3 não existe ou não esta acessível.");
+                if (!File.Exists(caminhoArquivoInutNFe))
+                    throw new Exception("Arquivo InutNFe não existe ou não esta acessível.");
 
                 try
                 {
-                    oInutNFCe3 = (ITInutNFe)XMLUtils.LoadXMLFile(caminhoArquivoInutNFCe3, _Parametro.versao, "TInutNFe");
+                    oInutNFCe3 = (ITInutNFe)XMLUtils.LoadXMLFile(caminhoArquivoInutNFe, _Parametro.versao, "TInutNFe");
                 }
                 catch (Exception ex)
                 {
@@ -985,7 +496,7 @@ namespace RDI.NFe2.Business
                 }
 
                 var temp = Servicos.InutilizarNFe(oServico, oInutNFCe3, _Parametro, _Parametro.versao);
-                XMLUtils.SaveXML(caminhoArquivoRetInutNFCe3, temp, _Parametro.versao);
+                XMLUtils.SaveXML(caminhoArquivoRetInutNFe, temp, _Parametro.versao);
 
                 return true;
             }
@@ -995,111 +506,7 @@ namespace RDI.NFe2.Business
                 return false;
             }
         }
-
-        public string AutorizacaoNFCe3ST(string ArquivoEnviNFCe3)
-        {
-            ITEnviNFe oEnviNFCe3;
-            try
-            {
-                try
-                {
-                    oEnviNFCe3 = (ITEnviNFe)XMLUtils.LoadXML(ArquivoEnviNFCe3, _Parametro.versao, "TEnviNFe");
-                }
-                catch (Exception ex)
-                {
-                    throw new Exception("Não foi possível carregar o Arquivo EnviNFCe3 - " + ex.Message);
-                }
-
-                System.Web.Services.Protocols.SoapHttpClientProtocol oServico = null;
-                try
-                {
-                    oServico = NFeUtils.ClientProxyFactory(_Parametro, TService.Autorizacao);
-                }
-                catch (Exception ex)
-                {
-                    throw new Exception("Não foi possível criar o serviço de comunicação com o webservice - " + ex.Message);
-                }
-
-                var temp = Servicos.EnviarEnvelope(oServico, oEnviNFCe3, _Parametro, _Parametro.versao);
-                return XMLUtils.GetXML(temp, _Parametro.versao);
-            }
-            catch (Exception ex)
-            {
-                UltimaValidacao = ex.Message;
-                return string.Empty;
-            }
-        }
-
-        public string RetAutorizacaoNFCe3ST(string ArquivoConsReciNFCe3)
-        {
-            ITConsReciNFe oConsReciNFCe3;
-            try
-            {
-                try
-                {
-                    oConsReciNFCe3 = (ITConsReciNFe)XMLUtils.LoadXML(ArquivoConsReciNFCe3, _Parametro.versao, "TConsReciNFe");
-                }
-                catch (Exception ex)
-                {
-                    throw new Exception("Não foi possível carregar o Arquivo ConsReciNFCe3 - " + ex.Message);
-                }
-
-                System.Web.Services.Protocols.SoapHttpClientProtocol oServico = null;
-                try
-                {
-                    oServico = NFeUtils.ClientProxyFactory(_Parametro, TService.RetAutorizacao);
-                }
-                catch (Exception ex)
-                {
-                    throw new Exception("Não foi possível criar o serviço de comunicação com o webservice - " + ex.Message);
-                }
-
-                var temp = Servicos.ConsultarProcessamentoEnvelope(oServico, oConsReciNFCe3, _Parametro, _Parametro.versao);
-                return XMLUtils.GetXML(temp, _Parametro.versao);
-            }
-            catch (Exception ex)
-            {
-                UltimaValidacao = ex.Message;
-                return string.Empty;
-            }
-        }
-
-        public string InutilizaNFCe3ST(string ArquivoInutNFCe3)
-        {
-            ITInutNFe oInutNFCe3;
-            try
-            {
-
-                try
-                {
-                    oInutNFCe3 = (ITInutNFe)XMLUtils.LoadXML(ArquivoInutNFCe3, _Parametro.versao, "TInutNFe");
-                }
-                catch (Exception ex)
-                {
-                    throw new Exception("Não foi possível carregar o Arquivo InutNFCe3 - " + ex.Message);
-                }
-
-                System.Web.Services.Protocols.SoapHttpClientProtocol oServico = null;
-                try
-                {
-                    oServico = NFeUtils.ClientProxyFactory(_Parametro, TService.Inutilizacao);
-                }
-                catch (Exception ex)
-                {
-                    throw new Exception("Não foi possível criar o serviço de comunicação com o webservice - " + ex.Message);
-                }
-
-                var temp = Servicos.InutilizarNFe(oServico, oInutNFCe3, _Parametro, _Parametro.versao);
-                return XMLUtils.GetXML(temp, _Parametro.versao);
-            }
-            catch (Exception ex)
-            {
-                UltimaValidacao = ex.Message;
-                return string.Empty;
-            }
-        }
-
-        public bool RecepcaoEventoNFCe3HD(string caminhoArquivoEvento, string caminhoArquivoRetEvento)
+        public bool RecepcaoEventoHD(string caminhoArquivoEvento, string caminhoArquivoRetEvento)
         {
             ITEnvEvento oEnviCCe;
             try
@@ -1137,18 +544,17 @@ namespace RDI.NFe2.Business
                 return false;
             }
         }
-
-        public bool ConsultaSituacaoNFCe3HD(string caminhoArquivoConsSitNFCe3, string caminhoArquivoRetConsSitNFCe3)
+        public bool ConsultaProtocoloHD(string caminhoArquivoConsSitNFe, string caminhoArquivoRetConsSitNFe)
         {
             ITConsSitNFe oConsSitNFCe3;
             try
             {
-                if (!File.Exists(caminhoArquivoConsSitNFCe3))
-                    throw new Exception("Arquivo ConsSitNFCe3 não existe ou não esta acessível.");
+                if (!File.Exists(caminhoArquivoConsSitNFe))
+                    throw new Exception("Arquivo ConsSitNFe não existe ou não esta acessível.");
 
                 try
                 {
-                    oConsSitNFCe3 = (ITConsSitNFe)XMLUtils.LoadXMLFile(caminhoArquivoConsSitNFCe3, _Parametro.versao, "TConsSitNFe");
+                    oConsSitNFCe3 = (ITConsSitNFe)XMLUtils.LoadXMLFile(caminhoArquivoConsSitNFe, _Parametro.versao, "TConsSitNFe");
                 }
                 catch (Exception ex)
                 {
@@ -1158,7 +564,7 @@ namespace RDI.NFe2.Business
                 System.Web.Services.Protocols.SoapHttpClientProtocol oServico = null;
                 try
                 {
-                    oServico = NFeUtils.ClientProxyFactory(_Parametro, TService.Consulta);
+                    oServico = NFeUtils.ClientProxyFactory(_Parametro, TService.ConsultaProtocolo);
                 }
                 catch (Exception ex)
                 {
@@ -1166,7 +572,7 @@ namespace RDI.NFe2.Business
                 }
 
                 var temp = Servicos.ConsultarSituacaoNFe(oServico, oConsSitNFCe3, _Parametro, _Parametro.versao);
-                XMLUtils.SaveXML(caminhoArquivoRetConsSitNFCe3, temp, _Parametro.versao);
+                XMLUtils.SaveXML(caminhoArquivoRetConsSitNFe, temp, _Parametro.versao);
 
                 return true;
             }
@@ -1177,7 +583,108 @@ namespace RDI.NFe2.Business
             }
         }
 
-        public string RecepcaoEventoNFCe3ST(string ArquivoEvento)
+        //ST
+        public string AutorizacaoST(string ArquivoEnviNFe)
+        {
+            ITEnviNFe oEnviNFCe3;
+            try
+            {
+                try
+                {
+                    oEnviNFCe3 = (ITEnviNFe)XMLUtils.LoadXML(ArquivoEnviNFe, _Parametro.versao, "TEnviNFe");
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception("Não foi possível carregar o Arquivo EnviNFCe3 - " + ex.Message);
+                }
+
+                System.Web.Services.Protocols.SoapHttpClientProtocol oServico = null;
+                try
+                {
+                    oServico = NFeUtils.ClientProxyFactory(_Parametro, TService.Autorizacao);
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception("Não foi possível criar o serviço de comunicação com o webservice - " + ex.Message);
+                }
+
+                var temp = Servicos.EnviarEnvelope(oServico, oEnviNFCe3, _Parametro, _Parametro.versao);
+                return XMLUtils.GetXML(temp, _Parametro.versao);
+            }
+            catch (Exception ex)
+            {
+                UltimaValidacao = ex.Message;
+                return string.Empty;
+            }
+        }
+        public string RetAutorizacaoST(string ArquivoConsReciNFe)
+        {
+            ITConsReciNFe oConsReciNFCe3;
+            try
+            {
+                try
+                {
+                    oConsReciNFCe3 = (ITConsReciNFe)XMLUtils.LoadXML(ArquivoConsReciNFe, _Parametro.versao, "TConsReciNFe");
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception("Não foi possível carregar o Arquivo ConsReciNFCe3 - " + ex.Message);
+                }
+
+                System.Web.Services.Protocols.SoapHttpClientProtocol oServico = null;
+                try
+                {
+                    oServico = NFeUtils.ClientProxyFactory(_Parametro, TService.RetAutorizacao);
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception("Não foi possível criar o serviço de comunicação com o webservice - " + ex.Message);
+                }
+
+                var temp = Servicos.ConsultarProcessamentoEnvelope(oServico, oConsReciNFCe3, _Parametro, _Parametro.versao);
+                return XMLUtils.GetXML(temp, _Parametro.versao);
+            }
+            catch (Exception ex)
+            {
+                UltimaValidacao = ex.Message;
+                return string.Empty;
+            }
+        }
+        public string InutilizacaoST(string ArquivoInutNFe)
+        {
+            ITInutNFe oInutNFCe3;
+            try
+            {
+
+                try
+                {
+                    oInutNFCe3 = (ITInutNFe)XMLUtils.LoadXML(ArquivoInutNFe, _Parametro.versao, "TInutNFe");
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception("Não foi possível carregar o Arquivo InutNFCe3 - " + ex.Message);
+                }
+
+                System.Web.Services.Protocols.SoapHttpClientProtocol oServico = null;
+                try
+                {
+                    oServico = NFeUtils.ClientProxyFactory(_Parametro, TService.Inutilizacao);
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception("Não foi possível criar o serviço de comunicação com o webservice - " + ex.Message);
+                }
+
+                var temp = Servicos.InutilizarNFe(oServico, oInutNFCe3, _Parametro, _Parametro.versao);
+                return XMLUtils.GetXML(temp, _Parametro.versao);
+            }
+            catch (Exception ex)
+            {
+                UltimaValidacao = ex.Message;
+                return string.Empty;
+            }
+        }
+        public string RecepcaoEventoST(string ArquivoEvento)
         {
             ITEnvEvento oEnviCCe;
             try
@@ -1210,15 +717,14 @@ namespace RDI.NFe2.Business
                 return string.Empty;
             }
         }
-
-        public string ConsultaSituacaoNFCe3ST(string ArquivoConsSitNFCe3)
+        public string ConsultaProtocoloST(string ArquivoConsSitNFe)
         {
             ITConsSitNFe oConsSitNFCe3;
             try
             {
                 try
                 {
-                    oConsSitNFCe3 = (ITConsSitNFe)XMLUtils.LoadXML(ArquivoConsSitNFCe3, _Parametro.versao, "TConsSitNFe");
+                    oConsSitNFCe3 = (ITConsSitNFe)XMLUtils.LoadXML(ArquivoConsSitNFe, _Parametro.versao, "TConsSitNFe");
                 }
                 catch (Exception ex)
                 {
@@ -1228,7 +734,7 @@ namespace RDI.NFe2.Business
                 System.Web.Services.Protocols.SoapHttpClientProtocol oServico = null;
                 try
                 {
-                    oServico = NFeUtils.ClientProxyFactory(_Parametro, TService.Consulta);
+                    oServico = NFeUtils.ClientProxyFactory(_Parametro, TService.ConsultaProtocolo);
                 }
                 catch (Exception ex)
                 {
@@ -1245,6 +751,7 @@ namespace RDI.NFe2.Business
             }
         }
         #endregion
+
 
         public Boolean ConsultaCadastroHD(String caminhoXMLEnvio, String caminhoXMLRetorno)
         {
@@ -1554,13 +1061,7 @@ namespace RDI.NFe2.Business
             }
         }
 
-        public string Unzip(string stZipped)
-        {
-            //string para byte[]
-            var bZipped = System.Convert.FromBase64String(stZipped);
 
-            return XMLUtils.Unzip(bZipped);
-        }
         #endregion
 
         #region Chamadas

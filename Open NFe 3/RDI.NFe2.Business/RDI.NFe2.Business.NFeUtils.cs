@@ -587,7 +587,7 @@ namespace RDI.NFe2.Business
                 foreach (SVC_AtendidoPor atr in
                     oParam.UF.GetType().GetField(oParam.UF.ToString()).GetCustomAttributes(typeof(SVC_AtendidoPor), false))
                 {
-                    if (String.IsNullOrEmpty(atr.ServidorAutorizador))
+                    if (atr.ServidorAutorizador == TServer.NaoMapeado)
                         throw new Exception("UF não esta sendo atendida por nenhum WebService do SVC.");
 
                     ambiente += atr.ServidorAutorizador;
@@ -614,7 +614,7 @@ namespace RDI.NFe2.Business
                     {
                         foreach (NFCe_AtendidoPor atr in oParam.UF.GetType().GetField(oParam.UF.ToString()).GetCustomAttributes(typeof(NFCe_AtendidoPor), false))
                         {
-                            if (String.IsNullOrEmpty(atr.ServidorAutorizador))
+                            if (atr.ServidorAutorizador == TServer.NaoMapeado)
                                 throw new Exception("UF não esta sendo atendida por nenhum WebService.");
 
                             ambiente += atr.ServidorAutorizador;
@@ -628,7 +628,7 @@ namespace RDI.NFe2.Business
                     {
                         foreach (NFe_AtendidoPor atr in oParam.UF.GetType().GetField(oParam.UF.ToString()).GetCustomAttributes(typeof(NFe_AtendidoPor), false))
                         {
-                            if (String.IsNullOrEmpty(atr.ServidorAutorizador))
+                            if (atr.ServidorAutorizador == TServer.NaoMapeado)
                                 throw new Exception("UF não esta sendo atendida por nenhum WebService.");
 
                             ambiente += atr.ServidorAutorizador;
@@ -652,10 +652,11 @@ namespace RDI.NFe2.Business
                 oParam.versao == VersaoXML.NFe_v400 &&
                 (TipoServico == TService.Autorizacao ||
                  TipoServico == TService.RetAutorizacao ||
-                 TipoServico == TService.Consulta ||
+                 TipoServico == TService.ConsultaProtocolo ||
                  TipoServico == TService.Inutilizacao ||
                  TipoServico == TService.RecepcaoEvento ||
-                 TipoServico == TService.Cadastro))
+                 TipoServico == TService.Cadastro ||
+                 TipoServico == TService.Status))
             {
                 var AtendidoPor = (NFe_AtendidoPor)typeof(TCodUfIBGE).GetField(oParam.UF.ToString()).GetCustomAttributes(typeof(NFe_AtendidoPor), false).FirstOrDefault();
                 if (AtendidoPor == null)
@@ -687,14 +688,19 @@ namespace RDI.NFe2.Business
                         if (TipoServico == TService.Status && oParam.versao == VersaoXML.NFe_v310)
                             nomeClasse = "NfeStatusServico";
 
-                        if (TipoServico == TService.Consulta && oParam.versao == VersaoXML.NFe_v310)
+                        if (TipoServico == TService.ConsultaProtocolo && oParam.versao == VersaoXML.NFe_v310)
                             nomeClasse = "NfeConsulta";
 
                         if (TipoServico == TService.Inutilizacao && oParam.versao == VersaoXML.NFe_v310)
                             nomeClasse = "NfeInutilizacao";
                     }
 
-                    ClassName = "RDI.NFe2.Business." + GetAmbWebService(oParam, TipoServico) + "." + TipoServico.ToString() + ".";
+                    var subNamespace = TipoServico.ToString();
+
+                    if (TipoServico == TService.ConsultaProtocolo)
+                        subNamespace = "Consulta";
+
+                    ClassName = "RDI.NFe2.Business." + GetAmbWebService(oParam, TipoServico) + "." + subNamespace + ".";
 
                     String headerClassName = ClassName + "nfeCabecMsg";
                     ClassName += nomeClasse;
@@ -736,7 +742,7 @@ namespace RDI.NFe2.Business
                         string versao = oParam.versaoDados;
 
                         //particularidade para ConsSitNFe usando v200
-                        if (TipoServico == TService.Consulta && oParam.versao == VersaoXML.NFe_v200)
+                        if (TipoServico == TService.ConsultaProtocolo && oParam.versao == VersaoXML.NFe_v200)
                             versao = "2.01";
 
                         //Particularidade para RecepcaoEvento

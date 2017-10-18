@@ -11,18 +11,19 @@ namespace RDI.NFe2.Webservices.NF4.HUB.RetAutorizacao
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.2046.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Web.Services.WebServiceBindingAttribute(Name = "NfeRetAutorizacao4Soap12", Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeRetAutorizacao4")]
-    public partial class NfeRetAutorizacao4 : System.Web.Services.Protocols.SoapHttpClientProtocol
+    [System.Web.Services.WebServiceBindingAttribute(Name = "NFeRetAutorizacao4Soap12", Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeRetAutorizacao4")]
+    public partial class NFeRetAutorizacao4 : System.Web.Services.Protocols.SoapHttpClientProtocol
     {
-        public NfeRetAutorizacao4(string url)
+        public NFeRetAutorizacao4(string url)
         {
             this.SoapVersion = System.Web.Services.Protocols.SoapProtocolVersion.Soap12;
             this.Url = url;
         }
 
-        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://www.portalfiscal.inf.br/nfe/wsdl/NfeRetAutorizacao4/nfeRetAutorizacaoLote", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Bare)]
-        [return: System.Xml.Serialization.XmlElementAttribute("nfeResultMsg", Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeRetAutorizacao4")]
-        public System.Xml.XmlNode nfeRetAutorizacaoLote([System.Xml.Serialization.XmlElementAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeRetAutorizacao4")] System.Xml.XmlNode nfeDadosMsg)
+        //[TraceExtensionAttribute(Filename = "c:\\temp\\nfeRetAutorizacaoLote.txt")]
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://www.portalfiscal.inf.br/nfe/wsdl/NFeRetAutorizacao4/nfeRetAutorizacaoLote", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Bare)]
+        [return: System.Xml.Serialization.XmlElementAttribute("nfeResultMsg", Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeRetAutorizacao4")]
+        public System.Xml.XmlNode nfeRetAutorizacaoLote([System.Xml.Serialization.XmlElementAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeRetAutorizacao4")] System.Xml.XmlNode nfeDadosMsg)
         {
             object[] results = this.Invoke("nfeRetAutorizacaoLote", new object[] {
                         nfeDadosMsg});

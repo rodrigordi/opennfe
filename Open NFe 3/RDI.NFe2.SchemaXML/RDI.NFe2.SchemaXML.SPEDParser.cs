@@ -381,11 +381,11 @@ namespace RDI.NFe2.SchemaXML
                             for (int i = 0; i < IPI.ItemsElementName.Length; i++)
                             {
                                 var IPIType = IPI.ItemsElementName[i];
-                                if (IPIType == ItemsChoiceType.pIPI)
+                                if (IPIType == NFe_v310.ItemsChoiceType.pIPI)
                                 {
                                     item.valorAliquotaIPI = IPI.Items[i];
                                 }
-                                else if (IPIType == ItemsChoiceType.vBC)
+                                else if (IPIType == NFe_v310.ItemsChoiceType.vBC)
                                 {
                                     item.valorBaseCalculoIPI = IPI.Items[i];
                                 }

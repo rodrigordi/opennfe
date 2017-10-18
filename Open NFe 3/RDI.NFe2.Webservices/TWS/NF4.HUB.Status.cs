@@ -8,24 +8,25 @@ using System.ComponentModel;
 
 namespace RDI.NFe2.Webservices.NF4.HUB.Status
 {
+
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.2046.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Web.Services.WebServiceBindingAttribute(Name = "NfeStatusServico4Soap12", Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeStatusServico4")]
-    public partial class NfeStatusServico4 : System.Web.Services.Protocols.SoapHttpClientProtocol
+    [System.Web.Services.WebServiceBindingAttribute(Name = "NFeStatusServico4Soap12", Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeStatusServico4")]
+    public partial class NFeStatusServico4 : System.Web.Services.Protocols.SoapHttpClientProtocol
     {
-        public NfeStatusServico4(string url)
+        public NFeStatusServico4(string url)
         {
             this.SoapVersion = System.Web.Services.Protocols.SoapProtocolVersion.Soap12;
             this.Url = url;
         }
 
-        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://www.portalfiscal.inf.br/nfe/wsdl/NfeStatusServico4/nfeStatusServicoNF", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Bare)]
-        [return: System.Xml.Serialization.XmlElementAttribute("nfeResultMsg", Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeStatusServico4")]
-        public System.Xml.XmlNode nfeStatusServicoNF([System.Xml.Serialization.XmlElementAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeStatusServico4")] System.Xml.XmlNode nfeDadosMsg)
+        //[TraceExtensionAttribute(Filename = "c:\\temp\\nfeStatusServicoNF.txt")]
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://www.portalfiscal.inf.br/nfe/wsdl/NFeStatusServico4/nfeStatusServicoNF", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Bare)]
+        [return: System.Xml.Serialization.XmlElementAttribute("nfeResultMsg", Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeStatusServico4")]
+        public System.Xml.XmlNode nfeStatusServicoNF([System.Xml.Serialization.XmlElementAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeStatusServico4")] System.Xml.XmlNode nfeDadosMsg)
         {
-            object[] results = this.Invoke("nfeStatusServicoNF", new object[] {
-                        nfeDadosMsg});
+            object[] results = this.Invoke("nfeStatusServicoNF", new object[] { nfeDadosMsg });
             return ((System.Xml.XmlNode)(results[0]));
         }
     }
