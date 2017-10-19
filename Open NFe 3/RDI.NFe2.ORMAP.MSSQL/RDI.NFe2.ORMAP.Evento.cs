@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Text;
 using System.Collections;
 using RDI.Lince;
-using RDI.NFe2.SchemaXML.NFe_v200;
 using RDI.NFe2.SchemaXML;
 
 
@@ -20,7 +19,7 @@ namespace RDI.NFe2.ORMAP
         private String _XMLPedido;
         private String _XMLResposta;
         private TipoSituacaoEvento _codigoSituacao;
-        
+
 
         public String empresa
         {
@@ -236,7 +235,7 @@ namespace RDI.NFe2.ORMAP
         }
         protected override string GetSelectStatement()
         {
-            return @"SELECT NumeroLote
+            return $@"SELECT NumeroLote
                            ,CNPJ
                            ,ChaveNota
                            ,ID
@@ -245,8 +244,8 @@ namespace RDI.NFe2.ORMAP
                            ,xmlProcesso
                            ,situacao
                        FROM Eventos
-                        --<where auto>--
-                        --<orderby>--";
+                        {Conexao.whereAuto}
+                        {Conexao.orderBy}";
         }
         protected override string GetEntityName()
         {
@@ -254,9 +253,9 @@ namespace RDI.NFe2.ORMAP
         }
         protected string GetMaxSelect()
         {
-            return @"SELECT isnull (max(id),0) as ID
+            return $@"SELECT {Conexao.isnull} (max(id),0) as ID
                        FROM Eventos
-                        --<where auto>--";
+                        {Conexao.whereAuto}";
         }
         public Int32 GetMax(QueryObject queryobject, ClientEnvironment clientEnvironment)
         {
@@ -267,7 +266,7 @@ namespace RDI.NFe2.ORMAP
 
             if (clientEnvironment.transaction != null) cmd.Transaction = clientEnvironment.transaction;
 
-            return (Int32)cmd.ExecuteScalar() + 1;
+            return Convert.ToInt32(cmd.ExecuteScalar()) + 1;
         }
 
 

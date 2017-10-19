@@ -349,7 +349,7 @@ namespace RDI.NFe2.ORMAP
         }
         protected override string GetUpdateStatement()
         {
-            return @"UPDATE Parametros
+            return $@"UPDATE Parametros
                         SET ModoOperacao = @ModoOperacao, 
                             TipoOperacao = @TipoOperacao, 
                             UnidadeFederativa     = @UnidadeFederativa, 
@@ -372,7 +372,7 @@ namespace RDI.NFe2.ORMAP
                             WService = @WService,
                             versao = @versao
                         WHERE CNPJ = @CNPJ
-                      --<where i>--";
+                      {Conexao.where_i}";
 
         }
         protected override string GetDeleteStatement()
@@ -381,12 +381,12 @@ namespace RDI.NFe2.ORMAP
         }
         protected override string GetSelectStatement()
         {
-            return @"SELECT ModoOperacao, TipoOperacao, UnidadeFederativa, QtdeNFLote, TempoFechaLote, 
+            return $@"SELECT ModoOperacao, TipoOperacao, UnidadeFederativa, QtdeNFLote, TempoFechaLote, 
                             TamanhoLote, DiretorioRecibo, DiretorioEntrada, DiretorioSaida, DiretorioImpressao, DiretorioXSD,
                             UsaProxy, DominioProxy, SenhaProxy, UrlProxy, UsuarioProxy,
                             TimeOut, CNPJ, NomeCertificado, WService, versao, TempoEspera
                        FROM Parametros
-                      --<where auto>--";
+                      {Conexao.whereAuto}";
         }
         protected override string GetEntityName()
         {

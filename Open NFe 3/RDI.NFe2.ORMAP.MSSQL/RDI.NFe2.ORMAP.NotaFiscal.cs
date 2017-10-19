@@ -262,12 +262,12 @@ namespace RDI.NFe2.ORMAP
         }
         protected override string GetSelectStatement()
         {
-            return @"SELECT NumeroLote, ChaveNota, CodigoSituacao, DescricaoSituacao, DataSituacao, 
+            return $@"SELECT NumeroLote, ChaveNota, CodigoSituacao, DescricaoSituacao, DataSituacao, 
                             XMLNotaFiscal, XMLProcesso, CNPJ, cStat, xMotivo, nProt, xmlPedidoCancelamento, 
                             xmlProcessoCancelamento, nProtCancelamento, versao
                        FROM NotasFiscais
-                        --<where auto>--
-                        --<orderby>--";
+                        {Conexao.whereAuto}
+                        {Conexao.orderBy}";
         }
         protected override string GetEntityName()
         {
@@ -276,9 +276,9 @@ namespace RDI.NFe2.ORMAP
 
         protected string GetMaxSelect()
         {
-            return @"SELECT isnull (max(NumeroLote),0) as NumeroLote
+            return $@"SELECT {Conexao.isnull} (max(NumeroLote),0) as NumeroLote
                        FROM NotasFiscais
-                        --<where auto>--";
+                        {Conexao.whereAuto}";
         }
         public Int32 GetMax(QueryObject queryobject, ClientEnvironment clientEnvironment)
         {
@@ -289,7 +289,7 @@ namespace RDI.NFe2.ORMAP
 
             if (clientEnvironment.transaction != null) cmd.Transaction = clientEnvironment.transaction;
 
-            return (Int32)cmd.ExecuteScalar() + 1;
+            return Convert.ToInt32(cmd.ExecuteScalar()) + 1;
         }
 
 
