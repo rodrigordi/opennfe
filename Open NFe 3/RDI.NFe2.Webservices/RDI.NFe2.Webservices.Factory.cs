@@ -5,7 +5,6 @@ using System.Web.Services.Protocols;
 using System.Xml.Serialization;
 using System.ComponentModel;
 using RDI.NFe2.SchemaXML;
-using RDI.NFe2.ORMAP;
 using System.Linq;
 using System.Reflection;
 using System.Collections.Generic;
@@ -180,12 +179,35 @@ namespace RDI.NFe2.Webservices
                 new UrlConfiguration(TServer.BA, "Producao", TService.Autorizacao,"https://nfe.sefaz.ba.gov.br/webservices/NFeAutorizacao4/NFeAutorizacao4.asmx"),
                 new UrlConfiguration(TServer.BA, "Producao", TService.RetAutorizacao,"https://nfe.sefaz.ba.gov.br/webservices/NFeRetAutorizacao4/NFeRetAutorizacao4.asmx"),
 
-                new UrlConfiguration(TServer.MT, "Producao", TService.Inutilizacao,"https://nfe.sefaz.mt.gov.br/nfews/v2/services/NfeInutilizacao4"),
+
+                new UrlConfiguration(TServer.GO, "Producao", TService.Inutilizacao,"https://nfe.sefaz.go.gov.br/nfe/services/NFeInutilizacao4"),
+                new UrlConfiguration(TServer.GO, "Producao", TService.ConsultaProtocolo,"https://nfe.sefaz.go.gov.br/nfe/services/NFeConsultaProtocolo4"),
+                new UrlConfiguration(TServer.GO, "Producao", TService.Status,"https://nfe.sefaz.go.gov.br/nfe/services/NFeStatusServico4"),
+                new UrlConfiguration(TServer.GO, "Producao", TService.RecepcaoEvento,"https://nfe.sefaz.go.gov.br/nfe/services/NFeRecepcaoEvento4"),
+                new UrlConfiguration(TServer.GO, "Producao", TService.Autorizacao,"https://nfe.sefaz.go.gov.br/nfe/services/NFeAutorizacao4"),
+                new UrlConfiguration(TServer.GO, "Producao", TService.RetAutorizacao,"https://nfe.sefaz.go.gov.br/nfe/services/NFeRetAutorizacao4"),
+
+
+                new UrlConfiguration(TServer.MT, "Producao", TService.Inutilizacao, "https://nfe.sefaz.mt.gov.br/nfews/v2/services/NfeInutilizacao4"),
                 new UrlConfiguration(TServer.MT, "Producao", TService.ConsultaProtocolo,"https://nfe.sefaz.mt.gov.br/nfews/v2/services/NfeConsulta4"),
-                new UrlConfiguration(TServer.MT, "Producao", TService.Status,"https://nfe.sefaz.mt.gov.br/nfews/v2/services/NfeStatusServico4"),
+                new UrlConfiguration(TServer.MT, "Producao", TService.Status, "https://nfe.sefaz.mt.gov.br/nfews/v2/services/NfeStatusServico4"),
                 new UrlConfiguration(TServer.MT, "Producao", TService.RecepcaoEvento,"https://nfe.sefaz.mt.gov.br/nfews/v2/services/RecepcaoEvento4"),
                 new UrlConfiguration(TServer.MT, "Producao", TService.Autorizacao,"https://nfe.sefaz.mt.gov.br/nfews/v2/services/NfeAutorizacao4"),
                 new UrlConfiguration(TServer.MT, "Producao", TService.RetAutorizacao,"https://nfe.sefaz.mt.gov.br/nfews/v2/services/NfeRetAutorizacao4"),
+
+                new UrlConfiguration(TServer.PR, "Producao", TService.Inutilizacao,"https://nfe.sefa.pr.gov.br/nfe/NFeInutilizacao4"),
+                new UrlConfiguration(TServer.PR, "Producao", TService.ConsultaProtocolo,"https://nfe.sefa.pr.gov.br/nfe/NFeConsultaProtocolo4"),
+                new UrlConfiguration(TServer.PR, "Producao", TService.Status, "https://nfe.sefa.pr.gov.br/nfe/NFeStatusServico4"),
+                new UrlConfiguration(TServer.PR, "Producao", TService.RecepcaoEvento, "https://nfe.sefa.pr.gov.br/nfe/NFeRecepcaoEvento4"),
+                new UrlConfiguration(TServer.PR, "Producao", TService.Autorizacao, "https://nfe.sefa.pr.gov.br/nfe/NFeAutorizacao4"),
+                new UrlConfiguration(TServer.PR, "Producao", TService.RetAutorizacao,"https://nfe.sefa.pr.gov.br/nfe/NFeRetAutorizacao4"),
+
+                new UrlConfiguration(TServer.SP, "Producao", TService.Inutilizacao, "https://nfe.fazenda.sp.gov.br/ws/nfeinutilizacao4.asmx"),
+                new UrlConfiguration(TServer.SP, "Producao", TService.ConsultaProtocolo,"https://nfe.fazenda.sp.gov.br/ws/nfeconsultaprotocolo4.asmx"),
+                new UrlConfiguration(TServer.SP, "Producao", TService.Status, "https://nfe.fazenda.sp.gov.br/ws/nfestatusservico4.asmx"),
+                new UrlConfiguration(TServer.SP, "Producao", TService.RecepcaoEvento, "https://nfe.fazenda.sp.gov.br/ws/nferecepcaoevento4.asmx"),
+                new UrlConfiguration(TServer.SP, "Producao", TService.Autorizacao, "https://nfe.fazenda.sp.gov.br/ws/nfeautorizacao4.asmx"),
+                new UrlConfiguration(TServer.SP, "Producao", TService.RetAutorizacao, "https://nfe.fazenda.sp.gov.br/ws/nferetautorizacao4.asmx"),
 
                 new UrlConfiguration(TServer.SVAN, "Producao", TService.Inutilizacao,"https://www.sefazvirtual.fazenda.gov.br/NFeInutilizacao4/NFeInutilizacao4.asmx"),
                 new UrlConfiguration(TServer.SVAN, "Producao", TService.ConsultaProtocolo,"https://www.sefazvirtual.fazenda.gov.br/NFeConsultaProtocolo4/NFeConsultaProtocolo4.asmx"),
