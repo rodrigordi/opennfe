@@ -1134,11 +1134,11 @@ namespace RDI.NFe2.SchemaXML.DocumentosFiscaisEletronicos_v101
 
         private bool cUFAutorFieldSpecified;
 
-        private string itemField;
+        private string cnpjCpfField;
 
         private ITCTypeCNPJCPF cnpjCpfElementNameField;
 
-        private object item1Field;
+        private object itemField;
 
         private TVerDistDFe versaoField;
 
@@ -1185,16 +1185,16 @@ namespace RDI.NFe2.SchemaXML.DocumentosFiscaisEletronicos_v101
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute("CNPJ", typeof(string))]
         [System.Xml.Serialization.XmlElementAttribute("CPF", typeof(string))]
-        [System.Xml.Serialization.XmlChoiceIdentifierAttribute("ItemElementName")]
-        public string Item
+        [System.Xml.Serialization.XmlChoiceIdentifierAttribute("CNPJCPFElementName")]
+        public string CnpjCpf
         {
             get
             {
-                return this.itemField;
+                return this.cnpjCpfField;
             }
             set
             {
-                this.itemField = value;
+                this.cnpjCpfField = value;
             }
         }
 
@@ -1216,15 +1216,15 @@ namespace RDI.NFe2.SchemaXML.DocumentosFiscaisEletronicos_v101
         [System.Xml.Serialization.XmlElementAttribute("consChNFe", typeof(distDFeIntConsChNFe))]
         [System.Xml.Serialization.XmlElementAttribute("consNSU", typeof(distDFeIntConsNSU))]
         [System.Xml.Serialization.XmlElementAttribute("distNSU", typeof(distDFeIntDistNSU))]
-        public object Item1
+        public object Item
         {
             get
             {
-                return this.item1Field;
+                return this.itemField;
             }
             set
             {
-                this.item1Field = value;
+                this.itemField = value;
             }
         }
 

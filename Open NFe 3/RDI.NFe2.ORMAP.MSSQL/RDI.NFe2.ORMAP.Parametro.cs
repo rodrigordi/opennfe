@@ -190,6 +190,11 @@ namespace RDI.NFe2.ORMAP
             get { return VersaoXML.Eventos_v100; }
         }
 
+        public VersaoXML versaoDFe
+        {
+            get { return VersaoXML.DocumentosFiscaisEletronicos_v101; }
+        }
+
 
         public override DALObject GetDAL()
         {

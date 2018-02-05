@@ -394,6 +394,19 @@ namespace RDI.NFe2.SchemaXML
 //TODO :  mover para arquivos de cada versão
 #region Aplicações Interfaces
 
+namespace RDI.NFe2.SchemaXML.DocumentosFiscaisEletronicos_v101
+{
+    public partial class distDFeInt : RDI.NFe2.SchemaXML.IDistDFeInt
+    {
+
+    }
+
+    public partial class retDistDFeInt : RDI.NFe2.SchemaXML.IRetDistDFeInt
+    {
+
+    }
+}
+
 namespace RDI.NFe2.SchemaXML.ConsultaCadastro
 {
     public partial class TConsCad : RDI.NFe2.SchemaXML.ITConsCad

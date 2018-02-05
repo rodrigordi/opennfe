@@ -858,7 +858,7 @@ namespace RDI.NFe2.Business
                     throw new Exception("Não foi possível criar o serviço de comunicação com o webservice - " + ex.Message);
                 }
 
-                oXMLRetorno = Servicos.ConsultarDFe(oServico, oXMLEnvio, _Parametro, _Parametro.versao);
+                oXMLRetorno = Servicos.ConsultarDFe(oServico, oXMLEnvio, _Parametro, _Parametro.versaoDFe);
 
                 XMLUtils.SaveXML(caminhoXMLRetorno, oXMLRetorno, _Parametro.versao);
 
@@ -899,13 +899,35 @@ namespace RDI.NFe2.Business
                     throw new Exception("Não foi possível criar o serviço de comunicação com o webservice - " + ex.Message);
                 }
 
-                oXMLRetorno = Servicos.ConsultarDFe(oServico, oXMLEnvio, _Parametro, _Parametro.versao);
+                oXMLRetorno = Servicos.ConsultarDFe(oServico, oXMLEnvio, _Parametro, _Parametro.versaoDFe);
                 return XMLUtils.GetXML(oXMLRetorno, _Parametro.versao);
             }
             catch (Exception ex)
             {
                 UltimaValidacao = ex.Message;
                 return string.Empty;
+            }
+        }
+        public IRetDistDFeInt ConsultarDFe(IDistDFeInt oXMLEnvio)
+        {
+            try
+            {
+                System.Web.Services.Protocols.SoapHttpClientProtocol oServico = null;
+                try
+                {
+                    oServico = NFeUtils.ClientProxyFactory(_Parametro, TService.ConsultaDFe);
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception("Não foi possível criar o serviço de comunicação com o webservice - " + ex.Message);
+                }
+
+                return Servicos.ConsultarDFe(oServico, oXMLEnvio, _Parametro, _Parametro.versaoDFe);
+            }
+            catch (Exception ex)
+            {
+                UltimaValidacao = ex.Message;
+                return null;
             }
         }
 
@@ -940,7 +962,7 @@ namespace RDI.NFe2.Business
                     throw new Exception("Não foi possível criar o serviço de comunicação com o webservice - " + ex.Message);
                 }
 
-                var temp = Servicos.DownloadNF(oServico, oXMLEnvio, _Parametro, _Parametro.versao);
+                var temp = Servicos.DownloadNF(oServico, oXMLEnvio, _Parametro, _Parametro.versaoDFe);
                 XMLUtils.SaveXML(caminhoXMLRetorno, temp, _Parametro.versao);
 
                 return true;
@@ -979,13 +1001,35 @@ namespace RDI.NFe2.Business
                     throw new Exception("Não foi possível criar o serviço de comunicação com o webservice - " + ex.Message);
                 }
 
-                var temp = Servicos.DownloadNF(oServico, oXMLEnvio, _Parametro, _Parametro.versao);
+                var temp = Servicos.DownloadNF(oServico, oXMLEnvio, _Parametro, _Parametro.versaoDFe);
                 return XMLUtils.GetXML(temp, _Parametro.versao);
             }
             catch (Exception ex)
             {
                 UltimaValidacao = ex.Message;
                 return string.Empty;
+            }
+        }
+        public ITRetDownloadNFe DownloadNF(ITDownloadNFe oXMLEnvio)
+        {
+            try
+            {
+                System.Web.Services.Protocols.SoapHttpClientProtocol oServico = null;
+                try
+                {
+                    oServico = NFeUtils.ClientProxyFactory(_Parametro, TService.DownloadNF);
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception("Não foi possível criar o serviço de comunicação com o webservice - " + ex.Message);
+                }
+
+                return Servicos.DownloadNF(oServico, oXMLEnvio, _Parametro, _Parametro.versaoDFe);
+            }
+            catch (Exception ex)
+            {
+                UltimaValidacao = ex.Message;
+                return null;
             }
         }
 

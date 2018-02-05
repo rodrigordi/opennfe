@@ -83,9 +83,11 @@ public interface IUtilitario
 
     Boolean ConsultarDFeHD(String caminhoXMLEnvio, String caminhoXMLRetorno);
     String ConsultarDFeST(String XMLEnvio);
+    IRetDistDFeInt ConsultarDFe(IDistDFeInt oXMLEnvio);
 
     Boolean DownloadNFHD(String caminhoXMLEnvio, String caminhoXMLRetorno);
     String DownloadNFST(String XMLEnvio);
+    ITRetDownloadNFe DownloadNF(ITDownloadNFe oXMLEnvio);
 
     String RecepcaoEvento_MDe_ST(String ArquivoEnvEvento);
     Boolean RecepcaoEvento_MDe_HD(String caminhoArquivoEnvEvento, String caminhoArquivoRetEnvEvento);
