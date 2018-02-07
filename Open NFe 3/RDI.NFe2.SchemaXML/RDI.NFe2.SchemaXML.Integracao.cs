@@ -27,6 +27,28 @@ namespace RDI.NFe2.SchemaXML
         Item101,
     }
 
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.1")]
+    [System.SerializableAttribute()]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe")]
+    public enum TVerResNFe
+    {
+
+        ///// <remarks/>
+        //[System.Xml.Serialization.XmlEnumAttribute("1.00")]
+        //Item100,
+        //[System.Xml.Serialization.XmlEnumAttribute("2.00")]
+        //Item200,
+        //[System.Xml.Serialization.XmlEnumAttribute("3.00")]
+        //Item300,
+        //[System.Xml.Serialization.XmlEnumAttribute("3.10")]
+        //Item310,
+        [System.Xml.Serialization.XmlEnumAttribute("1.00")]
+        Item100,
+        [System.Xml.Serialization.XmlEnumAttribute("1.01")]
+        Item101,
+    }
+
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.1")]
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe")]
@@ -522,23 +544,7 @@ namespace RDI.NFe2.SchemaXML
         Item3,
     }
 
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.1")]
-    [System.SerializableAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe")]
-    public enum TVerResNFe
-    {
 
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("1.00")]
-        Item100,
-        [System.Xml.Serialization.XmlEnumAttribute("2.00")]
-        Item200,
-        [System.Xml.Serialization.XmlEnumAttribute("3.00")]
-        Item300,
-        [System.Xml.Serialization.XmlEnumAttribute("3.10")]
-        Item310,
-    }
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.1")]
@@ -1468,7 +1474,7 @@ namespace RDI.NFe2.SchemaXML
         /// <remarks/>
         [System.Xml.Serialization.XmlEnumAttribute("0")]
         [System.ComponentModel.Description("Não definido")]
-        [NFe_AtendidoPor(ServidorAutorizador =  TServer.NaoMapeado)]
+        [NFe_AtendidoPor(ServidorAutorizador = TServer.NaoMapeado)]
         [NFCe_AtendidoPor(ServidorAutorizador = TServer.NaoMapeado)]
         [SVC_AtendidoPor(ServidorAutorizador = TServer.NaoMapeado)]
         NaoDefinido = 0,
