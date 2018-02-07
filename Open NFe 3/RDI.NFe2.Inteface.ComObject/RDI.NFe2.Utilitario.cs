@@ -167,7 +167,7 @@ namespace RDI.NFe2.Business
 
             string _stringXml;
             string stType = string.Empty;
-            VersaoXML versao = VersaoXML.NFe_v310;
+            VersaoXML versao = _Parametro.versao;
 
             if (SUri == "infNFe")
             {
@@ -187,6 +187,7 @@ namespace RDI.NFe2.Business
             else if (SUri == "infEvento")
             {
                 stType = "TEvento";
+                versao = _Parametro.versaoEventos;
             }
             else
             {
@@ -230,7 +231,7 @@ namespace RDI.NFe2.Business
 
         public String AssinaXMLST(String ArquivoOrigem, String uri)
         {
-            var versaoXML = VersaoXML.NFe_v310; // HARDCODE
+            VersaoXML versao = _Parametro.versao;
             X509Certificate2 oCertificado = null;
 
             //busca o certificado digital
@@ -270,13 +271,14 @@ namespace RDI.NFe2.Business
                 else if (uri == "infEvento")
                 {
                     stType = "TEvento";
+                    versao = _Parametro.versaoEventos;
                 }
                 else
                 {
                     return TRetornoAssinatura.RefURiNaoExiste.ToString(); //erro refURi
                 }
 
-                XMLString = XMLUtils.GetXML(XMLUtils.LoadXML(ArquivoOrigem, versaoXML, stType), versaoXML);
+                XMLString = XMLUtils.GetXML(XMLUtils.LoadXML(ArquivoOrigem, versao, stType), versao);
             }
             catch (Exception exLoad)
             {
