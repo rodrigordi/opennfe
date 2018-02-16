@@ -53,6 +53,13 @@
     <Compile Include="RDI.NFe2.Webservices.TService.cs" />
     <Compile Include="RDI.NFe2.Webservices.Factory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TWS\NF4.HUB.AutorizacaoForaPadrao.cs" />
+    <Compile Include="TWS\NF4.HUB.ConsultaCadastroForaPadrao.cs" />
+    <Compile Include="TWS\NF4.HUB.ConsultaProtocoloForaPadrao.cs" />
+    <Compile Include="TWS\NF4.HUB.InutilizacaoForaPadrao.cs" />
+    <Compile Include="TWS\NF4.HUB.RecepcaoEventoForaPadrao.cs" />
+    <Compile Include="TWS\NF4.HUB.RetAutorizacaoForaPadrao.cs" />
+    <Compile Include="TWS\NF4.HUB.StatusForaPadrao.cs" />
     <Compile Include="TWS\NF4.HUB.Status.cs" />
     <Compile Include="TWS\NF4.HUB.RetAutorizacao.cs" />
     <Compile Include="TWS\NF4.HUB.RecepcaoEvento.cs" />
