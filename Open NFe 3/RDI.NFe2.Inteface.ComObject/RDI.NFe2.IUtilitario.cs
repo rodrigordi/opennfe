@@ -9,7 +9,8 @@ public interface IUtilitario
 {
     String GetUltimaValidacao();
 
-    void SetUtilitario(String certificado, Boolean Producao, Boolean TpEmisNormal, String UF, TipoConexao conexao, TBuscaCertificado tipoBusca, int versaoXML);
+    void SetUtilitario(String certificado, Boolean Producao, Boolean TpEmisNormal, String UF, int conexao, int tipoBusca, int versaoXML);
+    void SetUtilitario(String certificado, Boolean Producao, Boolean TpEmisNormal, String UF, TipoConexao conexao, TBuscaCertificado tipoBusca, VersaoXML versaoXML);
 
     void DefineUF(String UF);
     void DefineUF(TCodUfIBGE UF);

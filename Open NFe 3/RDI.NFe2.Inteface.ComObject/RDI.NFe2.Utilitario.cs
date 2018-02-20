@@ -25,12 +25,16 @@ namespace RDI.NFe2.Business
 
         public String UltimaValidacao = string.Empty;
 
-        public void SetUtilitario(String certificado, Boolean Producao, Boolean TpEmisNormal, String UF, TipoConexao conexao, TBuscaCertificado tipoBusca, int versaoXML)
+        public void SetUtilitario(String certificado, Boolean Producao, Boolean TpEmisNormal, String UF, int conexao, int tipoBusca, int versaoXML)
+        {
+            SetUtilitario(certificado, Producao, TpEmisNormal, UF, (TipoConexao)conexao, (TBuscaCertificado)tipoBusca, (VersaoXML)versaoXML);
+        }
+        public void SetUtilitario(String certificado, Boolean Producao, Boolean TpEmisNormal, String UF, TipoConexao conexao, TBuscaCertificado tipoBusca, VersaoXML versaoXML)
         {
             //Cria Parametro
             _Parametro = new Parametro();
 
-            _Parametro.versao = (VersaoXML)versaoXML;
+            _Parametro.versao = versaoXML;
 
             _Parametro.conexao = conexao;
 
