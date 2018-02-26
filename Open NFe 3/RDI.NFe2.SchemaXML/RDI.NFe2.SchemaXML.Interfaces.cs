@@ -354,6 +354,8 @@ namespace RDI.NFe2.SchemaXML
 
     public interface ITretEventoInfEvento
     {
+        string chNFe { get; set; }
+
         string cStat { get; set; }
 
         string xMotivo { get; set; }

@@ -93,7 +93,7 @@ public interface IUtilitario
     String RecepcaoEvento_MDe_ST(String ArquivoEnvEvento);
     Boolean RecepcaoEvento_MDe_HD(String caminhoArquivoEnvEvento, String caminhoArquivoRetEnvEvento);
 
-
+    bool ManifestarConhecimento(string chaveNFe, string cnpj);
 
     Boolean GNRE_RecepcaoLoteHD(String caminhoXMLEnvio, String caminhoXMLRetorno);
     String GNRE_RecepcaoLoteST(String XMLEnvio);

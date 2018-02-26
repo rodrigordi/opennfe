@@ -9,6 +9,7 @@ using RDI.NFe2.SchemaXML;
 using RDI.OpenSigner;
 using RDI.NFe2.SchemaXML.GNRE;
 using RDI.NFe2.Webservices;
+using System.Linq;
 
 namespace RDI.NFe2.Business
 {
@@ -1111,6 +1112,70 @@ namespace RDI.NFe2.Business
             }
         }
 
+
+        public bool ManifestarConhecimento(string chaveNFe, string cnpj)
+        {
+            try
+            {
+                //fazer a manifestacao do download
+                var oEvento = (ITEvento)XMLUtils.XMLFactory(_Parametro.versaoEventos, "TEvento");
+                oEvento.versao = "1.00";
+                oEvento.infEvento = (ITEventoInfEvento)XMLUtils.XMLFactory(_Parametro.versaoEventos, "TEventoInfEvento");
+                oEvento.infEvento.Id = String.Format("ID{2}{0}{1:00}", chaveNFe, 1, 210210);
+                oEvento.infEvento.cOrgao = TCOrgaoIBGE.Item91;
+                oEvento.infEvento.tpAmb = _Parametro.tipoAmbiente;
+                oEvento.infEvento.Item = cnpj;
+                oEvento.infEvento.ItemElementName = ITCTypeCNPJCPF.CNPJ;
+                oEvento.infEvento.chNFe = chaveNFe;
+                oEvento.infEvento.dhEvento = DateTime.Now.ToString("yyyy-MM-ddTHH:mm:sszzzz");
+
+                oEvento.infEvento.tpEvento = "210210"; //ciencia da operacao
+                oEvento.infEvento.nSeqEvento = "1";
+                oEvento.infEvento.verEvento = TEventoInfEventoVerEvento.Item100;
+                oEvento.infEvento.detEvento = (ITEventoInfEventoDetEvento)XMLUtils.XMLFactory(_Parametro.versaoEventos, "TEventoInfEventoDetEvento");
+                oEvento.infEvento.detEvento.descEvento = "Ciencia da Operacao";
+                oEvento.infEvento.detEvento.versao = TEventoInfEventoDetEventoVersao.Item100;
+
+                var evento = XMLUtils.GetXML(oEvento, VersaoXML.Eventos_v100);
+                var eventoAssinado = AssinaXMLST(evento, "infEvento");
+
+                if (eventoAssinado == OpenSigner.TRetornoAssinatura.XMLMalFormado.ToString())
+                    throw new Exception("Falha ao assinar Evento de Manifesto. ");
+
+                //colocar no envelope
+                ITEnvEvento oEnvEvento = (ITEnvEvento)XMLUtils.XMLFactory(_Parametro.versaoEventos, "TEnvEvento");
+                oEnvEvento.evento = (ITEvento[])XMLUtils.XMLFactory(_Parametro.versaoEventos, "TEvento", 1);
+                oEnvEvento.evento[0] = (ITEvento)XMLUtils.LoadXML(eventoAssinado, VersaoXML.Eventos_v100, "TEvento");
+                oEnvEvento.idLote = "1";
+                oEnvEvento.versao = "1.00";
+                var envelopeEvento = XMLUtils.GetXML(oEnvEvento, VersaoXML.Eventos_v100);
+                var retEnvelope = RecepcaoEvento_MDe_ST(envelopeEvento);
+
+                if (string.IsNullOrEmpty(retEnvelope))
+                {
+                    throw new Exception("Erro ao enviar Evento.");
+                }
+
+                var XMLRetEnvelope = (ITRetEnvEvento)XMLUtils.LoadXML(retEnvelope, VersaoXML.Eventos_v100, "TRetEnvEvento");
+
+                if (XMLRetEnvelope.cStat != "128")
+                    throw new Exception("Evento não processado : " + XMLRetEnvelope.xMotivo);
+
+                //evento processado
+
+                //localizar evento processado
+                var retEvento = XMLRetEnvelope.retEvento.First(ev => ev.infEvento.chNFe == chaveNFe);
+                if (retEvento.infEvento.cStat != "135" && retEvento.infEvento.cStat != "136")
+                    throw new Exception(retEvento.infEvento.xMotivo);
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                UltimaValidacao = ex.Message;
+                return false;
+            }
+        }
 
         #endregion
 
