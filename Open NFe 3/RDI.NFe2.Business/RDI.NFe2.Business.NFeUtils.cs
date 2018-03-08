@@ -590,7 +590,7 @@ namespace RDI.NFe2.Business
                     if (atr.ServidorAutorizador == TServer.NaoMapeado)
                         throw new Exception("UF não esta sendo atendida por nenhum WebService do SVC.");
 
-                    ambiente += atr.ServidorAutorizador;
+                    ambiente += atr.ServidorAutorizador.ToString().Replace("NFe_", "").Replace("NFCe_", "");
                 }
             }
             else if (oParam.tipoEmissao == TNFeInfNFeIdeTpEmis.ContigenciaSCAN)
@@ -617,7 +617,7 @@ namespace RDI.NFe2.Business
                             if (atr.ServidorAutorizador == TServer.NaoMapeado)
                                 throw new Exception("UF não esta sendo atendida por nenhum WebService.");
 
-                            ambiente += atr.ServidorAutorizador;
+                            ambiente += atr.ServidorAutorizador.ToString().Replace("NFe_", "").Replace("NFCe_", "");
                         }
                     }
                     else if (oParam.conexao == TipoConexao.NFCe)
@@ -631,7 +631,7 @@ namespace RDI.NFe2.Business
                             if (atr.ServidorAutorizador == TServer.NaoMapeado)
                                 throw new Exception("UF não esta sendo atendida por nenhum WebService.");
 
-                            ambiente += atr.ServidorAutorizador;
+                            ambiente += atr.ServidorAutorizador.ToString().Replace("NFe_", "").Replace("NFCe_", "");
                         }
                     }
                 }
@@ -648,8 +648,7 @@ namespace RDI.NFe2.Business
 
         public static System.Web.Services.Protocols.SoapHttpClientProtocol ClientProxyFactory(Parametro oParam, TService TipoServico)
         {
-            if (oParam.conexao == TipoConexao.NFe &&
-                oParam.versao == VersaoXML.NFe_v400 &&
+            if (oParam.versao == VersaoXML.NFe_v400 &&
                 (TipoServico == TService.Autorizacao ||
                  TipoServico == TService.RetAutorizacao ||
                  TipoServico == TService.ConsultaProtocolo ||
@@ -658,13 +657,30 @@ namespace RDI.NFe2.Business
                  TipoServico == TService.Cadastro ||
                  TipoServico == TService.Status))
             {
-                var AtendidoPor = (NFe_AtendidoPor)typeof(TCodUfIBGE).GetField(oParam.UF.ToString()).GetCustomAttributes(typeof(NFe_AtendidoPor), false).FirstOrDefault();
-                if (AtendidoPor == null)
+                if (oParam.conexao == TipoConexao.NFe)
+                {
+                    var AtendidoPor = (NFe_AtendidoPor)typeof(TCodUfIBGE).GetField(oParam.UF.ToString()).GetCustomAttributes(typeof(NFe_AtendidoPor), false).FirstOrDefault();
+                    if (AtendidoPor == null)
+                        throw new Exception("UF não está associado com nenhum Servidor Autorizador.");
+
+                    string Ambiente = oParam.tipoAmbiente.ToString();
+
+                    return RDI.NFe2.Webservices.WSUtils.SoapHttpClientFactory(AtendidoPor.ServidorAutorizador, Ambiente, TipoServico);
+                }
+                else if (oParam.conexao == TipoConexao.NFCe)
+                {
+                    var AtendidoPor = (NFCe_AtendidoPor)typeof(TCodUfIBGE).GetField(oParam.UF.ToString()).GetCustomAttributes(typeof(NFCe_AtendidoPor), false).FirstOrDefault();
+                    if (AtendidoPor == null)
+                        throw new Exception("UF não está associado com nenhum Servidor Autorizador.");
+
+                    string Ambiente = oParam.tipoAmbiente.ToString();
+
+                    return RDI.NFe2.Webservices.WSUtils.SoapHttpClientFactory(AtendidoPor.ServidorAutorizador, Ambiente, TipoServico);
+                }
+                else
+                {
                     throw new Exception("UF não está associado com nenhum Servidor Autorizador.");
-
-                string Ambiente = oParam.tipoAmbiente.ToString();
-
-                return RDI.NFe2.Webservices.WSUtils.SoapHttpClientFactory(AtendidoPor.ServidorAutorizador, Ambiente, TipoServico);
+                }
             }
             else
             {

@@ -162,7 +162,7 @@ namespace RDI.NFe2.Business
                 InicializaServico(oServico, oParam);
 
 
-                if (oParam.conexao == TipoConexao.NFe && oParam.versao == VersaoXML.NFe_v400 &&
+                if (oParam.versao == VersaoXML.NFe_v400 &&
                 (TipoServico == TService.Autorizacao || TipoServico == TService.RetAutorizacao || TipoServico == TService.ConsultaProtocolo ||
                  TipoServico == TService.Inutilizacao || TipoServico == TService.RecepcaoEvento || TipoServico == TService.Cadastro || TipoServico == TService.Status))
                 {
