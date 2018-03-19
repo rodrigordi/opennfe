@@ -129,11 +129,17 @@ namespace RDI.OpenSigner
                                 try
                                 {
                                     // cria um objeto xml assinado
-                                    var signedXml = new SignedXml(doc);
+                                    SignedXml signedXml = new SignedXml(doc);
                                     // adiciona a chave do certificado
                                     signedXml.SigningKey = _X509Cert.PrivateKey;
+                                    //definir explicitamente o metodo
+                                    signedXml.SignedInfo.SignatureMethod = "http://www.w3.org/2000/09/xmldsig#rsa-sha1";
+
                                     // Cria a referencia para assinatura
                                     Reference reference = new Reference();
+                                    //definir explicitamente o metodo
+                                    reference.DigestMethod = "http://www.w3.org/2000/09/xmldsig#sha1";
+
                                     // pega o uri que deve ser assinada
                                     XmlAttributeCollection _Uri = doc.GetElementsByTagName(RefUri).Item(0).Attributes;
                                     String id = "";
@@ -170,23 +176,6 @@ namespace RDI.OpenSigner
                                     signedXml.ComputeSignature();
                                     #endregion
 
-                                    #region calculo assinatura NFe
-                                    //// adiciona um XmlDsigEnvelopedSignatureTransform para a assinatura
-                                    //XmlDsigEnvelopedSignatureTransform env = new XmlDsigEnvelopedSignatureTransform();
-                                    //reference.AddTransform(env);
-                                    //XmlDsigC14NTransform c14 = new XmlDsigC14NTransform();
-                                    //reference.AddTransform(c14);
-                                    //// adiciona a referencia no xml assinado
-                                    //signedXml.AddReference(reference);
-                                    //// Cria a chave
-                                    //KeyInfo keyInfo = new KeyInfo();
-                                    //// carrega o certificado em um keyinfox509
-                                    //// e adiciona ao keyinfo
-                                    //keyInfo.AddClause(new KeyInfoX509Data(_X509Cert));
-                                    //// adiciona o keyinfo ao xml assinado
-                                    //signedXml.KeyInfo = keyInfo;
-                                    //signedXml.ComputeSignature();
-                                    #endregion
 
                                     //adaptacao
                                     // criar elemento <Signature>
@@ -303,8 +292,14 @@ namespace RDI.OpenSigner
                                 SignedXml signedXml = new SignedXml(doc);
                                 // adiciona a chave do certificado
                                 signedXml.SigningKey = _X509Cert.PrivateKey;
+                                //definir explicitamente o metodo
+                                signedXml.SignedInfo.SignatureMethod = "http://www.w3.org/2000/09/xmldsig#rsa-sha1";
+
                                 // Cria a referencia para assinatura
                                 Reference reference = new Reference();
+                                //definir explicitamente o metodo
+                                reference.DigestMethod = "http://www.w3.org/2000/09/xmldsig#sha1";
+
                                 // pega o uri que deve ser assinada
                                 XmlAttributeCollection _Uri = doc.GetElementsByTagName(RefUri).Item(0).Attributes;
                                 foreach (XmlAttribute _atributo in _Uri)
@@ -411,8 +406,14 @@ namespace RDI.OpenSigner
                                 SignedXml signedXml = new SignedXml(doc);
                                 // adiciona a chave do certificado
                                 signedXml.SigningKey = _X509Cert.PrivateKey;
+                                //definir explicitamente o metodo
+                                signedXml.SignedInfo.SignatureMethod = "http://www.w3.org/2000/09/xmldsig#rsa-sha1";
+
                                 // Cria a referencia para assinatura
                                 Reference reference = new Reference();
+                                //definir explicitamente o metodo
+                                reference.DigestMethod = "http://www.w3.org/2000/09/xmldsig#sha1";
+
                                 // pega o uri que deve ser assinada
                                 XmlAttributeCollection _Uri = doc.GetElementsByTagName(RefUri).Item(0).Attributes;
                                 foreach (XmlAttribute _atributo in _Uri)
@@ -519,8 +520,14 @@ namespace RDI.OpenSigner
                                 SignedXml signedXml = new SignedXml(doc);
                                 // adiciona a chave do certificado
                                 signedXml.SigningKey = _X509Cert.PrivateKey;
+                                //definir explicitamente o metodo
+                                signedXml.SignedInfo.SignatureMethod = "http://www.w3.org/2000/09/xmldsig#rsa-sha1";
+
                                 // Cria a referencia para assinatura
                                 Reference reference = new Reference();
+                                //definir explicitamente o metodo
+                                reference.DigestMethod = "http://www.w3.org/2000/09/xmldsig#sha1";
+
                                 // pega o uri que deve ser assinada
                                 XmlAttributeCollection _Uri = doc.GetElementsByTagName(RefUri).Item(0).Attributes;
                                 foreach (XmlAttribute _atributo in _Uri)
@@ -530,6 +537,7 @@ namespace RDI.OpenSigner
                                         reference.Uri = "#" + _atributo.InnerText;
                                     }
                                 }
+
                                 #region calculo assinatura NFe
                                 // adiciona um XmlDsigEnvelopedSignatureTransform para a assinatura
                                 XmlDsigEnvelopedSignatureTransform env = new XmlDsigEnvelopedSignatureTransform();
@@ -545,6 +553,7 @@ namespace RDI.OpenSigner
                                 keyInfo.AddClause(new KeyInfoX509Data(_X509Cert));
                                 // adiciona o keyinfo ao xml assinado
                                 signedXml.KeyInfo = keyInfo;
+                                //calcular assinatura
                                 signedXml.ComputeSignature();
                                 #endregion
 
@@ -630,8 +639,14 @@ namespace RDI.OpenSigner
                                 SignedXml signedXml = new SignedXml(doc);
                                 // adiciona a chave do certificado
                                 signedXml.SigningKey = _X509Cert.PrivateKey;
+                                //definir explicitamente o metodo
+                                signedXml.SignedInfo.SignatureMethod = "http://www.w3.org/2000/09/xmldsig#rsa-sha1";
+
                                 // Cria a referencia para assinatura
                                 Reference reference = new Reference();
+                                //definir explicitamente o metodo
+                                reference.DigestMethod = "http://www.w3.org/2000/09/xmldsig#sha1";
+
                                 // pega o uri que deve ser assinada
                                 XmlAttributeCollection _Uri = doc.GetElementsByTagName(RefUri).Item(0).Attributes;
                                 foreach (XmlAttribute _atributo in _Uri)
