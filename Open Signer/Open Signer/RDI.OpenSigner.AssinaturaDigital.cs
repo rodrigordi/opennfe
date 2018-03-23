@@ -521,12 +521,12 @@ namespace RDI.OpenSigner
                                 // adiciona a chave do certificado
                                 signedXml.SigningKey = _X509Cert.PrivateKey;
                                 //definir explicitamente o metodo
-                                signedXml.SignedInfo.SignatureMethod = "http://www.w3.org/2000/09/xmldsig#rsa-sha1";
+                                signedXml.SignedInfo.SignatureMethod = "http://www.w3.org/2000/09/xmldsig-more#rsa-sha256";
 
                                 // Cria a referencia para assinatura
                                 Reference reference = new Reference();
                                 //definir explicitamente o metodo
-                                reference.DigestMethod = "http://www.w3.org/2000/09/xmldsig#sha1";
+                                reference.DigestMethod = "http://www.w3.org/2000/09/xmlenc#sha256";
 
                                 // pega o uri que deve ser assinada
                                 XmlAttributeCollection _Uri = doc.GetElementsByTagName(RefUri).Item(0).Attributes;
@@ -646,6 +646,123 @@ namespace RDI.OpenSigner
                                 Reference reference = new Reference();
                                 //definir explicitamente o metodo
                                 reference.DigestMethod = "http://www.w3.org/2000/09/xmldsig#sha1";
+
+                                // pega o uri que deve ser assinada
+                                XmlAttributeCollection _Uri = doc.GetElementsByTagName(RefUri).Item(0).Attributes;
+                                foreach (XmlAttribute _atributo in _Uri)
+                                {
+                                    if (_atributo.Name == "Id")
+                                    {
+                                        reference.Uri = "#" + _atributo.InnerText;
+                                    }
+                                }
+                                #region calculo assinatura NFe
+                                // adiciona um XmlDsigEnvelopedSignatureTransform para a assinatura
+                                XmlDsigEnvelopedSignatureTransform env = new XmlDsigEnvelopedSignatureTransform();
+                                reference.AddTransform(env);
+                                XmlDsigC14NTransform c14 = new XmlDsigC14NTransform();
+                                reference.AddTransform(c14);
+                                // adiciona a referencia no xml assinado
+                                signedXml.AddReference(reference);
+                                // Cria a chave
+                                KeyInfo keyInfo = new KeyInfo();
+                                // carrega o certificado em um keyinfox509
+                                // e adiciona ao keyinfo
+                                keyInfo.AddClause(new KeyInfoX509Data(_X509Cert));
+                                // adiciona o keyinfo ao xml assinado
+                                signedXml.KeyInfo = keyInfo;
+                                signedXml.ComputeSignature();
+                                #endregion
+
+                                // busca a representacao XML da assinatura e salva no XML
+                                XmlElement xmlDigitalSignature = signedXml.GetXml();
+                                // adiciona a assinatura no documento
+                                doc.DocumentElement.AppendChild(doc.ImportNode(xmlDigitalSignature, true));
+                                //salva o documento assinado
+                                XMLDoc = new XmlDocument();
+                                //XMLDoc.PreserveWhitespace = false;
+                                XMLDoc = doc;
+                            }
+                            catch (Exception caught)
+                            {
+                                resultado = TRetornoAssinatura.ErroAoAssinarDocumento;// 7;
+                                msgResultado = "Erro: Ao assinar o documento - " + caught.Message;
+                            }
+                        }
+                    }
+                }
+                catch (Exception caught)
+                {
+                    resultado = TRetornoAssinatura.XMLMalFormado;// 3;
+                    msgResultado = "Erro: XML mal formado - " + caught.Message;
+                }
+
+            }
+            catch (Exception caught)
+            {
+                resultado = TRetornoAssinatura.ProblemaAoAcessarCertificado;// 1;
+                msgResultado = "Erro: Problema ao acessar o certificado digital" + caught.Message;
+            }
+            return resultado;
+        }
+
+        public TRetornoAssinatura AssinarRefinf(string XMLString, string RefUri, X509Certificate2 _X509Cert)
+        {
+            var resultado = TRetornoAssinatura.Assinada;
+            msgResultado = "Assinatura realizada com sucesso";
+            try
+            {
+
+
+
+                // certificado ok
+                //_X509Cert = collection1[0];
+
+                // Cria um novo XML.
+                XmlDocument doc = new XmlDocument();
+                //XmlDocument doc2 = new XmlDocument();
+                //doc.PreserveWhitespace = false;
+                // carrega o conteudo XML passado
+                try
+                {
+                    doc.LoadXml(XMLString);
+                    // Verifica se a tag a ser assinada existe é única
+                    int qtdeRefUri = doc.GetElementsByTagName(RefUri).Count;
+                    if (qtdeRefUri == 0)
+                    {
+                        // a URI indicada não existe
+                        resultado = TRetornoAssinatura.RefURiNaoExiste;//4;
+                        msgResultado = "A tag de assinatura " + RefUri.Trim() + " inexiste";
+                    }
+                    // Exsiste mais de uma tag a ser assinada
+                    else
+                    {
+                        if (qtdeRefUri > 1)
+                        {
+                            // existe mais de uma URI indicada
+                            resultado = TRetornoAssinatura.RefURiNaoUnica; //5;
+                            msgResultado = "A tag de assinatura " + RefUri.Trim() + " não é unica";
+                        }
+                        //else if (_listaNum.IndexOf(doc.GetElementsByTagName(RefUri).Item(0).Attributes.ToString().Substring(1,1))>0)
+                        //{
+                        // resultado = 6;
+                        // msgResultado = "Erro: Ao assinar o documento - ID deve ser string (" + doc.GetElementsByTagName(RefUri).Item(0).Attributes + ")";
+                        //}
+                        else
+                        {
+                            try
+                            {
+                                // cria um objeto xml assinado
+                                SignedXml signedXml = new SignedXml(doc);
+                                // adiciona a chave do certificado
+                                signedXml.SigningKey = _X509Cert.PrivateKey;
+                                //definir explicitamente o metodo
+                                signedXml.SignedInfo.SignatureMethod = "http://www.w3.org/2000/09/xmldsig-more#rsa-sha256";
+
+                                // Cria a referencia para assinatura
+                                Reference reference = new Reference();
+                                //definir explicitamente o metodo
+                                reference.DigestMethod = "http://www.w3.org/2000/09/xmlenc#sha256";
 
                                 // pega o uri que deve ser assinada
                                 XmlAttributeCollection _Uri = doc.GetElementsByTagName(RefUri).Item(0).Attributes;
