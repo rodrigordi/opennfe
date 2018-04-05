@@ -521,12 +521,12 @@ namespace RDI.OpenSigner
                                 // adiciona a chave do certificado
                                 signedXml.SigningKey = _X509Cert.PrivateKey;
                                 //definir explicitamente o metodo
-                                signedXml.SignedInfo.SignatureMethod = "http://www.w3.org/2000/09/xmldsig-more#rsa-sha256";
+                                signedXml.SignedInfo.SignatureMethod = "http://www.w3.org/2000/09/xmldsig#rsa-sha1";
 
                                 // Cria a referencia para assinatura
                                 Reference reference = new Reference();
                                 //definir explicitamente o metodo
-                                reference.DigestMethod = "http://www.w3.org/2000/09/xmlenc#sha256";
+                                reference.DigestMethod = "http://www.w3.org/2000/09/xmldsig#sha1";
 
                                 // pega o uri que deve ser assinada
                                 XmlAttributeCollection _Uri = doc.GetElementsByTagName(RefUri).Item(0).Attributes;
@@ -640,12 +640,12 @@ namespace RDI.OpenSigner
                                 // adiciona a chave do certificado
                                 signedXml.SigningKey = _X509Cert.PrivateKey;
                                 //definir explicitamente o metodo
-                                signedXml.SignedInfo.SignatureMethod = "http://www.w3.org/2000/09/xmldsig#rsa-sha1";
+                                signedXml.SignedInfo.SignatureMethod = "http://www.w3.org/2000/09/xmldsig-more#rsa-sha256";
 
                                 // Cria a referencia para assinatura
                                 Reference reference = new Reference();
                                 //definir explicitamente o metodo
-                                reference.DigestMethod = "http://www.w3.org/2000/09/xmldsig#sha1";
+                                reference.DigestMethod = "http://www.w3.org/2000/09/xmlenc#sha256";
 
                                 // pega o uri que deve ser assinada
                                 XmlAttributeCollection _Uri = doc.GetElementsByTagName(RefUri).Item(0).Attributes;
