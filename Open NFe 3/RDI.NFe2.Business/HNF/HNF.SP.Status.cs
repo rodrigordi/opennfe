@@ -71,8 +71,9 @@ namespace RDI.NFe2.Business.HNF.SP.Status {
         
         /// <remarks/>
         public event nfeStatusServicoNF2CompletedEventHandler nfeStatusServicoNF2Completed;
-        
+
         /// <remarks/>
+        //[Webservices.TraceExtensionAttribute(Filename = "c:\\temp\\nfeStatusServicoNF2_SP.txt")]
         [System.Web.Services.Protocols.SoapHeaderAttribute("nfeCabecMsgValue", Direction=System.Web.Services.Protocols.SoapHeaderDirection.InOut)]
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://www.portalfiscal.inf.br/nfe/wsdl/NfeStatusServico2/nfeStatusServicoNF2", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Bare)]
         [return: System.Xml.Serialization.XmlElementAttribute(Namespace="http://www.portalfiscal.inf.br/nfe/wsdl/NfeStatusServico2")]

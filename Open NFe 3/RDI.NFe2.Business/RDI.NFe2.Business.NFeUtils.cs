@@ -583,14 +583,12 @@ namespace RDI.NFe2.Business
             if (oParam.tipoEmissao == TNFeInfNFeIdeTpEmis.ContingenciaSVCAN ||
                 oParam.tipoEmissao == TNFeInfNFeIdeTpEmis.ContingenciaSVCRS)
             {
-                //[SVC_AtendidoPor]oParam.UF.GetType().GetField(oParam.UF.ToString()).GetCustomAttributes(typeof(
-                foreach (SVC_AtendidoPor atr in
-                    oParam.UF.GetType().GetField(oParam.UF.ToString()).GetCustomAttributes(typeof(SVC_AtendidoPor), false))
+                foreach (NFe_AtendidoPor atr in oParam.UF.GetType().GetField(oParam.UF.ToString()).GetCustomAttributes(typeof(NFe_AtendidoPor), false))
                 {
                     if (atr.ServidorAutorizador == TServer.NaoMapeado)
                         throw new Exception("UF não esta sendo atendida por nenhum WebService do SVC.");
 
-                    ambiente += atr.ServidorAutorizador.ToString().Replace("NFe_", "").Replace("NFCe_", "");
+                    ambiente += atr.ServidorAutorizadorSVC.ToString().Replace("NFe_", "").Replace("NFCe_", "");
                 }
             }
             else if (oParam.tipoEmissao == TNFeInfNFeIdeTpEmis.ContigenciaSCAN)
@@ -620,7 +618,7 @@ namespace RDI.NFe2.Business
                             ambiente += atr.ServidorAutorizador.ToString().Replace("NFe_", "").Replace("NFCe_", "");
                         }
                     }
-                    else if (oParam.conexao == TipoConexao.NFCe)
+                    else if (oParam.conexao == TipoConexao.GNRE)
                     {
                         ambiente += "GNRE";
                     }
@@ -659,13 +657,19 @@ namespace RDI.NFe2.Business
             {
                 if (oParam.conexao == TipoConexao.NFe)
                 {
+                    var tServer = TServer.NaoMapeado;
+                    string Ambiente = oParam.tipoAmbiente.ToString();
+
                     var AtendidoPor = (NFe_AtendidoPor)typeof(TCodUfIBGE).GetField(oParam.UF.ToString()).GetCustomAttributes(typeof(NFe_AtendidoPor), false).FirstOrDefault();
                     if (AtendidoPor == null)
                         throw new Exception("UF não está associado com nenhum Servidor Autorizador.");
 
-                    string Ambiente = oParam.tipoAmbiente.ToString();
+                    if (oParam.tipoEmissao == TNFeInfNFeIdeTpEmis.ContingenciaSVCAN || oParam.tipoEmissao == TNFeInfNFeIdeTpEmis.ContingenciaSVCRS)
+                        tServer = AtendidoPor.ServidorAutorizadorSVC;
+                    else
+                        tServer = AtendidoPor.ServidorAutorizador;
 
-                    return RDI.NFe2.Webservices.WSUtils.SoapHttpClientFactory(AtendidoPor.ServidorAutorizador, Ambiente, TipoServico);
+                    return RDI.NFe2.Webservices.WSUtils.SoapHttpClientFactory(tServer, Ambiente, TipoServico);
                 }
                 else if (oParam.conexao == TipoConexao.NFCe)
                 {

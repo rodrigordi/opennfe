@@ -109,27 +109,6 @@ namespace RDI.NFe2.Business
                 return "Erro em GeraUltimaValidacao() - " + ex.Message;
             }
         }
-
-        public void DefineUF(String UF) { _Parametro.UF = (TCodUfIBGE)Enum.Parse(typeof(TCodUfIBGE), UF); }
-        public void DefineUF(TCodUfIBGE UF) { _Parametro.UF = UF; }
-
-        public void DefineNomeCertificado(String NomeCertificado) { _Parametro.certificado = NomeCertificado; GeraUltimaValidacao(); }
-
-        public void DefineContaComputador(Boolean ContaComputador) { _Parametro.usaWService = ContaComputador; GeraUltimaValidacao(); }
-
-        public void DefineProxy(String usuario, String senha, String dominio, String url)
-        {
-            _Parametro.prxUsr = usuario;
-            _Parametro.prxPsw = senha;
-            _Parametro.prxUrl = url;
-            _Parametro.prxDmn = dominio;
-        }
-
-        public void SetProxy(Boolean habilita)
-        {
-            _Parametro.prx = habilita;
-        }
-
         public string BuscaCertificados(String valor)
         {
             if (_Parametro == null)
@@ -154,6 +133,26 @@ namespace RDI.NFe2.Business
                 return String.Empty;
             }
 
+        }
+
+        public void DefineUF(String UF) { _Parametro.UF = (TCodUfIBGE)Enum.Parse(typeof(TCodUfIBGE), UF); GeraUltimaValidacao(); }
+        public void DefineUF(TCodUfIBGE UF) { _Parametro.UF = UF; GeraUltimaValidacao(); }
+        public void DefineTipoConexao(int conexao) { _Parametro.conexao = (TipoConexao)conexao; GeraUltimaValidacao(); }
+        public void DefineTipoConexao(TipoConexao conexao) { _Parametro.conexao = conexao; GeraUltimaValidacao(); }
+        public void DefineNomeCertificado(String NomeCertificado) { _Parametro.certificado = NomeCertificado; GeraUltimaValidacao(); }
+        public void DefineContaComputador(Boolean ContaComputador) { _Parametro.usaWService = ContaComputador; GeraUltimaValidacao(); }
+        public void DefineProxy(String usuario, String senha, String dominio, String url)
+        {
+            _Parametro.prxUsr = usuario;
+            _Parametro.prxPsw = senha;
+            _Parametro.prxUrl = url;
+            _Parametro.prxDmn = dominio;
+            GeraUltimaValidacao();
+        }
+        public void SetProxy(Boolean habilita)
+        {
+            _Parametro.prx = habilita;
+            GeraUltimaValidacao();
         }
 
         public int AssinaXMLHD(String caminhoArquivoOrigem, String SUri, String caminhoArquivoDestino)
@@ -233,7 +232,6 @@ namespace RDI.NFe2.Business
             else
                 return 11;//Arquivo nao encontrado
         }
-
         public String AssinaXMLST(String ArquivoOrigem, String uri)
         {
             VersaoXML versao = _Parametro.versao;
@@ -314,7 +312,6 @@ namespace RDI.NFe2.Business
 
             return ret.ToString(); //Retorna o resultado da assinatura
         }
-
         public TRetornoAssinatura AssinaXML(String xml, String uri, out string xmlAssinado)
         {
             X509Certificate2 oCertificado = null;

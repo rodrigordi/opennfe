@@ -133,7 +133,7 @@ namespace RDI.NFe2.Business
             //else
             //{
             //    //permitir os protocolos: SSL3 TLS1.0 TLS1.1 TLS1.2 
-            //    System.Net.ServicePointManager.SecurityProtocol = SecurityProtocolType.Ssl3 | SecurityProtocolType.Tls | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
+            System.Net.ServicePointManager.SecurityProtocol = SecurityProtocolType.Ssl3 | SecurityProtocolType.Tls | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
             //}
         }
 

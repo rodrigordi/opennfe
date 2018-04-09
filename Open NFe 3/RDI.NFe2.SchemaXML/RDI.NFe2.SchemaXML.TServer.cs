@@ -29,6 +29,8 @@ namespace RDI.NFe2.SchemaXML
 
         NFCe_AM,
         NFCe_MS,
+        NFCe_MT,
         NFCe_SP,
+        NFCe_SVRS,
     }
 }

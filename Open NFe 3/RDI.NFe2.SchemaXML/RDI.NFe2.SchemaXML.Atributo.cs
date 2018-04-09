@@ -15,16 +15,11 @@ namespace RDI.NFe2.SchemaXML
     public class NFe_AtendidoPor : Attribute
     {
         public TServer ServidorAutorizador { get; set; }
+        public TServer ServidorAutorizadorSVC { get; set; }
     }
 
     [AttributeUsage(AttributeTargets.Field)]
     public class NFCe_AtendidoPor : Attribute
-    {
-        public TServer ServidorAutorizador { get; set; }
-    }
-
-    [AttributeUsage(AttributeTargets.Field)]
-    public class SVC_AtendidoPor : Attribute
     {
         public TServer ServidorAutorizador { get; set; }
     }
