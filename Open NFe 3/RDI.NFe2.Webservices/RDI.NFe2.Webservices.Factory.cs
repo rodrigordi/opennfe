@@ -95,6 +95,27 @@ namespace RDI.NFe2.Webservices
                 new UrlConfiguration(TServer.NFCe_MS, "Homologacao", TService.RecepcaoEvento,"https://homologacao.nfce.fazenda.ms.gov.br/ws/NFeRecepcaoEvento4"),
                 new UrlConfiguration(TServer.NFCe_MS, "Homologacao", TService.Autorizacao,"https://homologacao.nfce.fazenda.ms.gov.br/ws/NFeAutorizacao4"),
                 new UrlConfiguration(TServer.NFCe_MS, "Homologacao", TService.RetAutorizacao,"https://homologacao.nfce.fazenda.ms.gov.br/ws/NFeRetAutorizacao4"),
+
+                new UrlConfiguration(TServer.NFCe_MS, "Producao", TService.Inutilizacao,"https://nfce.fazenda.ms.gov.br/ws/NFeInutilizacao4"),
+                new UrlConfiguration(TServer.NFCe_MS, "Producao", TService.ConsultaProtocolo,"https://nfce.fazenda.ms.gov.br/ws/NFeConsultaProtocolo4"),
+                new UrlConfiguration(TServer.NFCe_MS, "Producao", TService.Status,"https://nfce.fazenda.ms.gov.br/ws/NFeStatusServico4"),
+                new UrlConfiguration(TServer.NFCe_MS, "Producao", TService.RecepcaoEvento,"https://nfce.fazenda.ms.gov.br/ws/NFeRecepcaoEvento4"),
+                new UrlConfiguration(TServer.NFCe_MS, "Producao", TService.Autorizacao,"https://nfce.fazenda.ms.gov.br/ws/NFeAutorizacao4"),
+                new UrlConfiguration(TServer.NFCe_MS, "Producao", TService.RetAutorizacao,"https://nfce.fazenda.ms.gov.br/ws/NFeRetAutorizacao4"),
+
+                new UrlConfiguration(TServer.NFCe_SVRS, "Homologacao", TService.Inutilizacao,"https://nfce-homologacao.svrs.rs.gov.br/ws/nfeinutilizacao/nfeinutilizacao4.asmx"),
+                new UrlConfiguration(TServer.NFCe_SVRS, "Homologacao", TService.ConsultaProtocolo,"https://nfce-homologacao.svrs.rs.gov.br/ws/NfeConsulta/NfeConsulta4.asmx"),
+                new UrlConfiguration(TServer.NFCe_SVRS, "Homologacao", TService.Status,"https://nfce-homologacao.svrs.rs.gov.br/ws/NfeStatusServico/NfeStatusServico4.asmx"),
+                new UrlConfiguration(TServer.NFCe_SVRS, "Homologacao", TService.RecepcaoEvento,"https://nfce-homologacao.svrs.rs.gov.br/ws/recepcaoevento/recepcaoevento4.asmx"),
+                new UrlConfiguration(TServer.NFCe_SVRS, "Homologacao", TService.Autorizacao,"https://nfce-homologacao.svrs.rs.gov.br/ws/NfeAutorizacao/NFeAutorizacao4.asmx"),
+                new UrlConfiguration(TServer.NFCe_SVRS, "Homologacao", TService.RetAutorizacao,"https://nfce-homologacao.svrs.rs.gov.br/ws/NfeRetAutorizacao/NFeRetAutorizacao4.asmx"),
+
+                new UrlConfiguration(TServer.NFCe_SVRS, "Producao", TService.Inutilizacao,"https://nfce.svrs.rs.gov.br/ws/nfeinutilizacao/nfeinutilizacao4.asmx"),
+                new UrlConfiguration(TServer.NFCe_SVRS, "Producao", TService.ConsultaProtocolo,"https://nfce.svrs.rs.gov.br/ws/NfeConsulta/NfeConsulta4.asmx"),
+                new UrlConfiguration(TServer.NFCe_SVRS, "Producao", TService.Status,"https://nfce.svrs.rs.gov.br/ws/NfeStatusServico/NfeStatusServico4.asmx"),
+                new UrlConfiguration(TServer.NFCe_SVRS, "Producao", TService.RecepcaoEvento,"https://nfce.svrs.rs.gov.br/ws/recepcaoevento/recepcaoevento4.asmx"),
+                new UrlConfiguration(TServer.NFCe_SVRS, "Producao", TService.Autorizacao,"https://nfce.svrs.rs.gov.br/ws/NfeAutorizacao/NFeAutorizacao4.asmx"),
+                new UrlConfiguration(TServer.NFCe_SVRS, "Producao", TService.RetAutorizacao,"https://nfce.svrs.rs.gov.br/ws/NfeRetAutorizacao/NFeRetAutorizacao4.asmx"),
                 #endregion
 
 

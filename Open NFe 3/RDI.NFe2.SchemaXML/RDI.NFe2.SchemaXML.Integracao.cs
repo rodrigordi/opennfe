@@ -1537,7 +1537,7 @@ namespace RDI.NFe2.SchemaXML
         /// <remarks/>
         [System.Xml.Serialization.XmlEnumAttribute("22")]
         [System.ComponentModel.Description("Piauí")]
-        [NFe_AtendidoPor(ServidorAutorizador = TServer.NFe_SVAN, ServidorAutorizadorSVC = TServer.NFe_SVCRS)]
+        [NFe_AtendidoPor(ServidorAutorizador = TServer.NFe_SVRS, ServidorAutorizadorSVC = TServer.NFe_SVCRS)]
         [NFCe_AtendidoPor(ServidorAutorizador = TServer.NFCe_SVRS)]
         Piaui = 22,
 
