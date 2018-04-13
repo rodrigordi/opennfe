@@ -392,6 +392,36 @@ namespace RDI.NFe2.Business
                 return false;
             }
         }
+        public string StatusWebServiceST()
+        {
+            ITConsStatServ oConsStatServ;
+
+            try
+            {
+                oConsStatServ = (ITConsStatServ)XMLUtils.XMLFactory(_Parametro.versao, "TConsStatServ");
+                oConsStatServ.tpAmb = _Parametro.tipoAmbiente;
+                oConsStatServ.cUF = _Parametro.UF;
+                oConsStatServ.versao = _Parametro.versaoDados;
+
+                System.Web.Services.Protocols.SoapHttpClientProtocol oServico = null;
+                try
+                {
+                    oServico = NFeUtils.ClientProxyFactory(_Parametro, TService.Status);
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception("Não foi possível criar o serviço de comunicação com o webservice - " + ex.Message);
+                }
+
+                var temp = Servicos.ConsultarStatusServidor(oServico, oConsStatServ, _Parametro, _Parametro.versao);
+                return temp.cStat;
+            }
+            catch (Exception ex)
+            {
+                UltimaValidacao = ex.Message;
+                return "0";
+            }
+        }
         #endregion
 
         #region NFe 

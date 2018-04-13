@@ -61,6 +61,7 @@ public interface IUtilitario
 
     Boolean StatusWebService();
 
+    string StatusWebServiceST();
 
     //carregando do HD
     Boolean AutorizacaoHD(String caminhoArquivoEnviNFe, String caminhoArquivoRetEnviNFe);
