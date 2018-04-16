@@ -1,6 +1,6 @@
 ﻿////versao inicial para 4.00 - baseado na PL 009 v4 - 23/08/2017
-////TODO : validar TNFeInfNFeIdeNFrefRefECF
-////TODO : unificar tipos enumerados
+//motDesICMS : nulo
+
 
 using System.Xml.Serialization;
 using RDI.NFe2.SchemaXML;
@@ -2035,7 +2035,7 @@ namespace RDI.NFe2.SchemaXML.NFe_v400
         Item6,
     }
 
-    
+
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
@@ -5060,7 +5060,7 @@ namespace RDI.NFe2.SchemaXML.NFe_v400
         }
     }
 
-   
+
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
@@ -8850,6 +8850,8 @@ namespace RDI.NFe2.SchemaXML.NFe_v400
 
         private TNFeInfNFeDetImpostoICMSICMS20MotDesICMS motDesICMSField;
 
+        private bool motDesICMSFieldSpecified;
+
         /// <remarks/>
         public Torig orig
         {
@@ -9003,6 +9005,19 @@ namespace RDI.NFe2.SchemaXML.NFe_v400
             set
             {
                 this.motDesICMSField = value;
+            }
+        }
+
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool motDesICMSSpecified
+        {
+            get
+            {
+                return this.motDesICMSFieldSpecified;
+            }
+            set
+            {
+                this.motDesICMSFieldSpecified = value;
             }
         }
     }
