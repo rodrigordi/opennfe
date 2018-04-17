@@ -1,7 +1,6 @@
 ﻿////versao inicial para 4.00 - baseado na PL 009 v4 - 23/08/2017
 //motDesICMS : nulo
 
-
 using System.Xml.Serialization;
 using RDI.NFe2.SchemaXML;
 using RDI.NFe2.SchemaXML.Eventos_v100;
@@ -9059,6 +9058,8 @@ namespace RDI.NFe2.SchemaXML.NFe_v400
 
         private TNFeInfNFeDetImpostoICMSICMS30MotDesICMS motDesICMSField;
 
+        private bool motDesICMSFieldSpecified;
+
         /// <remarks/>
         public Torig orig
         {
@@ -9227,6 +9228,19 @@ namespace RDI.NFe2.SchemaXML.NFe_v400
                 this.motDesICMSField = value;
             }
         }
+
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool motDesICMSSpecified
+        {
+            get
+            {
+                return this.motDesICMSFieldSpecified;
+            }
+            set
+            {
+                this.motDesICMSFieldSpecified = value;
+            }
+        }
     }
 
 
@@ -9247,6 +9261,8 @@ namespace RDI.NFe2.SchemaXML.NFe_v400
         private string vICMSDesonField;
 
         private TNFeInfNFeDetImpostoICMSICMS40MotDesICMS motDesICMSField;
+
+        private bool motDesICMSFieldSpecified;
 
         /// <remarks/>
         public Torig orig
@@ -9297,6 +9313,19 @@ namespace RDI.NFe2.SchemaXML.NFe_v400
             set
             {
                 this.motDesICMSField = value;
+            }
+        }
+
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool motDesICMSSpecified
+        {
+            get
+            {
+                return this.motDesICMSFieldSpecified;
+            }
+            set
+            {
+                this.motDesICMSFieldSpecified = value;
             }
         }
     }
@@ -9709,6 +9738,8 @@ namespace RDI.NFe2.SchemaXML.NFe_v400
 
         private TNFeInfNFeDetImpostoICMSICMS70MotDesICMS motDesICMSField;
 
+        private bool motDesICMSFieldSpecified;
+
         /// <remarks/>
         public Torig orig
         {
@@ -9981,6 +10012,19 @@ namespace RDI.NFe2.SchemaXML.NFe_v400
                 this.motDesICMSField = value;
             }
         }
+
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool motDesICMSSpecified
+        {
+            get
+            {
+                return this.motDesICMSFieldSpecified;
+            }
+            set
+            {
+                this.motDesICMSFieldSpecified = value;
+            }
+        }
     }
 
 
@@ -10035,6 +10079,8 @@ namespace RDI.NFe2.SchemaXML.NFe_v400
         private string vICMSDesonField;
 
         private TNFeInfNFeDetImpostoICMSICMS90MotDesICMS motDesICMSField;
+
+        private bool motDesICMSFieldSpecified;
 
         /// <remarks/>
         public Torig orig
@@ -10306,6 +10352,19 @@ namespace RDI.NFe2.SchemaXML.NFe_v400
             set
             {
                 this.motDesICMSField = value;
+            }
+        }
+
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool motDesICMSSpecified
+        {
+            get
+            {
+                return this.motDesICMSFieldSpecified;
+            }
+            set
+            {
+                this.motDesICMSFieldSpecified = value;
             }
         }
     }
