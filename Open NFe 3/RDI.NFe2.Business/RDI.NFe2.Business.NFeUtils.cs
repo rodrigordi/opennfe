@@ -703,7 +703,7 @@ namespace RDI.NFe2.Business
                     }
 
                     //particularidades
-                    if (oParam.UF == TCodUfIBGE.Bahia && oParam.tipoEmissao == TNFeInfNFeIdeTpEmis.Normal)//Bahia
+                    if (oParam.UF == TCodUfIBGE.Bahia && oParam.tipoEmissao == TNFeInfNFeIdeTpEmis.Normal && oParam.conexao == TipoConexao.NFe)//Bahia
                     {
                         if (TipoServico == TService.Status && oParam.versao == VersaoXML.NFe_v310)
                             nomeClasse = "NfeStatusServico";

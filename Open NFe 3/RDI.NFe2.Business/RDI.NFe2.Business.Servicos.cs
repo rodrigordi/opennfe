@@ -25,7 +25,7 @@ namespace RDI.NFe2.Business
 {
     public static class Servicos
     {
-        public static string VersaoBusiness { get { return "v3.12.0.0"; } }
+        public static string VersaoBusiness { get { return "v3.12.0.1"; } }
 
 
 
@@ -318,6 +318,7 @@ namespace RDI.NFe2.Business
                     {
                         var fnNome = "nfeStatusServicoNF2";
                         if ((oParam.UF == TCodUfIBGE.Parana || oParam.UF == TCodUfIBGE.Bahia)
+                            && oParam.conexao == TipoConexao.NFe
                             && oParam.tipoEmissao == TNFeInfNFeIdeTpEmis.Normal
                             && oParam.versao == VersaoXML.NFe_v310)
                         {
@@ -334,6 +335,7 @@ namespace RDI.NFe2.Business
                     {
                         var fnNome = "nfeInutilizacaoNF2";
                         if ((oParam.UF == TCodUfIBGE.Parana || oParam.UF == TCodUfIBGE.Bahia)
+                            && oParam.conexao == TipoConexao.NFe
                             && oParam.tipoEmissao == TNFeInfNFeIdeTpEmis.Normal
                             && oParam.versao == VersaoXML.NFe_v310)
                         {
@@ -350,6 +352,7 @@ namespace RDI.NFe2.Business
                     {
                         string fnNome = "nfeConsultaNF2";
                         if ((oParam.UF == TCodUfIBGE.Parana || oParam.UF == TCodUfIBGE.Bahia)
+                            && oParam.conexao == TipoConexao.NFe
                             && oParam.tipoEmissao == TNFeInfNFeIdeTpEmis.Normal
                             && oParam.versao == VersaoXML.NFe_v310)
                         {
