@@ -196,6 +196,10 @@ namespace RDI.NFe2.SchemaXML.NFe_v400
         /// <remarks/>
         [System.Xml.Serialization.XmlEnumAttribute("16")]
         Item16,
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("90")]
+        Item90,
     }
 
     /// <remarks/>
@@ -1483,6 +1487,10 @@ namespace RDI.NFe2.SchemaXML.NFe_v400
         Item1724,
 
         /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("17.25")]
+        Item1725,
+
+        /// <remarks/>
         [System.Xml.Serialization.XmlEnumAttribute("18.01")]
         Item1801,
 
@@ -2099,9 +2107,9 @@ namespace RDI.NFe2.SchemaXML.NFe_v400
         [System.Xml.Serialization.XmlEnumAttribute("13")]
         Item13,
 
-        /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute("14")]
-        Item14,
+        ///// <remarks/>
+        //[System.Xml.Serialization.XmlEnumAttribute("14")]
+        //Item14, NT2016.002_v150
 
         /// <remarks/>
         [System.Xml.Serialization.XmlEnumAttribute("90")]
@@ -12849,7 +12857,7 @@ namespace RDI.NFe2.SchemaXML.NFe_v400
 
         private string vBCFCPUFDestField;
 
-        private string pFCPUFDestField;
+        private string pFCPUFDestField; //opcional
 
         private string pICMSUFDestField;
 
@@ -12857,7 +12865,7 @@ namespace RDI.NFe2.SchemaXML.NFe_v400
 
         private string pICMSInterPartField;
 
-        private string vFCPUFDestField;
+        private string vFCPUFDestField; //opcional
 
         private string vICMSUFDestField;
 
@@ -14540,12 +14548,43 @@ namespace RDI.NFe2.SchemaXML.NFe_v400
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://www.portalfiscal.inf.br/nfe")]
     public partial class TNFeInfNFePagDetPag
     {
+        private TIndPag_v400 indPagField;
+
+        private bool indPagFieldSpecified;
 
         private TNFeInfNFePagDetPagTPag tPagField;
 
         private string vPagField;
 
         private TNFeInfNFePagDetPagCard cardField;
+
+        /// <remarks/>
+        public TIndPag_v400 indPag
+        {
+            get
+            {
+                return this.indPagField;
+            }
+            set
+            {
+                this.indPagField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool indPagSpecified
+        {
+            get
+            {
+                return this.indPagFieldSpecified;
+            }
+            set
+            {
+                this.indPagFieldSpecified = value;
+            }
+        }
+
 
         /// <remarks/>
         public TNFeInfNFePagDetPagTPag tPag
