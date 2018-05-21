@@ -2112,6 +2112,10 @@ namespace RDI.NFe2.SchemaXML.NFe_v400
         //Item14, NT2016.002_v150
 
         /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("15")]
+        Item15,
+
+        /// <remarks/>
         [System.Xml.Serialization.XmlEnumAttribute("90")]
         Item90,
 
