@@ -53,6 +53,10 @@ namespace RDI.NFe2.Business
                     ParametroQRY col = new ParametroQRY();
                     col.empresa = _empresa;
                     _param = (Parametro)ParametroDAL.Instance.GetInstances(col, manager)[0];
+
+                    //dados não persistidos
+                    _param.tipoBuscaCertificado = _param.usaWService ? TBuscaCertificado.Nome_MaquinaLocal : TBuscaCertificado.Nome_ContaUsuario;
+                    _param.conexao = TipoConexao.NFe;
                 }
                 return _param;
             }
@@ -365,7 +369,7 @@ namespace RDI.NFe2.Business
                             //assinar evento.
                             //NFeAdmin funciona somente com certificado do repositorio. Será por nome.
                             X509Certificate2 certificadoX509 = Certificado.CarregarPorNome(oParam.certificado, oParam.usaWService);
-                            
+
                             var retornoAssinatura = NFeUtils.AssinaXML(nomeArquivoAssinado, "infEvento", certificadoX509, oParam.versao);
                             certificadoX509 = null;
 
@@ -639,7 +643,7 @@ namespace RDI.NFe2.Business
                             //assinar evento.
                             //NFeAdmin funciona somente com certificado do repositorio. Será por nome.
                             X509Certificate2 certificadoX509 = Certificado.CarregarPorNome(oParam.certificado, oParam.usaWService);
-                            
+
                             var retornoAssinatura = NFeUtils.AssinaXML(nomeArquivoAssinado, "infEvento", certificadoX509, oParam.versao);
                             certificadoX509 = null;
 
@@ -1153,7 +1157,7 @@ namespace RDI.NFe2.Business
             try
             {
                 X509Certificate2 certificadoX509 = Certificado.CarregarPorNome(oParam.certificado, oParam.usaWService);
-                
+
                 var retornoAssinatura = NFeUtils.AssinaXML(oParam.pastaEntrada + NFeStr, "infNFe", certificadoX509, oParam.versao);
 
                 switch (retornoAssinatura.codigoRetorno)
@@ -1995,8 +1999,7 @@ namespace RDI.NFe2.Business
                 oConsStatServ.cUF = oParam.UF;
                 #endregion
 
-                System.Web.Services.Protocols.SoapHttpClientProtocol oServico =
-                    NFeUtils.ClientProxyFactory(oParam, TService.Status);
+                System.Web.Services.Protocols.SoapHttpClientProtocol oServico = NFeUtils.ClientProxyFactory(oParam, TService.Status);
 
                 XMLUtils.SaveXML(oParam.pastaRecibo + oParam.UF.ToString() + "consulta-ped-sta.xml", oConsStatServ, oParam.versao);
 
@@ -2201,7 +2204,7 @@ namespace RDI.NFe2.Business
 
                 //assinar pedido
                 X509Certificate2 certificadoX509 = Certificado.CarregarPorNome(oParam.certificado, oParam.usaWService);
-                
+
                 var resultadoAssinatura = NFeUtils.AssinaXML(nomeArquivoPedido, "infInut", certificadoX509, versao);
                 certificadoX509 = null;
 
