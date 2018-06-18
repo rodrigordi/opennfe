@@ -1,5 +1,10 @@
-﻿////versao inicial para 4.00 - baseado na PL 009 v4 - 23/08/2017
-//motDesICMS : nulo
+﻿//<!-- PL_009 alterações de esquema decorrentes da - NT2016.002 v1.20 - 31/05/2017 13:14hs-->
+//<!-- PL_008g alterações de esquema decorrentes da - NT2015.002  - 15/07/2015 -->
+//<!-- PL_008h alterações de esquema decorrentes da - NT2015.003 - 17/09/2015 -->
+//<!-- PL_008i -->
+//<!-- PL_009-v4 alterações de esquema decorrentes da - NT2016.002 - 10/2017 -->
+//<!-- PL_009-v4a alterações de esquema decorrentes da - NT2017.001 - 10/2017 -->
+
 
 using System.Xml.Serialization;
 using RDI.NFe2.SchemaXML;
@@ -9592,6 +9597,17 @@ namespace RDI.NFe2.SchemaXML.NFe_v400
 
         private string vFCPSTRetField;
 
+
+        private string pRedBCEfetField;
+
+        private string vBCEfetField;
+
+        private string pICMSEfetField;
+
+        private string vICMSEfetField;
+
+
+
         /// <remarks/>
         public Torig orig
         {
@@ -9693,6 +9709,54 @@ namespace RDI.NFe2.SchemaXML.NFe_v400
             set
             {
                 this.vFCPSTRetField = value;
+            }
+        }
+
+        public string pRedBCEfet
+        {
+            get
+            {
+                return this.pRedBCEfetField;
+            }
+            set
+            {
+                this.pRedBCEfetField = value;
+            }
+        }
+
+        public string vBCEfet
+        {
+            get
+            {
+                return this.vBCEfetField;
+            }
+            set
+            {
+                this.vBCEfetField = value;
+            }
+        }
+
+        public string pICMSEfet
+        {
+            get
+            {
+                return this.pICMSEfetField;
+            }
+            set
+            {
+                this.pICMSEfetField = value;
+            }
+        }
+
+        public string vICMSEfet
+        {
+            get
+            {
+                return this.vICMSEfetField;
+            }
+            set
+            {
+                this.vICMSEfetField = value;
             }
         }
     }
@@ -11143,6 +11207,15 @@ namespace RDI.NFe2.SchemaXML.NFe_v400
 
         private string vFCPSTRetField;
 
+
+        private string pRedBCEfetField;
+
+        private string vBCEfetField;
+
+        private string pICMSEfetField;
+
+        private string vICMSEfetField;
+
         /// <remarks/>
         public Torig orig
         {
@@ -11244,6 +11317,54 @@ namespace RDI.NFe2.SchemaXML.NFe_v400
             set
             {
                 this.vFCPSTRetField = value;
+            }
+        }
+
+        public string pRedBCEfet
+        {
+            get
+            {
+                return this.pRedBCEfetField;
+            }
+            set
+            {
+                this.pRedBCEfetField = value;
+            }
+        }
+
+        public string vBCEfet
+        {
+            get
+            {
+                return this.vBCEfetField;
+            }
+            set
+            {
+                this.vBCEfetField = value;
+            }
+        }
+
+        public string pICMSEfet
+        {
+            get
+            {
+                return this.pICMSEfetField;
+            }
+            set
+            {
+                this.pICMSEfetField = value;
+            }
+        }
+
+        public string vICMSEfet
+        {
+            get
+            {
+                return this.vICMSEfetField;
+            }
+            set
+            {
+                this.vICMSEfetField = value;
             }
         }
     }
