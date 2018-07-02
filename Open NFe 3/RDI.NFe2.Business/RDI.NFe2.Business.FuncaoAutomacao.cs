@@ -389,7 +389,7 @@ namespace RDI.NFe2.Business
                             oEvento = (ITEvento)XMLUtils.LoadXMLFile(nomeArquivoAssinado, oParam.versaoEventos, "TEvento");
                             xmlEvento = XMLUtils.GetXML(oEvento, oParam.versao);
 
-                            RecepcaoEvento(oEvento, numeroNovoLote, ref xmlRetorno, oParam.versao);
+                            RecepcaoEvento(oEvento, numeroNovoLote, ref xmlRetorno, oParam.versaoEventos);
 
                             if (string.IsNullOrEmpty(xmlRetorno)) //recebeu resposta da sefaz
                                 throw new Exception("Não foi possível executar RecepcaoEvento-CCe. Consulte o LOG do sistema.");
@@ -533,7 +533,7 @@ namespace RDI.NFe2.Business
 
                                         oNFeXML = null;
 
-                                        NFeUtils.GeraArquivoProcEventoNFe(oTbEvento, oParam.pastaImpressao + nomeArquivo, oTbEvento.versao);
+                                        NFeUtils.GeraArquivoProcEventoNFe(oTbEvento, oParam.pastaImpressao + nomeArquivo);
                                     }
                                     #endregion
                                 }
@@ -644,7 +644,7 @@ namespace RDI.NFe2.Business
                             //NFeAdmin funciona somente com certificado do repositorio. Será por nome.
                             X509Certificate2 certificadoX509 = Certificado.CarregarPorNome(oParam.certificado, oParam.usaWService);
 
-                            var retornoAssinatura = NFeUtils.AssinaXML(nomeArquivoAssinado, "infEvento", certificadoX509, oParam.versao);
+                            var retornoAssinatura = NFeUtils.AssinaXML(nomeArquivoAssinado, "infEvento", certificadoX509, oParam.versaoEventos);
                             certificadoX509 = null;
 
                             //apaga arquivo sem assinatura : -ev.xml
@@ -661,9 +661,9 @@ namespace RDI.NFe2.Business
                             //arquivo esta assinado
                             //carregar o xml assinado
                             oEvento = (ITEvento)XMLUtils.LoadXMLFile(nomeArquivoAssinado, oParam.versaoEventos, "TEvento");
-                            xmlEvento = XMLUtils.GetXML(oEvento, oParam.versao);
+                            xmlEvento = XMLUtils.GetXML(oEvento, oParam.versaoEventos);
 
-                            RecepcaoEvento(oEvento, numeroNovoLote, ref xmlRetorno, oParam.versao);
+                            RecepcaoEvento(oEvento, numeroNovoLote, ref xmlRetorno, oParam.versaoEventos);
 
                             if (string.IsNullOrEmpty(xmlRetorno)) //recebeu resposta da sefaz
                                 throw new Exception("Não foi possível executar RecepcaoEvento-Cancelamento. Consulte o LOG do sistema.");
@@ -844,7 +844,7 @@ namespace RDI.NFe2.Business
 
                                         oNFeXML = null;
 
-                                        NFeUtils.GeraArquivoProcEventoNFe(oTbEvento, oParam.pastaImpressao + nomeArquivo, oTbEvento.versao);
+                                        NFeUtils.GeraArquivoProcEventoNFe(oTbEvento, oParam.pastaImpressao + nomeArquivo);
                                     }
                                     #endregion
                                 }

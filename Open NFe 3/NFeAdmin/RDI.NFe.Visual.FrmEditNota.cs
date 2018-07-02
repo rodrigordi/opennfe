@@ -313,7 +313,7 @@ namespace RDI.NFe.Visual
                     }
                     GC.Collect();
 
-                    NFeUtils.GeraArquivoProcEventoNFe(oEvento, oParam.pastaImpressao + nomeArquivo, oEvento.versao);
+                    NFeUtils.GeraArquivoProcEventoNFe(oEvento, oParam.pastaImpressao + nomeArquivo);
 
                     MessageBox.Show("Arquivo enviado para servidor de impressão.");
 
@@ -341,7 +341,7 @@ namespace RDI.NFe.Visual
             {
 
 
-                NFeUtils.GeraArquivoProcEventoNFe(oEvento, sfdProcNFeCCe.FileName, oEvento.versao);
+                NFeUtils.GeraArquivoProcEventoNFe(oEvento, sfdProcNFeCCe.FileName);
 
                 MessageBox.Show("Arquivo gerado com sucesso em : " + sfdProcNFeCCe.FileName);
             }
