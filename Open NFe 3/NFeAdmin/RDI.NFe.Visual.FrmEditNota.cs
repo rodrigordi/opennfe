@@ -411,12 +411,12 @@ namespace RDI.NFe.Visual
                          ev.codigoSituacao == TipoSituacaoEvento.FinalizadoAprovado155))
                         + 1;
 
-                var oEvento = (ITEvento)XMLUtils.XMLFactory(oParam.versao, "TEvento");
+                var oEvento = (ITEvento)XMLUtils.XMLFactory(oParam.versaoEventos, "TEvento");
                 var oProtNFe = (ITProtNFe)XMLUtils.LoadXML(oNFe.xmlProcesso, oNFe.versao, "TProtNFe");
 
                 //carregar dados do evento - Cancelamento
                 oEvento.versao = oParam.versaoDadosEventos;
-                oEvento.infEvento = (ITEventoInfEvento)XMLUtils.XMLFactory(oParam.versao, "TEventoInfEvento");
+                oEvento.infEvento = (ITEventoInfEvento)XMLUtils.XMLFactory(oParam.versaoEventos, "TEventoInfEvento");
                 //“ID” + tpEvento + chave da NF-e + nSeqEvento                
                 oEvento.infEvento.Id = String.Format("ID110111{0}{1:00}", oProtNFe.infProt.chNFe, nSeqEvento);
 
@@ -436,7 +436,7 @@ namespace RDI.NFe.Visual
                 oEvento.infEvento.tpEvento = TEventoInfEventoTpEvento.Cancelamento.GetXmlEnumAttributeValueFromEnum();
                 oEvento.infEvento.nSeqEvento = nSeqEvento.ToString();
                 oEvento.infEvento.verEvento = TEventoInfEventoVerEvento.Item100;
-                oEvento.infEvento.detEvento = (ITEventoInfEventoDetEvento)XMLUtils.XMLFactory(oParam.versao, "TEventoInfEventoDetEvento");
+                oEvento.infEvento.detEvento = (ITEventoInfEventoDetEvento)XMLUtils.XMLFactory(oParam.versaoEventos, "TEventoInfEventoDetEvento");
                 oEvento.infEvento.detEvento.descEvento = TEventoInfEventoDetEventoDescEvento.Cancelamento.GetXmlEnumAttributeValueFromEnum();
                 oEvento.infEvento.detEvento.versao = TEventoInfEventoDetEventoVersao.Item100;
 
@@ -524,12 +524,12 @@ namespace RDI.NFe.Visual
                          ev.codigoSituacao == TipoSituacaoEvento.FinalizadoAprovado136))
                         + 1;
 
-                ITEvento oEvento = (ITEvento)XMLUtils.XMLFactory(oParam.versao, "TEvento");
+                ITEvento oEvento = (ITEvento)XMLUtils.XMLFactory(oParam.versaoEventos, "TEvento");
                 ITProtNFe oProtNFe = (ITProtNFe)XMLUtils.LoadXML(oNFe.xmlProcesso, oNFe.versao, "TProtNFe");
 
                 //carregar dados do evento - CCe
                 oEvento.versao = oParam.versaoDadosEventos;
-                oEvento.infEvento = (ITEventoInfEvento)XMLUtils.XMLFactory(oParam.versao, "TEventoInfEvento");
+                oEvento.infEvento = (ITEventoInfEvento)XMLUtils.XMLFactory(oParam.versaoEventos, "TEventoInfEvento");
                 //“ID” + tpEvento + chave da NF-e + nSeqEvento                
                 oEvento.infEvento.Id = String.Format("ID110110{0}{1:00}", oProtNFe.infProt.chNFe, nSeqEvento);
 
@@ -550,7 +550,7 @@ namespace RDI.NFe.Visual
                 oEvento.infEvento.tpEvento = TEventoInfEventoTpEvento.CartaCorrecao.GetXmlEnumAttributeValueFromEnum();
                 oEvento.infEvento.nSeqEvento = nSeqEvento.ToString();
                 oEvento.infEvento.verEvento = TEventoInfEventoVerEvento.Item100;
-                oEvento.infEvento.detEvento = (ITEventoInfEventoDetEvento)XMLUtils.XMLFactory(oParam.versao, "TEventoInfEventoDetEvento");
+                oEvento.infEvento.detEvento = (ITEventoInfEventoDetEvento)XMLUtils.XMLFactory(oParam.versaoEventos, "TEventoInfEventoDetEvento");
                 oEvento.infEvento.detEvento.descEvento = TEventoInfEventoDetEventoDescEvento.CartadeCorrecao.GetXmlEnumAttributeValueFromEnum();
                 oEvento.infEvento.detEvento.versao = TEventoInfEventoDetEventoVersao.Item100;
                 oEvento.infEvento.detEvento.xCondUso = TEventoInfEventoDetEventoXCondUso.ACartadeCorrecaoedisciplinadapeloparagrafo1oAdoart7odoConvenioSNde15dedezembrode1970epodeserutilizadapararegularizacaodeerroocorridonaemissaodedocumentofiscaldesdequeoerronaoestejarelacionadocomIasvariaveisquedeterminamovalordoimpostotaiscomobasedecalculoaliquotadiferencadeprecoquantidadevalordaoperacaooudaprestacaoIIacorrecaodedadoscadastraisqueimpliquemudancadoremetenteoudodestinatarioIIIadatadeemissaooudesaida;

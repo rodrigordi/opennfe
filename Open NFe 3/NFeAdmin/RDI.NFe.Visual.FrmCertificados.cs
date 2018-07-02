@@ -10,6 +10,8 @@ using RDI.NFe2.Business;
 using RDI.Lince;
 using RDI.NFe2.ORMAP;
 using RDI.OpenSigner;
+using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 
 namespace RDI.NFe.Visual
 {
@@ -75,8 +77,8 @@ namespace RDI.NFe.Visual
 
         private void FrmCertificados_Load(object sender, EventArgs e)
         {
-        
-            
+
+
 
 
         }
@@ -84,20 +86,29 @@ namespace RDI.NFe.Visual
         private void FrmCertificados_Shown(object sender, EventArgs e)
         {
 
-            
+
             ClientEnvironment manager = null;
             try
             {
                 manager = Conexao.CreateManager(Program.ConAux);
                 Parametro oParam = Program.GetParametro(Program.empresaSelecionada, manager);
 
-                Certificado.PopulaItems(cbCertificados.Items, oParam.usaWService);
-                
-                   
-                    cbCertificados.SelectedItem = oParam.certificado;
-                    isModified = false;
+                List<X509Certificate2> certificados = null;
+                if (!oParam.usaWService)
+                    certificados = Certificado.ObterCertificadosContaUsuario();
+                else
+                    certificados = Certificado.ObterCertificadosContaUsuario();
 
-                    oParam = null;
+                cbCertificados.Items.Clear();
+                foreach (var cert in certificados)
+                {
+                    cbCertificados.Items.Add(cert.Subject.ToString());
+                }
+
+                cbCertificados.SelectedItem = oParam.certificado;
+                isModified = false;
+
+                oParam = null;
 
             }
             catch (Exception ex)

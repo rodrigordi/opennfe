@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
 using System.Security.Cryptography.Xml;
 using System.Text;
@@ -9,31 +10,62 @@ using System.Xml;
 
 namespace RDI.OpenSigner
 {
+    //TODO :  reorganizar essas funções
+
+    //Removidas as assinaturas utilizando SHA256 funcionam somente  usando .NET 4.6.2 ou superior.
+    //Esse projeto está utilizando .NET 4.5.2 e ainda não pode ser atualizado.
+
+
+    /// 
+    //Entradas:
+    /// XMLString: string XML a ser assinada
+    /// RefUri : Referência da URI a ser assinada(infNFe, Cancelamento e inutilzacao)
+    /// X509Cert : certificado digital a ser utilizado na assinatura digital
+    ///
+    /// Retornos:
+    /// Assinar : 0 - Assinatura realizada com sucesso
+    /// 1 - Erro: Problema ao acessar o certificado digital - %exceção%
+    ///xtinto* 2 - Problemas no certificado digital
+    /// 3 - XML mal formado + exceção
+    /// 4 - A tag de assinatura %RefUri% inexiste
+    /// 5 - A tag de assinatura %RefUri% não é unica
+    /// 6 - Erro Ao assinar o documento - ID deve ser string %RefUri(Atributo)%
+    /// 7 - Erro: Ao assinar o documento - %exceção%
+    ///
+    /// XMLStringAssinado : string XML assinada
+    ///
+    /// XMLDocAssinado : XMLDocument do XML assinado
+    ///
+    /// </summary>
+    /// <param name="XMLString"></param>
+    /// <param name="RefUri"></param>
+    /// <param name="_X509Cert"></param>
+    /// <returns></returns>
+
+
+
     //Classe que realiza a assinatura Digital
     public class AssinaturaDigital
     {
+        private string msgResultado;
+        private XmlDocument XMLDoc;
+
+        public XmlDocument XMLDocAssinado
+        {
+            get { return XMLDoc; }
+        }
+
+        public string XMLStringAssinado
+        {
+            get { return XMLDoc.OuterXml; }
+        }
+
+        public string mensagemResultado
+        {
+            get { return msgResultado; }
+        }
 
         public int Assinar(string XMLString, string RefUri, X509Certificate2 _X509Cert)
-        /*
-        * Entradas:
-        * XMLString: string XML a ser assinada
-        * RefUri : Referência da URI a ser assinada ( infNFe, Cancelamento e inutilzacao)
-        * X509Cert : certificado digital a ser utilizado na assinatura digital
-        *
-        * Retornos:
-        * Assinar : 0 - Assinatura realizada com sucesso
-        * 1 - Erro: Problema ao acessar o certificado digital - %exceção%
-        //extinto* 2 - Problemas no certificado digital
-        * 3 - XML mal formado + exceção
-        * 4 - A tag de assinatura %RefUri% inexiste
-        * 5 - A tag de assinatura %RefUri% não é unica
-        * 6 - Erro Ao assinar o documento - ID deve ser string %RefUri(Atributo)%
-        * 7 - Erro: Ao assinar o documento - %exceção%
-        *
-        * XMLStringAssinado : string XML assinada
-        *
-        * XMLDocAssinado : XMLDocument do XML assinado
-        */
         {
             int resultado = 0;
             msgResultado = "Assinatura realizada com sucesso";
@@ -101,11 +133,17 @@ namespace RDI.OpenSigner
                                 try
                                 {
                                     // cria um objeto xml assinado
-                                    var signedXml = new SignedXml(doc);
+                                    SignedXml signedXml = new SignedXml(doc);
                                     // adiciona a chave do certificado
                                     signedXml.SigningKey = _X509Cert.PrivateKey;
+                                    //definir explicitamente o metodo
+                                    signedXml.SignedInfo.SignatureMethod = "http://www.w3.org/2000/09/xmldsig#rsa-sha1";
+
                                     // Cria a referencia para assinatura
                                     Reference reference = new Reference();
+                                    //definir explicitamente o metodo
+                                    reference.DigestMethod = "http://www.w3.org/2000/09/xmldsig#sha1";
+
                                     // pega o uri que deve ser assinada
                                     XmlAttributeCollection _Uri = doc.GetElementsByTagName(RefUri).Item(0).Attributes;
                                     String id = "";
@@ -142,23 +180,6 @@ namespace RDI.OpenSigner
                                     signedXml.ComputeSignature();
                                     #endregion
 
-                                    #region calculo assinatura NFe
-                                    //// adiciona um XmlDsigEnvelopedSignatureTransform para a assinatura
-                                    //XmlDsigEnvelopedSignatureTransform env = new XmlDsigEnvelopedSignatureTransform();
-                                    //reference.AddTransform(env);
-                                    //XmlDsigC14NTransform c14 = new XmlDsigC14NTransform();
-                                    //reference.AddTransform(c14);
-                                    //// adiciona a referencia no xml assinado
-                                    //signedXml.AddReference(reference);
-                                    //// Cria a chave
-                                    //KeyInfo keyInfo = new KeyInfo();
-                                    //// carrega o certificado em um keyinfox509
-                                    //// e adiciona ao keyinfo
-                                    //keyInfo.AddClause(new KeyInfoX509Data(_X509Cert));
-                                    //// adiciona o keyinfo ao xml assinado
-                                    //signedXml.KeyInfo = keyInfo;
-                                    //signedXml.ComputeSignature();
-                                    #endregion
 
                                     //adaptacao
                                     // criar elemento <Signature>
@@ -225,56 +246,7 @@ namespace RDI.OpenSigner
             return resultado;
         }
 
-
-
-
-
-
-
-        //
-        // mensagem de Retorno
-        //
-        private string msgResultado;
-        private XmlDocument XMLDoc;
-
-        public XmlDocument XMLDocAssinado
-        {
-            get { return XMLDoc; }
-        }
-
-        public string XMLStringAssinado
-        {
-            get { return XMLDoc.OuterXml; }
-        }
-
-        public string mensagemResultado
-        {
-            get { return msgResultado; }
-        }
-
-
-        //compatibilizar
         public int AssinarCTe(string XMLString, string RefUri, X509Certificate2 _X509Cert)
-        /*
-        * Entradas:
-        * XMLString: string XML a ser assinada
-        * RefUri : Referência da URI a ser assinada ( infCte, Cancelamento e inutilzacao)
-        * X509Cert : certificado digital a ser utilizado na assinatura digital
-        *
-        * Retornos:
-        * Assinar : 0 - Assinatura realizada com sucesso
-        * 1 - Erro: Problema ao acessar o certificado digital - %exceção%
-        extinto* 2 - Problemas no certificado digital
-        * 3 - XML mal formado + exceção
-        * 4 - A tag de assinatura %RefUri% inexiste
-        * 5 - A tag de assinatura %RefUri% não é unica
-        * 6 - Erro Ao assinar o documento - ID deve ser string %RefUri(Atributo)%
-        * 7 - Erro: Ao assinar o documento - %exceção%
-        *
-        * XMLStringAssinado : string XML assinada
-        *
-        * XMLDocAssinado : XMLDocument do XML assinado
-        */
         {
             int resultado = 0;
             msgResultado = "Assinatura realizada com sucesso";
@@ -324,8 +296,14 @@ namespace RDI.OpenSigner
                                 SignedXml signedXml = new SignedXml(doc);
                                 // adiciona a chave do certificado
                                 signedXml.SigningKey = _X509Cert.PrivateKey;
+                                //definir explicitamente o metodo
+                                signedXml.SignedInfo.SignatureMethod = "http://www.w3.org/2000/09/xmldsig#rsa-sha1";
+
                                 // Cria a referencia para assinatura
                                 Reference reference = new Reference();
+                                //definir explicitamente o metodo
+                                reference.DigestMethod = "http://www.w3.org/2000/09/xmldsig#sha1";
+
                                 // pega o uri que deve ser assinada
                                 XmlAttributeCollection _Uri = doc.GetElementsByTagName(RefUri).Item(0).Attributes;
                                 foreach (XmlAttribute _atributo in _Uri)
@@ -383,26 +361,6 @@ namespace RDI.OpenSigner
         }
 
         public TRetornoAssinatura AssinarMDFe(string XMLString, string RefUri, X509Certificate2 _X509Cert)
-        /*
-        * Entradas:
-        * XMLString: string XML a ser assinada
-        * RefUri : Referência da URI a ser assinada ( infNFe, Cancelamento e inutilzacao)
-        * X509Cert : certificado digital a ser utilizado na assinatura digital
-        *
-        * Retornos:
-        * Assinar : 0 - Assinatura realizada com sucesso
-        * 1 - Erro: Problema ao acessar o certificado digital - %exceção%
-        extinto* 2 - Problemas no certificado digital
-        * 3 - XML mal formado + exceção
-        * 4 - A tag de assinatura %RefUri% inexiste
-        * 5 - A tag de assinatura %RefUri% não é unica
-        * 6 - Erro Ao assinar o documento - ID deve ser string %RefUri(Atributo)%
-        * 7 - Erro: Ao assinar o documento - %exceção%
-        *
-        * XMLStringAssinado : string XML assinada
-        *
-        * XMLDocAssinado : XMLDocument do XML assinado
-        */
         {
             TRetornoAssinatura resultado = TRetornoAssinatura.Assinada;
             msgResultado = "Assinatura realizada com sucesso";
@@ -452,8 +410,14 @@ namespace RDI.OpenSigner
                                 SignedXml signedXml = new SignedXml(doc);
                                 // adiciona a chave do certificado
                                 signedXml.SigningKey = _X509Cert.PrivateKey;
+                                //definir explicitamente o metodo
+                                signedXml.SignedInfo.SignatureMethod = "http://www.w3.org/2000/09/xmldsig#rsa-sha1";
+
                                 // Cria a referencia para assinatura
                                 Reference reference = new Reference();
+                                //definir explicitamente o metodo
+                                reference.DigestMethod = "http://www.w3.org/2000/09/xmldsig#sha1";
+
                                 // pega o uri que deve ser assinada
                                 XmlAttributeCollection _Uri = doc.GetElementsByTagName(RefUri).Item(0).Attributes;
                                 foreach (XmlAttribute _atributo in _Uri)
@@ -510,28 +474,7 @@ namespace RDI.OpenSigner
             return resultado;
         }
 
-
         public TRetornoAssinatura AssinarNFe(string XMLString, string RefUri, X509Certificate2 _X509Cert)
-        /*
-        * Entradas:
-        * XMLString: string XML a ser assinada
-        * RefUri : Referência da URI a ser assinada ( infNFe, Cancelamento e inutilzacao)
-        * X509Cert : certificado digital a ser utilizado na assinatura digital
-        *
-        * Retornos:
-        * Assinar : 0 - Assinatura realizada com sucesso
-        * 1 - Erro: Problema ao acessar o certificado digital - %exceção%
-        extinto* 2 - Problemas no certificado digital
-        * 3 - XML mal formado + exceção
-        * 4 - A tag de assinatura %RefUri% inexiste
-        * 5 - A tag de assinatura %RefUri% não é unica
-        * 6 - Erro Ao assinar o documento - ID deve ser string %RefUri(Atributo)%
-        * 7 - Erro: Ao assinar o documento - %exceção%
-        *
-        * XMLStringAssinado : string XML assinada
-        *
-        * XMLDocAssinado : XMLDocument do XML assinado
-        */
         {
             var resultado = TRetornoAssinatura.Assinada;
             msgResultado = "Assinatura realizada com sucesso";
@@ -581,8 +524,14 @@ namespace RDI.OpenSigner
                                 SignedXml signedXml = new SignedXml(doc);
                                 // adiciona a chave do certificado
                                 signedXml.SigningKey = _X509Cert.PrivateKey;
+                                //definir explicitamente o metodo
+                                signedXml.SignedInfo.SignatureMethod = "http://www.w3.org/2000/09/xmldsig#rsa-sha1";
+
                                 // Cria a referencia para assinatura
                                 Reference reference = new Reference();
+                                //definir explicitamente o metodo
+                                reference.DigestMethod = "http://www.w3.org/2000/09/xmldsig#sha1";
+
                                 // pega o uri que deve ser assinada
                                 XmlAttributeCollection _Uri = doc.GetElementsByTagName(RefUri).Item(0).Attributes;
                                 foreach (XmlAttribute _atributo in _Uri)
@@ -592,6 +541,7 @@ namespace RDI.OpenSigner
                                         reference.Uri = "#" + _atributo.InnerText;
                                     }
                                 }
+
                                 #region calculo assinatura NFe
                                 // adiciona um XmlDsigEnvelopedSignatureTransform para a assinatura
                                 XmlDsigEnvelopedSignatureTransform env = new XmlDsigEnvelopedSignatureTransform();
@@ -607,6 +557,7 @@ namespace RDI.OpenSigner
                                 keyInfo.AddClause(new KeyInfoX509Data(_X509Cert));
                                 // adiciona o keyinfo ao xml assinado
                                 signedXml.KeyInfo = keyInfo;
+                                //calcular assinatura
                                 signedXml.ComputeSignature();
                                 #endregion
 

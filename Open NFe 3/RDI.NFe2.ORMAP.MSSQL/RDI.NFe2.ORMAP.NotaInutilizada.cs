@@ -158,10 +158,10 @@ namespace RDI.NFe2.ORMAP
         }
         protected override string GetSelectStatement()
         {
-            return @"SELECT NumeroNota, SerieNota, Data, CNPJ, XMLPedido, XMLResposta
+            return $@"SELECT NumeroNota, SerieNota, Data, CNPJ, XMLPedido, XMLResposta
                        FROM NotasInutilizadas
-                        --<where auto>--
-                        --<orderby>--";
+                        {Conexao.whereAuto}
+                        {Conexao.orderBy}";
         }
         protected override string GetEntityName()
         {

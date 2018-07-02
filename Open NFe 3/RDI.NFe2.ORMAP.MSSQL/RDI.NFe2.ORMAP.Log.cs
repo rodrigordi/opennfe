@@ -163,10 +163,10 @@ namespace RDI.NFe2.ORMAP
         }
         protected override string GetSelectStatement()
         {
-            return @"SELECT ChaveNota, CodigoSituacao, DescricaoSituacao, CNPJ, DataLog, NumeroLog
+            return $@"SELECT ChaveNota, CodigoSituacao, DescricaoSituacao, CNPJ, DataLog, NumeroLog
                        FROM LOG
-                        --<where auto>--
-                        --<orderby>--";
+                        {Conexao.whereAuto}
+                        {Conexao.orderBy}";
         }
         protected override string GetEntityName()
         {

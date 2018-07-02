@@ -340,8 +340,8 @@ namespace RDI.NFe.Visual
                 else
                 {
                     //verificar validade do certificado
-                    var oCertificado = Certificado.BuscaNome(oParam.certificado, oParam.usaWService, oParam.tipoBuscaCertificado);
-
+                    X509Certificate2 oCertificado = Certificado.CarregarPorNome(oParam.certificado, oParam.usaWService);
+                    
                     lbsValidadeCertificado.Text = "Certificado : " + oCertificado.GetNameInfo(X509NameType.SimpleName, false);
 
                     if (oCertificado.Verify())

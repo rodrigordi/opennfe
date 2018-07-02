@@ -86,8 +86,8 @@ namespace RDI.NFe.Visual
 
                 btAtualizarLote.Enabled = true;//(oSrv.codigoSituacao == TipoSituacaoServico.ProblemaNoEnvio);
 
-                btnAbort.Enabled = oSrv.codigoSituacao == TipoSituacaoServico.Assinado
-                                || oSrv.codigoSituacao == TipoSituacaoServico.Enviado
+                btnAbort.Enabled = oSrv.codigoSituacao == TipoSituacaoServico.AguardandoEnvio
+                                || oSrv.codigoSituacao == TipoSituacaoServico.AguardandoRetornoAprovacao
                                 || oSrv.codigoSituacao == TipoSituacaoServico.Processado;
 
             }
@@ -145,7 +145,7 @@ namespace RDI.NFe.Visual
                 oServicoPendente.numeroRecibo = nRec;
 
                 oServicoPendente.dataSituacao = DateTime.Now;
-                oServicoPendente.codigoSituacao = TipoSituacaoServico.Enviado;
+                oServicoPendente.codigoSituacao = TipoSituacaoServico.AguardandoRetornoAprovacao;
                 //setar todas as notas desse servico como enviadas.
 
                 NotaFiscalQry oNFeQry = new NotaFiscalQry();
@@ -207,8 +207,8 @@ namespace RDI.NFe.Visual
 
                 ServicoPendente oServicoPendente = (ServicoPendente)ServicoPendenteDAL.Instance.Find(oSrv.keyString, manager);
 
-                bool canAbort = oSrv.codigoSituacao == TipoSituacaoServico.Assinado
-                                || oSrv.codigoSituacao == TipoSituacaoServico.Enviado
+                bool canAbort = oSrv.codigoSituacao == TipoSituacaoServico.AguardandoEnvio
+                                || oSrv.codigoSituacao == TipoSituacaoServico.AguardandoRetornoAprovacao
                                 || oSrv.codigoSituacao == TipoSituacaoServico.Processado;
 
                 if (!canAbort)

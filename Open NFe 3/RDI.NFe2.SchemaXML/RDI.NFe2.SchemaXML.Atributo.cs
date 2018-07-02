@@ -8,53 +8,20 @@ namespace RDI.NFe2.SchemaXML
     [AttributeUsage(AttributeTargets.Field)]
     public class ClasseServico : Attribute
     {
-        String _value;
-
-        public String value
-        {
-            get { return _value; }
-            set { _value = value; }
-        }
+        public String NomeClasse { get; set; }
     }
-
 
     [AttributeUsage(AttributeTargets.Field)]
     public class NFe_AtendidoPor : Attribute
     {
-        String _value;
-
-        public String value
-        {
-            get { return _value; }
-            set { _value = value; }
-        }
+        public TServer ServidorAutorizador { get; set; }
+        public TServer ServidorAutorizadorSVC { get; set; }
     }
 
     [AttributeUsage(AttributeTargets.Field)]
     public class NFCe_AtendidoPor : Attribute
     {
-        String _value;
-
-        public String value
-        {
-            get { return _value; }
-            set { _value = value; }
-        }
+        public TServer ServidorAutorizador { get; set; }
     }
-
-    [AttributeUsage(AttributeTargets.Field)]
-    public class SVC_AtendidoPor : Attribute
-    {
-        String _value;
-
-        public String value
-        {
-            get { return _value; }
-            set { _value = value; }
-        }
-    }
-
-
-   
 }
 

@@ -12,6 +12,7 @@ using System.Linq;
 using RDI.NFe2.SchemaXML;
 using System.ServiceModel;
 using RDI.OpenSigner;
+using RDI.NFe2.Webservices;
 
 namespace RDI.NFe2.Business
 {
@@ -52,6 +53,10 @@ namespace RDI.NFe2.Business
                     ParametroQRY col = new ParametroQRY();
                     col.empresa = _empresa;
                     _param = (Parametro)ParametroDAL.Instance.GetInstances(col, manager)[0];
+
+                    //dados não persistidos
+                    _param.tipoBuscaCertificado = _param.usaWService ? TBuscaCertificado.Nome_MaquinaLocal : TBuscaCertificado.Nome_ContaUsuario;
+                    _param.conexao = TipoConexao.NFe;
                 }
                 return _param;
             }
@@ -70,10 +75,10 @@ namespace RDI.NFe2.Business
                 throw new Exception("A conexão não esta aberta");
 
 
-            //verificar se o certificado existe
-            X509Certificate2 certificadox509 = Certificado.BuscaNome(oParam.certificado, oParam.usaWService, oParam.tipoBuscaCertificado);
+            //NFeAdmin funciona somente com certificado do repositorio. Será por nome.
+            X509Certificate2 certificadoX509 = Certificado.CarregarPorNome(oParam.certificado, oParam.usaWService);
 
-            if (certificadox509 == null || certificadox509.Subject != oParam.certificado)
+            if (certificadoX509 == null || certificadoX509.Subject != oParam.certificado)
                 throw new Exception("Certificado não encontrado");
 
 
@@ -362,7 +367,9 @@ namespace RDI.NFe2.Business
                                 throw new Exception("NFe localizada, mas não esta aprovada.");
 
                             //assinar evento.
-                            X509Certificate2 certificadoX509 = Certificado.BuscaNome(oParam.certificado, oParam.usaWService, oParam.tipoBuscaCertificado);
+                            //NFeAdmin funciona somente com certificado do repositorio. Será por nome.
+                            X509Certificate2 certificadoX509 = Certificado.CarregarPorNome(oParam.certificado, oParam.usaWService);
+
                             var retornoAssinatura = NFeUtils.AssinaXML(nomeArquivoAssinado, "infEvento", certificadoX509, oParam.versao);
                             certificadoX509 = null;
 
@@ -634,7 +641,9 @@ namespace RDI.NFe2.Business
 
 
                             //assinar evento.
-                            X509Certificate2 certificadoX509 = Certificado.BuscaNome(oParam.certificado, oParam.usaWService, oParam.tipoBuscaCertificado);
+                            //NFeAdmin funciona somente com certificado do repositorio. Será por nome.
+                            X509Certificate2 certificadoX509 = Certificado.CarregarPorNome(oParam.certificado, oParam.usaWService);
+
                             var retornoAssinatura = NFeUtils.AssinaXML(nomeArquivoAssinado, "infEvento", certificadoX509, oParam.versao);
                             certificadoX509 = null;
 
@@ -862,7 +871,7 @@ namespace RDI.NFe2.Business
                     {
                         //buscar os servicos pendentes
                         ServicoPendenteQry oSrvQry = new ServicoPendenteQry();
-                        oSrvQry.codigoSituacao = ((sbyte)TipoSituacaoServico.Assinado).ToString();
+                        oSrvQry.codigoSituacao = ((sbyte)TipoSituacaoServico.AguardandoEnvio).ToString();
                         oSrvQry.empresa = oParam.empresa;
 
                         ArrayList servicos = ServicoPendenteDAL.Instance.GetInstances(oSrvQry, manager);
@@ -879,7 +888,7 @@ namespace RDI.NFe2.Business
                     {
                         //buscar os servicos pendentes
                         ServicoPendenteQry oSrvQry = new ServicoPendenteQry();
-                        oSrvQry.codigoSituacao = ((sbyte)TipoSituacaoServico.Enviado).ToString();
+                        oSrvQry.codigoSituacao = ((sbyte)TipoSituacaoServico.AguardandoRetornoAprovacao).ToString();
                         oSrvQry.empresa = oParam.empresa;
 
                         ArrayList servicos = ServicoPendenteDAL.Instance.GetInstances(oSrvQry, manager);
@@ -1147,7 +1156,8 @@ namespace RDI.NFe2.Business
 
             try
             {
-                X509Certificate2 certificadoX509 = Certificado.BuscaNome(oParam.certificado, oParam.usaWService, oParam.tipoBuscaCertificado);
+                X509Certificate2 certificadoX509 = Certificado.CarregarPorNome(oParam.certificado, oParam.usaWService);
+
                 var retornoAssinatura = NFeUtils.AssinaXML(oParam.pastaEntrada + NFeStr, "infNFe", certificadoX509, oParam.versao);
 
                 switch (retornoAssinatura.codigoRetorno)
@@ -1550,7 +1560,7 @@ namespace RDI.NFe2.Business
 
                 string msgLog = "Serviço criado com sucesso.";
 
-                oServicoPendente.codigoSituacao = TipoSituacaoServico.Assinado;
+                oServicoPendente.codigoSituacao = TipoSituacaoServico.AguardandoEnvio;
 
                 if (oEnviNFe.NFe != null && oEnviNFe.NFe.Length > 0)
                 {
@@ -1614,7 +1624,7 @@ namespace RDI.NFe2.Business
 
 
                 //pronto para enviar
-                System.Web.Services.Protocols.SoapHttpClientProtocol oServico = NFeUtils.ClientProxyFactory(oParam, TServico.Autorizacao);
+                System.Web.Services.Protocols.SoapHttpClientProtocol oServico = NFeUtils.ClientProxyFactory(oParam, TService.Autorizacao);
 
                 try
                 {
@@ -1652,7 +1662,7 @@ namespace RDI.NFe2.Business
                         oServicoPendente.xmlRecibo = XMLUtils.GetXML(oRetEnviNFe, oServicoPendente.versao);
                         //utilizar a hora do servidor.
                         oServicoPendente.dataSituacao = DateTime.Now;//oRetEnviNFe.dhRecbto;
-                        oServicoPendente.codigoSituacao = TipoSituacaoServico.Enviado;
+                        oServicoPendente.codigoSituacao = TipoSituacaoServico.AguardandoRetornoAprovacao;
 
                         //setar todas as notas desse servico como enviadas.
                         NotaFiscalQry oNFeQry = new NotaFiscalQry();
@@ -1760,7 +1770,7 @@ namespace RDI.NFe2.Business
                     oConsReciNFe.nRec = oRetEnviNFe.infRec.nRec;
 
                     //executar o servico
-                    System.Web.Services.Protocols.SoapHttpClientProtocol oServico = NFeUtils.ClientProxyFactory(oParam, TServico.RetAutorizacao);
+                    System.Web.Services.Protocols.SoapHttpClientProtocol oServico = NFeUtils.ClientProxyFactory(oParam, TService.RetAutorizacao);
 
                     try
                     {
@@ -1989,8 +1999,7 @@ namespace RDI.NFe2.Business
                 oConsStatServ.cUF = oParam.UF;
                 #endregion
 
-                System.Web.Services.Protocols.SoapHttpClientProtocol oServico =
-                    NFeUtils.ClientProxyFactory(oParam, TServico.Status);
+                System.Web.Services.Protocols.SoapHttpClientProtocol oServico = NFeUtils.ClientProxyFactory(oParam, TService.Status);
 
                 XMLUtils.SaveXML(oParam.pastaRecibo + oParam.UF.ToString() + "consulta-ped-sta.xml", oConsStatServ, oParam.versao);
 
@@ -2079,7 +2088,7 @@ namespace RDI.NFe2.Business
                 oEnvEvento.versao = "1.00";
 
                 //cria servico
-                System.Web.Services.Protocols.SoapHttpClientProtocol oServico = NFeUtils.ClientProxyFactory(oParam, TServico.RecepcaoEvento);
+                System.Web.Services.Protocols.SoapHttpClientProtocol oServico = NFeUtils.ClientProxyFactory(oParam, TService.RecepcaoEvento);
                 try
                 {
                     //executa servico
@@ -2141,7 +2150,7 @@ namespace RDI.NFe2.Business
 
                 XMLUtils.SaveXML(oParam.pastaRecibo + ChaveNFe + "-ped-sit.xml", oConsSitNFe, oParam.versao);
 
-                System.Web.Services.Protocols.SoapHttpClientProtocol oServico = NFeUtils.ClientProxyFactory(oParam, TServico.Consulta);
+                System.Web.Services.Protocols.SoapHttpClientProtocol oServico = NFeUtils.ClientProxyFactory(oParam, TService.ConsultaProtocolo);
 
                 try
                 {
@@ -2194,7 +2203,8 @@ namespace RDI.NFe2.Business
                 XMLUtils.SaveXML(nomeArquivoPedido, oInutNFe, versao);
 
                 //assinar pedido
-                X509Certificate2 certificadoX509 = Certificado.BuscaNome(oParam.certificado, oParam.usaWService, oParam.tipoBuscaCertificado);
+                X509Certificate2 certificadoX509 = Certificado.CarregarPorNome(oParam.certificado, oParam.usaWService);
+
                 var resultadoAssinatura = NFeUtils.AssinaXML(nomeArquivoPedido, "infInut", certificadoX509, versao);
                 certificadoX509 = null;
 
@@ -2221,7 +2231,7 @@ namespace RDI.NFe2.Business
                         //carrega o pedido assinado
                         oInutNFe = (ITInutNFe)XMLUtils.LoadXMLFile(nomeArquivoPedidoAss, oParam.versao, "TInutNFe");
                         //cria servico
-                        System.Web.Services.Protocols.SoapHttpClientProtocol oServico = NFeUtils.ClientProxyFactory(oParam, TServico.Inutilizacao);
+                        System.Web.Services.Protocols.SoapHttpClientProtocol oServico = NFeUtils.ClientProxyFactory(oParam, TService.Inutilizacao);
                         try
                         {
                             //executa servico
@@ -2335,7 +2345,7 @@ namespace RDI.NFe2.Business
                                 {
                                     if (!String.IsNullOrEmpty(oEvento.XMLPedido))
                                     {
-                                        ITEvento XmlEvento = (ITEvento) XMLUtils.LoadXML(oEvento.XMLPedido, oEvento.versao, "TEvento");
+                                        ITEvento XmlEvento = (ITEvento)XMLUtils.LoadXML(oEvento.XMLPedido, oEvento.versao, "TEvento");
 
                                         //comparar pela assinatura
                                         if (Convert.ToBase64String(XmlEvento.Signature.SignedInfo.Reference.DigestValue) ==

@@ -61,6 +61,7 @@
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
+    <Reference Include="System.Security" />
     <Reference Include="System.Xml.Linq">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
@@ -87,6 +88,7 @@
     <Compile Include="RDI.NFe2.SchemaXML.Atributo.cs" />
     <Compile Include="RDI.NFe2.SchemaXML300.cs" />
     <Compile Include="RDI.NFe2.SchemaXML.SPEDParser.cs" />
+    <Compile Include="RDI.NFe2.SchemaXML.TServer.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">

@@ -9,6 +9,8 @@ using RDI.NFe2.ORMAP;
 using System.ServiceProcess;
 using System.Management;
 using System.Linq;
+using RDI.OpenSigner;
+using RDI.NFe2.SchemaXML;
 
 namespace RDI.NFe
 {
@@ -79,7 +81,13 @@ namespace RDI.NFe
             ParametroQRY oParamQRY = new ParametroQRY();
             oParamQRY.empresa = empresa;
 
-            return (Parametro)ParametroDAL.Instance.GetInstances(oParamQRY, manager)[0];
+            var _param = (Parametro)ParametroDAL.Instance.GetInstances(oParamQRY, manager)[0];
+
+            //dados não persistidos
+            _param.tipoBuscaCertificado = _param.usaWService ? TBuscaCertificado.Nome_MaquinaLocal : TBuscaCertificado.Nome_ContaUsuario;
+            _param.conexao = TipoConexao.NFe;
+
+            return _param;
         }
 
 

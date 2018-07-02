@@ -19,287 +19,93 @@ using System.Collections.Generic;
 using RDI.OpenSigner;
 using RDI.NFe2.SchemaXML.GNRE;
 using RDI.NFe2.SchemaXML.DocumentosFiscaisEletronicos_v101;
+using RDI.NFe2.Webservices;
 
 namespace RDI.NFe2.Business
 {
     public static class Servicos
     {
-        public static string VersaoBusiness { get { return "v3.11.0.0"; } }
+        public static string VersaoBusiness { get { return "v3.12.0.2"; } }
 
 
 
-        public static ITRetEnvEvento EnviarEnvelopeEvento(
-             System.Web.Services.Protocols.SoapHttpClientProtocol oServico,
-             ITEnvEvento oEnvEvento, Parametro oParam, VersaoXML versao)
+        public static ITRetEnvEvento EnviarEnvelopeEvento(SoapHttpClientProtocol oServico, ITEnvEvento oEnvEvento, Parametro oParam, VersaoXML versao)
         {
-            return (ITRetEnvEvento)XMLUtils.LoadXML(ExecutaServico(oServico, oEnvEvento, oParam),
-                versao, "TRetEnvEvento");
+            return ExecutaServico<ITRetEnvEvento, ITEnvEvento>(oServico, TService.RecepcaoEvento, oEnvEvento, oParam, versao, "TRetEnvEvento");
         }
 
-        public static ITRetEnviNFe EnviarEnvelope(
-            System.Web.Services.Protocols.SoapHttpClientProtocol oServico,
-            ITEnviNFe oEnviNFe, Parametro oParam, VersaoXML versao)
+        public static ITRetEnviNFe EnviarEnvelope(SoapHttpClientProtocol oServico, ITEnviNFe oEnviNFe, Parametro oParam, VersaoXML versao)
         {
-            return (ITRetEnviNFe)XMLUtils.LoadXML(ExecutaServico(oServico, oEnviNFe, oParam),
-                versao, "TRetEnviNFe");
+            return ExecutaServico<ITRetEnviNFe, ITEnviNFe>(oServico, TService.Autorizacao, oEnviNFe, oParam, versao, "TRetEnviNFe");
         }
 
-        public static ITRetConsReciNFe ConsultarProcessamentoEnvelope(
-            System.Web.Services.Protocols.SoapHttpClientProtocol oServico,
-            ITConsReciNFe oConsReciNFe, Parametro oParam, VersaoXML versao)
+        public static ITRetConsReciNFe ConsultarProcessamentoEnvelope(SoapHttpClientProtocol oServico, ITConsReciNFe oConsReciNFe, Parametro oParam, VersaoXML versao)
         {
-            return (ITRetConsReciNFe)XMLUtils.LoadXML(ExecutaServico(oServico, oConsReciNFe, oParam),
-                versao, "TRetConsReciNFe");
+            return ExecutaServico<ITRetConsReciNFe, ITConsReciNFe>(oServico, TService.RetAutorizacao, oConsReciNFe, oParam, versao, "TRetConsReciNFe");
         }
 
-        public static ITRetConsStatServ ConsultarStatusServidor(
-            System.Web.Services.Protocols.SoapHttpClientProtocol oServico,
-            ITConsStatServ oConsStatServ, Parametro oParam, VersaoXML versao)
+        public static ITRetConsStatServ ConsultarStatusServidor(SoapHttpClientProtocol oServico, ITConsStatServ oConsStatServ, Parametro oParam, VersaoXML versao)
         {
-            return (ITRetConsStatServ)XMLUtils.LoadXML(ExecutaServico(oServico, oConsStatServ, oParam),
-                versao, "TRetConsStatServ");
+            return ExecutaServico<ITRetConsStatServ, ITConsStatServ>(oServico, TService.Status, oConsStatServ, oParam, versao, "TRetConsStatServ");
         }
 
-        public static ITRetInutNFe InutilizarNFe(
-            System.Web.Services.Protocols.SoapHttpClientProtocol oServico,
-            ITInutNFe oInutNFe, Parametro oParam, VersaoXML versao)
+        public static ITRetInutNFe InutilizarNFe(SoapHttpClientProtocol oServico, ITInutNFe oInutNFe, Parametro oParam, VersaoXML versao)
         {
-            return (ITRetInutNFe)XMLUtils.LoadXML(ExecutaServico(oServico, oInutNFe, oParam),
-                versao, "TRetInutNFe");
+            return ExecutaServico<ITRetInutNFe, ITInutNFe>(oServico, TService.Inutilizacao, oInutNFe, oParam, versao, "TRetInutNFe");
         }
 
-        public static ITRetConsSitNFe ConsultarSituacaoNFe(
-            System.Web.Services.Protocols.SoapHttpClientProtocol oServico,
-            ITConsSitNFe oConsSitNFe, Parametro oParam, VersaoXML versao)
+        public static ITRetConsSitNFe ConsultarSituacaoNFe(SoapHttpClientProtocol oServico, ITConsSitNFe oConsSitNFe, Parametro oParam, VersaoXML versao)
         {
-            return (ITRetConsSitNFe)XMLUtils.LoadXML(ExecutaServico(oServico, oConsSitNFe, oParam),
-                versao, "TRetConsSitNFe");
+            return ExecutaServico<ITRetConsSitNFe, ITConsSitNFe>(oServico, TService.ConsultaProtocolo, oConsSitNFe, oParam, versao, "TRetConsSitNFe");
         }
 
         public static ITRetConsCad ConsultarCadastro(SoapHttpClientProtocol oServico, ITConsCad oEnviNFe3, Parametro oParam, VersaoXML versao)
         {
-            return (ITRetConsCad)XMLUtils.LoadXML(ExecutaServico(oServico, oEnviNFe3, oParam),
-                versao, "TRetConsCad");
+            return ExecutaServico<ITRetConsCad, ITConsCad>(oServico, TService.Cadastro, oEnviNFe3, oParam, versao, "TRetConsCad");
         }
 
         public static IRetDistDFeInt ConsultarDFe(SoapHttpClientProtocol oServico, IDistDFeInt xmlEnvio, Parametro oParam, VersaoXML versao)
         {
-            return (IRetDistDFeInt)XMLUtils.LoadXML(ExecutaServico(oServico, xmlEnvio, oParam),
-                versao, "retDistDFeInt");
+            return ExecutaServico<IRetDistDFeInt, IDistDFeInt>(oServico, TService.ConsultaDFe, xmlEnvio, oParam, versao, "retDistDFeInt");
         }
 
         public static ITRetDownloadNFe DownloadNF(SoapHttpClientProtocol oServico, ITDownloadNFe xmlEnvio, Parametro oParam, VersaoXML versao)
         {
-            return (ITRetDownloadNFe)XMLUtils.LoadXML(ExecutaServico(oServico, xmlEnvio, oParam),
-                versao, "TRetDownloadNFe");
+            return ExecutaServico<ITRetDownloadNFe, ITDownloadNFe>(oServico, TService.DownloadNF, xmlEnvio, oParam, versao, "TRetDownloadNFe");
         }
 
-
-        //chamadas com retornos em string
-        public static KeyValuePair<string, ITRetEnvEvento> Interface_EnviarEnvelopeEvento(
-             System.Web.Services.Protocols.SoapHttpClientProtocol oServico,
-             ITEnvEvento oEnvEvento, Parametro oParam, VersaoXML versao)
+        public static TRetLote_GNRE GNRERecepcaoLote(SoapHttpClientProtocol oServico, TLote_GNRE xmlEnvio, Parametro oParam, VersaoXML versao)
         {
-            var Key = ExecutaServico(oServico, oEnvEvento, oParam);
+            return ExecutaServico<TRetLote_GNRE, TLote_GNRE>(oServico, TService.GNRE_RecepcaoLote, xmlEnvio, oParam, oParam.versao, "TRetLote_GNRE");
+        }
+
+        public static TResultLote_GNRE GNREConsultaLote(SoapHttpClientProtocol oServico, TConsLote_GNRE xmlEnvio, Parametro oParam, VersaoXML versao)
+        {
+            return ExecutaServico<TResultLote_GNRE, TConsLote_GNRE>(oServico, TService.GNRE_ConsultaLote, xmlEnvio, oParam, oParam.versao, "TResultLote_GNRE");
+        }
+
+        public static TConfigUf GNREConfigUF(SoapHttpClientProtocol oServico, TConsultaConfigUf xmlEnvio, Parametro oParam, VersaoXML versao)
+        {
+            return ExecutaServico<TConfigUf, TConsultaConfigUf>(oServico, TService.GNRE_ConsultaLote, xmlEnvio, oParam, oParam.versao, "TConfigUf");
+        }
+
+        private static R ExecutaServico<R, S>(SoapHttpClientProtocol oServico, TService TipoServico, S xmlEnvio, Parametro oParam, VersaoXML versao, string stTipo)
+        {
+            var xmlRetorno = InternalExecutaServico(oServico, TipoServico, xmlEnvio, oParam);
             try
             {
-                var Value = (ITRetEnvEvento)XMLUtils.LoadXML(Key, versao, "TRetEnvEvento");
-                return new KeyValuePair<string, ITRetEnvEvento>(Key, Value);
+                return (R)XMLUtils.LoadXML(xmlRetorno, versao, stTipo);
             }
             catch (Exception ex)
             {
-                Key = ex.Message + " - " + Key;
-                return new KeyValuePair<string, ITRetEnvEvento>(Key, null);
+                throw new Exception($"Erro ao deserializar ({ex.Message}) o retorno do WebService ({xmlRetorno})");
             }
         }
 
-        public static KeyValuePair<string, ITRetEnviNFe> Interface_EnviarEnvelope(
-            System.Web.Services.Protocols.SoapHttpClientProtocol oServico,
-            ITEnviNFe oEnviNFe, Parametro oParam, VersaoXML versao)
+
+        private static void InicializaServico(System.Web.Services.Protocols.SoapHttpClientProtocol oServico, Parametro oParam)
         {
-            var Key = ExecutaServico(oServico, oEnviNFe, oParam);
-            try
-            {
-                var Value = (ITRetEnviNFe)XMLUtils.LoadXML(Key, versao, "TRetEnviNFe");
-                return new KeyValuePair<string, ITRetEnviNFe>(Key, Value);
-            }
-            catch (Exception ex)
-            {
-                Key = ex.Message + " - " + Key;
-                return new KeyValuePair<string, ITRetEnviNFe>(Key, null);
-            }
-        }
-
-        public static KeyValuePair<string, ITRetConsReciNFe> Interface_ConsultarProcessamentoEnvelope(
-            System.Web.Services.Protocols.SoapHttpClientProtocol oServico,
-            ITConsReciNFe oConsReciNFe, Parametro oParam, VersaoXML versao)
-        {
-            var Key = ExecutaServico(oServico, oConsReciNFe, oParam);
-            try
-            {
-                var Value = (ITRetConsReciNFe)XMLUtils.LoadXML(Key, versao, "TRetConsReciNFe");
-                return new KeyValuePair<string, ITRetConsReciNFe>(Key, Value);
-            }
-            catch (Exception ex)
-            {
-                Key = ex.Message + " - " + Key;
-                return new KeyValuePair<string, ITRetConsReciNFe>(Key, null);
-            }
-        }
-
-        public static KeyValuePair<string, ITRetConsStatServ> Interface_ConsultarStatusServidor(
-            System.Web.Services.Protocols.SoapHttpClientProtocol oServico,
-            ITConsStatServ oConsStatServ, Parametro oParam, VersaoXML versao)
-        {
-            var Key = ExecutaServico(oServico, oConsStatServ, oParam);
-            try
-            {
-                var Value = (ITRetConsStatServ)XMLUtils.LoadXML(Key, versao, "TRetConsStatServ");
-                return new KeyValuePair<string, ITRetConsStatServ>(Key, Value);
-            }
-            catch (Exception ex)
-            {
-                Key = ex.Message + " - " + Key;
-                return new KeyValuePair<string, ITRetConsStatServ>(Key, null);
-            }
-
-        }
-
-        public static KeyValuePair<string, ITRetInutNFe> Interface_InutilizarNFe(
-            System.Web.Services.Protocols.SoapHttpClientProtocol oServico,
-            ITInutNFe oInutNFe, Parametro oParam, VersaoXML versao)
-        {
-            var Key = ExecutaServico(oServico, oInutNFe, oParam);
-            try
-            {
-                var Value = (ITRetInutNFe)XMLUtils.LoadXML(Key, versao, "TRetInutNFe");
-                return new KeyValuePair<string, ITRetInutNFe>(Key, Value);
-            }
-            catch (Exception ex)
-            {
-                Key = ex.Message + " - " + Key;
-                return new KeyValuePair<string, ITRetInutNFe>(Key, null);
-            }
-        }
-
-        public static KeyValuePair<string, ITRetConsSitNFe> Interface_ConsultarSituacaoNFe(
-            System.Web.Services.Protocols.SoapHttpClientProtocol oServico,
-            ITConsSitNFe oConsSitNFe, Parametro oParam, VersaoXML versao)
-        {
-            var Key = ExecutaServico(oServico, oConsSitNFe, oParam);
-            try
-            {
-                var Value = (ITRetConsSitNFe)XMLUtils.LoadXML(Key, versao, "TRetConsSitNFe");
-                return new KeyValuePair<string, ITRetConsSitNFe>(Key, Value);
-            }
-            catch (Exception ex)
-            {
-                Key = ex.Message + " - " + Key;
-                return new KeyValuePair<string, ITRetConsSitNFe>(Key, null);
-            }
-
-        }
-
-        public static KeyValuePair<string, ITRetConsCad> Interface_ConsultarCadastro(SoapHttpClientProtocol oServico, ITConsCad oEnviNFe3, Parametro oParam, VersaoXML versao)
-        {
-            var Key = ExecutaServico(oServico, oEnviNFe3, oParam);
-            try
-            {
-                var Value = (ITRetConsCad)XMLUtils.LoadXML(Key, versao, "TRetConsCad");
-                return new KeyValuePair<string, ITRetConsCad>(Key, Value);
-            }
-            catch (Exception ex)
-            {
-                Key = ex.Message + " - " + Key;
-                return new KeyValuePair<string, ITRetConsCad>(Key, null);
-            }
-
-        }
-
-        public static KeyValuePair<string, IRetDistDFeInt> Interface_ConsultarDFe(SoapHttpClientProtocol oServico, IDistDFeInt xmlEnvio, Parametro oParam, VersaoXML versao)
-        {
-            var Key = ExecutaServico(oServico, xmlEnvio, oParam);
-            try
-            {
-                var Value = (IRetDistDFeInt)XMLUtils.LoadXML(Key, versao, "retDistDFeInt");
-                return new KeyValuePair<string, IRetDistDFeInt>(Key, Value);
-            }
-            catch (Exception ex)
-            {
-                Key = ex.Message + " - " + Key;
-                return new KeyValuePair<string, IRetDistDFeInt>(Key, null);
-            }
-
-        }
-
-        public static KeyValuePair<string, ITRetDownloadNFe> Interface_DownloadNF(SoapHttpClientProtocol oServico, ITDownloadNFe xmlEnvio, Parametro oParam)
-        {
-            var Key = ExecutaServico(oServico, xmlEnvio, oParam);
-            try
-            {
-                var Value = (ITRetDownloadNFe)XMLUtils.LoadXML<TRetDownloadNFe>(Key);
-                return new KeyValuePair<string, ITRetDownloadNFe>(Key, Value);
-            }
-            catch (Exception ex)
-            {
-                Key = ex.Message + " - " + Key;
-                return new KeyValuePair<string, ITRetDownloadNFe>(Key, null);
-            }
-
-        }
-
-
-        public static KeyValuePair<string, TRetLote_GNRE> Interface_GNRERecepcaoLote(SoapHttpClientProtocol oServico, TLote_GNRE xmlEnvio, Parametro oParam)
-        {
-            var Key = ExecutaServico(oServico, xmlEnvio, oParam);
-            try
-            {
-                var Value = XMLUtils.LoadXML<RDI.NFe2.SchemaXML.GNRE.TRetLote_GNRE>(Key);
-                return new KeyValuePair<string, TRetLote_GNRE>(Key, Value);
-            }
-            catch (Exception ex)
-            {
-                Key = ex.Message + " - " + Key;
-                return new KeyValuePair<string, TRetLote_GNRE>(Key, null);
-            }
-
-        }
-
-        public static KeyValuePair<string, RDI.NFe2.SchemaXML.GNRE.TResultLote_GNRE> Interface_GNREConsultaLote(SoapHttpClientProtocol oServico, TConsLote_GNRE xmlEnvio,Parametro oParam)
-        {
-            var Key = ExecutaServico(oServico, xmlEnvio, oParam);
-            try
-            {
-                var Value = XMLUtils.LoadXML<TResultLote_GNRE>(Key);
-                return new KeyValuePair<string, TResultLote_GNRE>(Key, Value);
-            }
-            catch (Exception ex)
-            {
-                Key = ex.Message + " - " + Key;
-                return new KeyValuePair<string, TResultLote_GNRE>(Key, null);
-            }
-        }
-
-        public static KeyValuePair<string, TConfigUf> Interface_GNREConfigUF(SoapHttpClientProtocol oServico, TConsultaConfigUf xmlEnvio, Parametro oParam)
-        {
-            var Key = ExecutaServico(oServico, xmlEnvio, oParam);
-            try
-            {
-                var Value = XMLUtils.LoadXML<TConfigUf>(Key);
-                return new KeyValuePair<string, TConfigUf>(Key, Value);
-            }
-            catch (Exception ex)
-            {
-                Key = ex.Message + " - " + Key;
-                return new KeyValuePair<string, TConfigUf>(Key, null);
-            }
-        }
-
-        public static void InicializaServico(
-            System.Web.Services.Protocols.SoapHttpClientProtocol oServico,
-            Parametro oParam)
-        {
-            X509Certificate2 certificadoX509 = Certificado.BuscaNome(oParam.certificado, oParam.usaWService, oParam.tipoBuscaCertificado);
+            X509Certificate2 certificadoX509 = Certificado.Carregar(oParam.certificado, oParam.tipoBuscaCertificado);
 
             oServico.ClientCertificates.Clear();
             oServico.ClientCertificates.Add(certificadoX509);
@@ -318,14 +124,21 @@ namespace RDI.NFe2.Business
             // forçar aceitação de todos os certificados dos servidores da SEFAZ
             // independentemente de ter a cadeia de certificação instalada
             System.Net.ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
-            //permitir os protocolos: SSL3 TLS1.0 TLS1.1 TLS1.2 
-            System.Net.ServicePointManager.SecurityProtocol = SecurityProtocolType.Ssl3 | SecurityProtocolType.Tls | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
+
+            //if (oParam.versao == VersaoXML.NFe_v400)
+            //{
+            //    //permitir somente o protocolo: TLS1.2 
+            //    System.Net.ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+            //}
+            //else
+            //{
+            //    //permitir os protocolos: SSL3 TLS1.0 TLS1.1 TLS1.2 
+            //System.Net.ServicePointManager.SecurityProtocol = SecurityProtocolType.Ssl3 | SecurityProtocolType.Tls | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
+            //}
         }
 
 
-        private static String ExecutaServico(
-            System.Web.Services.Protocols.SoapHttpClientProtocol oServico,
-            Object DADOS, Parametro oParam)
+        private static String InternalExecutaServico(SoapHttpClientProtocol oServico, TService TipoServico, Object DADOS, Parametro oParam)
         {
             try
             {
@@ -349,67 +162,219 @@ namespace RDI.NFe2.Business
                 InicializaServico(oServico, oParam);
 
 
-                if (DADOS.GetType() == typeof(TLote_GNRE))
+                if (oParam.versao == VersaoXML.NFe_v400 &&
+                (TipoServico == TService.Autorizacao || TipoServico == TService.RetAutorizacao || TipoServico == TService.ConsultaProtocolo ||
+                 TipoServico == TService.Inutilizacao || TipoServico == TService.RecepcaoEvento || TipoServico == TService.Cadastro || TipoServico == TService.Status))
                 {
-                    XmlNode ret = (XmlNode)oServico.GetType().InvokeMember("processar",
-                                                        System.Reflection.BindingFlags.InvokeMethod,
-                                                        null, oServico, new object[] { node });
+                    var wsMethod = Webservices.WSUtils.GetWSMethod(TipoServico);
 
+                    XmlNode ret = (XmlNode)oServico.GetType().InvokeMember(wsMethod, System.Reflection.BindingFlags.InvokeMethod,
+                        null, oServico, new object[] { node });
                     return XMLUtils.GetXML(ret, oParam.versao);
                 }
-                else if (DADOS.GetType() == typeof(TConsLote_GNRE))
+                else
                 {
-                    XmlNode ret = (XmlNode)oServico.GetType().InvokeMember("consultar",
-                                                        System.Reflection.BindingFlags.InvokeMethod,
-                                                        null, oServico, new object[] { node });
+                    //TODO : compatibilizar com a nova factory de webservices
 
-                    return XMLUtils.GetXML(ret, oParam.versao);
-                }
-                else if (DADOS.GetType() == typeof(TConsultaConfigUf))
-                {
-                    XmlNode ret = (XmlNode)oServico.GetType().InvokeMember("consultar",
-                                                        System.Reflection.BindingFlags.InvokeMethod,
-                                                        null, oServico, new object[] { node });
-
-                    return XMLUtils.GetXML(ret, oParam.versao);
-                }
-                else if (DADOS.GetType().GetInterface("ITConsCad") != null)
-                {
-                    XmlNode ret = (XmlNode)oServico.GetType().InvokeMember("consultaCadastro2",
-                                                        System.Reflection.BindingFlags.InvokeMethod,
-                                                        null, oServico, new object[] { node });
-
-                    return XMLUtils.GetXML(ret, oParam.versao);
-                }
-                else if (DADOS.GetType().GetInterface("ITEnvEvento") != null)
-                {
-                    XmlNode ret = (XmlNode)oServico.GetType().InvokeMember("nfeRecepcaoEvento",
-                                                        System.Reflection.BindingFlags.InvokeMethod,
-                                                        null, oServico, new object[] { node });
-
-                    return XMLUtils.GetXML(ret, oParam.versao);
-                }
-                else if (DADOS.GetType().GetInterface("ITEnviNFe") != null)
-                {
-                    if (((ITEnviNFe)DADOS).versao == "2.00")
+                    if (DADOS.GetType() == typeof(TLote_GNRE))
                     {
-                        //versao 2.00
+                        XmlNode ret = (XmlNode)oServico.GetType().InvokeMember("processar",
+                                                            System.Reflection.BindingFlags.InvokeMethod,
+                                                            null, oServico, new object[] { node });
 
-                        #region particularidades
-                        if (oParam.UF == TCodUfIBGE.Parana)
+                        return XMLUtils.GetXML(ret, oParam.versao);
+                    }
+                    else if (DADOS.GetType() == typeof(TConsLote_GNRE))
+                    {
+                        XmlNode ret = (XmlNode)oServico.GetType().InvokeMember("consultar",
+                                                            System.Reflection.BindingFlags.InvokeMethod,
+                                                            null, oServico, new object[] { node });
+
+                        return XMLUtils.GetXML(ret, oParam.versao);
+                    }
+                    else if (DADOS.GetType() == typeof(TConsultaConfigUf))
+                    {
+                        XmlNode ret = (XmlNode)oServico.GetType().InvokeMember("consultar",
+                                                            System.Reflection.BindingFlags.InvokeMethod,
+                                                            null, oServico, new object[] { node });
+
+                        return XMLUtils.GetXML(ret, oParam.versao);
+                    }
+                    else if (DADOS.GetType().GetInterface("ITConsCad") != null)
+                    {
+                        XmlNode ret = (XmlNode)oServico.GetType().InvokeMember("consultaCadastro2",
+                                                            System.Reflection.BindingFlags.InvokeMethod,
+                                                            null, oServico, new object[] { node });
+
+                        return XMLUtils.GetXML(ret, oParam.versao);
+                    }
+                    else if (DADOS.GetType().GetInterface("ITEnvEvento") != null)
+                    {
+                        XmlNode ret = (XmlNode)oServico.GetType().InvokeMember("nfeRecepcaoEvento",
+                                                            System.Reflection.BindingFlags.InvokeMethod,
+                                                            null, oServico, new object[] { node });
+
+                        return XMLUtils.GetXML(ret, oParam.versao);
+                    }
+                    else if (DADOS.GetType().GetInterface("ITEnviNFe") != null)
+                    {
+                        if (((ITEnviNFe)DADOS).versao == "2.00")
                         {
-                            if (oParam.tipoAmbiente == TAmb.Homologacao)
-                            {
-                                oServico.Url = @"https://homologacao.nfe2.fazenda.pr.gov.br/nfe/NFeRecepcao2";
-                            }
-                            else
-                            {
-                                oServico.Url = @"https://nfe2.fazenda.pr.gov.br/nfe/NFeRecepcao2";
-                            }
-                        }
-                        #endregion
+                            //versao 2.00
 
-                        XmlNode ret = (XmlNode)oServico.GetType().InvokeMember("nfeRecepcaoLote2",
+                            #region particularidades
+                            if (oParam.UF == TCodUfIBGE.Parana)
+                            {
+                                if (oParam.tipoAmbiente == TAmb.Homologacao)
+                                {
+                                    oServico.Url = @"https://homologacao.nfe2.fazenda.pr.gov.br/nfe/NFeRecepcao2";
+                                }
+                                else
+                                {
+                                    oServico.Url = @"https://nfe2.fazenda.pr.gov.br/nfe/NFeRecepcao2";
+                                }
+                            }
+                            #endregion
+
+                            XmlNode ret = (XmlNode)oServico.GetType().InvokeMember("nfeRecepcaoLote2",
+                                                                System.Reflection.BindingFlags.InvokeMethod,
+                                                                null, oServico, new object[] { node });
+
+                            return XMLUtils.GetXML(ret, oParam.versao);
+                        }
+                        else
+                        {
+                            //versao 3.00
+                            //Somente meto Assincrono
+                            //var test = (SchemaXML300.TEnviNFe)DADOS;
+                            //test.indSinc = SchemaXML300.TEnviNFeIndSinc.Item0;//Não indica sincrono
+                            //test.indSinc = SchemaXML300.TEnviNFeIndSinc.Item1; //indica sincrono, mas depende da SEFAZ autorizadora implementar servico.
+
+                            //***.**.Autorizacao.NfeAutorizacao proxy = new ***.**.Autorizacao.NfeAutorizacao();
+                            //var ret = proxy.nfeAutorizacaoLote(node);
+                            //sincrono poderá ter o Nó : TProtNFe
+                            //assincrono terá o Nó : TRetEnviNFeInfRec
+
+                            var fnNome = "nfeAutorizacaoLote";
+
+                            XmlNode ret = (XmlNode)oServico.GetType().InvokeMember(fnNome,
+                                                            System.Reflection.BindingFlags.InvokeMethod,
+                                                            null, oServico, new object[] { node });
+                            return XMLUtils.GetXML(ret, oParam.versao);
+                        }
+                    }
+                    else if (DADOS.GetType().GetInterface("ITConsReciNFe") != null)
+                    {
+                        if (((ITConsReciNFe)DADOS).versao == "2.00")
+                        {
+                            //versao 2.00
+
+                            #region particularidades
+                            if (oParam.UF == TCodUfIBGE.Parana)
+                            {
+                                if (oParam.tipoAmbiente == TAmb.Homologacao)
+                                {
+                                    oServico.Url = @"https://homologacao.nfe2.fazenda.pr.gov.br/nfe/NFeRetRecepcao2";
+                                }
+                                else
+                                {
+                                    oServico.Url = @"https://nfe2.fazenda.pr.gov.br/nfe/NFeRetRecepcao2";
+                                }
+                            }
+                            #endregion
+
+                            XmlNode ret = (XmlNode)oServico.GetType().InvokeMember("nfeRetRecepcao2",
+                                            System.Reflection.BindingFlags.InvokeMethod,
+                                            null, oServico, new object[] { node });
+
+                            return XMLUtils.GetXML(ret, oParam.versao);
+                        }
+                        else
+                        {
+                            var fnNome = "nfeRetAutorizacaoLote";
+                            if (oParam.UF == TCodUfIBGE.Parana && oParam.versao == VersaoXML.NFe_v310)
+                            {
+                                fnNome = "nfeRetAutorizacao";
+                            }
+
+
+                            //versao 3.00 ou 3.10
+                            XmlNode ret = (XmlNode)oServico.GetType().InvokeMember(fnNome,
+                                            System.Reflection.BindingFlags.InvokeMethod,
+                                            null, oServico, new object[] { node });
+
+                            var temp = XMLUtils.GetXML(ret, oParam.versao);
+
+                            if (oParam.UF == TCodUfIBGE.Pernambuco)
+                            {
+                                //SEFAZ PE está retornando retEnviNFe ao inves de retConsReciNFe quando lote ainda está em processamento
+                                temp = temp.Replace("retEnviNFe", "retConsReciNFe");
+                            }
+
+                            return temp;
+                        }
+                    }
+                    else if (DADOS.GetType().GetInterface("ITConsStatServ") != null)
+                    {
+                        var fnNome = "nfeStatusServicoNF2";
+                        if ((oParam.UF == TCodUfIBGE.Parana || oParam.UF == TCodUfIBGE.Bahia)
+                            && oParam.conexao == TipoConexao.NFe
+                            && oParam.tipoEmissao == TNFeInfNFeIdeTpEmis.Normal
+                            && oParam.versao == VersaoXML.NFe_v310)
+                        {
+                            fnNome = "nfeStatusServicoNF";
+                        }
+
+                        XmlNode ret = (XmlNode)oServico.GetType().InvokeMember(fnNome,
+                                        System.Reflection.BindingFlags.InvokeMethod,
+                                        null, oServico, new object[] { node });
+
+                        return XMLUtils.GetXML(ret, oParam.versao);
+                    }
+                    else if (DADOS.GetType().GetInterface("ITInutNFe") != null)
+                    {
+                        var fnNome = "nfeInutilizacaoNF2";
+                        if ((oParam.UF == TCodUfIBGE.Parana || oParam.UF == TCodUfIBGE.Bahia)
+                            && oParam.conexao == TipoConexao.NFe
+                            && oParam.tipoEmissao == TNFeInfNFeIdeTpEmis.Normal
+                            && oParam.versao == VersaoXML.NFe_v310)
+                        {
+                            fnNome = "nfeInutilizacaoNF";
+                        }
+
+                        XmlNode ret = (XmlNode)oServico.GetType().InvokeMember(fnNome,
+                                        System.Reflection.BindingFlags.InvokeMethod,
+                                        null, oServico, new object[] { node });
+
+                        return XMLUtils.GetXML(ret, oParam.versao);
+                    }
+                    else if (DADOS.GetType().GetInterface("ITConsSitNFe") != null)
+                    {
+                        string fnNome = "nfeConsultaNF2";
+                        if ((oParam.UF == TCodUfIBGE.Parana || oParam.UF == TCodUfIBGE.Bahia)
+                            && oParam.conexao == TipoConexao.NFe
+                            && oParam.tipoEmissao == TNFeInfNFeIdeTpEmis.Normal
+                            && oParam.versao == VersaoXML.NFe_v310)
+                        {
+                            fnNome = "nfeConsultaNF";
+                        }
+
+                        XmlNode ret = (XmlNode)oServico.GetType().InvokeMember(fnNome,
+                                                            System.Reflection.BindingFlags.InvokeMethod,
+                                                            null, oServico, new object[] { node });
+                        return XMLUtils.GetXML(ret, oParam.versao);
+                    }
+                    else if (DADOS.GetType().GetInterface("IDistDFeInt") != null)
+                    {
+                        XmlNode ret = (XmlNode)oServico.GetType().InvokeMember("nfeDistDFeInteresse",
+                                                            System.Reflection.BindingFlags.InvokeMethod,
+                                                            null, oServico, new object[] { node });
+
+                        return XMLUtils.GetXML(ret, oParam.versao);
+                    }
+                    else if (DADOS.GetType().GetInterface("ITDownloadNFe") != null)
+                    {
+                        XmlNode ret = (XmlNode)oServico.GetType().InvokeMember("nfeDownloadNF",
                                                             System.Reflection.BindingFlags.InvokeMethod,
                                                             null, oServico, new object[] { node });
 
@@ -417,151 +382,19 @@ namespace RDI.NFe2.Business
                     }
                     else
                     {
-                        //versao 3.00
-                        //Somente meto Assincrono
-                        //var test = (SchemaXML300.TEnviNFe)DADOS;
-                        //test.indSinc = SchemaXML300.TEnviNFeIndSinc.Item0;//Não indica sincrono
-                        //test.indSinc = SchemaXML300.TEnviNFeIndSinc.Item1; //indica sincrono, mas depende da SEFAZ autorizadora implementar servico.
-
-                        //***.**.Autorizacao.NfeAutorizacao proxy = new ***.**.Autorizacao.NfeAutorizacao();
-                        //var ret = proxy.nfeAutorizacaoLote(node);
-                        //sincrono poderá ter o Nó : TProtNFe
-                        //assincrono terá o Nó : TRetEnviNFeInfRec
-
-                        var fnNome = "nfeAutorizacaoLote";
-
-                        XmlNode ret = (XmlNode)oServico.GetType().InvokeMember(fnNome,
-                                                        System.Reflection.BindingFlags.InvokeMethod,
-                                                        null, oServico, new object[] { node });
-                        return XMLUtils.GetXML(ret, oParam.versao);
+                        throw new Exception("Tipo de objeto de envio não mapeado. Consulte o administrador do Sistema.");
                     }
-                }
-                else if (DADOS.GetType().GetInterface("ITConsReciNFe") != null)
-                {
-                    if (((ITConsReciNFe)DADOS).versao == "2.00")
-                    {
-                        //versao 2.00
-
-                        #region particularidades
-                        if (oParam.UF == TCodUfIBGE.Parana)
-                        {
-                            if (oParam.tipoAmbiente == TAmb.Homologacao)
-                            {
-                                oServico.Url = @"https://homologacao.nfe2.fazenda.pr.gov.br/nfe/NFeRetRecepcao2";
-                            }
-                            else
-                            {
-                                oServico.Url = @"https://nfe2.fazenda.pr.gov.br/nfe/NFeRetRecepcao2";
-                            }
-                        }
-                        #endregion
-
-                        XmlNode ret = (XmlNode)oServico.GetType().InvokeMember("nfeRetRecepcao2",
-                                        System.Reflection.BindingFlags.InvokeMethod,
-                                        null, oServico, new object[] { node });
-
-                        return XMLUtils.GetXML(ret, oParam.versao);
-                    }
-                    else
-                    {
-                        var fnNome = "nfeRetAutorizacaoLote";
-                        if (oParam.UF == TCodUfIBGE.Parana && oParam.versao == VersaoXML.NFe_v310)
-                        {
-                            fnNome = "nfeRetAutorizacao";
-                        }
-
-
-                        //versao 3.00 ou 3.10
-                        XmlNode ret = (XmlNode)oServico.GetType().InvokeMember(fnNome,
-                                        System.Reflection.BindingFlags.InvokeMethod,
-                                        null, oServico, new object[] { node });
-
-                        var temp = XMLUtils.GetXML(ret, oParam.versao);
-
-                        if (oParam.UF == TCodUfIBGE.Pernambuco)
-                        {
-                            //SEFAZ PE está retornando retEnviNFe ao inves de retConsReciNFe quando lote ainda está em processamento
-                            temp = temp.Replace("retEnviNFe", "retConsReciNFe");
-                        }
-
-                        return temp;
-                    }
-                }
-                else if (DADOS.GetType().GetInterface("ITConsStatServ") != null)
-                {
-                    var fnNome = "nfeStatusServicoNF2";
-                    if ((oParam.UF == TCodUfIBGE.Parana || oParam.UF == TCodUfIBGE.Bahia)
-                        && oParam.tipoEmissao == TNFeInfNFeIdeTpEmis.Normal
-                        && oParam.versao == VersaoXML.NFe_v310)
-                    {
-                        fnNome = "nfeStatusServicoNF";
-                    }
-
-                    XmlNode ret = (XmlNode)oServico.GetType().InvokeMember(fnNome,
-                                    System.Reflection.BindingFlags.InvokeMethod,
-                                    null, oServico, new object[] { node });
-
-                    return XMLUtils.GetXML(ret, oParam.versao);
-                }
-                else if (DADOS.GetType().GetInterface("ITInutNFe") != null)
-                {
-                    var fnNome = "nfeInutilizacaoNF2";
-                    if ((oParam.UF == TCodUfIBGE.Parana || oParam.UF == TCodUfIBGE.Bahia)
-                        && oParam.tipoEmissao == TNFeInfNFeIdeTpEmis.Normal
-                        && oParam.versao == VersaoXML.NFe_v310)
-                    {
-                        fnNome = "nfeInutilizacaoNF";
-                    }
-
-                    XmlNode ret = (XmlNode)oServico.GetType().InvokeMember(fnNome,
-                                    System.Reflection.BindingFlags.InvokeMethod,
-                                    null, oServico, new object[] { node });
-
-                    return XMLUtils.GetXML(ret, oParam.versao);
-                }
-                else if (DADOS.GetType().GetInterface("ITConsSitNFe") != null)
-                {
-                    string fnNome = "nfeConsultaNF2";
-                    if ((oParam.UF == TCodUfIBGE.Parana || oParam.UF == TCodUfIBGE.Bahia)
-                        && oParam.tipoEmissao == TNFeInfNFeIdeTpEmis.Normal
-                        && oParam.versao == VersaoXML.NFe_v310)
-                    {
-                        fnNome = "nfeConsultaNF";
-                    }
-
-                    XmlNode ret = (XmlNode)oServico.GetType().InvokeMember(fnNome,
-                                                        System.Reflection.BindingFlags.InvokeMethod,
-                                                        null, oServico, new object[] { node });
-                    return XMLUtils.GetXML(ret, oParam.versao);
-                }
-                else if (DADOS.GetType().GetInterface("IDistDFeInt") != null)
-                {
-                    XmlNode ret = (XmlNode)oServico.GetType().InvokeMember("nfeDistDFeInteresse",
-                                                        System.Reflection.BindingFlags.InvokeMethod,
-                                                        null, oServico, new object[] { node });
-
-                    return XMLUtils.GetXML(ret, oParam.versao);
-                }
-                else if (DADOS.GetType().GetInterface("ITDownloadNFe") != null)
-                {
-                    XmlNode ret = (XmlNode)oServico.GetType().InvokeMember("nfeDownloadNF",
-                                                        System.Reflection.BindingFlags.InvokeMethod,
-                                                        null, oServico, new object[] { node });
-
-                    return XMLUtils.GetXML(ret, oParam.versao);
-                }
-                else
-                {
-                    throw new Exception("Tipo de objeto de envio não mapeado. Consulte o administrador do Sistema.");
                 }
             }
             catch (Exception ex)
             {
                 String msg = ex.Message;
                 if (ex.InnerException != null)
+                {
                     msg += " inner : " + ex.InnerException.Message;
-                if (ex.InnerException.InnerException != null)
-                    msg += " inner : " + ex.InnerException.InnerException.Message;
+                    if (ex.InnerException.InnerException != null)
+                        msg += " inner : " + ex.InnerException.InnerException.Message;
+                }
 
                 throw new Exception("Erro ao executar Serviço : typeof(" + DADOS.GetType().ToString() + "). Verifique sua conexão com a Internet, configurações de proxy e certificado. " + msg);
             }

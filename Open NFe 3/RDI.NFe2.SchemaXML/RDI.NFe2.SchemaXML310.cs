@@ -13455,7 +13455,7 @@ namespace RDI.NFe2.SchemaXML.NFe_v310
 
         private string[] itemsField;
 
-        private ItemsChoiceType1[] itemsElementNameField;
+        private CE_pPIS[] itemsElementNameField;
 
         private string vPISField;
 
@@ -13493,7 +13493,7 @@ namespace RDI.NFe2.SchemaXML.NFe_v310
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute("ItemsElementName")]
         [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public ItemsChoiceType1[] ItemsElementName
+        public CE_pPIS[] ItemsElementName
         {
             get
             {
@@ -13623,25 +13623,7 @@ namespace RDI.NFe2.SchemaXML.NFe_v310
         Item99,
     }
 
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.1432")]
-    [System.SerializableAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe", IncludeInSchema = false)]
-    public enum ItemsChoiceType1
-    {
-
-        /// <remarks/>
-        pPIS,
-
-        /// <remarks/>
-        qBCProd,
-
-        /// <remarks/>
-        vAliqProd,
-
-        /// <remarks/>
-        vBC,
-    }
+   
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.1432")]
@@ -13736,7 +13718,7 @@ namespace RDI.NFe2.SchemaXML.NFe_v310
 
         private string[] itemsField;
 
-        private ItemsChoiceType2[] itemsElementNameField;
+        private CE_pPIS[] itemsElementNameField;
 
         private string vPISField;
 
@@ -13761,7 +13743,7 @@ namespace RDI.NFe2.SchemaXML.NFe_v310
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute("ItemsElementName")]
         [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public ItemsChoiceType2[] ItemsElementName
+        public CE_pPIS[] ItemsElementName
         {
             get
             {
@@ -13785,26 +13767,6 @@ namespace RDI.NFe2.SchemaXML.NFe_v310
                 this.vPISField = value;
             }
         }
-    }
-
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.1432")]
-    [System.SerializableAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe", IncludeInSchema = false)]
-    public enum ItemsChoiceType2
-    {
-
-        /// <remarks/>
-        pPIS,
-
-        /// <remarks/>
-        qBCProd,
-
-        /// <remarks/>
-        vAliqProd,
-
-        /// <remarks/>
-        vBC,
     }
 
     /// <remarks/>
@@ -13992,7 +13954,7 @@ namespace RDI.NFe2.SchemaXML.NFe_v310
 
         private string[] itemsField;
 
-        private ItemsChoiceType3[] itemsElementNameField;
+        private CE_pCOFINS[] itemsElementNameField;
 
         private string vCOFINSField;
 
@@ -14030,7 +13992,7 @@ namespace RDI.NFe2.SchemaXML.NFe_v310
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute("ItemsElementName")]
         [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public ItemsChoiceType3[] ItemsElementName
+        public CE_pCOFINS[] ItemsElementName
         {
             get
             {
@@ -14158,26 +14120,6 @@ namespace RDI.NFe2.SchemaXML.NFe_v310
         /// <remarks/>
         [System.Xml.Serialization.XmlEnumAttribute("99")]
         Item99,
-    }
-
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.1432")]
-    [System.SerializableAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe", IncludeInSchema = false)]
-    public enum ItemsChoiceType3
-    {
-
-        /// <remarks/>
-        pCOFINS,
-
-        /// <remarks/>
-        qBCProd,
-
-        /// <remarks/>
-        vAliqProd,
-
-        /// <remarks/>
-        vBC,
     }
 
     /// <remarks/>

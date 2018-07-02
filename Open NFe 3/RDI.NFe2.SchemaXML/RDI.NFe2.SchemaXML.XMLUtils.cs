@@ -8,6 +8,8 @@ using System.Xml;
 using System.ComponentModel;
 using System.Reflection;
 using System.IO.Compression;
+using System.Security.Cryptography.Xml;
+using System.Security.Cryptography;
 
 namespace RDI.NFe2.SchemaXML
 {
@@ -415,6 +417,24 @@ namespace RDI.NFe2.SchemaXML
             {
                 throw new XMLValidationException("Erro ao carregar o XML", ex);
             }
+        }
+
+        public static string GetDigestValue_SHA1(string XML, string URI = "infNFe")
+        {
+            XmlDocument docSource = new XmlDocument();
+            docSource.PreserveWhitespace = false;
+            docSource.LoadXml(XML);
+            var serializer = new XmlDsigExcC14NTransform();
+            string toBeCanonicalized = docSource.GetElementsByTagName(URI).Item(0).OuterXml;
+            XmlDocument docCanonicalized = new XmlDocument();
+            docCanonicalized.LoadXml(toBeCanonicalized);
+            serializer.LoadInput(docCanonicalized);
+            string c14n = new StreamReader((Stream)serializer.GetOutput(typeof(Stream))).ReadToEnd();
+            var HashAlg = SHA1.Create();
+            byte[] hash = HashAlg.ComputeHash(Encoding.UTF8.GetBytes(c14n));
+            var stHash = Convert.ToBase64String(hash);
+
+            return stHash;
         }
     }
 }

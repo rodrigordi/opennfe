@@ -9,7 +9,7 @@ namespace RDI.NFe2.ORMAP
 {
     public class ServicoPendente : BusinessObject
     {
-        
+
         private String _empresa;
         private Int32 _numeroLote;
 
@@ -91,7 +91,7 @@ namespace RDI.NFe2.ORMAP
             set { SetIfChanged(ref _xmlRetConsulta, value); }
         }
 
-        
+
 
         public String descSituacao
         {
@@ -138,9 +138,9 @@ namespace RDI.NFe2.ORMAP
             CreateKeyParameters(businessObject, cmd);
             DALObject.CreateParameter(cmd, "@CodigoSituacao", System.Data.DbType.Int32, pend.codigoSituacao);
             DALObject.CreateParameter(cmd, "@DataSituacao", System.Data.DbType.DateTime, pend.dataSituacao);
-            DALObject.CreateParameter(cmd, "@NumeroRecibo", System.Data.DbType.String, pend.numeroRecibo);   
+            DALObject.CreateParameter(cmd, "@NumeroRecibo", System.Data.DbType.String, pend.numeroRecibo);
             DALObject.CreateParameter(cmd, "@XMLRecibo", System.Data.DbType.String, pend.xmlRecibo);
-            DALObject.CreateParameter(cmd, "@xmlRetConsulta", System.Data.DbType.String, pend.xmlRetConsulta);            
+            DALObject.CreateParameter(cmd, "@xmlRetConsulta", System.Data.DbType.String, pend.xmlRetConsulta);
             DALObject.CreateParameter(cmd, "@erroEnvio", System.Data.DbType.Boolean, pend.erroEnvio);
 
             DALObject.CreateParameter(cmd, "@TipoOperacao", System.Data.DbType.Int32, pend.tipoAmbiente);
@@ -233,17 +233,17 @@ namespace RDI.NFe2.ORMAP
         }
         protected override string GetDeleteStatement()
         {
-//            return @"DELETE FROM ServicosPendentes 
-//                        WHERE NumeroLote = @NumeroLote
-//                        AND CNPJ = @CNPJ";
+            //            return @"DELETE FROM ServicosPendentes 
+            //                        WHERE NumeroLote = @NumeroLote
+            //                        AND CNPJ = @CNPJ";
             throw new Exception("Esse Registro não pode ser Excluído.");
         }
         protected override string GetSelectStatement()
         {
-            return @"SELECT ModoOperacao, TipoOperacao, UnidadeFederativa, NumeroLote, CodigoSituacao, DataSituacao, NumeroRecibo, XMLRecibo, CNPJ, erroEnvio, xmlRetConsulta, versao
+            return $@"SELECT ModoOperacao, TipoOperacao, UnidadeFederativa, NumeroLote, CodigoSituacao, DataSituacao, NumeroRecibo, XMLRecibo, CNPJ, erroEnvio, xmlRetConsulta, versao
                        FROM ServicosPendentes
-                        --<where auto>--
-                        --<orderby>--";
+                        {Conexao.whereAuto}
+                        {Conexao.orderBy}";
         }
         protected override string GetEntityName()
         {
@@ -252,9 +252,9 @@ namespace RDI.NFe2.ORMAP
 
         protected string GetMaxSelect()
         {
-            return @"SELECT isnull (max(NumeroLote),0) as NumeroLote
+            return $@"SELECT {Conexao.isnull} (max(NumeroLote),0) as NumeroLote
                        FROM ServicosPendentes
-                        --<where auto>--";
+                        {Conexao.whereAuto}";
         }
         public Int32 GetMax(QueryObject queryobject, ClientEnvironment clientEnvironment)
         {
@@ -265,41 +265,13 @@ namespace RDI.NFe2.ORMAP
 
             if (clientEnvironment.transaction != null) cmd.Transaction = clientEnvironment.transaction;
 
-            return (Int32)cmd.ExecuteScalar() + 1;
+            return Convert.ToInt32(cmd.ExecuteScalar()) + 1;
         }
-
-        //protected override void DoAfterDelete(System.Data.IDbCommand cmd, BusinessObject businessObject, ClientEnvironment clientEnvironment)
-        //{
-        //    /*TODO : testar e avaliar, para quando um serviço for excluido, também setar a nota como Serviço Excluido
-        //     * 
-        //     */ base.DoAfterDelete(cmd, businessObject, clientEnvironment);
-            
-        //    ServicoPendente oServico = (ServicoPendente)businessObject;
-        //    if (oServico.codigoSituacao != TipoSituacaoServico.Processado && oServico.codigoSituacao != TipoSituacaoServico.Finalizado)
-        //    {
-        //        NotaFiscalQry collect = new NotaFiscalQry();
-        //        collect.empresa = oServico.empresa;
-        //        collect.numeroLote = oServico.numeroLote.ToString();
-
-        //        //achar a nota referente aquele servico
-        //        System.Collections.ArrayList notas = NotaFiscalDAL.Instance.GetInstances(collect, clientEnvironment);
-        //        if (notas.Count > 0)
-        //        {
-        //            //se achou a nota
-        //            NotaFiscal oNota = (NotaFiscal)notas[0];
-        //            oNota.codigoSituacao = 99;
-        //            oNota.descricaoSituacao = "Serviço Excluído";
-        //            oNota.Save(clientEnvironment);
-        //        }
-        //    }
-        //    //*/
-        //}
     }
 
     public class ServicoPendenteQry : QueryObject
     {
         public ServicoPendenteQry() : base(System.String.Empty) { }
-        //private String _chaveNota;
         private String _numeroLote;
         private String _codigoSituacao;
         private String _numeroRecibo;
@@ -390,7 +362,7 @@ namespace RDI.NFe2.ORMAP
         }
         public override void SetKey(string keyString)
         {
-            empresa  = keyString.Split('|')[0];
+            empresa = keyString.Split('|')[0];
             numeroLote = keyString.Split('|')[1];
         }
 

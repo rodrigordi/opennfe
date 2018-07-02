@@ -9,11 +9,8 @@ public interface IUtilitario
 {
     String GetUltimaValidacao();
 
-    void SetUtilitario_v1(String nomeCertificado, Boolean ContaComputador, Boolean Producao, Boolean TpEmisNormal, String UF);
-    void SetUtilitario_v2(String nomeCertificado, Boolean ContaComputador, Boolean Producao, Boolean TpEmisNormal, String UF, int versao);
-    void SetUtilitario_v3(String nomeCertificado, Boolean ContaComputador, Boolean Producao, Boolean TpEmisNormal, String UF, Boolean NFCe, int versao);
-    void SetUtilitario_v4(String nomeCertificado, Boolean ContaComputador, Boolean Producao, Boolean TpEmisNormal, String UF, TipoConexao conexao, int versao);
-    void SetUtilitario_v5(String nomeCertificado, Boolean ContaComputador, Boolean Producao, Boolean TpEmisNormal, String UF, TipoConexao conexao, BuscaCertificado tipoBusca, int versao);
+    void SetUtilitario(String certificado, Boolean Producao, Boolean TpEmisNormal, String UF, int conexao, int tipoBusca, int versaoXML);
+    void SetUtilitario(String certificado, Boolean Producao, Boolean TpEmisNormal, String UF, TipoConexao conexao, TBuscaCertificado tipoBusca, VersaoXML versaoXML);
 
     void DefineUF(String UF);
     void DefineUF(TCodUfIBGE UF);
@@ -60,79 +57,44 @@ public interface IUtilitario
 
     void SetProxy(Boolean habilita);
 
+    string Unzip(string stZipped);
+
+    Boolean StatusWebService();
+
+    string StatusWebServiceST();
 
     //carregando do HD
-    Boolean RecepcaoNFe2HD(String caminhoArquivoEnviNFe2, String caminhoArquivoRetEnviNFe2);
-
-    Boolean RetRecepcaoNFe2HD(String caminhoArquivoConsReciNFe2, String caminhoArquivoRetConsReciNFe2);
-
-    Boolean InutilizaNFe2HD(String caminhoArquivoInutNFe2, String caminhoArquivoRetInutNFe2);
-
-    Boolean StatusWebServiceHD(String caminhoArquivoRetConsStatServ);
-
-    //passando xml via string
-    String RecepcaoNFe2ST(String ArquivoEnviNFe2);
-
-    String RetRecepcaoNFe2ST(String ArquivoConsReciNFe2);
-
-    String InutilizaNFe2ST(String ArquivoInutNFe2);
-
-    Boolean StatusWebServiceST();
-
-    //carregando do HD
+    Boolean AutorizacaoHD(String caminhoArquivoEnviNFe, String caminhoArquivoRetEnviNFe);
+    Boolean RetAutorizacaoHD(String caminhoArquivoConsReciNFe, String caminhoArquivoRetConsReciNFe);
+    Boolean InutilizacaoHD(String caminhoArquivoInutNFe, String caminhoArquivoRetInutNFe);
     Boolean RecepcaoEventoHD(String caminhoArquivoEnvEvento, String caminhoArquivoRetEnvEvento);
+    Boolean ConsultaProtocoloHD(String caminhoArquivoConsSitNFCe3, String caminhoArquivoRetConsSitNFCe3);
 
-    Boolean ConsultaSituacao201NFeHD(String caminhoArquivoConsSitNFe, String caminhoArquivoRetConsSitNFe);
 
     //passando xml via string
+    String AutorizacaoST(String ArquivoEnviNFe);
+    String RetAutorizacaoST(String ArquivoConsReciNFe);
+    String InutilizacaoST(String ArquivoInutNFe);
     String RecepcaoEventoST(String ArquivoEnvEvento);
-
-    String ConsultaSituacao201NFeST(String ArquivoConsSitNFe);
-
-    #region NFCe
-
-    //carregando do HD
-    Boolean AutorizacaoNFCe3HD(String caminhoArquivoEnviNFCe3, String caminhoArquivoRetEnviNFCe3);
-
-    Boolean RetAutorizacaoNFCe3HD(String caminhoArquivoConsReciNFCe3, String caminhoArquivoRetConsReciNFCe3);
-
-    Boolean InutilizaNFCe3HD(String caminhoArquivoInutNFCe3, String caminhoArquivoRetInutNFCe3);
+    String ConsultaProtocoloST(String ArquivoConsSitNFe);
 
 
-
-    //passando xml via string
-    String AutorizacaoNFCe3ST(String ArquivoEnviNFCe3);
-
-    String RetAutorizacaoNFCe3ST(String ArquivoConsReciNFCe3);
-
-    String InutilizaNFCe3ST(String ArquivoInutNFCe3);
-
-
-    //carregando do HD
-    Boolean RecepcaoEventoNFCe3HD(String caminhoArquivoEnvEvento, String caminhoArquivoRetEnvEvento);
-
-    Boolean ConsultaSituacaoNFCe3HD(String caminhoArquivoConsSitNFCe3, String caminhoArquivoRetConsSitNFCe3);
-
-    //passando xml via string
-    String RecepcaoEventoNFCe3ST(String ArquivoEnvEvento);
-
-    String ConsultaSituacaoNFCe3ST(String ArquivoConsSitNFCe3);
-
-    #endregion
 
     Boolean ConsultaCadastroHD(String caminhoXMLEnvio, String caminhoXMLRetorno);
     String ConsultaCadastroST(String XMLEnvio);
 
     Boolean ConsultarDFeHD(String caminhoXMLEnvio, String caminhoXMLRetorno);
     String ConsultarDFeST(String XMLEnvio);
+    IRetDistDFeInt ConsultarDFe(IDistDFeInt oXMLEnvio);
 
     Boolean DownloadNFHD(String caminhoXMLEnvio, String caminhoXMLRetorno);
     String DownloadNFST(String XMLEnvio);
+    ITRetDownloadNFe DownloadNF(ITDownloadNFe oXMLEnvio);
 
     String RecepcaoEvento_MDe_ST(String ArquivoEnvEvento);
     Boolean RecepcaoEvento_MDe_HD(String caminhoArquivoEnvEvento, String caminhoArquivoRetEnvEvento);
 
-    string Unzip(string stZipped);
+    bool ManifestarConhecimento(string chaveNFe, string cnpj);
 
     Boolean GNRE_RecepcaoLoteHD(String caminhoXMLEnvio, String caminhoXMLRetorno);
     String GNRE_RecepcaoLoteST(String XMLEnvio);
@@ -142,7 +104,4 @@ public interface IUtilitario
 
     Boolean GNRE_ConsultaConfigHD(String caminhoXMLEnvio, String caminhoXMLRetorno);
     String GNRE_ConsultaConfigST(String XMLEnvio);
-
-
-
 }
