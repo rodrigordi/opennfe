@@ -2141,6 +2141,8 @@ namespace RDI.NFe2.Business
                     oConsSitNFe.versao = TVerConsSitNFe.Item300;
                 else if (oParam.versao == VersaoXML.NFe_v310)
                     oConsSitNFe.versao = TVerConsSitNFe.Item310;
+                else if (oParam.versao == VersaoXML.NFe_v400)
+                    oConsSitNFe.versao = TVerConsSitNFe.Item400;
 
                 if (!Directory.Exists(oParam.pastaRecibo))
                     Directory.CreateDirectory(oParam.pastaRecibo);
