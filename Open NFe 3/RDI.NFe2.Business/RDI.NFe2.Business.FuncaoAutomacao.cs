@@ -421,7 +421,7 @@ namespace RDI.NFe2.Business
                                     //gerar o arquivo de processo
 
                                     //gerar evento
-                                    var oProcEvento = (ITProcEvento)XMLUtils.XMLFactory(oParam.versao, "TProcEvento");
+                                    var oProcEvento = (ITProcEvento)XMLUtils.XMLFactory(oParam.versaoEventos, "TProcEvento");
                                     oProcEvento.evento = oEvento;
                                     oProcEvento.retEvento = oRetEnvEvento.retEvento[0];
                                     oProcEvento.versao = "1.00";
@@ -710,7 +710,7 @@ namespace RDI.NFe2.Business
                                     oNotaFiscal.Save(manager);
 
                                     //gerar evento
-                                    var oProcEvento = (ITProcEvento)XMLUtils.XMLFactory(oParam.versao, "TProcEvento");
+                                    var oProcEvento = (ITProcEvento)XMLUtils.XMLFactory(oParam.versaoEventos, "TProcEvento");
                                     oProcEvento.evento = oEvento;
                                     oProcEvento.retEvento = oRetEnvEvento.retEvento[0];
                                     oProcEvento.versao = "1.00";
@@ -2092,7 +2092,7 @@ namespace RDI.NFe2.Business
                 try
                 {
                     //executa servico
-                    oRetEnvEvento = Servicos.EnviarEnvelopeEvento(oServico, oEnvEvento, oParam, oParam.versao);
+                    oRetEnvEvento = Servicos.EnviarEnvelopeEvento(oServico, oEnvEvento, oParam, oParam.versaoEventos);
                     xmlRetEnvEvento = XMLUtils.GetXML(oRetEnvEvento, versao);
 
                 }
