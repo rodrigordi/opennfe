@@ -2354,8 +2354,8 @@ namespace RDI.NFe2.Business
                                         ITEvento XmlEvento = (ITEvento)XMLUtils.LoadXML(oEvento.XMLPedido, oEvento.versao, "TEvento");
 
                                         //comparar pela assinatura
-                                        if (Convert.ToBase64String(XmlEvento.Signature.SignedInfo.Reference.DigestValue) ==
-                                        Convert.ToBase64String(item.evento.Signature.SignedInfo.Reference.DigestValue))
+                                        if (XmlEvento.Signature != null && item.evento.Signature != null &&
+                                            Convert.ToBase64String(XmlEvento.Signature.SignedInfo.Reference.DigestValue) == Convert.ToBase64String(item.evento.Signature.SignedInfo.Reference.DigestValue))
                                         {
                                             if (String.IsNullOrEmpty(oEvento.XMLResposta))
                                             {
