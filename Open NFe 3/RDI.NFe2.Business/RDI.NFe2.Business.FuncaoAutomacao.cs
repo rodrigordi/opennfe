@@ -2335,10 +2335,14 @@ namespace RDI.NFe2.Business
                         {
                             foreach (var item in oRetConsSitNFe.procEventoNFe)
                             {
+                                var versaoDoEvento = VersaoXML.Eventos_v100;
+
+                                //TODO : fazer um de/para de acordo com o campo item.versao
+
                                 //atualizar o XML Reposta do Evento
-                                ITRetEnvEvento XmlRespostaEvento = (ITRetEnvEvento)XMLUtils.XMLFactory(oNotaFiscal.versao, "TRetEnvEvento");
+                                ITRetEnvEvento XmlRespostaEvento = (ITRetEnvEvento)XMLUtils.XMLFactory(versaoDoEvento, "TRetEnvEvento");
                                 XmlRespostaEvento.tpAmb = oParam.tipoAmbiente;
-                                XmlRespostaEvento.retEvento = (ITretEvento[])XMLUtils.XMLFactory(oNotaFiscal.versao, "TretEvento[]", 1);
+                                XmlRespostaEvento.retEvento = (ITretEvento[])XMLUtils.XMLFactory(versaoDoEvento, "TretEvento[]", 1);
                                 XmlRespostaEvento.retEvento[0] = item.retEvento;
 
                                 bool eventoEncontrado = false;
@@ -2355,7 +2359,7 @@ namespace RDI.NFe2.Business
                                         {
                                             if (String.IsNullOrEmpty(oEvento.XMLResposta))
                                             {
-                                                oEvento.XMLResposta = XMLUtils.GetXML(XmlRespostaEvento, oNotaFiscal.versao);
+                                                oEvento.XMLResposta = XMLUtils.GetXML(XmlRespostaEvento, versaoDoEvento);
                                             }
 
                                             switch (item.retEvento.infEvento.cStat)
@@ -2384,8 +2388,8 @@ namespace RDI.NFe2.Business
                                 {
                                     #region criar novo evento
                                     Evento oNovoEvento = new Evento();
-                                    oNovoEvento.XMLPedido = XMLUtils.GetXML(item.evento, oNotaFiscal.versao);
-                                    oNovoEvento.XMLResposta = XMLUtils.GetXML(XmlRespostaEvento, oNotaFiscal.versao);
+                                    oNovoEvento.XMLPedido = XMLUtils.GetXML(item.evento, versaoDoEvento);
+                                    oNovoEvento.XMLResposta = XMLUtils.GetXML(XmlRespostaEvento, versaoDoEvento);
                                     switch (item.retEvento.infEvento.cStat)
                                     {
                                         case "135": oNovoEvento.codigoSituacao = TipoSituacaoEvento.FinalizadoAprovado135; break;
