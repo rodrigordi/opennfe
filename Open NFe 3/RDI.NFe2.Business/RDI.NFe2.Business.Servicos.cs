@@ -125,16 +125,16 @@ namespace RDI.NFe2.Business
             // independentemente de ter a cadeia de certificação instalada
             System.Net.ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
 
-            //if (oParam.versao == VersaoXML.NFe_v400)
-            //{
-            //    //permitir somente o protocolo: TLS1.2 
-            //    System.Net.ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
-            //}
-            //else
-            //{
-            //    //permitir os protocolos: SSL3 TLS1.0 TLS1.1 TLS1.2 
-            //System.Net.ServicePointManager.SecurityProtocol = SecurityProtocolType.Ssl3 | SecurityProtocolType.Tls | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
-            //}
+            if (oParam.versao == VersaoXML.NFe_v400)
+            {
+                //permitir somente o protocolo: TLS1.2 
+                System.Net.ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+            }
+            else
+            {
+                //permitir os protocolos: SSL3 TLS1.0 TLS1.1 TLS1.2 
+                System.Net.ServicePointManager.SecurityProtocol = SecurityProtocolType.Ssl3 | SecurityProtocolType.Tls | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
+            }
         }
 
 
