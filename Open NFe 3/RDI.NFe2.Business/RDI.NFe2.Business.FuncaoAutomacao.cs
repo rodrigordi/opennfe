@@ -370,7 +370,7 @@ namespace RDI.NFe2.Business
                             //NFeAdmin funciona somente com certificado do repositorio. Será por nome.
                             X509Certificate2 certificadoX509 = Certificado.CarregarPorNome(oParam.certificado, oParam.usaWService);
 
-                            var retornoAssinatura = NFeUtils.AssinaXML(nomeArquivoAssinado, "infEvento", certificadoX509, oParam.versao);
+                            var retornoAssinatura = NFeUtils.AssinaXML(nomeArquivoAssinado, "infEvento", certificadoX509, oParam.versaoEventos);
                             certificadoX509 = null;
 
                             //apaga arquivo sem assinatura : -ev.xml
@@ -387,7 +387,7 @@ namespace RDI.NFe2.Business
                             //arquivo esta assinado
                             //carregar o xml assinado
                             oEvento = (ITEvento)XMLUtils.LoadXMLFile(nomeArquivoAssinado, oParam.versaoEventos, "TEvento");
-                            xmlEvento = XMLUtils.GetXML(oEvento, oParam.versao);
+                            xmlEvento = XMLUtils.GetXML(oEvento, oParam.versaoEventos);
 
                             RecepcaoEvento(oEvento, numeroNovoLote, ref xmlRetorno, oParam.versaoEventos);
 
@@ -494,7 +494,7 @@ namespace RDI.NFe2.Business
                                         string sufixo = "_v1.00-procCCe.xml";
                                         String nomeArquivo = oEvento.infEvento.Id + sufixo;
 
-                                        ITNFe oNFeXML = (ITNFe)XMLUtils.LoadXML(oNotaFiscal.xmlNota, oParam.versao, "TNFe");
+                                        ITNFe oNFeXML = (ITNFe)XMLUtils.LoadXML(oNotaFiscal.xmlNota, oParam.versaoEventos, "TNFe");
 
                                         //salvar TXT com dados complementares
                                         if (File.Exists(oParam.pastaImpressao + nomeArquivo.Replace(".xml", ".txt")))
