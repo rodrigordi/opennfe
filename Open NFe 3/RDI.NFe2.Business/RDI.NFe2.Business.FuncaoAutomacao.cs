@@ -494,7 +494,7 @@ namespace RDI.NFe2.Business
                                         string sufixo = "_v1.00-procCCe.xml";
                                         String nomeArquivo = oEvento.infEvento.Id + sufixo;
 
-                                        ITNFe oNFeXML = (ITNFe)XMLUtils.LoadXML(oNotaFiscal.xmlNota, oParam.versaoEventos, "TNFe");
+                                        ITNFe oNFeXML = (ITNFe)XMLUtils.LoadXML(oNotaFiscal.xmlNota, oParam.versao, "TNFe");
 
                                         //salvar TXT com dados complementares
                                         if (File.Exists(oParam.pastaImpressao + nomeArquivo.Replace(".xml", ".txt")))
