@@ -333,7 +333,7 @@ namespace RDI.NFe2.Business
                             #region verificar serializacao antes de assinar jogar na classe de NFe
                             try
                             {
-                                oEvento = (ITEvento)XMLUtils.LoadXML(xmlEvento, oParam.versao, "TEvento");
+                                oEvento = (ITEvento)XMLUtils.LoadXML(xmlEvento, oParam.versaoEventos, "TEvento");
 
                                 oNotaFiscalQry.empresa = oParam.empresa;// oEvento.infEvento.Item;
                                 oNotaFiscalQry.chaveNota = "NFe" + oEvento.infEvento.chNFe;
