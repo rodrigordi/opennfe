@@ -22,7 +22,7 @@ namespace RDI.NFe2.Webservices.NF4.HUB.ConsultaProtocolo
 
         //[TraceExtensionAttribute(Filename = "c:\\temp\\nfeConsultaNF.txt")]
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://www.portalfiscal.inf.br/nfe/wsdl/NFeConsultaProtocolo4/nfeConsultaNF", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Bare)]
-        [return: System.Xml.Serialization.XmlElementAttribute("nfeConsultaNFResult", Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeConsultaProtocolo4")]
+        [return: System.Xml.Serialization.XmlElementAttribute("nfeConsultaNFResult", Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeConsultaProtocolo4")]
         public System.Xml.XmlNode nfeConsultaNF([System.Xml.Serialization.XmlElementAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeConsultaProtocolo4")] System.Xml.XmlNode nfeDadosMsg)
         {
             object[] results = this.Invoke("nfeConsultaNF", new object[] {

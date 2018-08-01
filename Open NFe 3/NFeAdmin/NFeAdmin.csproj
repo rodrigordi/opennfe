@@ -375,6 +375,10 @@
       <Project>{B6994F3D-9147-45A8-B3D1-6D9DE17E5826}</Project>
       <Name>RDI.NFe2.Business</Name>
     </ProjectReference>
+    <ProjectReference Include="..\RDI.NFe2.Inteface.ComObject\RDI.NFe2.Interface.ComObject.csproj">
+      <Project>{beb13a1d-d13f-4aba-bc50-105bc72fc595}</Project>
+      <Name>RDI.NFe2.Interface.ComObject</Name>
+    </ProjectReference>
     <ProjectReference Include="..\RDI.NFe2.ORMAP.MSSQL\RDI.NFe2.ORMAP.csproj">
       <Project>{2B33059C-33E3-4617-802B-B4B5EFF4F1EA}</Project>
       <Name>RDI.NFe2.ORMAP</Name>
