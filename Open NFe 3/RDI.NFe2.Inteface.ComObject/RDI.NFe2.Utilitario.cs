@@ -743,7 +743,7 @@ namespace RDI.NFe2.Business
                 }
 
                 var temp = Servicos.EnviarEnvelopeEvento(oServico, oEnviCCe, _Parametro, _Parametro.versaoEventos);
-                return XMLUtils.GetXML(temp, _Parametro.versao);
+                return XMLUtils.GetXML(temp, _Parametro.versaoEventos);
             }
             catch (Exception ex)
             {
@@ -1163,7 +1163,7 @@ namespace RDI.NFe2.Business
                 oEvento.infEvento.detEvento.descEvento = "Ciencia da Operacao";
                 oEvento.infEvento.detEvento.versao = TEventoInfEventoDetEventoVersao.Item100;
 
-                var evento = XMLUtils.GetXML(oEvento, VersaoXML.Eventos_v100);
+                var evento = XMLUtils.GetXML(oEvento, _Parametro.versaoEventos);
                 var eventoAssinado = AssinaXMLST(evento, "infEvento");
 
                 if (eventoAssinado == OpenSigner.TRetornoAssinatura.XMLMalFormado.ToString())
@@ -1172,10 +1172,10 @@ namespace RDI.NFe2.Business
                 //colocar no envelope
                 ITEnvEvento oEnvEvento = (ITEnvEvento)XMLUtils.XMLFactory(_Parametro.versaoEventos, "TEnvEvento");
                 oEnvEvento.evento = (ITEvento[])XMLUtils.XMLFactory(_Parametro.versaoEventos, "TEvento", 1);
-                oEnvEvento.evento[0] = (ITEvento)XMLUtils.LoadXML(eventoAssinado, VersaoXML.Eventos_v100, "TEvento");
+                oEnvEvento.evento[0] = (ITEvento)XMLUtils.LoadXML(eventoAssinado, _Parametro.versaoEventos, "TEvento");
                 oEnvEvento.idLote = "1";
                 oEnvEvento.versao = "1.00";
-                var envelopeEvento = XMLUtils.GetXML(oEnvEvento, VersaoXML.Eventos_v100);
+                var envelopeEvento = XMLUtils.GetXML(oEnvEvento, _Parametro.versaoEventos);
                 var retEnvelope = RecepcaoEvento_MDe_ST(envelopeEvento);
 
                 if (string.IsNullOrEmpty(retEnvelope))
@@ -1183,7 +1183,7 @@ namespace RDI.NFe2.Business
                     throw new Exception("Erro ao enviar Evento.");
                 }
 
-                var XMLRetEnvelope = (ITRetEnvEvento)XMLUtils.LoadXML(retEnvelope, VersaoXML.Eventos_v100, "TRetEnvEvento");
+                var XMLRetEnvelope = (ITRetEnvEvento)XMLUtils.LoadXML(retEnvelope, _Parametro.versaoEventos, "TRetEnvEvento");
 
                 if (XMLRetEnvelope.cStat != "128")
                     throw new Exception("Evento não processado : " + XMLRetEnvelope.xMotivo);
