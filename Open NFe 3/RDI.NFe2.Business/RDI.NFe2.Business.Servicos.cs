@@ -25,7 +25,7 @@ namespace RDI.NFe2.Business
 {
     public static class Servicos
     {
-        public static string VersaoBusiness { get { return "v3.12.0.2"; } }
+        public static string VersaoBusiness { get { return "v4.0.0.0"; } }
 
 
 

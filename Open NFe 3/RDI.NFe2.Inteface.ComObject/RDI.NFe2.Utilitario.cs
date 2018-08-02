@@ -75,7 +75,7 @@ namespace RDI.NFe2.Business
 
         public String GetUltimaValidacao()
         {
-            return Servicos.VersaoBusiness + " (v3) - " + UltimaValidacao;
+            return Servicos.VersaoBusiness + " (v4) - " + UltimaValidacao;
         }
         private string GeraUltimaValidacao()
         {
