@@ -146,7 +146,8 @@ namespace RDI.NFe2.Business
                 #region particularidades
                 if (oParam.UF == TCodUfIBGE.Parana && (DADOS.GetType() == typeof(SchemaXML.NFe_v200.TEnviNFe)
                                                     || DADOS.GetType() == typeof(SchemaXML.NFe_v300.TEnviNFe)
-                                                    || DADOS.GetType() == typeof(SchemaXML.NFe_v310.TEnviNFe)))
+                                                    || DADOS.GetType() == typeof(SchemaXML.NFe_v310.TEnviNFe)
+                                                    || DADOS.GetType() == typeof(SchemaXML.NFe_v400.TEnviNFe)))
                 {
                     dados = dados.Replace("<NFe>", "<NFe xmlns=\"http://www.portalfiscal.inf.br/nfe\">");
                 }
