@@ -25,7 +25,7 @@ namespace RDI.NFe2.Business
 {
     public static class Servicos
     {
-        public static string VersaoBusiness { get { return "v3.12.0.2"; } }
+        public static string VersaoBusiness { get { return "v4.0.0.0"; } }
 
 
 
@@ -125,16 +125,16 @@ namespace RDI.NFe2.Business
             // independentemente de ter a cadeia de certificação instalada
             System.Net.ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
 
-            //if (oParam.versao == VersaoXML.NFe_v400)
-            //{
-            //    //permitir somente o protocolo: TLS1.2 
-            //    System.Net.ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
-            //}
-            //else
-            //{
-            //    //permitir os protocolos: SSL3 TLS1.0 TLS1.1 TLS1.2 
-            //System.Net.ServicePointManager.SecurityProtocol = SecurityProtocolType.Ssl3 | SecurityProtocolType.Tls | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
-            //}
+            if (oParam.versao == VersaoXML.NFe_v400)
+            {
+                //permitir somente o protocolo: TLS1.2 
+                System.Net.ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+            }
+            else
+            {
+                //permitir os protocolos: SSL3 TLS1.0 TLS1.1 TLS1.2 
+                System.Net.ServicePointManager.SecurityProtocol = SecurityProtocolType.Ssl3 | SecurityProtocolType.Tls | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
+            }
         }
 
 
@@ -146,7 +146,8 @@ namespace RDI.NFe2.Business
                 #region particularidades
                 if (oParam.UF == TCodUfIBGE.Parana && (DADOS.GetType() == typeof(SchemaXML.NFe_v200.TEnviNFe)
                                                     || DADOS.GetType() == typeof(SchemaXML.NFe_v300.TEnviNFe)
-                                                    || DADOS.GetType() == typeof(SchemaXML.NFe_v310.TEnviNFe)))
+                                                    || DADOS.GetType() == typeof(SchemaXML.NFe_v310.TEnviNFe)
+                                                    || DADOS.GetType() == typeof(SchemaXML.NFe_v400.TEnviNFe)))
                 {
                     dados = dados.Replace("<NFe>", "<NFe xmlns=\"http://www.portalfiscal.inf.br/nfe\">");
                 }

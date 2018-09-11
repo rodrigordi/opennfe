@@ -21,7 +21,7 @@ namespace RDI.NFe2.Webservices.NF4.HUB.Inutilizacao
 
         //[TraceExtensionAttribute(Filename = "c:\\temp\\nfeInutilizacaoNF.txt")]
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://www.portalfiscal.inf.br/nfe/wsdl/NFeInutilizacao4/nfeInutilizacaoNF", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Bare)]
-        [return: System.Xml.Serialization.XmlElementAttribute("nfeResultMsg", Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeInutilizacao4")]
+        [return: System.Xml.Serialization.XmlElementAttribute("nfeInutilizacaoNFResult", Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeInutilizacao4")]
         public System.Xml.XmlNode nfeInutilizacaoNF([System.Xml.Serialization.XmlElementAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeInutilizacao4")] System.Xml.XmlNode nfeDadosMsg)
         {
             object[] results = this.Invoke("nfeInutilizacaoNF", new object[] {

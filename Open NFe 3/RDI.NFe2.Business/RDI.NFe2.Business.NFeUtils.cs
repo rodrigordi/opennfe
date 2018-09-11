@@ -221,7 +221,7 @@ namespace RDI.NFe2.Business
         /// <param name="oEvento"></param>
         /// <param name="nomeArquivo"></param>
         /// <param name="versaoDados"></param>
-        public static void GeraArquivoProcEventoNFe(Evento oEvento, string nomeArquivo, VersaoXML versao)
+        public static void GeraArquivoProcEventoNFe(Evento oEvento, string nomeArquivo)
         {
             if (String.IsNullOrEmpty(oEvento.XMLPedido) ||
                String.IsNullOrEmpty(oEvento.XMLResposta))
@@ -233,7 +233,7 @@ namespace RDI.NFe2.Business
 
 
             //gerar evento
-            ITProcEvento oProcEvento = (ITProcEvento)XMLUtils.XMLFactory(versao, "TProcEvento");
+            ITProcEvento oProcEvento = (ITProcEvento)XMLUtils.XMLFactory(oEvento.versao, "TProcEvento");
             oProcEvento.versao = "1.00";
             oProcEvento.evento = (ITEvento)XMLUtils.LoadXML(oEvento.XMLPedido, oEvento.versao, "TEvento");
             oProcEvento.retEvento = ((ITRetEnvEvento)XMLUtils.LoadXML(oEvento.XMLResposta, oEvento.versao, "TRetEnvEvento")).retEvento[0];
@@ -241,7 +241,7 @@ namespace RDI.NFe2.Business
             if (File.Exists(nomeArquivo))
                 File.Delete(nomeArquivo);
 
-            XMLUtils.SaveXML(nomeArquivo, oProcEvento, versao);
+            XMLUtils.SaveXML(nomeArquivo, oProcEvento, oEvento.versao);
 
         }
 

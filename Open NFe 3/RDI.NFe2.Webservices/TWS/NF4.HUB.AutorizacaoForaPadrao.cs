@@ -22,7 +22,7 @@ namespace RDI.NFe2.Webservices.NF4.HUB.Autorizacao
 
         //[TraceExtensionAttribute(Filename = "c:\\temp\\nfeAutorizacaoLote.txt")]
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://www.portalfiscal.inf.br/nfe/wsdl/NFeAutorizacao4/nfeAutorizacaoLote", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Bare)]
-        [return: System.Xml.Serialization.XmlElementAttribute("nfeResultMsg", Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeAutorizacao4")]
+        [return: System.Xml.Serialization.XmlElementAttribute("nfeAutorizacaoLoteResult", Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeAutorizacao4")]
         public System.Xml.XmlNode nfeAutorizacaoLote([System.Xml.Serialization.XmlElementAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeAutorizacao4")] System.Xml.XmlNode nfeDadosMsg)
         {
             object[] results = this.Invoke("nfeAutorizacaoLote", new object[] {

@@ -23,7 +23,7 @@ namespace RDI.NFe2.Webservices.NF4.HUB.Status
 
         //[TraceExtensionAttribute(Filename = "c:\\temp\\nfeStatusServicoNF.txt")]
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://www.portalfiscal.inf.br/nfe/wsdl/NFeStatusServico4/nfeStatusServicoNF", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Bare)]
-        [return: System.Xml.Serialization.XmlElementAttribute("nfeResultMsg", Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeStatusServico4")]
+        [return: System.Xml.Serialization.XmlElementAttribute("nfeStatusServicoNFResult", Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeStatusServico4")]
         public System.Xml.XmlNode nfeStatusServicoNF([System.Xml.Serialization.XmlElementAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeStatusServico4")] System.Xml.XmlNode nfeDadosMsg)
         {
             object[] results = this.Invoke("nfeStatusServicoNF", new object[] { nfeDadosMsg });

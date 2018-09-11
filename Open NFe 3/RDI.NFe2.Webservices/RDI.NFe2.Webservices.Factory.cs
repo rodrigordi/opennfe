@@ -27,6 +27,8 @@ namespace RDI.NFe2.Webservices
             {
                 var url = GetURL(ServerName, Environment, ServiceType);
                 ClassName = $"RDI.NFe2.Webservices.NF4.HUB.{  ServiceType.ToString() }.{GetWSName(ServiceType)}";
+                //ClassName = $"RDI.NFe2.Webservices.NF4.HUB.{  ServiceType.ToString() }.{GetWSName(ServiceType)}{((ServerName == TServer.NFe_SVAN || ServerName == TServer.NFe_SVCAN) ? "ForaPadrao" : "")}";
+                //ClassName = $"RDI.NFe2.Webservices.NF4.HUB.{  ServiceType.ToString() }.{GetWSName(ServiceType)}{((ServerName == TServer.NFe_SVCAN) ? "ForaPadrao" : "")}";
 
                 Type classType = GetCurrentAssembly().GetType(ClassName);
 
@@ -96,12 +98,12 @@ namespace RDI.NFe2.Webservices
                 new UrlConfiguration(TServer.NFCe_AM, "Homologacao", TService.Autorizacao,"https://homnfce.sefaz.am.gov.br/nfce-services/services/NfeAutorizacao4"),
                 new UrlConfiguration(TServer.NFCe_AM, "Homologacao", TService.RetAutorizacao,"https://homnfce.sefaz.am.gov.br/nfce-services/services/NfeRetAutorizacao4"),
 
-                new UrlConfiguration(TServer.NFCe_MS, "Homologacao", TService.Inutilizacao,"https://homologacao.nfce.fazenda.ms.gov.br/ws/NFeInutilizacao4"),
-                new UrlConfiguration(TServer.NFCe_MS, "Homologacao", TService.ConsultaProtocolo,"https://homologacao.nfce.fazenda.ms.gov.br/ws/NFeConsultaProtocolo4"),
-                new UrlConfiguration(TServer.NFCe_MS, "Homologacao", TService.Status,"https://homologacao.nfce.fazenda.ms.gov.br/ws/NFeStatusServico4"),
-                new UrlConfiguration(TServer.NFCe_MS, "Homologacao", TService.RecepcaoEvento,"https://homologacao.nfce.fazenda.ms.gov.br/ws/NFeRecepcaoEvento4"),
-                new UrlConfiguration(TServer.NFCe_MS, "Homologacao", TService.Autorizacao,"https://homologacao.nfce.fazenda.ms.gov.br/ws/NFeAutorizacao4"),
-                new UrlConfiguration(TServer.NFCe_MS, "Homologacao", TService.RetAutorizacao,"https://homologacao.nfce.fazenda.ms.gov.br/ws/NFeRetAutorizacao4"),
+                new UrlConfiguration(TServer.NFCe_MS, "Homologacao", TService.Inutilizacao,"https://hom.nfce.sefaz.ms.gov.br/ws/NFeInutilizacao4"),
+                new UrlConfiguration(TServer.NFCe_MS, "Homologacao", TService.ConsultaProtocolo,"https://hom.nfce.sefaz.ms.gov.br/ws/NFeConsultaProtocolo4"),
+                new UrlConfiguration(TServer.NFCe_MS, "Homologacao", TService.Status,"https://hom.nfce.sefaz.ms.gov.br/ws/NFeStatusServico4"),
+                new UrlConfiguration(TServer.NFCe_MS, "Homologacao", TService.RecepcaoEvento,"https://hom.nfce.sefaz.ms.gov.br/ws/NFeRecepcaoEvento4"),
+                new UrlConfiguration(TServer.NFCe_MS, "Homologacao", TService.Autorizacao,"https://hom.nfce.sefaz.ms.gov.br/ws/NFeAutorizacao4"),
+                new UrlConfiguration(TServer.NFCe_MS, "Homologacao", TService.RetAutorizacao,"https://hom.nfce.sefaz.ms.gov.br/ws/NFeRetAutorizacao4"),
 
                 new UrlConfiguration(TServer.NFCe_GO, "Homologacao", TService.Autorizacao  ,"https://homolog.sefaz.go.gov.br/nfe/services/NFeAutorizacao4"),
                 new UrlConfiguration(TServer.NFCe_GO, "Homologacao", TService.ConsultaProtocolo    ,"https://homolog.sefaz.go.gov.br/nfe/services/NFeConsultaProtocolo4"),
@@ -147,12 +149,12 @@ namespace RDI.NFe2.Webservices
                 new UrlConfiguration(TServer.NFCe_AM, "Producao", TService.Autorizacao,"https://nfce.sefaz.am.gov.br/nfce-services/services/NfeAutorizacao4"),
                 new UrlConfiguration(TServer.NFCe_AM, "Producao", TService.RetAutorizacao,"https://nfce.sefaz.am.gov.br/nfce-services/services/NfeRetAutorizacao4"),
 
-                new UrlConfiguration(TServer.NFCe_MS, "Producao", TService.Inutilizacao,"https://nfce.fazenda.ms.gov.br/ws/NFeInutilizacao4"),
-                new UrlConfiguration(TServer.NFCe_MS, "Producao", TService.ConsultaProtocolo,"https://nfce.fazenda.ms.gov.br/ws/NFeConsultaProtocolo4"),
-                new UrlConfiguration(TServer.NFCe_MS, "Producao", TService.Status,"https://nfce.fazenda.ms.gov.br/ws/NFeStatusServico4"),
-                new UrlConfiguration(TServer.NFCe_MS, "Producao", TService.RecepcaoEvento,"https://nfce.fazenda.ms.gov.br/ws/NFeRecepcaoEvento4"),
-                new UrlConfiguration(TServer.NFCe_MS, "Producao", TService.Autorizacao,"https://nfce.fazenda.ms.gov.br/ws/NFeAutorizacao4"),
-                new UrlConfiguration(TServer.NFCe_MS, "Producao", TService.RetAutorizacao,"https://nfce.fazenda.ms.gov.br/ws/NFeRetAutorizacao4"),
+                new UrlConfiguration(TServer.NFCe_MS, "Producao", TService.Inutilizacao,"https://nfce.sefaz.ms.gov.br/ws/NFeInutilizacao4"),
+                new UrlConfiguration(TServer.NFCe_MS, "Producao", TService.ConsultaProtocolo,"https://nfce.sefaz.ms.gov.br/ws/NFeConsultaProtocolo4"),
+                new UrlConfiguration(TServer.NFCe_MS, "Producao", TService.Status,"https://nfce.sefaz.ms.gov.br/ws/NFeStatusServico4"),
+                new UrlConfiguration(TServer.NFCe_MS, "Producao", TService.RecepcaoEvento,"https://nfce.sefaz.ms.gov.br/ws/NFeRecepcaoEvento4"),
+                new UrlConfiguration(TServer.NFCe_MS, "Producao", TService.Autorizacao,"https://nfce.sefaz.ms.gov.br/ws/NFeAutorizacao4"),
+                new UrlConfiguration(TServer.NFCe_MS, "Producao", TService.RetAutorizacao,"https://nfce.sefaz.ms.gov.br/ws/NFeRetAutorizacao4"),
 
                 new UrlConfiguration(TServer.NFCe_GO, "Producao", TService.Autorizacao  ,"https://nfe.sefaz.go.gov.br/nfe/services/NFeAutorizacao4"),
                 new UrlConfiguration(TServer.NFCe_GO, "Producao", TService.ConsultaProtocolo    ,"https://nfe.sefaz.go.gov.br/nfe/services/NFeConsultaProtocolo4"),

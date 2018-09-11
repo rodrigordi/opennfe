@@ -333,7 +333,7 @@ namespace RDI.NFe2.Business
                             #region verificar serializacao antes de assinar jogar na classe de NFe
                             try
                             {
-                                oEvento = (ITEvento)XMLUtils.LoadXML(xmlEvento, oParam.versao, "TEvento");
+                                oEvento = (ITEvento)XMLUtils.LoadXML(xmlEvento, oParam.versaoEventos, "TEvento");
 
                                 oNotaFiscalQry.empresa = oParam.empresa;// oEvento.infEvento.Item;
                                 oNotaFiscalQry.chaveNota = "NFe" + oEvento.infEvento.chNFe;
@@ -370,7 +370,7 @@ namespace RDI.NFe2.Business
                             //NFeAdmin funciona somente com certificado do repositorio. Será por nome.
                             X509Certificate2 certificadoX509 = Certificado.CarregarPorNome(oParam.certificado, oParam.usaWService);
 
-                            var retornoAssinatura = NFeUtils.AssinaXML(nomeArquivoAssinado, "infEvento", certificadoX509, oParam.versao);
+                            var retornoAssinatura = NFeUtils.AssinaXML(nomeArquivoAssinado, "infEvento", certificadoX509, oParam.versaoEventos);
                             certificadoX509 = null;
 
                             //apaga arquivo sem assinatura : -ev.xml
@@ -387,9 +387,9 @@ namespace RDI.NFe2.Business
                             //arquivo esta assinado
                             //carregar o xml assinado
                             oEvento = (ITEvento)XMLUtils.LoadXMLFile(nomeArquivoAssinado, oParam.versaoEventos, "TEvento");
-                            xmlEvento = XMLUtils.GetXML(oEvento, oParam.versao);
+                            xmlEvento = XMLUtils.GetXML(oEvento, oParam.versaoEventos);
 
-                            RecepcaoEvento(oEvento, numeroNovoLote, ref xmlRetorno, oParam.versao);
+                            RecepcaoEvento(oEvento, numeroNovoLote, ref xmlRetorno, oParam.versaoEventos);
 
                             if (string.IsNullOrEmpty(xmlRetorno)) //recebeu resposta da sefaz
                                 throw new Exception("Não foi possível executar RecepcaoEvento-CCe. Consulte o LOG do sistema.");
@@ -421,7 +421,7 @@ namespace RDI.NFe2.Business
                                     //gerar o arquivo de processo
 
                                     //gerar evento
-                                    var oProcEvento = (ITProcEvento)XMLUtils.XMLFactory(oParam.versao, "TProcEvento");
+                                    var oProcEvento = (ITProcEvento)XMLUtils.XMLFactory(oParam.versaoEventos, "TProcEvento");
                                     oProcEvento.evento = oEvento;
                                     oProcEvento.retEvento = oRetEnvEvento.retEvento[0];
                                     oProcEvento.versao = "1.00";
@@ -533,7 +533,7 @@ namespace RDI.NFe2.Business
 
                                         oNFeXML = null;
 
-                                        NFeUtils.GeraArquivoProcEventoNFe(oTbEvento, oParam.pastaImpressao + nomeArquivo, oTbEvento.versao);
+                                        NFeUtils.GeraArquivoProcEventoNFe(oTbEvento, oParam.pastaImpressao + nomeArquivo);
                                     }
                                     #endregion
                                 }
@@ -644,7 +644,7 @@ namespace RDI.NFe2.Business
                             //NFeAdmin funciona somente com certificado do repositorio. Será por nome.
                             X509Certificate2 certificadoX509 = Certificado.CarregarPorNome(oParam.certificado, oParam.usaWService);
 
-                            var retornoAssinatura = NFeUtils.AssinaXML(nomeArquivoAssinado, "infEvento", certificadoX509, oParam.versao);
+                            var retornoAssinatura = NFeUtils.AssinaXML(nomeArquivoAssinado, "infEvento", certificadoX509, oParam.versaoEventos);
                             certificadoX509 = null;
 
                             //apaga arquivo sem assinatura : -ev.xml
@@ -661,9 +661,9 @@ namespace RDI.NFe2.Business
                             //arquivo esta assinado
                             //carregar o xml assinado
                             oEvento = (ITEvento)XMLUtils.LoadXMLFile(nomeArquivoAssinado, oParam.versaoEventos, "TEvento");
-                            xmlEvento = XMLUtils.GetXML(oEvento, oParam.versao);
+                            xmlEvento = XMLUtils.GetXML(oEvento, oParam.versaoEventos);
 
-                            RecepcaoEvento(oEvento, numeroNovoLote, ref xmlRetorno, oParam.versao);
+                            RecepcaoEvento(oEvento, numeroNovoLote, ref xmlRetorno, oParam.versaoEventos);
 
                             if (string.IsNullOrEmpty(xmlRetorno)) //recebeu resposta da sefaz
                                 throw new Exception("Não foi possível executar RecepcaoEvento-Cancelamento. Consulte o LOG do sistema.");
@@ -710,7 +710,7 @@ namespace RDI.NFe2.Business
                                     oNotaFiscal.Save(manager);
 
                                     //gerar evento
-                                    var oProcEvento = (ITProcEvento)XMLUtils.XMLFactory(oParam.versao, "TProcEvento");
+                                    var oProcEvento = (ITProcEvento)XMLUtils.XMLFactory(oParam.versaoEventos, "TProcEvento");
                                     oProcEvento.evento = oEvento;
                                     oProcEvento.retEvento = oRetEnvEvento.retEvento[0];
                                     oProcEvento.versao = "1.00";
@@ -844,7 +844,7 @@ namespace RDI.NFe2.Business
 
                                         oNFeXML = null;
 
-                                        NFeUtils.GeraArquivoProcEventoNFe(oTbEvento, oParam.pastaImpressao + nomeArquivo, oTbEvento.versao);
+                                        NFeUtils.GeraArquivoProcEventoNFe(oTbEvento, oParam.pastaImpressao + nomeArquivo);
                                     }
                                     #endregion
                                 }
@@ -2092,7 +2092,7 @@ namespace RDI.NFe2.Business
                 try
                 {
                     //executa servico
-                    oRetEnvEvento = Servicos.EnviarEnvelopeEvento(oServico, oEnvEvento, oParam, oParam.versao);
+                    oRetEnvEvento = Servicos.EnviarEnvelopeEvento(oServico, oEnvEvento, oParam, oParam.versaoEventos);
                     xmlRetEnvEvento = XMLUtils.GetXML(oRetEnvEvento, versao);
 
                 }
@@ -2141,6 +2141,8 @@ namespace RDI.NFe2.Business
                     oConsSitNFe.versao = TVerConsSitNFe.Item300;
                 else if (oParam.versao == VersaoXML.NFe_v310)
                     oConsSitNFe.versao = TVerConsSitNFe.Item310;
+                else if (oParam.versao == VersaoXML.NFe_v400)
+                    oConsSitNFe.versao = TVerConsSitNFe.Item400;
 
                 if (!Directory.Exists(oParam.pastaRecibo))
                     Directory.CreateDirectory(oParam.pastaRecibo);
@@ -2333,10 +2335,14 @@ namespace RDI.NFe2.Business
                         {
                             foreach (var item in oRetConsSitNFe.procEventoNFe)
                             {
+                                var versaoDoEvento = VersaoXML.Eventos_v100;
+
+                                //TODO : fazer um de/para de acordo com o campo item.versao
+
                                 //atualizar o XML Reposta do Evento
-                                ITRetEnvEvento XmlRespostaEvento = (ITRetEnvEvento)XMLUtils.XMLFactory(oNotaFiscal.versao, "TRetEnvEvento");
+                                ITRetEnvEvento XmlRespostaEvento = (ITRetEnvEvento)XMLUtils.XMLFactory(versaoDoEvento, "TRetEnvEvento");
                                 XmlRespostaEvento.tpAmb = oParam.tipoAmbiente;
-                                XmlRespostaEvento.retEvento = (ITretEvento[])XMLUtils.XMLFactory(oNotaFiscal.versao, "TretEvento[]", 1);
+                                XmlRespostaEvento.retEvento = (ITretEvento[])XMLUtils.XMLFactory(versaoDoEvento, "TretEvento[]", 1);
                                 XmlRespostaEvento.retEvento[0] = item.retEvento;
 
                                 bool eventoEncontrado = false;
@@ -2348,12 +2354,12 @@ namespace RDI.NFe2.Business
                                         ITEvento XmlEvento = (ITEvento)XMLUtils.LoadXML(oEvento.XMLPedido, oEvento.versao, "TEvento");
 
                                         //comparar pela assinatura
-                                        if (Convert.ToBase64String(XmlEvento.Signature.SignedInfo.Reference.DigestValue) ==
-                                        Convert.ToBase64String(item.evento.Signature.SignedInfo.Reference.DigestValue))
+                                        if (XmlEvento.Signature != null && item.evento.Signature != null &&
+                                            Convert.ToBase64String(XmlEvento.Signature.SignedInfo.Reference.DigestValue) == Convert.ToBase64String(item.evento.Signature.SignedInfo.Reference.DigestValue))
                                         {
                                             if (String.IsNullOrEmpty(oEvento.XMLResposta))
                                             {
-                                                oEvento.XMLResposta = XMLUtils.GetXML(XmlRespostaEvento, oNotaFiscal.versao);
+                                                oEvento.XMLResposta = XMLUtils.GetXML(XmlRespostaEvento, versaoDoEvento);
                                             }
 
                                             switch (item.retEvento.infEvento.cStat)
@@ -2382,8 +2388,8 @@ namespace RDI.NFe2.Business
                                 {
                                     #region criar novo evento
                                     Evento oNovoEvento = new Evento();
-                                    oNovoEvento.XMLPedido = XMLUtils.GetXML(item.evento, oNotaFiscal.versao);
-                                    oNovoEvento.XMLResposta = XMLUtils.GetXML(XmlRespostaEvento, oNotaFiscal.versao);
+                                    oNovoEvento.XMLPedido = XMLUtils.GetXML(item.evento, versaoDoEvento);
+                                    oNovoEvento.XMLResposta = XMLUtils.GetXML(XmlRespostaEvento, versaoDoEvento);
                                     switch (item.retEvento.infEvento.cStat)
                                     {
                                         case "135": oNovoEvento.codigoSituacao = TipoSituacaoEvento.FinalizadoAprovado135; break;
