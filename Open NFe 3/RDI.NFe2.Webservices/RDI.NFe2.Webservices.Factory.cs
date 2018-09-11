@@ -26,9 +26,9 @@ namespace RDI.NFe2.Webservices
             try
             {
                 var url = GetURL(ServerName, Environment, ServiceType);
-                //ClassName = $"RDI.NFe2.Webservices.NF4.HUB.{  ServiceType.ToString() }.{GetWSName(ServiceType)}";
+                ClassName = $"RDI.NFe2.Webservices.NF4.HUB.{  ServiceType.ToString() }.{GetWSName(ServiceType)}";
                 //ClassName = $"RDI.NFe2.Webservices.NF4.HUB.{  ServiceType.ToString() }.{GetWSName(ServiceType)}{((ServerName == TServer.NFe_SVAN || ServerName == TServer.NFe_SVCAN) ? "ForaPadrao" : "")}";
-                ClassName = $"RDI.NFe2.Webservices.NF4.HUB.{  ServiceType.ToString() }.{GetWSName(ServiceType)}{((ServerName == TServer.NFe_SVCAN) ? "ForaPadrao" : "")}";
+                //ClassName = $"RDI.NFe2.Webservices.NF4.HUB.{  ServiceType.ToString() }.{GetWSName(ServiceType)}{((ServerName == TServer.NFe_SVCAN) ? "ForaPadrao" : "")}";
 
                 Type classType = GetCurrentAssembly().GetType(ClassName);
 
