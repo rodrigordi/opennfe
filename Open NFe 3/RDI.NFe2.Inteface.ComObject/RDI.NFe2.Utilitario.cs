@@ -1140,6 +1140,79 @@ namespace RDI.NFe2.Business
         }
 
 
+        public String RecepcaoEvento_EPEC_ST(String ArquivoEnvEvento)
+        {
+            ITEnvEvento oEnviCCe;
+            try
+            {
+                try
+                {
+                    oEnviCCe = (ITEnvEvento)XMLUtils.LoadXML(ArquivoEnvEvento, _Parametro.versaoEventos, "TEnvEvento");
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception("Não foi possível carregar o Arquivo EnvEvento - " + ex.Message);
+                }
+
+                System.Web.Services.Protocols.SoapHttpClientProtocol oServico = null;
+                try
+                {
+                    oServico = NFeUtils.ClientProxyFactory(_Parametro, TService.EPEC);
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception("Não foi possível criar o serviço de comunicação com o webservice - " + ex.Message);
+                }
+
+                var temp = Servicos.EnviarEnvelopeEventoEPEC(oServico, oEnviCCe, _Parametro, _Parametro.versaoEventos);
+                return XMLUtils.GetXML(temp, _Parametro.versaoEventos);
+            }
+            catch (Exception ex)
+            {
+                UltimaValidacao = ex.Message;
+                return string.Empty;
+            }
+        }
+        public Boolean RecepcaoEvento_EPEC_HD(String caminhoArquivoEnvEvento, String caminhoArquivoRetEnvEvento)
+        {
+            ITEnvEvento oEnviCCe;
+            try
+            {
+                if (!File.Exists(caminhoArquivoEnvEvento))
+                    throw new Exception("Arquivo EnvEvento não existe ou não esta acessível.");
+
+                try
+                {
+                    oEnviCCe = (ITEnvEvento)XMLUtils.LoadXMLFile(caminhoArquivoEnvEvento, _Parametro.versaoEventos, "TEnvEvento");
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception("Não foi possível carregar o Arquivo EnvEvento - " + ex.Message);
+                }
+
+                System.Web.Services.Protocols.SoapHttpClientProtocol oServico = null;
+                try
+                {
+                    oServico = NFeUtils.ClientProxyFactory(_Parametro, TService.EPEC);
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception("Não foi possível criar o serviço de comunicação com o webservice - " + ex.Message);
+                }
+
+                var temp = Servicos.EnviarEnvelopeEventoEPEC(oServico, oEnviCCe, _Parametro, _Parametro.versaoEventos);
+                XMLUtils.SaveXML(caminhoArquivoRetEnvEvento, temp, _Parametro.versaoEventos);
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                UltimaValidacao = ex.Message;
+                return false;
+            }
+        }
+
+
         public bool ManifestarConhecimento(string chaveNFe, string cnpj)
         {
             try

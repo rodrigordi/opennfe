@@ -697,8 +697,8 @@ namespace RDI.NFe2.SchemaXML.Eventos_v100
         private TEventoInfEventoVerEvento verEventoField;
 
         //deverá ser um choice entre cancelamento e carta de correção
-        private TEventoInfEventoDetEvento detEventoField;
-        //private object detEventoField;
+        //private TEventoInfEventoDetEvento detEventoField;
+        private object detEventoField;
 
         private string idField;
 
@@ -826,9 +826,8 @@ namespace RDI.NFe2.SchemaXML.Eventos_v100
         //[System.Xml.Serialization.XmlElementAttribute("detEvento", typeof(TEventoInfEventoDetEventoCancelamento))]
         //[System.Xml.Serialization.XmlElement("")]
         //[System.Xml.Serialization.XmlIgnoreAttribute()]
-        //public object detEvento
-        /// <remarks/>
-        public TEventoInfEventoDetEvento detEvento
+        public object detEvento
+        //public TEventoInfEventoDetEvento detEvento
         {
             get
             {

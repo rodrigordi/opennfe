@@ -25,9 +25,13 @@ namespace RDI.NFe2.Business
 {
     public static class Servicos
     {
-        public static string VersaoBusiness { get { return "v4.0.0.0"; } }
+        public static string VersaoBusiness { get { return "v4.1.0.0"; } }
 
 
+        public static ITRetEnvEvento EnviarEnvelopeEventoEPEC(SoapHttpClientProtocol oServico, ITEnvEvento oEnvEvento, Parametro oParam, VersaoXML versao)
+        {
+            return ExecutaServico<ITRetEnvEvento, ITEnvEvento>(oServico, TService.EPEC, oEnvEvento, oParam, versao, "TRetEnvEvento");
+        }
 
         public static ITRetEnvEvento EnviarEnvelopeEvento(SoapHttpClientProtocol oServico, ITEnvEvento oEnvEvento, Parametro oParam, VersaoXML versao)
         {

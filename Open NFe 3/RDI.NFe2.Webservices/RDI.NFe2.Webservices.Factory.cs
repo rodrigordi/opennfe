@@ -403,6 +403,7 @@ namespace RDI.NFe2.Webservices
                 new UrlConfiguration(TServer.NFe_SVCRS, "Producao", TService.Autorizacao  ,"https://nfe.svrs.rs.gov.br/ws/NfeAutorizacao/NFeAutorizacao4.asmx"),
                 new UrlConfiguration(TServer.NFe_SVCRS, "Producao", TService.RetAutorizacao   ,"https://nfe.svrs.rs.gov.br/ws/NfeRetAutorizacao/NFeRetAutorizacao4.asmx"),
                 #endregion
+
             };
         }
     }

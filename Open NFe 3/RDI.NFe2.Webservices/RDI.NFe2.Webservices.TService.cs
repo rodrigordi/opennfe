@@ -51,5 +51,8 @@ namespace RDI.NFe2.Webservices
         GNRE_ConsultaLote,
         [ClasseServico(NomeClasse = "GnreConfigUF")]
         GNRE_ConfigUF,
+
+        [ClasseServico(NomeClasse = "RecepcaoEvento")]
+        EPEC,
     }
 }

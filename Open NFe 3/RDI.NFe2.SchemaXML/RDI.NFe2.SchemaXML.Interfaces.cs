@@ -484,7 +484,7 @@ namespace RDI.NFe2.SchemaXML.Eventos_v100
         {
             get
             {
-                return this.detEvento;
+                return this.detEvento as TEventoInfEventoDetEvento;
             }
             set
             {

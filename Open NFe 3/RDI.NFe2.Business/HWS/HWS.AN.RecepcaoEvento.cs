@@ -6,7 +6,7 @@ using System.Web.Services.Protocols;
 using System.Xml.Serialization;
 
 
-namespace RDI.NFe2.Business.HWS.AN.ManifestacaoDestinatario
+namespace RDI.NFe2.Business.HWS.AN.Eventos
 {
 
 

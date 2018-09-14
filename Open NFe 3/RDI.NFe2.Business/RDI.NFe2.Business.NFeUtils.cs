@@ -551,6 +551,7 @@ namespace RDI.NFe2.Business
                 if ((tipoServico != TService.Cadastro) && //Cadastro deverá usar PWS|HWS
                     (tipoServico != TService.ConsultaDFe) && //ConsultaDFe deverá usar PWS|HWS
                     (tipoServico != TService.DownloadNF) && //DownloadNF deverá usar PWS|HWS
+                    (tipoServico != TService.EPEC) && //ManifestacaoDestinatario deverá usar PWS|HWS
                     (tipoServico != TService.ManifestacaoDestinatario) && //ManifestacaoDestinatario deverá usar PWS|HWS
                     (tipoServico == TService.Autorizacao || tipoServico == TService.RetAutorizacao
                     //particularidades
@@ -602,7 +603,7 @@ namespace RDI.NFe2.Business
                 {
                     ambiente += "ES";
                 }
-                else if (tipoServico == TService.ManifestacaoDestinatario || tipoServico == TService.ConsultaDFe || tipoServico == TService.DownloadNF)
+                else if (tipoServico == TService.ManifestacaoDestinatario || tipoServico == TService.ConsultaDFe || tipoServico == TService.EPEC || tipoServico == TService.DownloadNF)
                 {
                     ambiente += "AN";
                 }
@@ -719,6 +720,8 @@ namespace RDI.NFe2.Business
 
                     if (TipoServico == TService.ConsultaProtocolo)
                         subNamespace = "Consulta";
+                    else if (TipoServico == TService.ManifestacaoDestinatario || TipoServico == TService.EPEC)
+                        subNamespace = "Eventos";
 
                     ClassName = "RDI.NFe2.Business." + GetAmbWebService(oParam, TipoServico) + "." + subNamespace + ".";
 
@@ -747,7 +750,8 @@ namespace RDI.NFe2.Business
 
 
                         if ((TipoServico == TService.ManifestacaoDestinatario) || //ManifestacaoDestinatario deverá usar AN 91
-                            (TipoServico == TService.DownloadNF)) //DownloadNF deverá usar AN 91
+                            (TipoServico == TService.DownloadNF) || //DownloadNF deverá usar AN 91
+                            (TipoServico == TService.EPEC)) //DownloadNF deverá usar AN 91
                         {
                             oCabecalho.GetType().GetProperty("cUF").SetValue(oCabecalho, "91", null);
                         }
@@ -774,7 +778,7 @@ namespace RDI.NFe2.Business
                             versao = "2.00";
 
                         //particularidade para manifestacao destinatario
-                        if (TipoServico == TService.ManifestacaoDestinatario || TipoServico == TService.DownloadNF)
+                        if (TipoServico == TService.ManifestacaoDestinatario || TipoServico == TService.EPEC || TipoServico == TService.DownloadNF)
                             versao = "1.00";
 
                         oCabecalho.GetType().GetProperty("versaoDados").SetValue(oCabecalho, versao, null);
