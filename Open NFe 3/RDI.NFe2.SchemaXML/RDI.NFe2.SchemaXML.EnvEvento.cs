@@ -675,6 +675,7 @@ namespace RDI.NFe2.SchemaXML.Eventos_v100
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://www.portalfiscal.inf.br/nfe")]
+    //[System.Xml.Serialization.XmlInclude(typeof(TEventoInfEventoDetEvento))] 
     public partial class TEventoInfEvento
     {
 
@@ -697,8 +698,8 @@ namespace RDI.NFe2.SchemaXML.Eventos_v100
         private TEventoInfEventoVerEvento verEventoField;
 
         //deverá ser um choice entre cancelamento e carta de correção
-        //private TEventoInfEventoDetEvento detEventoField;
-        private object detEventoField;
+        private TEventoInfEventoDetEvento detEventoField;
+        //private object detEventoField;
 
         private string idField;
 
@@ -822,12 +823,10 @@ namespace RDI.NFe2.SchemaXML.Eventos_v100
                 this.verEventoField = value;
             }
         }
-        //[System.Xml.Serialization.XmlElementAttribute("detEvento", typeof(TEventoInfEventoDetEventoCartaCorrecao))]
-        //[System.Xml.Serialization.XmlElementAttribute("detEvento", typeof(TEventoInfEventoDetEventoCancelamento))]
-        //[System.Xml.Serialization.XmlElement("")]
-        //[System.Xml.Serialization.XmlIgnoreAttribute()]
-        public object detEvento
-        //public TEventoInfEventoDetEvento detEvento
+
+
+        //public object detEvento
+        public TEventoInfEventoDetEvento detEvento
         {
             get
             {
