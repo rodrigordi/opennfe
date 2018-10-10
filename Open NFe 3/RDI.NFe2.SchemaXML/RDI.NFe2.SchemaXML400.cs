@@ -2816,7 +2816,7 @@ namespace RDI.NFe2.SchemaXML.NFe_v400
 
         private string xMotivoField;
 
-        private TCodUfIBGE cUFField;
+        private string cUFField;
 
         private string dhRecbtoField;
 
@@ -2894,7 +2894,7 @@ namespace RDI.NFe2.SchemaXML.NFe_v400
         }
 
         /// <remarks/>
-        public TCodUfIBGE cUF
+        public string cUF
         {
             get
             {
