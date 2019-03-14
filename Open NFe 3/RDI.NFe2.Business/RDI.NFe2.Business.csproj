@@ -371,6 +371,11 @@
     <Compile Include="HWS\HWS.GO.Consulta.cs" />
     <Compile Include="HWS\HWS.CE.RecepcaoEvento.cs" />
     <Compile Include="HNC\HNC.MT.Autorizacao.cs" />
+    <Compile Include="Web References\br.gov.es.sefaz.app\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
@@ -383,6 +388,11 @@
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\br.gov.es.sefaz.app\CadConsultaCadastro2.wsdl" />
+    <None Include="Web References\br.gov.es.sefaz.app\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -458,6 +468,22 @@
       <Project>{e94406e9-77e0-4f7a-9e58-026f58ffcf3f}</Project>
       <Name>RDI.NFe2.Webservices</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferenceUrl Include="https://app.sefaz.es.gov.br/ConsultaCadastroService/CadConsultaCadastro2.asmx">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\br.gov.es.sefaz.app\</RelPath>
+      <UpdateFromURL>https://app.sefaz.es.gov.br/ConsultaCadastroService/CadConsultaCadastro2.asmx</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>RDI_NFe2_Business_br_gov_es_sefaz_app_CadConsultaCadastro2</CachedSettingsPropName>
+    </WebReferenceUrl>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Web References\br.gov.es.sefaz.app\CadConsultaCadastro2.disco" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

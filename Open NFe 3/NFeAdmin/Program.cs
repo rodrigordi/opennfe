@@ -11,6 +11,10 @@ using System.Management;
 using System.Linq;
 using RDI.OpenSigner;
 using RDI.NFe2.SchemaXML;
+using System.Security.Cryptography.X509Certificates;
+using System.Net;
+using RDI.NFe2.SchemaXML.ConsultaCadastro;
+using System.Xml;
 
 namespace RDI.NFe
 {

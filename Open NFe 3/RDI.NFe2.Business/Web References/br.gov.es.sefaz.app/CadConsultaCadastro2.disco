@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<discovery xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.xmlsoap.org/disco/">
+  <contractRef ref="https://app.sefaz.es.gov.br/ConsultaCadastroService/CadConsultaCadastro2.asmx?wsdl" docRef="https://app.sefaz.es.gov.br/ConsultaCadastroService/CadConsultaCadastro2.asmx" xmlns="http://schemas.xmlsoap.org/disco/scl/" />
+  <soap address="https://app.sefaz.es.gov.br/ConsultaCadastroService/CadConsultaCadastro2.asmx" xmlns:q1="http://www.portalfiscal.inf.br/nfe/wsdl/CadConsultaCadastro2" binding="q1:CadConsultaCadastro2Soap" xmlns="http://schemas.xmlsoap.org/disco/soap/" />
+  <soap address="https://app.sefaz.es.gov.br/ConsultaCadastroService/CadConsultaCadastro2.asmx" xmlns:q2="http://www.portalfiscal.inf.br/nfe/wsdl/CadConsultaCadastro2" binding="q2:CadConsultaCadastro2Soap12" xmlns="http://schemas.xmlsoap.org/disco/soap/" />
+</discovery>
