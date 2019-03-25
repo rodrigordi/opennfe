@@ -864,6 +864,10 @@ namespace RDI.NFe2.SchemaXML.NFe_v400
         Item0108,
 
         /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("01.09")]
+        Item0109,
+        
+        /// <remarks/>
         [System.Xml.Serialization.XmlEnumAttribute("02.01")]
         Item0201,
 
@@ -1030,6 +1034,10 @@ namespace RDI.NFe2.SchemaXML.NFe_v400
         /// <remarks/>
         [System.Xml.Serialization.XmlEnumAttribute("06.05")]
         Item0605,
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("06.06")]
+        Item0606,
 
         /// <remarks/>
         [System.Xml.Serialization.XmlEnumAttribute("07.01")]
@@ -1324,6 +1332,10 @@ namespace RDI.NFe2.SchemaXML.NFe_v400
         Item1413,
 
         /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("14.14")]
+        Item1414,
+
+        /// <remarks/>
         [System.Xml.Serialization.XmlEnumAttribute("15.01")]
         Item1501,
 
@@ -1398,6 +1410,10 @@ namespace RDI.NFe2.SchemaXML.NFe_v400
         /// <remarks/>
         [System.Xml.Serialization.XmlEnumAttribute("16.01")]
         Item1601,
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("16.02")]
+        Item1602,
 
         /// <remarks/>
         [System.Xml.Serialization.XmlEnumAttribute("17.01")]
@@ -1546,6 +1562,10 @@ namespace RDI.NFe2.SchemaXML.NFe_v400
         /// <remarks/>
         [System.Xml.Serialization.XmlEnumAttribute("25.04")]
         Item2504,
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("25.05")]
+        Item2505,
 
         /// <remarks/>
         [System.Xml.Serialization.XmlEnumAttribute("26.01")]
@@ -4370,6 +4390,8 @@ namespace RDI.NFe2.SchemaXML.NFe_v400
 
         private TNFeInfNFeCana canaField;
 
+        private TInfRespTec infRespTecField;
+
         private string versaoField;
 
         private string idField;
@@ -6193,7 +6215,7 @@ namespace RDI.NFe2.SchemaXML.NFe_v400
 
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.1432")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -6204,6 +6226,8 @@ namespace RDI.NFe2.SchemaXML.NFe_v400
         private string itemField;
 
         private ITCTypeCNPJCPF itemElementNameField;
+
+        private string xNomeField;
 
         private string xLgrField;
 
@@ -6218,6 +6242,18 @@ namespace RDI.NFe2.SchemaXML.NFe_v400
         private string xMunField;
 
         private TUf ufField;
+
+        private string cEPField;
+
+        private string cPaisField;
+
+        private string xPaisField;
+
+        private string foneField;
+
+        private string emailField;
+
+        private string ieField;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute("CNPJ", typeof(string))]
@@ -6246,6 +6282,19 @@ namespace RDI.NFe2.SchemaXML.NFe_v400
             set
             {
                 this.itemElementNameField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string xNome
+        {
+            get
+            {
+                return this.xNomeField;
+            }
+            set
+            {
+                this.xNomeField = value;
             }
         }
 
@@ -6337,6 +6386,84 @@ namespace RDI.NFe2.SchemaXML.NFe_v400
             set
             {
                 this.ufField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string CEP
+        {
+            get
+            {
+                return this.cEPField;
+            }
+            set
+            {
+                this.cEPField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string cPais
+        {
+            get
+            {
+                return this.cPaisField;
+            }
+            set
+            {
+                this.cPaisField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string xPais
+        {
+            get
+            {
+                return this.xPaisField;
+            }
+            set
+            {
+                this.xPaisField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string fone
+        {
+            get
+            {
+                return this.foneField;
+            }
+            set
+            {
+                this.foneField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string email
+        {
+            get
+            {
+                return this.emailField;
+            }
+            set
+            {
+                this.emailField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string IE
+        {
+            get
+            {
+                return this.ieField;
+            }
+            set
+            {
+                this.ieField = value;
             }
         }
     }
@@ -9589,6 +9716,8 @@ namespace RDI.NFe2.SchemaXML.NFe_v400
 
         private string pSTField;
 
+        private string vICMSSubstitutoField;
+
         private string vICMSSTRetField;
 
         private string vBCFCPSTRetField;
@@ -9659,6 +9788,20 @@ namespace RDI.NFe2.SchemaXML.NFe_v400
                 this.pSTField = value;
             }
         }
+
+        public string vICMSSubstituto
+        {
+            get
+            {
+                return this.vICMSSubstitutoField;
+            }
+            set
+            {
+                this.vICMSSubstitutoField = value;
+            }
+        }
+
+
 
         /// <remarks/>
         public string vICMSSTRet
@@ -11199,6 +11342,8 @@ namespace RDI.NFe2.SchemaXML.NFe_v400
 
         private string pSTField;
 
+        private string vICMSSubstitutoField;
+
         private string vICMSSTRetField;
 
         private string vBCFCPSTRetField;
@@ -11268,6 +11413,17 @@ namespace RDI.NFe2.SchemaXML.NFe_v400
             }
         }
 
+        public string vICMSSubstituto
+        {
+            get
+            {
+                return this.vICMSSubstitutoField;
+            }
+            set
+            {
+                this.vICMSSubstitutoField = value;
+            }
+        }
         /// <remarks/>
         public string vICMSSTRet
         {
@@ -11668,11 +11824,29 @@ namespace RDI.NFe2.SchemaXML.NFe_v400
 
         private string vBCSTRetField;
 
+        private string pSTField;
+
+        private string vICMSSubstitutoField;
+
         private string vICMSSTRetField;
+
+        private string vBCFCPSTRetField;
+
+        private string pFCPSTRetField;
+
+        private string vFCPSTRetField;
 
         private string vBCSTDestField;
 
         private string vICMSSTDestField;
+
+        private string pRedBCEfetField;
+
+        private string vBCEfetField;
+
+        private string pICMSEfetField;
+
+        private string vICMSEfetField;
 
         /// <remarks/>
         public Torig orig
@@ -11713,6 +11887,30 @@ namespace RDI.NFe2.SchemaXML.NFe_v400
             }
         }
 
+        public string pST
+        {
+            get
+            {
+                return this.pSTField;
+            }
+            set
+            {
+                this.pSTField = value;
+            }
+        }
+
+        public string vICMSSubstituto
+        {
+            get
+            {
+                return this.vICMSSubstitutoField;
+            }
+            set
+            {
+                this.vICMSSubstitutoField = value;
+            }
+        }
+
         /// <remarks/>
         public string vICMSSTRet
         {
@@ -11723,6 +11921,42 @@ namespace RDI.NFe2.SchemaXML.NFe_v400
             set
             {
                 this.vICMSSTRetField = value;
+            }
+        }
+
+        public string vBCFCPSTRet
+        {
+            get
+            {
+                return this.vBCFCPSTRetField;
+            }
+            set
+            {
+                this.vBCFCPSTRetField = value;
+            }
+        }
+
+        public string pFCPSTRet
+        {
+            get
+            {
+                return this.pFCPSTRetField;
+            }
+            set
+            {
+                this.pFCPSTRetField = value;
+            }
+        }
+
+        public string vFCPSTRet
+        {
+            get
+            {
+                return this.vFCPSTRetField;
+            }
+            set
+            {
+                this.vFCPSTRetField = value;
             }
         }
 
@@ -11749,6 +11983,54 @@ namespace RDI.NFe2.SchemaXML.NFe_v400
             set
             {
                 this.vICMSSTDestField = value;
+            }
+        }
+
+        public string pRedBCEfet
+        {
+            get
+            {
+                return this.pRedBCEfetField;
+            }
+            set
+            {
+                this.pRedBCEfetField = value;
+            }
+        }
+
+        public string vBCEfet
+        {
+            get
+            {
+                return this.vBCEfetField;
+            }
+            set
+            {
+                this.vBCEfetField = value;
+            }
+        }
+
+        public string pICMSEfet
+        {
+            get
+            {
+                return this.pICMSEfetField;
+            }
+            set
+            {
+                this.pICMSEfetField = value;
+            }
+        }
+
+        public string vICMSEfet
+        {
+            get
+            {
+                return this.vICMSEfetField;
+            }
+            set
+            {
+                this.vICMSEfetField = value;
             }
         }
     }
@@ -15408,6 +15690,106 @@ namespace RDI.NFe2.SchemaXML.NFe_v400
 
 
 
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.1432")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe")]
+    public partial class TInfRespTec
+    {
+
+        private string cNPJField;
+
+        private string xContatoField;
+
+        private string emailField;
+
+        private string foneField;
+
+        private string idCSRTField;
+
+        private byte[] hashCSRTField;
+
+        /// <remarks/>
+        public string CNPJ
+        {
+            get
+            {
+                return this.cNPJField;
+            }
+            set
+            {
+                this.cNPJField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string xContato
+        {
+            get
+            {
+                return this.xContatoField;
+            }
+            set
+            {
+                this.xContatoField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string email
+        {
+            get
+            {
+                return this.emailField;
+            }
+            set
+            {
+                this.emailField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string fone
+        {
+            get
+            {
+                return this.foneField;
+            }
+            set
+            {
+                this.foneField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string idCSRT
+        {
+            get
+            {
+                return this.idCSRTField;
+            }
+            set
+            {
+                this.idCSRTField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(DataType = "base64Binary")]
+        public byte[] hashCSRT
+        {
+            get
+            {
+                return this.hashCSRTField;
+            }
+            set
+            {
+                this.hashCSRTField = value;
+            }
+        }
+    }
 
 
 
