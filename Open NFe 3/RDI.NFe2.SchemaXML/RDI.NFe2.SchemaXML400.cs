@@ -866,7 +866,7 @@ namespace RDI.NFe2.SchemaXML.NFe_v400
         /// <remarks/>
         [System.Xml.Serialization.XmlEnumAttribute("01.09")]
         Item0109,
-        
+
         /// <remarks/>
         [System.Xml.Serialization.XmlEnumAttribute("02.01")]
         Item0201,
@@ -4603,6 +4603,19 @@ namespace RDI.NFe2.SchemaXML.NFe_v400
             set
             {
                 this.canaField = value;
+            }
+        }
+
+        /// <remarks/>
+        public TInfRespTec InfRespTec
+        {
+            get
+            {
+                return this.infRespTecField;
+            }
+            set
+            {
+                this.infRespTecField = value;
             }
         }
 
