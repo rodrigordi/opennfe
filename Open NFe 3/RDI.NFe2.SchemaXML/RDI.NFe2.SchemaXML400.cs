@@ -4607,7 +4607,7 @@ namespace RDI.NFe2.SchemaXML.NFe_v400
         }
 
         /// <remarks/>
-        public TInfRespTec InfRespTec
+        public TInfRespTec infRespTec
         {
             get
             {
